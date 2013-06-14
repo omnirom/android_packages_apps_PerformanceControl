@@ -344,6 +344,7 @@ public class Advanced extends PreferenceFragment implements
                     if (val > max) {
                         s.replace(0, s.length(), Integer.toString(max));
                     }
+                    seekbar.setProgress(val);
                 } catch (NumberFormatException ex) {
                 }
             }
@@ -354,7 +355,9 @@ public class Advanced extends PreferenceFragment implements
             public void onProgressChanged(SeekBar seekbar, int progress,
                                           boolean fromUser) {
                 mSeekbarProgress = seekbar.getProgress();
-                settingText.setText(Integer.toString(mSeekbarProgress));
+                if(fromUser){
+                        settingText.setText(Integer.toString(mSeekbarProgress));
+                }
             }
 
             @Override
