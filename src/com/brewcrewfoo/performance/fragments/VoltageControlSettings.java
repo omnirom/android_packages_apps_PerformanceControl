@@ -86,10 +86,8 @@ public class VoltageControlSettings extends Fragment implements Constants {
         setOnBoot
                 .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton buttonView,
-                                                 boolean isChecked) {
-                        final SharedPreferences.Editor editor = mPreferences
-                                .edit();
+                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                        final SharedPreferences.Editor editor = mPreferences.edit();
                         editor.putBoolean(VOLTAGE_SOB, isChecked);
                         editor.commit();
                     }
@@ -99,17 +97,29 @@ public class VoltageControlSettings extends Fragment implements Constants {
                 .setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
-                        final StringBuilder sb = new StringBuilder();
-                        for (final Voltage volt : mVoltages) {
-                            sb.append(volt.getSavedMV() + " ");
-                        }
-                        for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                            new CMDProcessor().su.runWaitFor("busybox echo "
-                                    + sb.toString()
-                                    + " > "
-                                    + Helpers.getVoltagePath().replace("cpu0",
-                                    "cpu" + i));
-                        }
+    					if (Helpers.getVoltagePath() == VDD_PATH) {
+							for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+								for (final Voltage volt : mVoltages) {						
+									new CMDProcessor().su.runWaitFor("busybox echo \""
+										+ volt.getFreq()+" "+volt.getSavedMV()
+										+ "\" > "
+										+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
+								}									
+							}
+						}
+						else{
+							final StringBuilder sb = new StringBuilder();
+							for (final Voltage volt : mVoltages) {
+								sb.append(volt.getSavedMV() + " ");
+							}
+							for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+								new CMDProcessor().su.runWaitFor("busybox echo "
+										+ sb.toString()
+										+ " > "
+										+ Helpers.getVoltagePath().replace("cpu0",
+										"cpu" + i));
+							}
+						}
                         final List<Voltage> volts = getVolts(mPreferences);
                         mVoltages.clear();
                         mVoltages.addAll(volts);
@@ -121,8 +131,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
                 mVoltage = mVoltages.get(position);
                 showDialog(DIALOG_EDIT_VOLT);
             }
@@ -145,36 +154,52 @@ public class VoltageControlSettings extends Fragment implements Constants {
         return true;
     }
 
-    public static List<Voltage> getVolts(final SharedPreferences preferences) {
+public static List<Voltage> getVolts(final SharedPreferences preferences) {
         final List<Voltage> volts = new ArrayList<Voltage>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(
-                    Helpers.getVoltagePath()), 256);
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                final String[] values = line.split("\\s+");
-                if (values != null) {
-                    if (values.length >= 2) {
-                        final String freq = values[0].replace("mhz:", "");
-                        final String currentMv = values[1];
-                        final String savedMv = preferences.getString(freq,
-                                currentMv);
-                        final Voltage voltage = new Voltage();
-                        voltage.setFreq(freq);
-                        voltage.setCurrentMV(currentMv);
-                        voltage.setSavedMV(savedMv);
-                        volts.add(voltage);
-                    }
-                }
-            }
-            br.close();
+		BufferedReader br = new BufferedReader(new FileReader(Helpers.getVoltagePath()), 256);
+		String line = "";
+		if (Helpers.getVoltagePath() == VDD_PATH) {
+			while ((line = br.readLine()) != null) {
+				line = line.replaceAll("\\s","");
+				if (line != "") {
+						final String[] values = line.split(":");
+						final String freq = values[0];
+						final String currentMv = values[1];
+						final String savedMv = preferences.getString(freq,currentMv);
+						final Voltage voltage = new Voltage();
+						voltage.setFreq(freq);
+						voltage.setCurrentMV(currentMv);
+						voltage.setSavedMV(savedMv);
+						volts.add(voltage);
+				}
+			}
+		}
+		else{
+			while ((line = br.readLine()) != null) {
+				final String[] values = line.split("\\s+");
+				if (values != null) {
+					if (values.length >= 2) {
+						final String freq = values[0].replace("mhz:", "");
+						final String currentMv = values[1];
+						final String savedMv = preferences.getString(freq,currentMv);
+						final Voltage voltage = new Voltage();
+						voltage.setFreq(freq);
+						voltage.setCurrentMV(currentMv);
+						voltage.setSavedMV(savedMv);
+						volts.add(voltage);
+					}
+				}
+			}
+		}
+		br.close();
         } catch (FileNotFoundException e) {
             Log.d(TAG, Helpers.getVoltagePath() + " does not exist");
         } catch (IOException e) {
             Log.d(TAG, "Error reading " + Helpers.getVoltagePath());
         }
         return volts;
-    }
+}
 
     private static final int[] STEPS = new int[]{600, 625, 650, 675, 700,
             725, 750, 775, 800, 825, 850, 875, 900, 925, 950, 975, 1000, 1025,
@@ -369,8 +394,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
         }
 
         @Override
-        public View getView(final int position, View convertView,
-                            ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 
             final ViewHolder holder;
             if (convertView == null) {
@@ -403,7 +427,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
             private TextView mSavedMV;
 
             public void setFreq(final String freq) {
-                mFreq.setText(freq + " MHz");
+                mFreq.setText(freq + " Hz");
             }
 
             public void setCurrentMV(final String currentMv) {
