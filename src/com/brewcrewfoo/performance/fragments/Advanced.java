@@ -306,8 +306,9 @@ public class Advanced extends PreferenceFragment implements
 
         final SeekBar seekbar = (SeekBar) alphaDialog
                 .findViewById(R.id.seek_bar);
-        seekbar.setProgress(currentProgress);
+        
         seekbar.setMax(max);
+        seekbar.setProgress(currentProgress);
 
         settingText = (EditText) alphaDialog.findViewById(R.id.setting_text);
         settingText
@@ -341,7 +342,7 @@ public class Advanced extends PreferenceFragment implements
                 try {
                     int val = Integer.parseInt(s.toString());
                     if (val > max) {
-                        s.replace(0, s.length(), Integer.toString(max), 0, 2);
+                        s.replace(0, s.length(), Integer.toString(max));
                     }
                 } catch (NumberFormatException ex) {
                 }
