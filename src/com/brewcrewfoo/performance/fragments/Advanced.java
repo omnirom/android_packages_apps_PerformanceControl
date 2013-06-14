@@ -206,7 +206,7 @@ public class Advanced extends PreferenceFragment implements
             String title = getString(R.string.dirty_expire_title);
             int currentProgress = Integer.parseInt(Helpers
                     .readOneLine(DIRTY_EXPIRE_PATH));
-            int max = 500;
+            int max = 5000;
             openDialog(currentProgress, title, max, mDirtyExpireCentisecs,
                     DIRTY_EXPIRE_PATH, PREF_DIRTY_EXPIRE);
             return true;
@@ -214,7 +214,7 @@ public class Advanced extends PreferenceFragment implements
             String title = getString(R.string.dirty_writeback_title);
             int currentProgress = Integer.parseInt(Helpers
                     .readOneLine(DIRTY_WRITEBACK_PATH));
-            int max = 500;
+            int max = 5000;
             openDialog(currentProgress, title, max, mDirtyWriteback,
                     DIRTY_WRITEBACK_PATH, PREF_DIRTY_WRITEBACK);
             return true;
