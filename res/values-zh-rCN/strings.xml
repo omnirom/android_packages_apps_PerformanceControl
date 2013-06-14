@@ -71,7 +71,7 @@ Copyright (C) 2012  James Roberts
     <string name="fast_charge_notification_title">快速充电已开启！</string>
     <string name="fast_charge_notification_message">手机处于“仅充电”模式！</string>
     <!-- Voltage control 电压控制-->
-    <string name="ps_volt_mhz_voltage">" MHz 电压"</string>
+    <string name="ps_volt_mhz_voltage">" Hz 电压"</string>
     <string name="ps_volt_save">"保存"</string>
     <string name="ps_volt_current_voltage">"当前电压： "</string>
     <string name="ps_volt_setting_to_apply">"设置使用： "</string>
