@@ -83,50 +83,55 @@ public class BootService extends Service implements Constants {
 
                     for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
                         if (max != null) {
-                            new CMDProcessor().su.runWaitFor("busybox echo "
-                                    + max + " > "
-                                    + MAX_FREQ_PATH.replace("cpu0", "cpu" + i));
+                            new CMDProcessor().su.runWaitFor("busybox echo " + max + " > " + MAX_FREQ_PATH.replace("cpu0", "cpu" + i));
                         }
 
                         if (min != null) {
-                            new CMDProcessor().su.runWaitFor("busybox echo "
-                                    + min + " > "
-                                    + MIN_FREQ_PATH.replace("cpu0", "cpu" + i));
+                            new CMDProcessor().su.runWaitFor("busybox echo " + min + " > " + MIN_FREQ_PATH.replace("cpu0", "cpu" + i));
                         }
 
                         if (gov != null) {
-                            new CMDProcessor().su.runWaitFor("busybox echo "
-                                    + gov + " > "
-                                    + GOVERNOR_PATH.replace("cpu0", "cpu" + i));
+                            new CMDProcessor().su.runWaitFor("busybox echo " + gov + " > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i));
                         }
                     }
 
                     if (mIsTegra3 && max != null) {
-                        new CMDProcessor().su.runWaitFor("busybox echo " + max
-                                + " > " + TEGRA_MAX_FREQ_PATH);
+                        new CMDProcessor().su.runWaitFor("busybox echo " + max + " > " + TEGRA_MAX_FREQ_PATH);
                     }
                 }
 
                 if (io != null) {
-                    new CMDProcessor().su.runWaitFor("busybox echo " + io
-                            + " > " + IO_SCHEDULER_PATH);
+                    new CMDProcessor().su.runWaitFor("busybox echo " + io + " > " + IO_SCHEDULER_PATH);
                 }
             }
 
             if (preferences.getBoolean(VOLTAGE_SOB, false)) {
-                final List<Voltage> volts = VoltageControlSettings
-                        .getVolts(preferences);
-                final StringBuilder sb = new StringBuilder();
-                for (final Voltage volt : volts) {
-                    sb.append(volt.getSavedMV() + " ");
-                }
-                for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                    new CMDProcessor().su.runWaitFor("busybox echo "
-                            + sb.toString()
-                            + " > "
-                            + Helpers.getVoltagePath().replace("cpu0",
-                            "cpu" + i));
-                }
+                final List<Voltage> volts = VoltageControlSettings.getVolts(preferences);
+                
+    			if (Helpers.getVoltagePath() == VDD_PATH) {
+					for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+						for (final Voltage volt : volts) {						
+							new CMDProcessor().su.runWaitFor("busybox echo \""
+									+ volt.getFreq() + " "+volt.getSavedMV()
+									+ "\" > "
+									+ Helpers.getVoltagePath().replace("cpu0",
+									"cpu" + i));
+						}									
+					}
+				}
+				else{
+					final StringBuilder sb = new StringBuilder();
+					for (final Voltage volt : volts) {
+						sb.append(volt.getSavedMV() + " ");
+					}
+					for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+						new CMDProcessor().su.runWaitFor("busybox echo "
+								+ sb.toString()
+								+ " > "
+								+ Helpers.getVoltagePath().replace("cpu0",
+								"cpu" + i));
+					}
+				}
             }
             boolean FChargeOn = preferences.getBoolean(PREF_FASTCHARGE, false);
             try {
@@ -162,8 +167,7 @@ public class BootService extends Service implements Constants {
             if (preferences.getBoolean(PREF_MINFREE_BOOT, false)) {
                 final String values = preferences.getString(PREF_MINFREE, null);
                 if (!values.equals(null)) {
-                    new CMDProcessor().su.runWaitFor("busybox echo " + values
-                            + " > " + MINFREE_PATH);
+                    new CMDProcessor().su.runWaitFor("busybox echo " + values + " > " + MINFREE_PATH);
                 }
             }
 
@@ -171,31 +175,26 @@ public class BootService extends Service implements Constants {
                 final String values = preferences.getString(PREF_READ_AHEAD,
                         null);
                 if (!values.equals(null)) {
-                    new CMDProcessor().su.runWaitFor("busybox echo " + values
-                            + " > " + READ_AHEAD_PATH);
+                    new CMDProcessor().su.runWaitFor("busybox echo " + values + " > " + READ_AHEAD_PATH);
                 }
             }
 
             if (preferences.getBoolean(VM_SOB, false)) {
                 new CMDProcessor().su.runWaitFor("busybox echo "
                         + preferences.getInt(PREF_DIRTY_RATIO,
-                        Integer.parseInt(Helpers
-                                .readOneLine(DIRTY_RATIO_PATH)))
+                        Integer.parseInt(Helpers.readOneLine(DIRTY_RATIO_PATH)))
                         + " > " + DIRTY_RATIO_PATH);
                 new CMDProcessor().su.runWaitFor("busybox echo "
                         + preferences.getInt(PREF_DIRTY_BACKGROUND, Integer
-                        .parseInt(Helpers
-                                .readOneLine(DIRTY_BACKGROUND_PATH)))
+                        .parseInt(Helpers.readOneLine(DIRTY_BACKGROUND_PATH)))
                         + " > " + DIRTY_BACKGROUND_PATH);
                 new CMDProcessor().su.runWaitFor("busybox echo "
                         + preferences.getInt(PREF_DIRTY_EXPIRE, Integer
-                        .parseInt(Helpers
-                                .readOneLine(DIRTY_EXPIRE_PATH)))
+                        .parseInt(Helpers.readOneLine(DIRTY_EXPIRE_PATH)))
                         + " > " + DIRTY_EXPIRE_PATH);
                 new CMDProcessor().su.runWaitFor("busybox echo "
                         + preferences.getInt(PREF_DIRTY_WRITEBACK, Integer
-                        .parseInt(Helpers
-                                .readOneLine(DIRTY_WRITEBACK_PATH)))
+                        .parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_PATH)))
                         + " > " + DIRTY_WRITEBACK_PATH);
                 new CMDProcessor().su.runWaitFor("busybox echo "
                         + preferences.getInt(PREF_MIN_FREE_KB, Integer
@@ -204,14 +203,12 @@ public class BootService extends Service implements Constants {
                 new CMDProcessor().su
                         .runWaitFor("busybox echo "
                                 + preferences.getInt(PREF_OVERCOMMIT, Integer
-                                .parseInt(Helpers
-                                        .readOneLine(OVERCOMMIT_PATH)))
+                                .parseInt(Helpers.readOneLine(OVERCOMMIT_PATH)))
                                 + " > " + OVERCOMMIT_PATH);
                 new CMDProcessor().su
                         .runWaitFor("busybox echo "
                                 + preferences.getInt(PREF_SWAPPINESS, Integer
-                                .parseInt(Helpers
-                                        .readOneLine(SWAPPINESS_PATH)))
+                                .parseInt(Helpers.readOneLine(SWAPPINESS_PATH)))
                                 + " > " + SWAPPINESS_PATH);
                 new CMDProcessor().su.runWaitFor("busybox echo "
                         + preferences.getInt(PREF_VFS, Integer.parseInt(Helpers
@@ -235,3 +232,4 @@ public class BootService extends Service implements Constants {
         super.onDestroy();
     }
 }
+
