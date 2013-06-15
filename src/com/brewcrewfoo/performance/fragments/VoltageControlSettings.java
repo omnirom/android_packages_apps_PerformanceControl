@@ -97,29 +97,28 @@ public class VoltageControlSettings extends Fragment implements Constants {
                 .setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
-    					if (Helpers.getVoltagePath() == VDD_PATH) {
-							for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-								for (final Voltage volt : mVoltages) {						
-									new CMDProcessor().su.runWaitFor("busybox echo \""
-										+ volt.getFreq()+" "+volt.getSavedMV()
-										+ "\" > "
-										+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
-								}									
-							}
-						}
-						else{
-							final StringBuilder sb = new StringBuilder();
-							for (final Voltage volt : mVoltages) {
-								sb.append(volt.getSavedMV() + " ");
-							}
-							for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-								new CMDProcessor().su.runWaitFor("busybox echo "
-										+ sb.toString()
-										+ " > "
-										+ Helpers.getVoltagePath().replace("cpu0",
-										"cpu" + i));
-							}
-						}
+    				if (Helpers.getVoltagePath() == VDD_PATH) {
+					for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+						for (final Voltage volt : mVoltages) {						
+							new CMDProcessor().su.runWaitFor("busybox echo \""
+								+ volt.getFreq()+" "+volt.getSavedMV()
+								+ "\" > "
+								+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
+						}									
+					}
+				}
+				else{
+					final StringBuilder sb = new StringBuilder();
+					for (final Voltage volt : mVoltages) {
+					sb.append(volt.getSavedMV() + " ");
+				}
+				for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+					new CMDProcessor().su.runWaitFor("busybox echo "
+						+ sb.toString()
+						+ " > "
+						+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
+				}
+			}
                         final List<Voltage> volts = getVolts(mPreferences);
                         mVoltages.clear();
                         mVoltages.addAll(volts);
@@ -163,15 +162,15 @@ public static List<Voltage> getVolts(final SharedPreferences preferences) {
 			while ((line = br.readLine()) != null) {
 				line = line.replaceAll("\\s","");
 				if (line != "") {
-						final String[] values = line.split(":");
-						final String freq = values[0];
-						final String currentMv = values[1];
-						final String savedMv = preferences.getString(freq,currentMv);
-						final Voltage voltage = new Voltage();
-						voltage.setFreq(freq);
-						voltage.setCurrentMV(currentMv);
-						voltage.setSavedMV(savedMv);
-						volts.add(voltage);
+					final String[] values = line.split(":");
+					final String freq = values[0];
+					final String currentMv = values[1];
+					final String savedMv = preferences.getString(freq,currentMv);
+					final Voltage voltage = new Voltage();
+					voltage.setFreq(freq);
+					voltage.setCurrentMV(currentMv);
+					voltage.setSavedMV(savedMv);
+					volts.add(voltage);
 				}
 			}
 		}
