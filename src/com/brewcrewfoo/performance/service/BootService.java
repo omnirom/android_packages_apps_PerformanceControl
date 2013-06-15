@@ -122,12 +122,13 @@ public class BootService extends Service implements Constants {
 				}
 			}
 			else{
+				//other formats
 				final StringBuilder sb = new StringBuilder();
 				for (final Voltage volt : volts) {
 					sb.append(volt.getSavedMV() + " ");
 				}
 				for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-					new CMDProcessor().su.runWaitFor("busybox echo " + sb.toString()	+ " > "
+					new CMDProcessor().su.runWaitFor("busybox echo " + sb.toString() + " > "
 						+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
 				}
 			}
@@ -135,40 +136,37 @@ public class BootService extends Service implements Constants {
             }			
 
 
-
             if(preferences.getBoolean(PREF_FASTCHARGE, false)){
-				if (new File(FASTCHARGE_PATH).exists()) {
-					new CMDProcessor().su.runWaitFor("busybox echo 1 > " + FASTCHARGE_PATH);
-					Intent i = new Intent();
-					i.setAction(INTENT_ACTION_FASTCHARGE);
-					c.sendBroadcast(i);
-					// add notification to warn user they can only charge
-					CharSequence contentTitle = c
-							.getText(R.string.fast_charge_notification_title);
-					CharSequence contentText = c
-							.getText(R.string.fast_charge_notification_message);
+		if (new File(FASTCHARGE_PATH).exists()) {
+			new CMDProcessor().su.runWaitFor("busybox echo 1 > " + FASTCHARGE_PATH);
+			Intent i = new Intent();
+			i.setAction(INTENT_ACTION_FASTCHARGE);
+			c.sendBroadcast(i);
+			// add notification to warn user they can only charge
+			CharSequence contentTitle = c.getText(R.string.fast_charge_notification_title);
+			CharSequence contentText = c.getText(R.string.fast_charge_notification_message);
 
-					Notification n = new Notification.Builder(c)
-							.setAutoCancel(true).setContentTitle(contentTitle)
-							.setContentText(contentText)
-							.setSmallIcon(R.drawable.ic_launcher)
-							.setWhen(System.currentTimeMillis()).getNotification();
+			Notification n = new Notification.Builder(c)
+				.setAutoCancel(true).setContentTitle(contentTitle)
+				.setContentText(contentText)
+				.setSmallIcon(R.drawable.ic_launcher)
+				.setWhen(System.currentTimeMillis()).getNotification();
 
-					NotificationManager nm = (NotificationManager) getApplicationContext()
-							.getSystemService(Context.NOTIFICATION_SERVICE);
-					nm.notify(1337, n);
-				}
+			NotificationManager nm = (NotificationManager) getApplicationContext()
+				.getSystemService(Context.NOTIFICATION_SERVICE);
+			nm.notify(1337, n);
+		}
             }
 
 
             if (preferences.getBoolean(BLX_SOB, false)) {
-				if (new File(BLX_PATH).exists()) {
-					new CMDProcessor().su.runWaitFor("busybox echo "
+		if (new File(BLX_PATH).exists()) {
+			new CMDProcessor().su.runWaitFor("busybox echo "
                         + preferences.getInt(PREF_BLX,
                         Integer.parseInt(Helpers.readOneLine(BLX_PATH)))
                         + " > " + BLX_PATH);
-				}
-			}
+		}
+	    }
 
             if (preferences.getBoolean(PREF_MINFREE_BOOT, false)) {
                 final String values = preferences.getString(PREF_MINFREE, null);
@@ -225,7 +223,7 @@ public class BootService extends Service implements Constants {
             return null;
         }
 
-        @Override
+    @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             servicesStarted = true;
