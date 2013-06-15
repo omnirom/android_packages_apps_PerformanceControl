@@ -59,6 +59,11 @@ public interface Constants {
     public static final String PREF_READ_AHEAD_BOOT = "pref_read_ahead_boot";
     public static final String PREF_FASTCHARGE = "pref_fast_charge";
 
+    //-------++++++---------
+    public static final String PREF_BLX = "pref_blx";
+    public static final String BLX_PATH = "/sys/class/misc/batterylifeextender/charging_limit";
+    public static final String BLX_SOB = "blx_sob";
+
     // VM settings
     public static final String PREF_DIRTY_RATIO = "pref_dirty_ratio";
     public static final String PREF_DIRTY_BACKGROUND = "pref_dirty_background";
@@ -91,3 +96,4 @@ public interface Constants {
     public static final String PREF_WIDGET_TEXT_COLOR = "widget_text_color";
     public static final String VERSION_NUM = "1.0.4";
 }
+
