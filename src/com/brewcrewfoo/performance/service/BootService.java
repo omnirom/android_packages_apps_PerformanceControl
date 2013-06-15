@@ -109,29 +109,29 @@ public class BootService extends Service implements Constants {
             }
 
             if (preferences.getBoolean(VOLTAGE_SOB, false)) {
-			if(Helpers.voltageFileExists()){
+		if(Helpers.voltageFileExists()){
                 final List<Voltage> volts = VoltageControlSettings.getVolts(preferences);
                 
     			if (Helpers.getVoltagePath() == VDD_PATH) {
-					for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-						for (final Voltage volt : volts) {						
-							new CMDProcessor().su.runWaitFor("busybox echo \""
-									+ volt.getFreq() + " " + volt.getSavedMV() + "\" > "
-									+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
-						}									
-					}
-				}
-				else{
-					final StringBuilder sb = new StringBuilder();
-					for (final Voltage volt : volts) {
-						sb.append(volt.getSavedMV() + " ");
-					}
-					for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-						new CMDProcessor().su.runWaitFor("busybox echo " + sb.toString()	+ " > "
-								+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
-					}
+				for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+					for (final Voltage volt : volts) {						
+						new CMDProcessor().su.runWaitFor("busybox echo \""
+							+ volt.getFreq() + " " + volt.getSavedMV() + "\" > "
+							+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
+					}									
 				}
 			}
+			else{
+				final StringBuilder sb = new StringBuilder();
+				for (final Voltage volt : volts) {
+					sb.append(volt.getSavedMV() + " ");
+				}
+				for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+					new CMDProcessor().su.runWaitFor("busybox echo " + sb.toString()	+ " > "
+						+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
+				}
+			}
+		}
             }			
 
 
