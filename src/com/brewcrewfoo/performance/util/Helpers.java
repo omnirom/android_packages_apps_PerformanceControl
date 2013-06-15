@@ -356,8 +356,7 @@ public class Helpers implements Constants {
      */
     public static void updateAppWidget(Context context) {
         AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
-        ComponentName widgetComponent = new ComponentName(context,
-                PCWidget.class);
+        ComponentName widgetComponent = new ComponentName(context, PCWidget.class);
         int[] widgetIds = widgetManager.getAppWidgetIds(widgetComponent);
         Intent update = new Intent();
         update.setAction("com.brewcrewfoo.performance.ACTION_FREQS_CHANGED");
@@ -384,4 +383,24 @@ public class Helpers implements Constants {
             return null;
         }
     }
+    /**
+     * Get total number of mmcblk*
+     *
+     * @return total number of blocks
+     */
+    public static int getNmmcblk() {
+    	int i = 0;
+		String f = IO_SCHEDULER_PATH;
+		boolean flag=true;
+		do{
+			if (new File(f.replace("mmcblk0","mmcblk"+i)).exists()) {
+				i++;
+			}
+			else{
+				flag=false;
+			}
+		}while(flag);
+        return i;
+    }
 }
+
