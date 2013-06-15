@@ -55,10 +55,14 @@ public class Advanced extends PreferenceFragment implements
     private Preference mMinFreeK;
     private Preference mOvercommit;
     private Preference mSwappiness;
+
+    private Preference mBlx;
+
     private Preference mVfs;
     private ListPreference mFreeMem;
     private ListPreference mReadAhead;
     private CheckBoxPreference mFastCharge;
+    
 
     private SharedPreferences mPreferences;
     protected Context mContext;
@@ -99,8 +103,12 @@ public class Advanced extends PreferenceFragment implements
         mReadAhead.setSummary(getString(R.string.ps_read_ahead,
                 Helpers.readOneLine(READ_AHEAD_PATH) + " kb"));
 
-        mFastCharge = (CheckBoxPreference) findPreference(PREF_FASTCHARGE);
+     mFastCharge = (CheckBoxPreference) findPreference(PREF_FASTCHARGE);
         mFastCharge.setChecked(mPreferences.getBoolean(PREF_FASTCHARGE, false));
+        //mFastCharge.setSummary(getString(R.string.pt_fast_charge_boot,Helpers.readOneLine(FASTCHARGE_PATH) ));
+
+		mBlx=(Preference) findPreference(PREF_BLX);
+		mBlx.setSummary(Helpers.readOneLine(BLX_PATH));
 
         mDirtyRatio = (Preference) findPreference(PREF_DIRTY_RATIO);
         mDirtyBackground = (Preference) findPreference(PREF_DIRTY_BACKGROUND);
@@ -121,10 +129,24 @@ public class Advanced extends PreferenceFragment implements
         mSwappiness.setSummary(Helpers.readOneLine(SWAPPINESS_PATH));
         mVfs.setSummary(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));
 
-        boolean fChargeExists = new File(FASTCHARGE_PATH)
-                .exists();
+        boolean fChargeExists = new File(FASTCHARGE_PATH).exists();
         if (!fChargeExists) {
             PreferenceCategory kernelCat = (PreferenceCategory) findPreference("kernel");
+            getPreferenceScreen().removePreference(kernelCat);
+        }
+		else{
+			Boolean bv=Helpers.readOneLine(FASTCHARGE_PATH).equals("1");
+			if(bv){
+				mFastCharge.setSummary(getString(R.string.ps_fast_charge_active));
+			}
+			else{
+				mFastCharge.setSummary(getString(R.string.ps_fast_charge_inactive));
+			}
+		}
+
+        boolean fblxExists = new File(BLX_PATH).exists();
+        if (!fblxExists) {
+            PreferenceCategory kernelCat = (PreferenceCategory) findPreference("blx");
             getPreferenceScreen().removePreference(kernelCat);
         }
 
@@ -186,7 +208,15 @@ public class Advanced extends PreferenceFragment implements
                                 }).create().show();
                 return true;
             }
-        } else if (preference == mDirtyRatio) {
+        } else if (preference == mBlx){
+            String title = getString(R.string.blx_title);
+            int currentProgress = Integer.parseInt(Helpers
+                    .readOneLine(BLX_PATH));
+            int max = 100;
+            openDialog(currentProgress, title, max, mBlx,
+                    BLX_PATH, PREF_BLX);
+            return true;
+		} else if (preference == mDirtyRatio) {
             String title = getString(R.string.dirty_ratio_title);
             int currentProgress = Integer.parseInt(Helpers
                     .readOneLine(DIRTY_RATIO_PATH));
@@ -306,10 +336,10 @@ public class Advanced extends PreferenceFragment implements
 
         final SeekBar seekbar = (SeekBar) alphaDialog
                 .findViewById(R.id.seek_bar);
+// correction
+	seekbar.setMax(max);
+	seekbar.setProgress(currentProgress);
         
-        seekbar.setMax(max);
-        seekbar.setProgress(currentProgress);
-
         settingText = (EditText) alphaDialog.findViewById(R.id.setting_text);
         settingText
                 .setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -342,9 +372,10 @@ public class Advanced extends PreferenceFragment implements
                 try {
                     int val = Integer.parseInt(s.toString());
                     if (val > max) {
+		//correction
                         s.replace(0, s.length(), Integer.toString(max));
                     }
-                    seekbar.setProgress(val);
+		seekbar.setProgress(val);
                 } catch (NumberFormatException ex) {
                 }
             }
@@ -352,12 +383,11 @@ public class Advanced extends PreferenceFragment implements
 
         OnSeekBarChangeListener seekBarChangeListener = new OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekbar, int progress,
-                                          boolean fromUser) {
+            public void onProgressChanged(SeekBar seekbar, int progress, boolean fromUser) {
                 mSeekbarProgress = seekbar.getProgress();
-                if(fromUser){
-                        settingText.setText(Integer.toString(mSeekbarProgress));
-                }
+				if(fromUser){//correction
+					settingText.setText(Integer.toString(mSeekbarProgress));
+				}
             }
 
             @Override
