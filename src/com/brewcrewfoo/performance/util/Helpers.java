@@ -40,6 +40,26 @@ public class Helpers implements Constants {
      * @return If SU was granted or denied
      */
     public static boolean checkSu() {
+    	 CMDProcessor.CommandResult cr = null;
+    	 cr=new CMDProcessor().su.runWaitFor("busybox which su");
+    	 if(!cr.success()||cr.sdtout==""){
+    	 	Log.e(TAG, "SU does not exist!!!");
+		return false; // tell caller to bail...
+    	 }
+    	 cr=new CMDProcessor().su.runWaitFor("busybox whoami");
+    	 if(cr.success()&&cr.sdtout=="root"){
+		Log.i(TAG, " SU exists and we have permission");
+                return true;
+	}
+	else {
+		Log.i(TAG, " SU exists but we dont have permission");
+                return false;
+	}
+
+    }
+    
+/*
+    public static boolean checkSu() {
         if (!new File("/system/bin/su").exists()
                 && !new File("/system/xbin/su").exists()) {
             Log.e(TAG, "su does not exist!!!");
@@ -60,7 +80,7 @@ public class Helpers implements Constants {
             return false;
         }
     }
-
+*/
     /**
      * Checks to see if Busybox is installed in "/system/"
      *
