@@ -39,28 +39,6 @@ public class Helpers implements Constants {
      *
      * @return If SU was granted or denied
      */
-/*
-    public static boolean checkSu() {
-    	 CMDProcessor.CommandResult cr = null;
-    	 cr=new CMDProcessor().su.runWaitFor("busybox which su");
-    	 if(!cr.success()||cr.sdtout==""){
-    	 	Log.e(TAG, "SU does not exist!!!");
-		return false; // tell caller to bail...
-    	 }
-    	 
-    	 cr=new CMDProcessor().su.runWaitFor("busybox id -u");
-    	 if(cr.success()&&cr.sdtout=="0"){
-		Log.i(TAG, " SU exists and we have permission");
-                return true;
-	}
-	else {
-		Log.i(TAG, " SU exists but we dont have permission");
-                return false;
-	}
-
-    }
-*/    
-
     public static boolean checkSu() {
         if (!new File("/system/bin/su").exists()
                 && !new File("/system/xbin/su").exists()) {
