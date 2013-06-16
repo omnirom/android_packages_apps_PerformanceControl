@@ -97,26 +97,28 @@ public class VoltageControlSettings extends Fragment implements Constants {
                 .setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
-    				if (Helpers.getVoltagePath() == VDD_PATH) {
-					for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-						for (final Voltage volt : mVoltages) {						
-							new CMDProcessor().su.runWaitFor("busybox echo \""
-								+ volt.getFreq()+" "+volt.getSavedMV()
-								+ "\" > "
-								+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
-						}									
+    			if (Helpers.getVoltagePath() == VDD_PATH) {
+				for (final Voltage volt : mVoltages) {
+					if(volt.getSavedMV()!= volt.getCurrentMv()){
+						for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+						new CMDProcessor().su.runWaitFor("busybox echo \""
+							+ volt.getFreq()+" "+volt.getSavedMV()
+							+ "\" > "
+							+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
+						}
 					}
 				}
-				else{
-					final StringBuilder sb = new StringBuilder();
-					for (final Voltage volt : mVoltages) {
+			}
+			else{
+				final StringBuilder sb = new StringBuilder();
+				for (final Voltage volt : mVoltages) {
 					sb.append(volt.getSavedMV() + " ");
 				}
 				for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-					new CMDProcessor().su.runWaitFor("busybox echo "
-						+ sb.toString()
-						+ " > "
-						+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
+				new CMDProcessor().su.runWaitFor("busybox echo "
+					+ sb.toString()
+					+ " > "
+					+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
 				}
 			}
                         final List<Voltage> volts = getVolts(mPreferences);
