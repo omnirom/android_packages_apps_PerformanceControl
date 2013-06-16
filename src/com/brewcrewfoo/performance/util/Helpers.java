@@ -142,17 +142,19 @@ public class Helpers implements Constants {
     public static String readOneLine(String fname) {
         BufferedReader br;
         String line = null;
-        try {
-            br = new BufferedReader(new FileReader(fname), 512);
-            try {
-                line = br.readLine();
-            } finally {
-                br.close();
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "IO Exception when reading sys file", e);
-            // attempt to do magic!
-            return readFileViaShell(fname, true);
+        if (new File(fname).exists()) {
+	        try {
+	            br = new BufferedReader(new FileReader(fname), 512);
+	            try {
+	                line = br.readLine();
+	            } finally {
+	                br.close();
+	            }
+	        } catch (Exception e) {
+	            Log.e(TAG, "IO Exception when reading sys file", e);
+	            // attempt to do magic!
+	            return readFileViaShell(fname, true);
+	        }
         }
         return line;
     }
@@ -184,6 +186,7 @@ public class Helpers implements Constants {
      * @return if line was written
      */
     public static boolean writeOneLine(String fname, String value) {
+    	if (!new File(fname).exists()) {return false;}
         try {
             FileWriter fw = new FileWriter(fname);
             try {
