@@ -69,6 +69,15 @@ Copyright (C) 2012  James Roberts
     <string name="fast_charge_warning">再起動後はPCに接続できなくなります。\n\n
         この設定は再起動のたびに急速充電を有効にします。急速充電を有効にしていると充電しかできません。
     </string>
+<!-- -->    
+    <string name="ps_fast_charge_active">Fast Charge is active</string>
+    <string name="ps_fast_charge_inactive">Fast Charge is inactive</string>
+<!-- blx -->
+    <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
+    <string name="pt_blx_boot">Set on boot</string>
+	<string name="ps_blx_boot">Apply the amount above at boot</string>
+	<string name="blx_title">Charge limit (%)</string>
+<!-- -->    
     <string name="fast_charge_notification_title">急速充電有効</string>
     <string name="fast_charge_notification_message">端末は充電しかできません</string>
     <string name="size_25_mb">25mb</string>
