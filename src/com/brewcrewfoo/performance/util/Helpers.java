@@ -46,8 +46,9 @@ public class Helpers implements Constants {
     	 	Log.e(TAG, "SU does not exist!!!");
 		return false; // tell caller to bail...
     	 }
-    	 cr=new CMDProcessor().su.runWaitFor("busybox whoami");
-    	 if(cr.success()&&cr.sdtout=="root"){
+    	 
+    	 cr=new CMDProcessor().su.runWaitFor("busybox id -u");
+    	 if(cr.success()&&cr.sdtout=="0"){
 		Log.i(TAG, " SU exists and we have permission");
                 return true;
 	}
