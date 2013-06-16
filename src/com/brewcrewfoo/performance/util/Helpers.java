@@ -39,6 +39,7 @@ public class Helpers implements Constants {
      *
      * @return If SU was granted or denied
      */
+/*
     public static boolean checkSu() {
     	 CMDProcessor.CommandResult cr = null;
     	 cr=new CMDProcessor().su.runWaitFor("busybox which su");
@@ -58,8 +59,8 @@ public class Helpers implements Constants {
 	}
 
     }
-    
-/*
+*/    
+
     public static boolean checkSu() {
         if (!new File("/system/bin/su").exists()
                 && !new File("/system/xbin/su").exists()) {
@@ -81,7 +82,7 @@ public class Helpers implements Constants {
             return false;
         }
     }
-*/
+
     /**
      * Checks to see if Busybox is installed in "/system/"
      *
