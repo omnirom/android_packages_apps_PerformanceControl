@@ -140,9 +140,9 @@ public class Helpers implements Constants {
      * @return line
      */
     public static String readOneLine(String fname) {
-        BufferedReader br;
         String line = null;
         if (new File(fname).exists()) {
+        	BufferedReader br;
 	        try {
 	            br = new BufferedReader(new FileReader(fname), 512);
 	            try {
