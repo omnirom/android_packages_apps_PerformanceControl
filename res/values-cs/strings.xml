@@ -39,6 +39,15 @@
     <string name="fast_charge_warning">NEBUDE MOŽNÉ PŘIPOJIT TELEFON K PC PO KAŽDÉM STARTU!\n\n
         Toto nastavení přepne rychlé nabíjení na zapnuto po každém startu. Pokud je zapnuto, telefon je možné *pouze* nabíjet!        
     </string>
+<!-- -->    
+    <string name="ps_fast_charge_active">Fast Charge is active</string>
+    <string name="ps_fast_charge_inactive">Fast Charge is inactive</string>
+<!-- blx -->
+    <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
+    <string name="pt_blx_boot">Set on boot</string>
+	<string name="ps_blx_boot">Apply the amount above at boot</string>
+	<string name="blx_title">Charge limit (%)</string>
+<!-- -->    
     <string name="fast_charge_notification_title">Rychlé nabíjení je ZAPNUTO!</string>
     <string name="fast_charge_notification_message">Telefon je v režimu pouze-nabíjení!</string>
     <string name="size_25_mb">25mb</string>
