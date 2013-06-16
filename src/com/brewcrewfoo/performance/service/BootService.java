@@ -113,12 +113,14 @@ public class BootService extends Service implements Constants {
                 final List<Voltage> volts = VoltageControlSettings.getVolts(preferences);
                 
     			if (Helpers.getVoltagePath() == VDD_PATH) {
-				for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-					for (final Voltage volt : volts) {						
-						new CMDProcessor().su.runWaitFor("busybox echo \""
+				for (final Voltage volt : volts) {
+					if(volt.getSavedMV() != volt.getCurrentMv()){
+						for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+							new CMDProcessor().su.runWaitFor("busybox echo \""
 							+ volt.getFreq() + " " + volt.getSavedMV() + "\" > "
 							+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
-					}									
+						}
+					}
 				}
 			}
 			else{
