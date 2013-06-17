@@ -175,10 +175,8 @@ public class CPUSettings extends Fragment implements
         mSetOnBoot
                 .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton v,
-                                                 boolean checked) {
-                        final SharedPreferences.Editor editor = mPreferences
-                                .edit();
+                    public void onCheckedChanged(CompoundButton v,boolean checked) {
+                        final SharedPreferences.Editor editor = mPreferences.edit();
                         editor.putBoolean(CPU_SOB, checked);
                         editor.commit();
                     }
@@ -255,11 +253,13 @@ public class CPUSettings extends Fragment implements
     }
 
     public class IOListener implements OnItemSelectedListener {
-        public void onItemSelected(AdapterView<?> parent, View view, int pos,
-                                   long id) {
+        public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-            new CMDProcessor().su.runWaitFor("busybox echo " + selected + " > "
-                    + IO_SCHEDULER_PATH);
+            String f=IO_SCHEDULER_PATH;
+                for (int i = 0; i < Helpers.getNmmcblk(); i++) {
+        		new CMDProcessor().su.runWaitFor("busybox echo " + io + " > " + f.replace("mmcblk0","mmcblk"+i));
+		}            
+            //new CMDProcessor().su.runWaitFor("busybox echo " + selected + " > " + IO_SCHEDULER_PATH);
             updateSharedPrefs(PREF_IO, selected);
         }
 
