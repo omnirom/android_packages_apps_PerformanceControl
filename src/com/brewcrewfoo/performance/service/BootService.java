@@ -104,6 +104,7 @@ public class BootService extends Service implements Constants {
 			for (int i = 0; i < Helpers.getNmmcblk(); i++) {
 				new CMDProcessor().su.runWaitFor("busybox echo " + io + " > " + f.replace("mmcblk0","mmcblk"+i));
 			}
+			//new CMDProcessor().su.runWaitFor("busybox echo " + selected + " > " + IO_SCHEDULER_PATH);
 		}
         }
 
