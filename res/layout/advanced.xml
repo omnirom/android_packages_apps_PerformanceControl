@@ -85,10 +85,8 @@ Copyright (C) 2012  James Roberts
                 android:key="blx_sob"
                 android:summary="@string/ps_blx_boot"
                 android:title="@string/pt_blx_boot"/>
-<!-- -->
-
     </PreferenceCategory>
-
+<!-- -->
     <PreferenceCategory
             android:key="vm_settings"
             android:title="@string/prefcat_vm_settings">
