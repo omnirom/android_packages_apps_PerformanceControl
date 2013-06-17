@@ -257,7 +257,7 @@ public class CPUSettings extends Fragment implements
             String selected = parent.getItemAtPosition(pos).toString();
             String f=IO_SCHEDULER_PATH;
                 for (int i = 0; i < Helpers.getNmmcblk(); i++) {
-        		new CMDProcessor().su.runWaitFor("busybox echo " + io + " > " + f.replace("mmcblk0","mmcblk"+i));
+        		new CMDProcessor().su.runWaitFor("busybox echo " + selected + " > " + f.replace("mmcblk0","mmcblk"+i));
 		}            
             //new CMDProcessor().su.runWaitFor("busybox echo " + selected + " > " + IO_SCHEDULER_PATH);
             updateSharedPrefs(PREF_IO, selected);
