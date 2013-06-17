@@ -393,16 +393,16 @@ public class Helpers implements Constants {
      */
     public static int getNmmcblk() {
     	int i = 0;
-		String f = IO_SCHEDULER_PATH;
-		boolean flag=true;
-		do{
-			if (new File(f.replace("mmcblk0","mmcblk"+i)).exists()) {
-				i++;
-			}
-			else{
-				flag=false;
-			}
-		}while(flag);
+	String f = IO_SCHEDULER_PATH;
+	boolean flag=true;
+	do{
+		if (new File(f.replace("mmcblk0","mmcblk"+i)).exists()) {
+			i++;
+		}
+		else{
+			flag=false;
+		}
+	}while(flag);
         return i;
     }
 }
