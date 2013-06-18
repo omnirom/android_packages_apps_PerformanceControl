@@ -59,8 +59,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getActivity());
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         mAdapter = new ListAdapter(getActivity());
         mVoltages = getVolts(mPreferences);
@@ -68,18 +67,15 @@ public class VoltageControlSettings extends Fragment implements Constants {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup root,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup root, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.voltage_settings, root, false);
 
         final ListView listView = (ListView) view.findViewById(R.id.ListView);
         final Switch setOnBoot = (Switch) view.findViewById(R.id.applyAtBoot);
 
         if (mVoltages.isEmpty()) {
-            ((TextView) view.findViewById(R.id.emptyList))
-                    .setVisibility(View.VISIBLE);
-            ((LinearLayout) view.findViewById(R.id.BottomBar))
-                    .setVisibility(View.GONE);
+            ((TextView) view.findViewById(R.id.emptyList)).setVisibility(View.VISIBLE);
+            ((LinearLayout) view.findViewById(R.id.BottomBar)).setVisibility(View.GONE);
         }
 
         setOnBoot.setChecked(mPreferences.getBoolean(VOLTAGE_SOB, false));
@@ -93,40 +89,40 @@ public class VoltageControlSettings extends Fragment implements Constants {
                     }
                 });
 
-        ((Button) view.findViewById(R.id.applyBtn))
-                .setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View arg0) {
-    			if (Helpers.getVoltagePath() == VDD_PATH) {
+        ((Button) view.findViewById(R.id.applyBtn)).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+			final StringBuilder sb = new StringBuilder();
+    		if (Helpers.getVoltagePath() == VDD_PATH) {		
 				for (final Voltage volt : mVoltages) {
-					if(volt.getSavedMV()!= volt.getCurrentMv()){
+					if(volt.getSavedMV() != volt.getCurrentMv()){
 						for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-						new CMDProcessor().su.runWaitFor("busybox echo \""
-							+ volt.getFreq()+" "+volt.getSavedMV()
-							+ "\" > "
-							+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
+							sb.append("busybox echo "
+								+ volt.getFreq()+" "+volt.getSavedMV() + " > "
+								+ Helpers.getVoltagePath().replace("cpu0","cpu" + i) + " \n");
 						}
 					}
 				}
 			}
 			else{
-				final StringBuilder sb = new StringBuilder();
+				final StringBuilder b = new StringBuilder();
 				for (final Voltage volt : mVoltages) {
-					sb.append(volt.getSavedMV() + " ");
+					b.append(volt.getSavedMV() + " ");
 				}
 				for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-				new CMDProcessor().su.runWaitFor("busybox echo "
-					+ sb.toString()
-					+ " > "
-					+ Helpers.getVoltagePath().replace("cpu0","cpu" + i));
+					sb.append("busybox echo "
+					+ b.toString() + " > "
+					+ Helpers.getVoltagePath().replace("cpu0","cpu" + i) + " \n");
 				}
 			}
-                        final List<Voltage> volts = getVolts(mPreferences);
-                        mVoltages.clear();
-                        mVoltages.addAll(volts);
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
+			Helpers.shExec(sb);
+			
+			final List<Voltage> volts = getVolts(mPreferences);
+			mVoltages.clear();
+			mVoltages.addAll(volts);
+			mAdapter.notifyDataSetChanged();
+			}
+		});
 
         mAdapter.setListItems(mVoltages);
         listView.setAdapter(mAdapter);
