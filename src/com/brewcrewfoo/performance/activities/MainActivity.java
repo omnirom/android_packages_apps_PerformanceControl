@@ -70,6 +70,7 @@ public class MainActivity extends Activity implements Constants,
         mPagerTabStrip.setDrawFullUnderline(true);
 
         checkForSu();
+        	Helpers.shCreate();
     }
 
     class TitleAdapter extends FragmentPagerAdapter {
