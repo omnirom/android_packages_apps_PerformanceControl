@@ -63,6 +63,7 @@ public interface Constants {
     public static final String PREF_BLX = "pref_blx";
     public static final String BLX_PATH = "/sys/class/misc/batterylifeextender/charging_limit";
     public static final String BLX_SOB = "blx_sob";
+    public static final String SH_PATH = "/data/PerformanceControl";
 
     // VM settings
     public static final String PREF_DIRTY_RATIO = "pref_dirty_ratio";
