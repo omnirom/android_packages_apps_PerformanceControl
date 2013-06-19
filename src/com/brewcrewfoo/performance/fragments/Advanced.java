@@ -73,14 +73,12 @@ public class Advanced extends PreferenceFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getActivity());
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.advanced);
 
         final int minFree = getMinFreeValue();
-        final String values[] = getResources().getStringArray(
-                R.array.minfree_values);
+        final String values[] = getResources().getStringArray(R.array.minfree_values);
         String closestValue = mPreferences.getString(PREF_MINFREE, values[0]);
 
         if (minFree < 37)
@@ -133,15 +131,14 @@ public class Advanced extends PreferenceFragment implements
             PreferenceCategory kernelCat = (PreferenceCategory) findPreference("kernel");
             getPreferenceScreen().removePreference(kernelCat);
         }
-		else{
-			Boolean bv=Helpers.readOneLine(FASTCHARGE_PATH).equals("1");
-			if(bv){
-				mFastCharge.setSummary(getString(R.string.ps_fast_charge_active));
-			}
-			else{
-				mFastCharge.setSummary(getString(R.string.ps_fast_charge_inactive));
-			}
+	else{
+		if(Helpers.readOneLine(FASTCHARGE_PATH).equals("1")){
+			mFastCharge.setSummary(getString(R.string.ps_fast_charge_active));
 		}
+		else{
+			mFastCharge.setSummary(getString(R.string.ps_fast_charge_inactive));
+		}
+	}
 
         if (!new File(BLX_PATH).exists()) {
             PreferenceCategory kernelCat = (PreferenceCategory) findPreference("blx");
@@ -171,8 +168,7 @@ public class Advanced extends PreferenceFragment implements
     }
 
     @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-                                         Preference preference) {
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key = preference.getKey();
         if (PREF_FASTCHARGE.equals(key)) {
             if (mPreferences.getBoolean(PREF_FASTCHARGE, false)) {
@@ -183,8 +179,7 @@ public class Advanced extends PreferenceFragment implements
                         .setNegativeButton("Cancel",
                                 new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
+                                    public void onClick(DialogInterface dialog, int which) {
                                         mPreferences
                                                 .edit()
                                                 .putBoolean(PREF_FASTCHARGE,
@@ -195,8 +190,7 @@ public class Advanced extends PreferenceFragment implements
                         .setPositiveButton("OK",
                                 new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
+                                    public void onClick(DialogInterface dialog, int which) {
                                         mPreferences
                                                 .edit()
                                                 .putBoolean(PREF_FASTCHARGE,
@@ -356,8 +350,7 @@ public class Advanced extends PreferenceFragment implements
         settingText.setText(Integer.toString(currentProgress));
         settingText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             @Override
