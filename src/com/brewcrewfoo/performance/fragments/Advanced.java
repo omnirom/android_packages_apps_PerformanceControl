@@ -103,12 +103,12 @@ public class Advanced extends PreferenceFragment implements
         mReadAhead.setSummary(getString(R.string.ps_read_ahead,
                 Helpers.readOneLine(READ_AHEAD_PATH) + " kb"));
 
-     mFastCharge = (CheckBoxPreference) findPreference(PREF_FASTCHARGE);
+     	mFastCharge = (CheckBoxPreference) findPreference(PREF_FASTCHARGE);
         mFastCharge.setChecked(mPreferences.getBoolean(PREF_FASTCHARGE, false));
         //mFastCharge.setSummary(getString(R.string.pt_fast_charge_boot,Helpers.readOneLine(FASTCHARGE_PATH) ));
 
-		mBlx=(Preference) findPreference(PREF_BLX);
-		mBlx.setSummary(Helpers.readOneLine(BLX_PATH));
+	mBlx=(Preference) findPreference(PREF_BLX);
+	mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
 
         mDirtyRatio = (Preference) findPreference(PREF_DIRTY_RATIO);
         mDirtyBackground = (Preference) findPreference(PREF_DIRTY_BACKGROUND);
@@ -129,8 +129,7 @@ public class Advanced extends PreferenceFragment implements
         mSwappiness.setSummary(Helpers.readOneLine(SWAPPINESS_PATH));
         mVfs.setSummary(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));
 
-        boolean fChargeExists = new File(FASTCHARGE_PATH).exists();
-        if (!fChargeExists) {
+        if (!new File(FASTCHARGE_PATH).exists()) {
             PreferenceCategory kernelCat = (PreferenceCategory) findPreference("kernel");
             getPreferenceScreen().removePreference(kernelCat);
         }
@@ -144,8 +143,7 @@ public class Advanced extends PreferenceFragment implements
 			}
 		}
 
-        boolean fblxExists = new File(BLX_PATH).exists();
-        if (!fblxExists) {
+        if (!new File(BLX_PATH).exists()) {
             PreferenceCategory kernelCat = (PreferenceCategory) findPreference("blx");
             getPreferenceScreen().removePreference(kernelCat);
         }
@@ -209,7 +207,7 @@ public class Advanced extends PreferenceFragment implements
                 return true;
             }
         } else if (preference == mBlx){
-            String title = getString(R.string.blx_title);
+            String title = getString(R.string.blx_title)+" (%)";
             int currentProgress = Integer.parseInt(Helpers
                     .readOneLine(BLX_PATH));
             int max = 100;
