@@ -79,7 +79,7 @@ Copyright (C) 2012  James Roberts
     <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
 	<string name="pt_blx_boot">Set on boot</string>
 	<string name="ps_blx_boot">Apply the amount above at boot</string>
-	<string name="blx_title">Charge limit (%)</string>
+	<string name="blx_title">Charge limit</string>
 <!-- -->
 
     <string name="size_25_mb">25mb</string>
