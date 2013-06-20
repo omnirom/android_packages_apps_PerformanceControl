@@ -283,18 +283,18 @@ public class Advanced extends PreferenceFragment implements
         if (key.equals(PREF_MINFREE)) {
             String values = mPreferences.getString(key, null);
             if (!values.equals(null))
-                new CMDProcessor().su.runWaitFor("busybox echo " + values
-                        + " > " + MINFREE_PATH);
-            mFreeMem.setSummary(getString(R.string.ps_free_memory,
-                    getMinFreeValue() + "mb"));
-        } else if (key.equals(PREF_READ_AHEAD)) {
+                new CMDProcessor().su.runWaitFor("busybox echo " + values + " > " + MINFREE_PATH);
+            mFreeMem.setSummary(getString(R.string.ps_free_memory,getMinFreeValue() + "mb"));
+        }
+        else if (key.equals(PREF_READ_AHEAD)) {
             String values = mPreferences.getString(key, null);
             if (!values.equals(null))
-                new CMDProcessor().su.runWaitFor("busybox echo " + values
-                        + " > " + READ_AHEAD_PATH);
-            mReadAhead.setSummary(getString(R.string.ps_read_ahead,
-                    Helpers.readOneLine(READ_AHEAD_PATH) + " kb"));
+                new CMDProcessor().su.runWaitFor("busybox echo " + values + " > " + READ_AHEAD_PATH);
+            mReadAhead.setSummary(getString(R.string.ps_read_ahead,Helpers.readOneLine(READ_AHEAD_PATH) + " kb"));
         }
+	else if (key.equals(PREF_BLX)) {
+		mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
+	}
     }
 
     private int getMinFreeValue() {
