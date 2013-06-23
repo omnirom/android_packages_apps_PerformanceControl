@@ -71,7 +71,7 @@ Copyright (C) 2012  James Roberts
                 android:title="@string/pt_fast_charge_boot"/>
 </PreferenceCategory>
 
-<!-- -->
+<!--BLX -->
     <PreferenceCategory
             android:key="blx"
             android:title="@string/prefcat_blx">
@@ -86,7 +86,16 @@ Copyright (C) 2012  James Roberts
                 android:summary="@string/ps_blx_boot"
                 android:title="@string/sob"/>
     </PreferenceCategory>
-<!-- -->
+<!-- Dynamic Fsync -->
+    <PreferenceCategory
+            android:key="dsync"
+            android:title="@string/prefcat_dsync">
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="pref_dsync"
+                android:summary="@string/ps_dsync"
+                android:title="@string/pt_dsync"/>
+    </PreferenceCategory>
 <!-- PFK -->
     <PreferenceCategory
             android:key="pfk"
