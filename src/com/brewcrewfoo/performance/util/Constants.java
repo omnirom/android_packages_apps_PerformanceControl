@@ -64,24 +64,27 @@ public interface Constants {
     public static final String BLX_PATH = "/sys/class/misc/batterylifeextender/charging_limit";
     public static final String BLX_SOB = "blx_sob";
     public static final String SH_PATH = "/data/PerformanceControl";
+    //-------DFsync---------
+    public static final String DSYNC_PATH = "/sys/kernel/dyn_fsync/Dyn_fsync_active";
+    public static final String PREF_DSYNC= "pref_dsync";
     //-------PFK---------
-	public static final String PFK_HOME_ON = "pfk_home_on";
-	public static final String PREF_HOME_ALLOWED_IRQ= "pref_home_allowed_irq";
-	public static final String PREF_HOME_REPORT_WAIT = "pref_home_report_wait";
-	public static final String PFK_MENUBACK_ON = "pfk_menuback_on";
-	public static final String PREF_MENUBACK_INTERRUPT_CHECKS = "pref_menuback_interrupt_checks";
-	public static final String PREF_MENUBACK_FIRST_ERR_WAIT = "pref_menuback_first_err_wait";
-	public static final String PREF_MENUBACK_LAST_ERR_WAIT = "pref_menuback_last_err_wait";
-	
-	public static final String PFK_HOME_ENABLED = "/sys/class/misc/phantom_kp_filter/home_enabled";
-	public static final String PFK_HOME_ALLOWED_IRQ = "/sys/class/misc/phantom_kp_filter/home_allowed_irqs";
-	public static final String PFK_HOME_REPORT_WAIT = "/sys/class/misc/phantom_kp_filter/home_report_wait";
-	public static final String PFK_HOME_IGNORED_KP = "/sys/class/misc/phantom_kp_filter/home_ignored_kp";
-	public static final String PFK_MENUBACK_ENABLED = "/sys/class/misc/phantom_kp_filter/menuback_enabled";
-	public static final String PFK_MENUBACK_INTERRUPT_CHECKS = "/sys/class/misc/phantom_kp_filter/menuback_interrupt_checks";
-	public static final String PFK_MENUBACK_FIRST_ERR_WAIT = "/sys/class/misc/phantom_kp_filter/menuback_first_err_wait";
-	public static final String PFK_MENUBACK_LAST_ERR_WAIT = "/sys/class/misc/phantom_kp_filter/menuback_last_err_wait";
-	public static final String PFK_MENUBACK_IGNORED_KP = "/sys/class/misc/phantom_kp_filter/menuback_ignored_kp";
+    public static final String PFK_HOME_ON = "pfk_home_on";
+    public static final String PREF_HOME_ALLOWED_IRQ= "pref_home_allowed_irq";
+    public static final String PREF_HOME_REPORT_WAIT = "pref_home_report_wait";
+    public static final String PFK_MENUBACK_ON = "pfk_menuback_on";
+    public static final String PREF_MENUBACK_INTERRUPT_CHECKS = "pref_menuback_interrupt_checks";
+    public static final String PREF_MENUBACK_FIRST_ERR_WAIT = "pref_menuback_first_err_wait";
+    public static final String PREF_MENUBACK_LAST_ERR_WAIT = "pref_menuback_last_err_wait";
+
+    public static final String PFK_HOME_ENABLED = "/sys/class/misc/phantom_kp_filter/home_enabled";
+    public static final String PFK_HOME_ALLOWED_IRQ = "/sys/class/misc/phantom_kp_filter/home_allowed_irqs";
+    public static final String PFK_HOME_REPORT_WAIT = "/sys/class/misc/phantom_kp_filter/home_report_wait";
+    public static final String PFK_HOME_IGNORED_KP = "/sys/class/misc/phantom_kp_filter/home_ignored_kp";
+    public static final String PFK_MENUBACK_ENABLED = "/sys/class/misc/phantom_kp_filter/menuback_enabled";
+    public static final String PFK_MENUBACK_INTERRUPT_CHECKS = "/sys/class/misc/phantom_kp_filter/menuback_interrupt_checks";
+    public static final String PFK_MENUBACK_FIRST_ERR_WAIT = "/sys/class/misc/phantom_kp_filter/menuback_first_err_wait";
+    public static final String PFK_MENUBACK_LAST_ERR_WAIT = "/sys/class/misc/phantom_kp_filter/menuback_last_err_wait";
+    public static final String PFK_MENUBACK_IGNORED_KP = "/sys/class/misc/phantom_kp_filter/menuback_ignored_kp";
     public static final String PFK_SOB = "pfk_sob";    
 
     // VM settings
