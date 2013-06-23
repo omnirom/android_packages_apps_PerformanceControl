@@ -57,6 +57,8 @@ public class Advanced extends PreferenceFragment implements
 	private Preference mSwappiness;
 //--------
 	private Preference mBlx;
+	
+	private CheckBoxPreference mDsync;
 //--------
 	private CheckBoxPreference mHomeOn;
 	private CheckBoxPreference mMenuBackOn;
@@ -115,6 +117,9 @@ public class Advanced extends PreferenceFragment implements
 	mBlx=(Preference) findPreference(PREF_BLX);
 	mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
 	//----------
+	mDsync=(CheckBoxPreference) findPreference(PREF_DSYNC);
+	mDsync.setChecked(Helpers.readOneLine(DSYNC_PATH).equals("1")?true:false);
+	//----------
 	mHomeOn=(CheckBoxPreference) findPreference(PFK_HOME_ON);
 	mHomeOn.setChecked(Helpers.readOneLine(PFK_HOME_ENABLED).equals("1")?true:false);
 	mHomeOn.setSummary(getString(R.string.ps_home_enabled,Helpers.readOneLine(PFK_HOME_IGNORED_KP)));
@@ -167,7 +172,10 @@ public class Advanced extends PreferenceFragment implements
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("blx");
             getPreferenceScreen().removePreference(hideCat);
         }
-		
+        if (!new File(DSYNC_PATH).exists()) {
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("dsync");
+            getPreferenceScreen().removePreference(hideCat);
+        }		
         if (!new File(PFK_HOME_ENABLED).exists() || !new File(PFK_MENUBACK_ENABLED).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("pfk");
             getPreferenceScreen().removePreference(hideCat);
@@ -327,6 +335,14 @@ public class Advanced extends PreferenceFragment implements
 	else if (key.equals(PREF_BLX)) {
 		mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
 	}
+	else if (key.equals(PREF_DSYNC)) {
+		if (mPreferences.getBoolean(key, false)){
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + DSYNC_PATH);
+		}
+		else{
+		new CMDProcessor().su.runWaitFor("busybox echo 0 > " + DSYNC_PATH);
+		}
+	}	
 	else if (key.equals(PREF_HOME_REPORT_WAIT)){
 		mHomeReportWait.setSummary(Helpers.readOneLine(PFK_HOME_REPORT_WAIT) +"ms");
 	}
