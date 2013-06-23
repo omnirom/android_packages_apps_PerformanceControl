@@ -166,7 +166,14 @@ public class BootService extends Service implements Constants {
 			+ " > " + BLX_PATH + " \n");
 		}
 	}
-
+	if (new File(DSYNC_PATH).exists()) {
+		if (preferences.getBoolean(PREF_DSYNC, false)) {
+			sb.append("busybox echo 1 > " + DSYNC_PATH + " \n");
+		}
+		else{
+			sb.append("busybox echo 0 > " + DSYNC_PATH + " \n");
+		}
+	}
 	if (preferences.getBoolean(PREF_MINFREE_BOOT, false)) {
 		final String values = preferences.getString(PREF_MINFREE, null);
 		if (!values.equals(null)) {
