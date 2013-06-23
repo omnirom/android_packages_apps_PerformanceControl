@@ -199,7 +199,33 @@ public class BootService extends Service implements Constants {
 		sb.append("busybox echo " + preferences.getInt(PREF_VFS, Integer.parseInt(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH)))
 			+ " > " + VFS_CACHE_PRESSURE_PATH + " \n");
 	}
-	
+	if (preferences.getBoolean(PFK_SOB, false)) {
+		
+		if (new File(PFK_HOME_ENABLED).exists() && new File(PFK_MENUBACK_ENABLED).exists()) {
+			sb.append("busybox echo " + preferences.getInt(PREF_HOME_ALLOWED_IRQ,Integer.parseInt(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ)))
+			+ " > " + PFK_HOME_ALLOWED_IRQ + " \n");
+			sb.append("busybox echo " + preferences.getInt(PREF_HOME_REPORT_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_HOME_REPORT_WAIT)))
+			+ " > " + PFK_HOME_REPORT_WAIT + " \n");
+			sb.append("busybox echo " + preferences.getInt(PREF_MENUBACK_INTERRUPT_CHECKS,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS)))
+			+ " > " + PFK_MENUBACK_INTERRUPT_CHECKS + " \n");
+			sb.append("busybox echo " + preferences.getInt(PREF_MENUBACK_FIRST_ERR_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)))
+			+ " > " + PFK_MENUBACK_FIRST_ERR_WAIT + " \n");
+			sb.append("busybox echo " + preferences.getInt(PREF_MENUBACK_LAST_ERR_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)))
+			+ " > " + PFK_MENUBACK_LAST_ERR_WAIT + " \n");
+			if (preferences.getBoolean(PFK_HOME_ON, false)) {
+				sb.append("busybox echo 1 > " + PFK_HOME_ENABLED + " \n");
+			}
+			else{
+				sb.append("busybox echo 0 > " + PFK_HOME_ENABLED + " \n");
+			}
+			if (preferences.getBoolean(PFK_MENUBACK_ON, false)) {
+				sb.append("busybox echo 1 > " + PFK_MENUBACK_ENABLED + " \n");
+			}
+			else{
+				sb.append("busybox echo 0 > " + PFK_MENUBACK_ENABLED + " \n");
+			}
+		}
+	}
 	Helpers.shExec(sb);
 	
 	return null;
