@@ -84,7 +84,46 @@ Copyright (C) 2012  James Roberts
                 android:defaultValue="false"
                 android:key="blx_sob"
                 android:summary="@string/ps_blx_boot"
-                android:title="@string/pt_blx_boot"/>
+                android:title="@string/sob"/>
+    </PreferenceCategory>
+<!-- -->
+<!-- PFK -->
+    <PreferenceCategory
+            android:key="pfk"
+            android:title="@string/prefcat_pfk">
+
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="pfk_home_on"
+                android:summary="@string/ps_home_enabled"
+                android:title="@string/pt_home_enabled"/>
+
+        <Preference
+                android:key="pref_home_allowed_irq"
+                android:title="@string/home_allowed_irq_title"/>
+        <Preference
+                android:key="pref_home_report_wait"
+                android:title="@string/home_report_wait_title"/>    
+	
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="pfk_menuback_on"
+                android:summary="@string/ps_menuback_enabled"
+                android:title="@string/pt_menuback_enabled"/>
+        <Preference
+                android:key="pref_menuback_interrupt_checks"
+                android:title="@string/menuback_interrupt_checks_title"/>
+        <Preference
+                android:key="pref_menuback_first_err_wait"
+                android:title="@string/menuback_first_err_wait_title"/>
+        <Preference
+                android:key="pref_menuback_last_err_wait"
+                android:title="@string/menuback_last_err_wait_title"/>	
+	 <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="pfk_sob"
+                android:summary="@string/ps_pfk_set_on_boot"
+                android:title="@string/sob"/>	
     </PreferenceCategory>
 <!-- -->
     <PreferenceCategory
