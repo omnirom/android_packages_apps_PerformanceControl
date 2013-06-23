@@ -80,6 +80,10 @@ Copyright (C) 2012  James Roberts
 	<string name="pt_blx_boot">Set on boot</string>
 	<string name="ps_blx_boot">Apply the amount above at boot</string>
 	<string name="blx_title">Charge limit</string>
+<!-- dsync -->
+    <string name="prefcat_dsync">DYNAMIC FSYNC</string>
+	<string name="ps_dsync">Setting will be restored on reboot</string>
+	<string name="pt_dsync">Dynamic Fsync</string>	
 <!-- pfk -->
     <string name="prefcat_pfk">PHANTOM KEY PRESSES FILTER</string>
 	<string name="pt_home_enabled">Home key filter</string>
