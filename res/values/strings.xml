@@ -85,7 +85,7 @@ Copyright (C) 2012  James Roberts
 	<string name="ps_dsync">Setting will be restored on reboot</string>
 	<string name="pt_dsync">Dynamic Fsync</string>	
 <!-- pfk -->
-    <string name="prefcat_pfk">PHANTOM KEY PRESSES FILTER</string>
+    <string name="prefcat_pfk">PHANTOM KEY PRESSED FILTER</string>
 	<string name="pt_home_enabled">Home key filter</string>
 	<string name="ps_home_enabled">Ignored key pressed: %s</string>
 	<string name="home_allowed_irq_title">Max allowed interrupts</string>
