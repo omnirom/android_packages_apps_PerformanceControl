@@ -67,6 +67,12 @@ public interface Constants {
     //-------DFsync---------
     public static final String DSYNC_PATH = "/sys/kernel/dyn_fsync/Dyn_fsync_active";
     public static final String PREF_DSYNC= "pref_dsync";
+    //-------BL----
+    public static final String PREF_BLTIMEOUT= "pref_bltimeout";
+	public static final String BLTIMEOUT_SOB= "bltimeout_sob";
+	public static final String PREF_BLTOUCH= "pref_bltouch";
+    public static final String BL_TIMEOUT_PATH="/sys/class/misc/notification/bl_timeout";
+    public static final String BL_TOUCH_ON_PATH="/sys/class/misc/notification/touchlight_enabled";
     //-------PFK---------
     public static final String PFK_HOME_ON = "pfk_home_on";
     public static final String PREF_HOME_ALLOWED_IRQ= "pref_home_allowed_irq";
