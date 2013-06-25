@@ -188,14 +188,14 @@ public class Advanced extends PreferenceFragment implements
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("pfk");
             getPreferenceScreen().removePreference(hideCat);
         }
-        //if (!new File(BL_TIMEOUT_PATH).exists()) {
+        if (!new File(BL_TIMEOUT_PATH).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("bltimeout");
             getPreferenceScreen().removePreference(hideCat);
-        //}
-        //if (!new File(BL_TOUCH_ON_PATH).exists()) {
+        }
+        if (!new File(BL_TOUCH_ON_PATH).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("bltouch");
             getPreferenceScreen().removePreference(hideCat);
-        //}        
+        }        
         setHasOptionsMenu(true);
     }
 
