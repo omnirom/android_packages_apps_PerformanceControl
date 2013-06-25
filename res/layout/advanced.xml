@@ -96,6 +96,29 @@ Copyright (C) 2012  James Roberts
                 android:summary="@string/ps_dsync"
                 android:title="@string/pt_dsync"/>
     </PreferenceCategory>
+<!-- BL timeout -->
+    <PreferenceCategory
+            android:key="bltimeout"
+            android:title="@string/prefcat_bltimeout">
+        <Preference
+                android:key="pref_bltimeout"
+                android:title="@string/bltimeout_title"/>
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="bltimeout_sob"
+                android:summary="@string/ps_blx_boot"
+                android:title="@string/sob"/>
+    </PreferenceCategory>
+<!-- BL touch -->
+    <PreferenceCategory
+            android:key="bltouch"
+            android:title="@string/prefcat_bltouch">
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="pref_bltouch"
+                android:summary="@string/ps_dsync"
+                android:title="@string/pt_bltouch"/>
+  </PreferenceCategory>    
 <!-- PFK -->
     <PreferenceCategory
             android:key="pfk"
