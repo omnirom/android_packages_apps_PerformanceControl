@@ -225,8 +225,8 @@ public class Advanced extends PreferenceFragment implements
             if (mPreferences.getBoolean(PREF_FASTCHARGE, false)) {
                 String warningMessage = getString(R.string.fast_charge_warning);
                 //----------------
-        	String cancel = res.getString(R.string.cancel);
-        	String ok = res.getString(R.string.ok);
+        	String cancel = getString(R.string.cancel);
+        	String ok = getString(R.string.ok);
         	//-----------------
                 new AlertDialog.Builder(getActivity())
 				.setMessage(warningMessage)
