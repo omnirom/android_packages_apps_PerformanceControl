@@ -83,7 +83,14 @@ Copyright (C) 2012  James Roberts
 <!-- dsync -->
     <string name="prefcat_dsync">DYNAMIC FSYNC</string>
 	<string name="ps_dsync">Setting will be restored on reboot</string>
-	<string name="pt_dsync">Dynamic Fsync</string>	
+	<string name="pt_dsync">Dynamic Fsync</string>
+<!-- bl_timeout -->
+    <string name="prefcat_bltimeout">BACKLIGHT TIMEOUT</string>
+	<string name="ps_bltimeout">%s ms</string>
+	<string name="bltimeout_title">Backlight timeout</string>
+<!-- bl_touch -->
+    <string name="prefcat_bltouch">BACKLIGHT ON TOUCHSCREEN</string>
+	<string name="pt_bltouch">Backlight on touchscreen</string>	
 <!-- pfk -->
     <string name="prefcat_pfk">PHANTOM KEY PRESSES FILTER</string>
 	<string name="pt_home_enabled">Home key filter</string>
