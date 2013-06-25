@@ -174,6 +174,20 @@ public class BootService extends Service implements Constants {
 			sb.append("busybox echo 0 > " + DSYNC_PATH + " \n");
 		}
 	}
+	if (preferences.getBoolean(BLTIMEOUT_SOB, false)) {
+		if (new File(BL_TOUCH_ON_PATH).exists()) {
+			sb.append("busybox echo " + preferences.getInt(PREF_BLTIMEOUT, Integer.parseInt(Helpers.readOneLine(BL_TOUCH_ON_PATH)))
+			+ " > " + PREF_BLTIMEOUT + " \n");
+		}
+	}
+	if (new File(BL_TOUCH_ON_PATH).exists()) {
+		if (preferences.getBoolean(PREF_BLTOUCH, false)) {
+			sb.append("busybox echo 1 > " + BL_TOUCH_ON_PATH + " \n");
+		}
+		else{
+			sb.append("busybox echo 0 > " + BL_TOUCH_ON_PATH + " \n");
+		}
+	}	
 	if (preferences.getBoolean(PREF_MINFREE_BOOT, false)) {
 		final String values = preferences.getString(PREF_MINFREE, null);
 		if (!values.equals(null)) {
