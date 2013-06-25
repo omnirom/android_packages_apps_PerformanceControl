@@ -82,6 +82,8 @@ public class Advanced extends PreferenceFragment implements
 	
 	private int mSeekbarProgress;
 	private EditText settingText;
+	private String sminfree;
+	private String sreadahead;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,9 @@ public class Advanced extends PreferenceFragment implements
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.advanced);
+        
+        sminfree=getResources().getString(R.string.ps_free_memory,"");
+        sreadahead=getResources().getString(R.string.ps_read_ahead,"");
 
         final int minFree = getMinFreeValue();
         final String values[] = getResources().getStringArray(R.array.minfree_values);
@@ -349,13 +354,13 @@ public class Advanced extends PreferenceFragment implements
             String values = mPreferences.getString(key, null);
             if (!values.equals(null))
                 new CMDProcessor().su.runWaitFor("busybox echo " + values + " > " + MINFREE_PATH);
-            mFreeMem.setSummary(getString(R.string.ps_free_memory,getMinFreeValue() + "mb"));
+            mFreeMem.setSummary(sminfree+getMinFreeValue() + "mb");
         }
 	else if (key.equals(PREF_READ_AHEAD)) {
             String values = mPreferences.getString(key, null);
             if (!values.equals(null))
                 new CMDProcessor().su.runWaitFor("busybox echo " + values + " > " + READ_AHEAD_PATH);
-            mReadAhead.setSummary(getString(R.string.ps_read_ahead, Helpers.readOneLine(READ_AHEAD_PATH) + " kb"));
+            mReadAhead.setSummary(sreadahead+Helpers.readOneLine(READ_AHEAD_PATH) + " kb");
         }
 	else if (key.equals(PREF_BLX)) {
 		mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
