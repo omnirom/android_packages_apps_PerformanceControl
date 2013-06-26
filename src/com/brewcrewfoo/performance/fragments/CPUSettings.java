@@ -70,8 +70,7 @@ public class CPUSettings extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getActivity());
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         mIsTegra3 = new File(TEGRA_MAX_FREQ_PATH).exists();
         mAvailableFrequencies = new String[0];
@@ -89,8 +88,7 @@ public class CPUSettings extends Fragment implements
         }
 
         mFrequenciesNum = mAvailableFrequencies.length - 1;
-        mAvailableGovernors = Helpers.readOneLine(GOVERNORS_LIST_PATH).split(
-                " ");
+        mAvailableGovernors = Helpers.readOneLine(GOVERNORS_LIST_PATH).split(" ");
         mAvailableIo = Helpers.getAvailableIOSchedulers();
 
         mCurrentGovernor = Helpers.readOneLine(GOVERNOR_PATH);
@@ -125,16 +123,14 @@ public class CPUSettings extends Fragment implements
         mMaxSlider.setMax(mFrequenciesNum);
         mMaxSpeedText = (TextView) view.findViewById(R.id.max_speed_text);
         mMaxSpeedText.setText(Helpers.toMHz(mCurMaxSpeed));
-        mMaxSlider.setProgress(Arrays.asList(mAvailableFrequencies).indexOf(
-                mCurMaxSpeed));
+        mMaxSlider.setProgress(Arrays.asList(mAvailableFrequencies).indexOf(mCurMaxSpeed));
         mMaxSlider.setOnSeekBarChangeListener(this);
 
         mMinSlider = (SeekBar) view.findViewById(R.id.min_slider);
         mMinSlider.setMax(mFrequenciesNum);
         mMinSpeedText = (TextView) view.findViewById(R.id.min_speed_text);
         mMinSpeedText.setText(Helpers.toMHz(mCurMinSpeed));
-        mMinSlider.setProgress(Arrays.asList(mAvailableFrequencies).indexOf(
-                mCurMinSpeed));
+        mMinSlider.setProgress(Arrays.asList(mAvailableFrequencies).indexOf(mCurMinSpeed));
         mMinSlider.setOnSeekBarChangeListener(this);
 
         mGovernor = (Spinner) view.findViewById(R.id.pref_governor);
@@ -233,10 +229,8 @@ public class CPUSettings extends Fragment implements
     }
 
     public class GovListener implements OnItemSelectedListener {
-        public void onItemSelected(AdapterView<?> parent, View view, int pos,
-                                   long id) {
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-
             // do this on all cpu's since MSM can have different governors on
             // each cpu
             // and it doesn't hurt other devices to do it
@@ -255,11 +249,11 @@ public class CPUSettings extends Fragment implements
     public class IOListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-            String f=IO_SCHEDULER_PATH;
-                for (int i = 0; i < Helpers.getNmmcblk(); i++) {
-        		new CMDProcessor().su.runWaitFor("busybox echo " + selected + " > " + f.replace("mmcblk0","mmcblk"+i));
-		}            
-            //new CMDProcessor().su.runWaitFor("busybox echo " + selected + " > " + IO_SCHEDULER_PATH);
+			final StringBuilder sb=new StringBuilder();
+			for(int i=0;i<IO_SCHEDULER_PATH.length; i++){
+				sb.append(Helpers.shAdd(selected,IO_SCHEDULER_PATH[i]));
+			}
+			Helpers.shExec(sb);
             updateSharedPrefs(PREF_IO, selected);
         }
 
@@ -338,8 +332,7 @@ public class CPUSettings extends Fragment implements
                 while (!mInterrupt) {
                     sleep(500);
                     final String curFreq = Helpers.readOneLine(CUR_CPU_PATH);
-                    mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,
-                            curFreq));
+                    mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,curFreq));
                 }
             } catch (InterruptedException e) {
                 return;
@@ -351,8 +344,7 @@ public class CPUSettings extends Fragment implements
 
     protected Handler mCurCPUHandler = new Handler() {
         public void handleMessage(Message msg) {
-            mCurFreq.setText(Helpers
-                    .toMHz((String) msg.obj));
+            mCurFreq.setText(Helpers.toMHz((String) msg.obj));
         }
     };
 
