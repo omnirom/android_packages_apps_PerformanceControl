@@ -359,9 +359,9 @@ public class Advanced extends PreferenceFragment implements
 		else if (key.equals(PREF_READ_AHEAD)) {
             String values = mPreferences.getString(key, null);
             if (!values.equals(null)){
-				final StringBuilder sb=new StringBuilder();
-				for(int i=0;i<READ_AHEAD_PATH.length; i++){
-					sb.append(Helpers.shAdd(values,READ_AHEAD_PATH[i]));
+				StringBuilder sb = new StringBuilder();
+				for(int i=0; i<READ_AHEAD_PATH.length; i++){
+					sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
 				}
 				Helpers.shExec(sb);
 			}
