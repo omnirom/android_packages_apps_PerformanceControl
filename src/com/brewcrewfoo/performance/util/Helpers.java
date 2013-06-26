@@ -40,15 +40,13 @@ public class Helpers implements Constants {
      * @return If SU was granted or denied
      */
     public static boolean checkSu() {
-        if (!new File("/system/bin/su").exists()
-                && !new File("/system/xbin/su").exists()) {
+        if (!new File("/system/bin/su").exists() && !new File("/system/xbin/su").exists()) {
             Log.e(TAG, "su does not exist!!!");
             return false; // tell caller to bail...
         }
 
         try {
-            if ((new CMDProcessor().su.runWaitFor("ls /data/app-private"))
-                    .success()) {
+            if ((new CMDProcessor().su.runWaitFor("ls /data/app-private")).success()) {
                 Log.i(TAG, " SU exists and we have permission");
                 return true;
             } else {
@@ -67,8 +65,7 @@ public class Helpers implements Constants {
      * @return If busybox exists
      */
     public static boolean checkBusybox() {
-        if (!new File("/system/bin/busybox").exists()
-                && !new File("/system/xbin/busybox").exists()) {
+        if (!new File("/system/bin/busybox").exists() && !new File("/system/xbin/busybox").exists()) {
             Log.e(TAG, "Busybox not in xbin or bin!");
             return false;
         }
@@ -93,8 +90,7 @@ public class Helpers implements Constants {
      */
     public static String[] getMounts(final String path) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(
-                    "/proc/mounts"), 256);
+            BufferedReader br = new BufferedReader(new FileReader("/proc/mounts"), 256);
             String line = null;
             while ((line = br.readLine()) != null) {
                 if (line.contains(path)) {
@@ -129,8 +125,7 @@ public class Helpers implements Constants {
                 return true;
             }
         }
-        return (cmd.su.runWaitFor("busybox mount -o remount," + mount
-                + " /system").success());
+        return (cmd.su.runWaitFor("busybox mount -o remount," + mount + " /system").success());
     }
 
     /**
@@ -209,7 +204,7 @@ public class Helpers implements Constants {
      */
     public static String[] getAvailableIOSchedulers() {
         String[] schedulers = null;
-        String[] aux = readStringArray(IO_SCHEDULER_PATH);
+        String[] aux = readStringArray(IO_SCHEDULER_PATH[0]);
         if (aux != null) {
             schedulers = new String[aux.length];
             for (int i = 0; i < aux.length; i++) {
@@ -244,7 +239,7 @@ public class Helpers implements Constants {
      */
     public static String getIOScheduler() {
         String scheduler = null;
-        String[] schedulers = readStringArray(IO_SCHEDULER_PATH);
+        String[] schedulers = readStringArray(IO_SCHEDULER_PATH[0]);
         if (schedulers != null) {
             for (String s : schedulers) {
                 if (s.charAt(0) == '[') {
@@ -259,18 +254,16 @@ public class Helpers implements Constants {
      * @return available performance scheduler
      */
     public static Boolean GovernorExist(String gov) {
-
-if(Helpers.readOneLine(GOVERNORS_LIST_PATH).indexOf(gov)>-1){
-return true;
-}
-else{
-return false;
-}
+		if(Helpers.readOneLine(GOVERNORS_LIST_PATH).indexOf(gov)>-1){
+			return true;
+		}
+		else{
+			return false;
+		}
     }
 
     /**
      * Get total number of cpus
-     *
      * @return total number of cpus
      */
     public static int getNumOfCpus() {
@@ -320,7 +313,6 @@ return false;
 
     /**
      * Sets the voltage file to be used by the rest of the app elsewhere.
-     *
      * @param voltageFile
      */
     public static void setVoltagePath(String voltageFile) {
@@ -330,7 +322,6 @@ return false;
 
     /**
      * Gets the currently set voltage path
-     *
      * @return voltage path
      */
     public static String getVoltagePath() {
@@ -339,18 +330,15 @@ return false;
 
     /**
      * Convert to MHz and append a tag
-     *
      * @param mhzString
      * @return tagged and converted String
      */
     public static String toMHz(String mhzString) {
-        return new StringBuilder().append(Integer.valueOf(mhzString) / 1000)
-                .append(" MHz").toString();
+        return new StringBuilder().append(Integer.valueOf(mhzString) / 1000).append(" MHz").toString();
     }
 
     /**
      * Restart the activity smoothly
-     *
      * @param activity
      */
     public static void restartPC(final Activity activity) {
@@ -366,7 +354,6 @@ return false;
 
     /**
      * Helper to update the app widget
-     *
      * @param context
      */
     public static void updateAppWidget(Context context) {
@@ -381,7 +368,6 @@ return false;
 
     /**
      * Helper to create a bitmap to set as imageview or bg
-     *
      * @param bgcolor
      * @return bitmap
      */
@@ -389,44 +375,32 @@ return false;
         try {
             Bitmap.Config config = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = Bitmap.createBitmap(2, 2, config);
-
             Canvas canvas = new Canvas(bitmap);
             canvas.drawColor(bgcolor);
-
             return bitmap;
         } catch (Exception e) {
             return null;
         }
     }
-    /*
-     * Get total number of mmcblk*
-     * @return total number of blocks
-     */
-    public static int getNmmcblk() {
-    	int i = 0;
-		String f = IO_SCHEDULER_PATH;
-		boolean flag=true;
-		do{
-			if (new File(f.replace("mmcblk0","mmcblk"+i)).exists()) {
-				i++;
-			}
-			else{
-				flag=false;
-			}
-		}while(flag);
-        return i;
-    }
+	public static String shAdd(String v, String f){
+		if ( new File(f).exists()) {
+			return "busybox echo \""+v+"\" > " + f + "\n";
+		}
+		else return "";
+	}
 	public static void shCreate(){
-	//create shell script file
 		if (! new File(SH_PATH).exists()) {
 			new CMDProcessor().su.runWaitFor("busybox touch "+SH_PATH );	
 			new CMDProcessor().su.runWaitFor("busybox chmod 755 "+SH_PATH );
+			Log.d(TAG, "PerformanceControl sh file created in /data/");
 		}
 	}
 	public static void shExec(StringBuilder s){
-	//exec shell script file
 		if (new File(SH_PATH).exists()) {
-			s.insert(0,"#!/system/bin/sh\n");
+			CMDProcessor.CommandResult cr = null;
+            cr = new CMDProcessor().su.runWaitFor("busybox which sh");
+			s.insert(0,"#!"+cr.stdout+"\n\n");
+			Log.d(TAG, "sh location "+ cr.stdout);
 			new CMDProcessor().su.runWaitFor("busybox echo \""+s.toString()+"\" > " + SH_PATH );
 			new CMDProcessor().su.runWaitFor(SH_PATH);
 		}
