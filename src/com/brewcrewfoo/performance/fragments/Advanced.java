@@ -260,10 +260,46 @@ public class Advanced extends PreferenceFragment implements
             openDialog(currentProgress, title, 50,100, mBlx,BLX_PATH, PREF_BLX);
             return true;
 	}
+	else if (preference == mDsync){
+			if (Integer.parseInt(Helpers.readOneLine(DSYNC_PATH))==0){
+				new CMDProcessor().su.runWaitFor("busybox echo 1 > " + DSYNC_PATH);
+			}
+			else{
+				new CMDProcessor().su.runWaitFor("busybox echo 0 > " + DSYNC_PATH);
+			}
+            return true;
+	}
 	else if (preference == mBltimeout){
             String title = getString(R.string.bltimeout_title)+" (ms)";
             int currentProgress = Integer.parseInt(Helpers.readOneLine(BL_TIMEOUT_PATH));
             openDialog(currentProgress, title, 0,5000, mBltimeout,BL_TIMEOUT_PATH, PREF_BLTIMEOUT);
+            return true;
+	}
+	else if (preference == mBltouch){
+			if (Integer.parseInt(Helpers.readOneLine(BL_TOUCH_ON_PATH))==0){
+				new CMDProcessor().su.runWaitFor("busybox echo 1 > " + BL_TOUCH_ON_PATH);
+			}
+			else{
+				new CMDProcessor().su.runWaitFor("busybox echo 0 > " + BL_TOUCH_ON_PATH);
+			}
+            return true;
+	}	
+	else if (preference == mHomeOn){
+			if (Integer.parseInt(Helpers.readOneLine(PFK_HOME_ENABLED))==0){
+				new CMDProcessor().su.runWaitFor("busybox echo 1 > " + PFK_HOME_ENABLED);
+			}
+			else{
+				new CMDProcessor().su.runWaitFor("busybox echo 0 > " + PFK_HOME_ENABLED);
+			}
+            return true;
+	}
+	else if (preference == mMenuBackOn){
+			if (Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_ENABLED))==0){
+				new CMDProcessor().su.runWaitFor("busybox echo 1 > " + PFK_MENUBACK_ENABLED);
+			}
+			else{
+				new CMDProcessor().su.runWaitFor("busybox echo 0 > " + PFK_MENUBACK_ENABLED);
+			}
             return true;
 	}
 	else if (preference == mHomeAllowedIrqs) {
@@ -370,25 +406,9 @@ public class Advanced extends PreferenceFragment implements
 		else if (key.equals(PREF_BLX)) {
 			mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
 		}
-		else if (key.equals(PREF_DSYNC)) {
-			if (mPreferences.getBoolean(key, false)){
-				new CMDProcessor().su.runWaitFor("busybox echo 1 > " + DSYNC_PATH);
-			}
-			else{
-				new CMDProcessor().su.runWaitFor("busybox echo 0 > " + DSYNC_PATH);
-			}
-		}
 		else if (key.equals(PREF_BLTIMEOUT)) {
 			mBltimeout.setSummary(Helpers.readOneLine(BL_TIMEOUT_PATH)+"ms");
 		}
-		else if (key.equals(PREF_BLTOUCH)) {
-			if (mPreferences.getBoolean(key, false)){
-				new CMDProcessor().su.runWaitFor("busybox echo 1 > " + BL_TOUCH_ON_PATH);
-			}
-			else{
-				new CMDProcessor().su.runWaitFor("busybox echo 0 > " + BL_TOUCH_ON_PATH);
-			}
-		}	
 		else if (key.equals(PREF_HOME_REPORT_WAIT)){
 			mHomeReportWait.setSummary(Helpers.readOneLine(PFK_HOME_REPORT_WAIT) +"ms");
 		}
@@ -397,22 +417,6 @@ public class Advanced extends PreferenceFragment implements
 		}
 		else if (key.equals(PREF_MENUBACK_LAST_ERR_WAIT)){
 			mMenuBackLastErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)+"ms");
-		}		
-		else if (key.equals(PFK_HOME_ON)) {
-			if (mPreferences.getBoolean(key, false)){
-				new CMDProcessor().su.runWaitFor("busybox echo 1 > " + PFK_HOME_ENABLED);
-			}
-			else{
-				new CMDProcessor().su.runWaitFor("busybox echo 0 > " + PFK_HOME_ENABLED);
-			}
-		}
-		else if (key.equals(PFK_MENUBACK_ON)) {
-			if (mPreferences.getBoolean(key, false)){
-				new CMDProcessor().su.runWaitFor("busybox echo 1 > " + PFK_MENUBACK_ENABLED);
-			}
-			else{
-				new CMDProcessor().su.runWaitFor("busybox echo 0 > " + PFK_MENUBACK_ENABLED);
-			}
 		}
 	}
     private int getMinFreeValue() {
