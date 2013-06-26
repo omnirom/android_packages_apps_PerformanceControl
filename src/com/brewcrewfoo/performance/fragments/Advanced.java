@@ -396,30 +396,30 @@ public class Advanced extends PreferenceFragment implements
 	else if (key.equals(PREF_READ_AHEAD)) {
             String values = mPreferences.getString(key, null);
             if (!values.equals(null)){
-				StringBuilder sb = new StringBuilder();
-				for(int i=0; i<READ_AHEAD_PATH.length; i++){
-					sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
-				}
-				Helpers.shExec(sb);
-            mReadAhead.setSummary(sreadahead+Helpers.readOneLine(READ_AHEAD_PATH[0]) + " kb");
-	}
+		StringBuilder sb = new StringBuilder();
+		for(int i=0; i<READ_AHEAD_PATH.length; i++){
+			sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
 		}
-		else if (key.equals(PREF_BLX)) {
-			mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
-		}
-		else if (key.equals(PREF_BLTIMEOUT)) {
-			mBltimeout.setSummary(Helpers.readOneLine(BL_TIMEOUT_PATH)+"ms");
-		}
-		else if (key.equals(PREF_HOME_REPORT_WAIT)){
-			mHomeReportWait.setSummary(Helpers.readOneLine(PFK_HOME_REPORT_WAIT) +"ms");
-		}
-		else if (key.equals(PREF_MENUBACK_FIRST_ERR_WAIT)){
-			mMenuBackFirstErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)+"ms");
-		}
-		else if (key.equals(PREF_MENUBACK_LAST_ERR_WAIT)){
-			mMenuBackLastErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)+"ms");
+		Helpers.shExec(sb);
+            	mReadAhead.setSummary(sreadahead+Helpers.readOneLine(READ_AHEAD_PATH[0]) + " kb");
 		}
 	}
+	else if (key.equals(PREF_BLX)) {
+		mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
+	}
+	else if (key.equals(PREF_BLTIMEOUT)) {
+		mBltimeout.setSummary(Helpers.readOneLine(BL_TIMEOUT_PATH)+"ms");
+	}
+	else if (key.equals(PREF_HOME_REPORT_WAIT)){
+		mHomeReportWait.setSummary(Helpers.readOneLine(PFK_HOME_REPORT_WAIT) +"ms");
+	}
+	else if (key.equals(PREF_MENUBACK_FIRST_ERR_WAIT)){
+		mMenuBackFirstErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)+"ms");
+	}
+	else if (key.equals(PREF_MENUBACK_LAST_ERR_WAIT)){
+		mMenuBackLastErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)+"ms");
+	}
+    }
     private int getMinFreeValue() {
         int emptyApp = 0;
         String MINFREE_LINE = Helpers.readOneLine(MINFREE_PATH);
