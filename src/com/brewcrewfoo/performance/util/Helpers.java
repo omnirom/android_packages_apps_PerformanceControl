@@ -382,12 +382,7 @@ public class Helpers implements Constants {
             return null;
         }
     }
-	public static String shAdd(String v, String f){
-		if ( new File(f).exists()) {
-			return "busybox echo \""+v+"\" > " + f + "\n";
-		}
-		else return "";
-	}
+
 	public static void shCreate(){
 		if (! new File(SH_PATH).exists()) {
 			new CMDProcessor().su.runWaitFor("busybox touch "+SH_PATH );	
@@ -398,11 +393,11 @@ public class Helpers implements Constants {
 	public static void shExec(StringBuilder s){
 		if (new File(SH_PATH).exists()) {
 			CMDProcessor.CommandResult cr = null;
-            cr = new CMDProcessor().su.runWaitFor("busybox which sh");
+            		cr = new CMDProcessor().su.runWaitFor("busybox which sh");
 			s.insert(0,"#!"+cr.stdout+"\n\n");
-			Log.d(TAG, "sh location "+ cr.stdout);
 			new CMDProcessor().su.runWaitFor("busybox echo \""+s.toString()+"\" > " + SH_PATH );
 			new CMDProcessor().su.runWaitFor(SH_PATH);
+			Log.d(TAG, "sh location "+ cr.stdout);
 		}
 	}
 
