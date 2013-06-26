@@ -249,9 +249,9 @@ public class CPUSettings extends Fragment implements
     public class IOListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-			final StringBuilder sb=new StringBuilder();
-			for(int i=0;i<IO_SCHEDULER_PATH.length; i++){
-				sb.append(Helpers.shAdd(selected,IO_SCHEDULER_PATH[i]));
+			StringBuilder sb = new StringBuilder();
+			for(int i=0; i<IO_SCHEDULER_PATH.length; i++){
+				sb.append("busybox echo "+selected+" > " + IO_SCHEDULER_PATH[i] + "\n");
 			}
 			Helpers.shExec(sb);
             updateSharedPrefs(PREF_IO, selected);
@@ -354,3 +354,4 @@ public class CPUSettings extends Fragment implements
         editor.commit();
     }
 }
+
