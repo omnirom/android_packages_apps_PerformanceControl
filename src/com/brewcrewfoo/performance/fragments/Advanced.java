@@ -388,11 +388,12 @@ public class Advanced extends PreferenceFragment implements
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
         if (key.equals(PREF_MINFREE)) {
             String values = mPreferences.getString(key, null);
-            if (!values.equals(null))
+            if (!values.equals(null)){
                 new CMDProcessor().su.runWaitFor("busybox echo " + values + " > " + MINFREE_PATH);
-            mFreeMem.setSummary(sminfree+getMinFreeValue() + "mb");
+            	mFreeMem.setSummary(sminfree+getMinFreeValue() + "mb");
+            }
         }
-		else if (key.equals(PREF_READ_AHEAD)) {
+	else if (key.equals(PREF_READ_AHEAD)) {
             String values = mPreferences.getString(key, null);
             if (!values.equals(null)){
 				StringBuilder sb = new StringBuilder();
@@ -400,8 +401,8 @@ public class Advanced extends PreferenceFragment implements
 					sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
 				}
 				Helpers.shExec(sb);
-			}
             mReadAhead.setSummary(sreadahead+Helpers.readOneLine(READ_AHEAD_PATH[0]) + " kb");
+	}
 		}
 		else if (key.equals(PREF_BLX)) {
 			mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
