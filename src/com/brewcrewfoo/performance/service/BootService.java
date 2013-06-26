@@ -67,7 +67,7 @@ public class BootService extends Service implements Constants {
         protected Void doInBackground(Void... args) {
         	
 			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-			final StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
 			
 			if (preferences.getBoolean(CPU_SOB, false)) {
 				final String max = preferences.getString(PREF_MAX_CPU, null);
@@ -95,7 +95,7 @@ public class BootService extends Service implements Constants {
 
 				if (io != null) {
 					for(int i=0;i<IO_SCHEDULER_PATH.length; i++){
-						sb.append(Helpers.shAdd(io,IO_SCHEDULER_PATH[i]));
+						sb.append("busybox echo "+io+" > " + IO_SCHEDULER_PATH[i] + "\n");
 					}
 				}
 			}
@@ -190,7 +190,7 @@ public class BootService extends Service implements Constants {
 				final String values = preferences.getString(PREF_READ_AHEAD,null);
 				if (!values.equals(null)) {
 					for(int i=0; i<READ_AHEAD_PATH.length; i++){
-						sb.append(Helpers.shAdd(values,READ_AHEAD_PATH[i]));
+						sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
 					}
 				}
 			}
