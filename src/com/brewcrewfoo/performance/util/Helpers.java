@@ -397,7 +397,7 @@ public class Helpers implements Constants {
 			s.insert(0,"#!"+cr.stdout+"\n\n");
 			new CMDProcessor().su.runWaitFor("busybox echo \""+s.toString()+"\" > " + SH_PATH );
 			new CMDProcessor().su.runWaitFor(SH_PATH);
-			//Log.d(TAG, "execute: "+s.toString());
+			Log.d(TAG, "execute: "+s.toString());
 		}
 	}
 
