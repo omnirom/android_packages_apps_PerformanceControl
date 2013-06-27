@@ -387,22 +387,24 @@ public class Advanced extends PreferenceFragment implements
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
         if (key.equals(PREF_MINFREE)) {
-            String values = mPreferences.getString(key, null);
-            if (!values.equals(null)){
-                new CMDProcessor().su.runWaitFor("busybox echo " + values + " > " + MINFREE_PATH);
-            	mFreeMem.setSummary(sminfree+getMinFreeValue() + "mb");
-            }
+		String evalues = Helpers.readOneLine(MINFREE_PATH);
+		String values = mPreferences.getString(key, Helpers.readOneLine(MINFREE_PATH));
+		if (!values.equals(evalues)){
+			new CMDProcessor().su.runWaitFor("busybox echo " + values + " > " + MINFREE_PATH);
+		}
+		mFreeMem.setSummary(sminfree+getMinFreeValue() + "mb");
         }
 	else if (key.equals(PREF_READ_AHEAD)) {
-            String values = mPreferences.getString(key, null);
-            if (!values.equals(null)){
-		StringBuilder sb = new StringBuilder();
-		for(int i=0; i<READ_AHEAD_PATH.length; i++){
-			sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
+		String evalues = Helpers.readOneLine(READ_AHEAD_PATH[0]);
+		String values = mPreferences.getString(key,evalues);
+		if (!values.equals(evalues)){
+			final StringBuilder sb = new StringBuilder();
+			for(int i=0; i<READ_AHEAD_PATH.length; i++){
+				sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
+			}
+			Helpers.shExec(sb);
 		}
-		Helpers.shExec(sb);
-            	mReadAhead.setSummary(sreadahead+Helpers.readOneLine(READ_AHEAD_PATH[0]) + " kb");
-		}
+		mReadAhead.setSummary(sreadahead+values + " kb");
 	}
 	else if (key.equals(PREF_BLX)) {
 		mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
