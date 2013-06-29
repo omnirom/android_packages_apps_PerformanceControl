@@ -180,18 +180,14 @@ public class BootService extends Service implements Constants {
 				}
 			}	
 			if (preferences.getBoolean(PREF_MINFREE_BOOT, false)) {
-				final String values = preferences.getString(PREF_MINFREE, null);
-				if (!values.equals(null)) {
-					sb.append("busybox echo " + values + " > " + MINFREE_PATH + " \n");				
-				}
+				final String values = preferences.getString(PREF_MINFREE, Helpers.readOneLine(MINFREE_PATH));
+				sb.append("busybox echo " + values + " > " + MINFREE_PATH + " \n");
 			}
 
 			if (preferences.getBoolean(PREF_READ_AHEAD_BOOT, false)) {
-				final String values = preferences.getString(PREF_READ_AHEAD,null);
-				if (!values.equals(null)) {
-					for(int i=0; i<READ_AHEAD_PATH.length; i++){
-						sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
-					}
+				final String values = preferences.getString(PREF_READ_AHEAD,Helpers.readOneLine(READ_AHEAD_PATH[0]));
+				for(int i=0; i<READ_AHEAD_PATH.length; i++){
+					sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
 				}
 			}
 
