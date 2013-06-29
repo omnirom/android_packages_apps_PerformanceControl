@@ -23,11 +23,13 @@ Copyright (C) 2012  James Roberts
     <!-- Main tabs -->
     <string name="tab_cpu_settings">"CPU Settings"</string>
     <string name="tab_cpu_profiles">CPU Profiles</string>
+<string name="tab_oom_settings">"Memory Settings"</string>
     <string name="tab_time_in_state">"Time In State"</string>
     <string name="tab_voltage_settings">"Voltage Settings"</string>
     <string name="tab_cpu_info">CPU Info</string>
     <!-- Titles -->
     <string name="t_cpu_settings">"CPU SETTINGS"</string>
+<string name="t_oom_settings">"MINFREE TASKKILLER"</string>
     <string name="t_volt_settings">"VOLTAGE SETTINGS"</string>
     <string name="t_adv_settings">"ADVANCED SETTINGS"</string>
     <string name="t_time_in_state">"TIME IN STATE"</string>
@@ -75,6 +77,27 @@ Copyright (C) 2012  James Roberts
     <string name="fast_charge_notification_title">Fast Charge is ON!</string>
     <string name="fast_charge_notification_message">Phone is in charge-only mode!</string>
 
+<!-- minfree -->
+   <string name="prefcat_oom">MINFREE TASKKILLER SETTINGS</string>
+   <string name="title_foreground_app">Foreground Applications</string>
+   <string name="title_visible_app">Visible Applications</string>
+   <string name="title_secondary_server">Secondary Server</string>
+   <string name="title_hidden_app">Hidden Applications</string>
+   <string name="title_content_providers">Content Providers</string>
+   <string name="title_empty_app">Empty Applications</string>
+   <string name="prefcat_oom_predefines">PRESETS</string>
+   <string name="pt_oom">Minfree Taskkiller Presets</string>
+   
+   <string name="pt_verylight">Very Light</string>
+   <string name="pref_verylight">512,1024,1280,2048,3072,4096</string>
+   <string name="pt_light">Light</string>
+   <string name="pref_light">1024,2048,2560,4096,6144,8192</string>
+   <string name="pt_medium">Medium</string>
+   <string name="pref_medium">1024,2048,4096,8192,12288,16384</string>
+   <string name="pt_aggressive">Aggressive</string>
+   <string name="pref_aggressive">2048,4096,8192,16384,24576,32768</string>
+   <string name="pt_veryaggressive">Very Aggressive</string>
+   <string name="pref_veryaggressive">4096,8192,16384,32768,49152,65536</string>
 <!-- blx -->
     <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
 	<string name="pt_blx_boot">Set on boot</string>
