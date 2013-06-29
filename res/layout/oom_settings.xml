@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Performance Control - An Android CPU Control application
+Copyright (C) 2012  James Roberts
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+    <PreferenceCategory
+            android:key="oom"
+            android:title="@string/prefcat_oom">
+        <Preference
+                android:key="oom_foreground_app"
+                android:title="@string/title_foreground_app"/>
+        <Preference
+                android:key="oom_visible_app"
+                android:title="@string/title_visible_app"/>
+        <Preference
+                android:key="oom_secondary_server"
+                android:title="@string/title_secondary_server"/>
+        <Preference
+                android:key="oom_hidden_app"
+                android:title="@string/title_hidden_app"/>
+        <Preference
+                android:key="oom_content_providers"
+                android:title="@string/title_content_providers"/>
+        <Preference
+                android:key="oom_empty_app"
+                android:title="@string/title_empty_app"/>
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="pref_minfree_boot"
+                android:summary="@string/ps_blx_boot"
+                android:title="@string/sob"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:key="oom_predefines"
+            android:title="@string/prefcat_oom_predefines">
+  		<Preference
+                android:key="oom_verylight"
+                android:title="@string/pt_verylight"/>
+			<Preference
+                android:key="oom_light"
+                android:title="@string/pt_light"/>
+			<Preference
+                android:key="oom_medium"
+                android:title="@string/pt_medium"/>
+			<Preference
+                android:key="oom_aggressive"
+                android:title="@string/pt_aggressive"/>
+			<Preference
+                android:key="oom_veryaggressive"
+                android:title="@string/pt_veryaggressive"/>
+				
+    </PreferenceCategory>			
+</PreferenceScreen>
