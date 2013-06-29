@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements Constants,
         mPagerTabStrip.setDrawFullUnderline(true);
 
         checkForSu();
-        	Helpers.shCreate();
+                Helpers.shCreate();
     }
 
     class TitleAdapter extends FragmentPagerAdapter {
@@ -83,15 +83,17 @@ public class MainActivity extends Activity implements Constants,
             // if a table is found.
             if (mVoltageExists) {
                 frags[0] = new CPUSettings();
-                frags[1] = new VoltageControlSettings();
+		frags[1] = new OOMSettings();
+                frags[2] = new VoltageControlSettings();
+                frags[3] = new Advanced();
+                frags[4] = new TimeInState();
+                frags[5] = new CPUInfo();
+            } else {
+                frags[0] = new CPUSettings();
+		frags[1] = new OOMSettings();
                 frags[2] = new Advanced();
                 frags[3] = new TimeInState();
                 frags[4] = new CPUInfo();
-            } else {
-                frags[0] = new CPUSettings();
-                frags[1] = new Advanced();
-                frags[2] = new TimeInState();
-                frags[3] = new CPUInfo();
             }
         }
 
@@ -235,17 +237,19 @@ public class MainActivity extends Activity implements Constants,
         String titleString[];
         if (mVoltageExists) {
             titleString = new String[]{
-                    getString(R.string.t_cpu_settings),
-                    getString(R.string.t_volt_settings),
-                    getString(R.string.t_adv_settings),
-                    getString(R.string.t_time_in_state),
-                    getString(R.string.t_cpu_info)};
+                getString(R.string.t_cpu_settings),
+		getString(R.string.t_oom_settings),
+                getString(R.string.t_volt_settings),
+                getString(R.string.t_adv_settings),
+                getString(R.string.t_time_in_state),
+                getString(R.string.t_cpu_info)};
         } else {
             titleString = new String[]{
-                    getString(R.string.t_cpu_settings),
-                    getString(R.string.t_adv_settings),
-                    getString(R.string.t_time_in_state),
-                    getString(R.string.t_cpu_info)};
+                getString(R.string.t_cpu_settings),
+		getString(R.string.t_oom_settings),
+                getString(R.string.t_adv_settings),
+                getString(R.string.t_time_in_state),
+                getString(R.string.t_cpu_info)};
         }
         return titleString;
     }
@@ -265,3 +269,4 @@ public class MainActivity extends Activity implements Constants,
         setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 }
+
