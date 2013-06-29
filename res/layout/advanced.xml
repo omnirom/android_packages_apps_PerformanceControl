@@ -22,26 +22,6 @@ Copyright (C) 2012  James Roberts
                   android:layout_height="wrap_content">
 
     <PreferenceCategory
-            android:key="performance"
-            android:title="@string/prefcat_free_memory">
-
-        <ListPreference
-                android:dialogTitle="@string/dt_free_memory"
-                android:entries="@array/minfree"
-                android:entryValues="@array/minfree_values"
-                android:key="pref_minfree"
-                android:persistent="true"
-                android:summary="@string/ps_free_memory"
-                android:title="@string/pt_free_memory"/>
-
-        <CheckBoxPreference
-                android:defaultValue="false"
-                android:key="pref_minfree_boot"
-                android:summary="@string/ps_free_memory_boot"
-                android:title="@string/sob"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory
             android:key="category_read_ahead"
             android:title="@string/prefcat_read_ahead">
 
