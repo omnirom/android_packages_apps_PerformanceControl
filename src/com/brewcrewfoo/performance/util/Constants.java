@@ -60,7 +60,13 @@ public interface Constants {
     public static final String PREF_READ_AHEAD = "pref_read_ahead";
     public static final String PREF_READ_AHEAD_BOOT = "pref_read_ahead_boot";
     public static final String PREF_FASTCHARGE = "pref_fast_charge";
-
+   //------ MinFree ------
+    public static final String OOM_FOREGROUND_APP = "oom_foreground_app";
+    public static final String OOM_VISIBLE_APP = "oom_visible_app";
+    public static final String OOM_SECONDARY_SERVER = "oom_secondary_server";
+    public static final String OOM_HIDDEN_APP = "oom_hidden_app";
+    public static final String OOM_CONTENT_PROVIDERS = "oom_content_providers";
+    public static final String OOM_EMPTY_APP = "oom_empty_app";
     //-------BLX---------
     public static final String PREF_BLX = "pref_blx";
     public static final String BLX_PATH = "/sys/class/misc/batterylifeextender/charging_limit";
