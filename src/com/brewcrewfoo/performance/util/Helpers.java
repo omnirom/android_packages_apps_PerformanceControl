@@ -387,7 +387,7 @@ public class Helpers implements Constants {
 		if (! new File(SH_PATH).exists()) {
 			new CMDProcessor().su.runWaitFor("busybox touch "+SH_PATH );	
 			new CMDProcessor().su.runWaitFor("busybox chmod 755 "+SH_PATH );
-			Log.d(TAG, "PerformanceControl sh file created in /data/");
+			Log.d(TAG, "create: /data/PerformanceControl");
 		}
 	}
 	public static void shExec(StringBuilder s){
