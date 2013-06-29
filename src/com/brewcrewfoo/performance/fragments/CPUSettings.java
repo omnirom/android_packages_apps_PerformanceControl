@@ -249,7 +249,7 @@ public class CPUSettings extends Fragment implements
     public class IOListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-			StringBuilder sb = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 			for(int i=0; i<IO_SCHEDULER_PATH.length; i++){
 				sb.append("busybox echo "+selected+" > " + IO_SCHEDULER_PATH[i] + "\n");
 			}
