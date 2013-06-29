@@ -74,7 +74,7 @@ public class Advanced extends PreferenceFragment implements
 	private Preference mMenuBackLastErrWait;	
 //--------
 	private Preference mVfs;
-	private ListPreference mFreeMem;
+
 	private ListPreference mReadAhead;
 	private CheckBoxPreference mFastCharge;
 	private SharedPreferences mPreferences;
@@ -92,27 +92,7 @@ public class Advanced extends PreferenceFragment implements
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.advanced);
         
-        sminfree=getResources().getString(R.string.ps_free_memory,"");
         sreadahead=getResources().getString(R.string.ps_read_ahead,"");
-
-        final int minFree = getMinFreeValue();
-        final String values[] = getResources().getStringArray(R.array.minfree_values);
-        String closestValue = mPreferences.getString(PREF_MINFREE, values[0]);
-
-        if (minFree < 37)
-            closestValue = values[0];
-        else if (minFree < 62)
-            closestValue = values[1];
-        else if (minFree < 77)
-            closestValue = values[2];
-        else if (minFree < 90)
-            closestValue = values[3];
-        else
-            closestValue = values[4];
-
-        mFreeMem = (ListPreference) findPreference(PREF_MINFREE);
-        mFreeMem.setValue(closestValue);
-        mFreeMem.setSummary(getString(R.string.ps_free_memory, minFree + "mb"));
 
         mReadAhead = (ListPreference) findPreference(PREF_READ_AHEAD);
         mReadAhead.setValue(Helpers.readOneLine(READ_AHEAD_PATH[0]));
@@ -386,62 +366,38 @@ public class Advanced extends PreferenceFragment implements
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
-        if (key.equals(PREF_MINFREE)) {
-		String evalues = Helpers.readOneLine(MINFREE_PATH);
-		String values = mPreferences.getString(key, Helpers.readOneLine(MINFREE_PATH));
-		if (!values.equals(evalues)){
-			new CMDProcessor().su.runWaitFor("busybox echo " + values + " > " + MINFREE_PATH);
-		}
-		mFreeMem.setSummary(sminfree+getMinFreeValue() + "mb");
-        }
-	else if (key.equals(PREF_READ_AHEAD)) {
-		String evalues = Helpers.readOneLine(READ_AHEAD_PATH[0]);
-		String values = mPreferences.getString(key,evalues);
-		if (!values.equals(evalues)){
-			final StringBuilder sb = new StringBuilder();
-			for(int i=0; i<READ_AHEAD_PATH.length; i++){
-				sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
+		if (key.equals(PREF_READ_AHEAD)) {
+			String evalues = Helpers.readOneLine(READ_AHEAD_PATH[0]);
+			String values = mPreferences.getString(key,evalues);
+			if (!values.equals(evalues)){
+				final StringBuilder sb = new StringBuilder();
+				for(int i=0; i<READ_AHEAD_PATH.length; i++){
+					sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
+				}
+				Helpers.shExec(sb);
 			}
-			Helpers.shExec(sb);
+			mReadAhead.setSummary(sreadahead+values + " kb");
+		}	
+		else if (key.equals(PREF_BLX)) {
+			mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
 		}
-		mReadAhead.setSummary(sreadahead+values + " kb");
-	}
-	else if (key.equals(PREF_BLX)) {
-		mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
-	}
-	else if (key.equals(PREF_BLTIMEOUT)) {
-		mBltimeout.setSummary(Helpers.readOneLine(BL_TIMEOUT_PATH)+"ms");
-	}
-	else if (key.equals(PREF_HOME_REPORT_WAIT)){
-		mHomeReportWait.setSummary(Helpers.readOneLine(PFK_HOME_REPORT_WAIT) +"ms");
-	}
-	else if (key.equals(PREF_MENUBACK_FIRST_ERR_WAIT)){
-		mMenuBackFirstErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)+"ms");
-	}
-	else if (key.equals(PREF_MENUBACK_LAST_ERR_WAIT)){
-		mMenuBackLastErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)+"ms");
-	}
+		else if (key.equals(PREF_BLTIMEOUT)) {
+			mBltimeout.setSummary(Helpers.readOneLine(BL_TIMEOUT_PATH)+"ms");
+		}
+		else if (key.equals(PREF_HOME_REPORT_WAIT)){
+			mHomeReportWait.setSummary(Helpers.readOneLine(PFK_HOME_REPORT_WAIT) +"ms");
+		}
+		else if (key.equals(PREF_MENUBACK_FIRST_ERR_WAIT)){
+			mMenuBackFirstErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)+"ms");
+		}
+		else if (key.equals(PREF_MENUBACK_LAST_ERR_WAIT)){
+			mMenuBackLastErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)+"ms");
+		}
     }
-    private int getMinFreeValue() {
-        int emptyApp = 0;
-        String MINFREE_LINE = Helpers.readOneLine(MINFREE_PATH);
-        String EMPTY_APP = MINFREE_LINE.substring(MINFREE_LINE.lastIndexOf(",") + 1);
-
-        if (!EMPTY_APP.equals(null) || !EMPTY_APP.equals("")) {
-            try {
-                int mb = Integer.parseInt(EMPTY_APP.trim()) * 4 / 1024;
-                emptyApp = (int) Math.ceil(mb);
-            } catch (NumberFormatException nfe) {
-                Log.i(TAG, "error processing " + EMPTY_APP);
-            }
-        }
-        return emptyApp;
-    }
-
+	
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         return false;
     }
-
     public void openDialog(int currentProgress, String title, final int min, final int max,
                            final Preference pref, final String path, final String key) {
         Resources res = getActivity().getResources();
@@ -494,12 +450,11 @@ public class Advanced extends PreferenceFragment implements
         OnSeekBarChangeListener seekBarChangeListener = new OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekbar, int progress, boolean fromUser) {
-		mSeekbarProgress = seekbar.getProgress();
-		if(fromUser){
-			settingText.setText(Integer.toString(mSeekbarProgress));
-		}
+				mSeekbarProgress = seekbar.getProgress();
+				if(fromUser){
+					settingText.setText(Integer.toString(mSeekbarProgress));
+				}
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekbar) {
             }
