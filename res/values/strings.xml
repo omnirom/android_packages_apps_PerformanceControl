@@ -29,7 +29,7 @@ Copyright (C) 2012  James Roberts
     <string name="tab_cpu_info">CPU Info</string>
     <!-- Titles -->
     <string name="t_cpu_settings">"CPU SETTINGS"</string>
-<string name="t_oom_settings">"MINFREE TASKKILLER"</string>
+    <string name="t_oom_settings">"MINFREE TASKKILLER"</string>
     <string name="t_volt_settings">"VOLTAGE SETTINGS"</string>
     <string name="t_adv_settings">"ADVANCED SETTINGS"</string>
     <string name="t_time_in_state">"TIME IN STATE"</string>
@@ -39,6 +39,8 @@ Copyright (C) 2012  James Roberts
     <string name="mt_app_settings">"App Settings"</string>
     <string name="mt_reset">Reset</string>
     <string name="mt_restore">Restore</string>
+    <string name="mt_plus25">Increase by 25 mv</string>
+    <string name="mt_minus25">Decrease by 25 mv</string>
     <!-- CPU settings -->
     <string name="current_speed">Current Speed</string>
     <string name="current_max">Current max:</string>
