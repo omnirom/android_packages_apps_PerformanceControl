@@ -174,6 +174,12 @@ public class CPUSettings extends Fragment implements
                     public void onCheckedChanged(CompoundButton v,boolean checked) {
                         final SharedPreferences.Editor editor = mPreferences.edit();
                         editor.putBoolean(CPU_SOB, checked);
+			if(checked){
+				editor.putString(PREF_MIN_CPU, Helpers.readOneLine(MIN_FREQ_PATH));
+				editor.putString(PREF_MAX_CPU, Helpers.readOneLine(MAX_FREQ_PATH));
+				editor.putString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
+				editor.putString(PREF_IO, Helpers.getIOScheduler());
+			}                        
                         editor.commit();
                     }
                 });
