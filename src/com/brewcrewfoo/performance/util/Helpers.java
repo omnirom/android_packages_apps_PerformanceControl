@@ -399,6 +399,9 @@ public class Helpers implements Constants {
 			new CMDProcessor().su.runWaitFor(SH_PATH);
 			Log.d(TAG, "execute: "+s.toString());
 		}
+		else{
+			Log.d(TAG, "missing file: /data/PerformanceControl");
+		}
 	}
 
 }
