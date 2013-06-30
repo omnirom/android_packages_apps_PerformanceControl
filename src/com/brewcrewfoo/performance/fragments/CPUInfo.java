@@ -26,10 +26,9 @@ import android.widget.TextView;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.Constants;
+import com.brewcrewfoo.performance.util.Helpers;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class CPUInfo extends Fragment implements Constants {
 
@@ -57,6 +56,11 @@ public class CPUInfo extends Fragment implements Constants {
     public void updateData() {
         String newInfo = "";
         mKernelInfo.setText(newInfo);
+        if (new File(PFK_VER).exists()) {
+            mKernelInfo.append("\n");
+            mKernelInfo.append(getString(R.string.pfk_info,Helpers.readOneLine(PFK_VER)));
+            mKernelInfo.append("\n");
+        }
         mCPUInfo.setText(newInfo);
         mMemInfo.setText(newInfo);
         readFile(mKernelInfo, KERNEL_INFO_PATH);
