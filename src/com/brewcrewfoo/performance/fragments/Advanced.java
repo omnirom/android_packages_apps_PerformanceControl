@@ -92,44 +92,21 @@ public class Advanced extends PreferenceFragment implements
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.advanced);
         
-        sreadahead=getResources().getString(R.string.ps_read_ahead,"");
+	sreadahead=getResources().getString(R.string.ps_read_ahead,"");
 
         mReadAhead = (ListPreference) findPreference(PREF_READ_AHEAD);
-        mReadAhead.setValue(Helpers.readOneLine(READ_AHEAD_PATH[0]));
-        mReadAhead.setSummary(getString(R.string.ps_read_ahead, Helpers.readOneLine(READ_AHEAD_PATH[0]) + " kb"));
-
 	mFastCharge = (CheckBoxPreference) findPreference(PREF_FASTCHARGE);
-        mFastCharge.setChecked(mPreferences.getBoolean(PREF_FASTCHARGE, false));
-
 	mBlx=(Preference) findPreference(PREF_BLX);
-	mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
-	//----------
-	mDsync=(CheckBoxPreference) findPreference(PREF_DSYNC);
-	mDsync.setChecked(Helpers.readOneLine(DSYNC_PATH).equals("1")?true:false);
-	//----------
 	mBltimeout=(Preference) findPreference(PREF_BLTIMEOUT);
-	mBltimeout.setSummary(Helpers.readOneLine(BL_TIMEOUT_PATH)+"ms");
 	mBltouch=(CheckBoxPreference) findPreference(PREF_BLTOUCH);
-	mBltouch.setChecked(Helpers.readOneLine(BL_TOUCH_ON_PATH).equals("1")?true:false);	
-	//----------	
+	mDsync=(CheckBoxPreference) findPreference(PREF_DSYNC);
 	mHomeOn=(CheckBoxPreference) findPreference(PFK_HOME_ON);
-	mHomeOn.setChecked(Helpers.readOneLine(PFK_HOME_ENABLED).equals("1")?true:false);
-	mHomeOn.setSummary(getString(R.string.ps_home_enabled,Helpers.readOneLine(PFK_HOME_IGNORED_KP)));
 	mHomeAllowedIrqs = (Preference) findPreference(PREF_HOME_ALLOWED_IRQ);
 	mHomeReportWait = (Preference) findPreference(PREF_HOME_REPORT_WAIT);
-	mHomeAllowedIrqs.setSummary(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
-	mHomeReportWait.setSummary(Helpers.readOneLine(PFK_HOME_REPORT_WAIT) +"ms");
 	mMenuBackOn= (CheckBoxPreference) findPreference(PFK_MENUBACK_ON);
-	mMenuBackOn.setChecked(Helpers.readOneLine(PFK_MENUBACK_ENABLED).equals("1")?true:false);
-	mMenuBackOn.setSummary(getString(R.string.ps_menuback_enabled,Helpers.readOneLine(PFK_MENUBACK_IGNORED_KP)));
 	mMenuBackIrqChecks=(Preference) findPreference(PREF_MENUBACK_INTERRUPT_CHECKS);
 	mMenuBackFirstErrWait=(Preference) findPreference(PREF_MENUBACK_FIRST_ERR_WAIT);
 	mMenuBackLastErrWait=(Preference) findPreference(PREF_MENUBACK_LAST_ERR_WAIT);
-	mMenuBackIrqChecks.setSummary(Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
-	mMenuBackFirstErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)+"ms");
-	mMenuBackLastErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)+"ms");	
-	//----------
-		
         mDirtyRatio = (Preference) findPreference(PREF_DIRTY_RATIO);
         mDirtyBackground = (Preference) findPreference(PREF_DIRTY_BACKGROUND);
         mDirtyExpireCentisecs = (Preference) findPreference(PREF_DIRTY_EXPIRE);
@@ -137,8 +114,68 @@ public class Advanced extends PreferenceFragment implements
         mMinFreeK = (Preference) findPreference(PREF_MIN_FREE_KB);
         mOvercommit = (Preference) findPreference(PREF_OVERCOMMIT);
         mSwappiness = (Preference) findPreference(PREF_SWAPPINESS);
-        mVfs = (Preference) findPreference(PREF_VFS);
-
+        mVfs = (Preference) findPreference(PREF_VFS);		
+		
+        if (!new File(FASTCHARGE_PATH).exists()) {
+		PreferenceCategory hideCat = (PreferenceCategory) findPreference("kernel");
+		getPreferenceScreen().removePreference(hideCat);
+        }
+	else{
+		mFastCharge.setChecked(mPreferences.getBoolean(PREF_FASTCHARGE, false));
+		if(Helpers.readOneLine(FASTCHARGE_PATH).equals("1")){
+			mFastCharge.setSummary(getString(R.string.ps_fast_charge_active));
+		}
+		else{
+			mFastCharge.setSummary(getString(R.string.ps_fast_charge_inactive));
+		}
+	}
+        if (!new File(BLX_PATH).exists()) {
+		PreferenceCategory hideCat = (PreferenceCategory) findPreference("blx");
+		getPreferenceScreen().removePreference(hideCat);
+        }
+	else{
+		mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
+	}
+        if (!new File(DSYNC_PATH).exists()) {
+		PreferenceCategory hideCat = (PreferenceCategory) findPreference("dsync");
+		getPreferenceScreen().removePreference(hideCat);
+        }
+	else{
+		mDsync.setChecked(Helpers.readOneLine(DSYNC_PATH).equals("1")?true:false);
+	}
+        if (!new File(PFK_HOME_ENABLED).exists() || !new File(PFK_MENUBACK_ENABLED).exists()) {
+		PreferenceCategory hideCat = (PreferenceCategory) findPreference("pfk");
+		getPreferenceScreen().removePreference(hideCat);
+        }
+	else{
+		mHomeOn.setChecked(Helpers.readOneLine(PFK_HOME_ENABLED).equals("1")?true:false);
+		mHomeOn.setSummary(getString(R.string.ps_home_enabled,Helpers.readOneLine(PFK_HOME_IGNORED_KP)));
+		mHomeAllowedIrqs.setSummary(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
+		mHomeReportWait.setSummary(Helpers.readOneLine(PFK_HOME_REPORT_WAIT) +" ms");
+		
+		mMenuBackOn.setChecked(Helpers.readOneLine(PFK_MENUBACK_ENABLED).equals("1")?true:false);
+		mMenuBackOn.setSummary(getString(R.string.ps_menuback_enabled,Helpers.readOneLine(PFK_MENUBACK_IGNORED_KP)));
+		mMenuBackIrqChecks.setSummary(Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
+		mMenuBackFirstErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)+" ms");
+		mMenuBackLastErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)+" ms");
+	}
+        if (!new File(BL_TIMEOUT_PATH).exists()) {
+		PreferenceCategory hideCat = (PreferenceCategory) findPreference("bltimeout");
+		getPreferenceScreen().removePreference(hideCat);
+        }
+	else{
+		mBltimeout.setSummary(Helpers.readOneLine(BL_TIMEOUT_PATH)+" ms");
+	}
+        if (!new File(BL_TOUCH_ON_PATH).exists()) {
+		PreferenceCategory hideCat = (PreferenceCategory) findPreference("bltouch");
+		getPreferenceScreen().removePreference(hideCat);
+        } 
+	else{
+		mBltouch.setChecked(Helpers.readOneLine(BL_TOUCH_ON_PATH).equals("1")?true:false);
+	}
+		
+	mReadAhead.setValue(Helpers.readOneLine(READ_AHEAD_PATH[0]));
+        mReadAhead.setSummary(getString(R.string.ps_read_ahead, Helpers.readOneLine(READ_AHEAD_PATH[0]) + "  kb"));
         mDirtyRatio.setSummary(Helpers.readOneLine(DIRTY_RATIO_PATH));
         mDirtyBackground.setSummary(Helpers.readOneLine(DIRTY_BACKGROUND_PATH));
         mDirtyExpireCentisecs.setSummary(Helpers.readOneLine(DIRTY_EXPIRE_PATH));
@@ -147,39 +184,7 @@ public class Advanced extends PreferenceFragment implements
         mOvercommit.setSummary(Helpers.readOneLine(OVERCOMMIT_PATH));
         mSwappiness.setSummary(Helpers.readOneLine(SWAPPINESS_PATH));
         mVfs.setSummary(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));
-
-        if (!new File(FASTCHARGE_PATH).exists()) {
-            PreferenceCategory hideCat = (PreferenceCategory) findPreference("kernel");
-            getPreferenceScreen().removePreference(hideCat);
-        }
-		else{
-			if(Helpers.readOneLine(FASTCHARGE_PATH).equals("1")){
-				mFastCharge.setSummary(getString(R.string.ps_fast_charge_active));
-			}
-			else{
-				mFastCharge.setSummary(getString(R.string.ps_fast_charge_inactive));
-			}
-		}
-        if (!new File(BLX_PATH).exists()) {
-            PreferenceCategory hideCat = (PreferenceCategory) findPreference("blx");
-            getPreferenceScreen().removePreference(hideCat);
-        }
-        if (!new File(DSYNC_PATH).exists()) {
-            PreferenceCategory hideCat = (PreferenceCategory) findPreference("dsync");
-            getPreferenceScreen().removePreference(hideCat);
-        }		
-        if (!new File(PFK_HOME_ENABLED).exists() || !new File(PFK_MENUBACK_ENABLED).exists()) {
-            PreferenceCategory hideCat = (PreferenceCategory) findPreference("pfk");
-            getPreferenceScreen().removePreference(hideCat);
-        }
-        if (!new File(BL_TIMEOUT_PATH).exists()) {
-            PreferenceCategory hideCat = (PreferenceCategory) findPreference("bltimeout");
-            getPreferenceScreen().removePreference(hideCat);
-        }
-        if (!new File(BL_TOUCH_ON_PATH).exists()) {
-            PreferenceCategory hideCat = (PreferenceCategory) findPreference("bltouch");
-            getPreferenceScreen().removePreference(hideCat);
-        }        
+        
         setHasOptionsMenu(true);
     }
 
