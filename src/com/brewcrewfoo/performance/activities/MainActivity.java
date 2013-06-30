@@ -39,8 +39,7 @@ import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
-public class MainActivity extends Activity implements Constants,
-        ActivityThemeChangeInterface {
+public class MainActivity extends Activity implements Constants,ActivityThemeChangeInterface {
 
     SharedPreferences mPreferences;
     PagerTabStrip mPagerTabStrip;
@@ -63,14 +62,12 @@ public class MainActivity extends Activity implements Constants,
         mViewPager.setCurrentItem(0);
 
         mPagerTabStrip = (PagerTabStrip) findViewById(R.id.pagerTabStrip);
-        mPagerTabStrip.setBackgroundColor(getResources().getColor(
-                R.color.pc_light_gray));
-        mPagerTabStrip.setTabIndicatorColor(getResources().getColor(
-                R.color.pc_blue));
+        mPagerTabStrip.setBackgroundColor(getResources().getColor(R.color.pc_light_gray));
+        mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.pc_blue));
         mPagerTabStrip.setDrawFullUnderline(true);
 
         checkForSu();
-                Helpers.shCreate();
+	Helpers.shCreate();
     }
 
     class TitleAdapter extends FragmentPagerAdapter {
@@ -128,17 +125,16 @@ public class MainActivity extends Activity implements Constants,
         // If this is the first launch of the application. Check for root.
         boolean firstrun = mPreferences.getBoolean("firstrun", true);
         // Continue to bug the user that options will not work.
-        boolean rootWasCanceled = mPreferences
-                .getBoolean("rootcanceled", false);
+        boolean rootWasCanceled = mPreferences.getBoolean("rootcanceled", false);
 
         // Don't bother AOKP users ;)
         PackageManager pm = getPackageManager();
         boolean rcInstalled = false;
         try {
-            pm.getPackageInfo("com.aokp.romcontrol",
-                    PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo("com.aokp.romcontrol",PackageManager.GET_ACTIVITIES);
             rcInstalled = true;
-        } catch (PackageManager.NameNotFoundException e) {
+        }
+        catch (PackageManager.NameNotFoundException e) {
             rcInstalled = false;
         }
 
@@ -149,7 +145,9 @@ public class MainActivity extends Activity implements Constants,
             e.commit();
             if (rcInstalled) {
                 Helpers.checkSu();
-            } else {
+                Helpers.shCreate();
+            }
+            else {
                 launchFirstRunDialog();
             }
         }
@@ -171,11 +169,9 @@ public class MainActivity extends Activity implements Constants,
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
+                            public void onClick(DialogInterface dialog,int which) {
                                 String message = getString(R.string.su_cancel_message);
-                                SharedPreferences.Editor e = mPreferences
-                                        .edit();
+                                SharedPreferences.Editor e = mPreferences.edit();
                                 e.putBoolean("rootcanceled", true);
                                 e.commit();
                                 suResultDialog(failedTitle, message);
@@ -256,15 +252,13 @@ public class MainActivity extends Activity implements Constants,
 
     @Override
     public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(
-                PREF_USE_LIGHT_THEME, false);
+        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
         return is_light_theme != mIsLightTheme;
     }
 
     @Override
     public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(
-                PREF_USE_LIGHT_THEME, false);
+        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
         mIsLightTheme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
         setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
