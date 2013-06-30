@@ -148,10 +148,28 @@ public class VoltageControlSettings extends Fragment implements Constants {
             Intent intent = new Intent(getActivity(), PCSettings.class);
             startActivity(intent);
         }
+        else if(item.getItemId() == R.id.volt_increase){
+		IncreasebyStep(25);
+	}
+	else if(item.getItemId() == R.id.volt_decrease){
+		IncreasebyStep(-25);
+	}
         return true;
     }
-
-public static List<Voltage> getVolts(final SharedPreferences preferences) {
+    private void IncreasebyStep(final int pas) {
+			for (final Voltage volt : mVoltages) {
+				String value=Integer.toString( Integer.parseInt(volt.getSavedMV())+pas);
+				SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putString(volt.getFreq(), value).commit();
+			}
+			final List<Voltage> volts = getVolts(mPreferences);
+			mVoltages.clear();
+			mVoltages.addAll(volts);
+			mAdapter.notifyDataSetChanged();
+    }
+    
+    
+    public static List<Voltage> getVolts(final SharedPreferences preferences) {
         final List<Voltage> volts = new ArrayList<Voltage>();
         try {
 		BufferedReader br = new BufferedReader(new FileReader(Helpers.getVoltagePath()), 256);
@@ -196,7 +214,7 @@ public static List<Voltage> getVolts(final SharedPreferences preferences) {
             Log.d(TAG, "Error reading " + Helpers.getVoltagePath());
         }
         return volts;
-}
+   }
 
     private static final int[] STEPS = new int[]{600, 625, 650, 675, 700,
             725, 750, 775, 800, 825, 850, 875, 900, 925, 950, 975, 1000, 1025,
