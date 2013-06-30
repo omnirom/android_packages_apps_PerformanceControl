@@ -31,7 +31,7 @@ public interface Constants {
     public static final String GOVERNORS_LIST_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
     public static final String GOVERNOR_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
     public static final String[] IO_SCHEDULER_PATH = {"/sys/block/mmcblk0/queue/scheduler","/sys/block/mmcblk1/queue/scheduler"};
-    //public static final String IO_SCHEDULER_PATH = "/sys/block/mmcblk0/queue/scheduler";
+    
     public static final String NUM_OF_CPUS_PATH = "/sys/devices/system/cpu/present";
 
     public static final String PREF_MAX_CPU = "pref_max_cpu";
@@ -51,8 +51,9 @@ public interface Constants {
 
     // Other settings
     public static final String MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
-    public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb","/sys/devices/virtual/bdi/default/read_ahead_kb"};
-    //public static final String READ_AHEAD_PATH = "/sys/devices/virtual/bdi/179:0/read_ahead_kb";
+    public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
+    //"/sys/devices/virtual/bdi/default/read_ahead_kb"
+    
     public static final String FASTCHARGE_PATH = "/sys/kernel/fast_charge/force_fast_charge";
     public static final String INTENT_ACTION_FASTCHARGE = "com.aokp.romcontrol.FCHARGE_CHANGED";
     public static final String PREF_MINFREE = "pref_minfree";
