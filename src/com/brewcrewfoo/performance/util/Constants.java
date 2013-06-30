@@ -78,11 +78,12 @@ public interface Constants {
     public static final String PREF_DSYNC= "pref_dsync";
     //-------BL----
     public static final String PREF_BLTIMEOUT= "pref_bltimeout";
-	public static final String BLTIMEOUT_SOB= "bltimeout_sob";
-	public static final String PREF_BLTOUCH= "pref_bltouch";
+    public static final String BLTIMEOUT_SOB= "bltimeout_sob";
+    public static final String PREF_BLTOUCH= "pref_bltouch";
     public static final String BL_TIMEOUT_PATH="/sys/class/misc/notification/bl_timeout";
     public static final String BL_TOUCH_ON_PATH="/sys/class/misc/notification/touchlight_enabled";
     //-------PFK---------
+    public static final String PFK_VER = "/sys/class/misc/phantom_kp_filter/version";
     public static final String PFK_HOME_ON = "pfk_home_on";
     public static final String PREF_HOME_ALLOWED_IRQ= "pref_home_allowed_irq";
     public static final String PREF_HOME_REPORT_WAIT = "pref_home_report_wait";
