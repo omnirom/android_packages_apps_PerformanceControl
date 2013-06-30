@@ -67,7 +67,7 @@ public class BootService extends Service implements Constants {
         protected Void doInBackground(Void... args) {
         	
 			SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-			StringBuilder sb = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 			
 			if (preferences.getBoolean(CPU_SOB, false)) {
 				final String max = preferences.getString(PREF_MAX_CPU, null);
