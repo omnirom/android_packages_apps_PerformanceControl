@@ -23,7 +23,7 @@ Copyright (C) 2012  James Roberts
     <!-- Main tabs -->
     <string name="tab_cpu_settings">"CPU Settings"</string>
     <string name="tab_cpu_profiles">CPU Profiles</string>
-<string name="tab_oom_settings">"Memory Settings"</string>
+    <string name="tab_oom_settings">"Memory Settings"</string>
     <string name="tab_time_in_state">"Time In State"</string>
     <string name="tab_voltage_settings">"Voltage Settings"</string>
     <string name="tab_cpu_info">CPU Info</string>
@@ -110,14 +110,15 @@ Copyright (C) 2012  James Roberts
 	<string name="ps_dsync">Setting will be restored on reboot</string>
 	<string name="pt_dsync">Dynamic Fsync</string>
 <!-- bl_timeout -->
-    <string name="prefcat_bltimeout">BACKLIGHT TIMEOUT</string>
+    	<string name="prefcat_bltimeout">BACKLIGHT TIMEOUT</string>
 	<string name="ps_bltimeout">%s ms</string>
 	<string name="bltimeout_title">Backlight timeout</string>
 <!-- bl_touch -->
-    <string name="prefcat_bltouch">BACKLIGHT ON TOUCHSCREEN</string>
+    	<string name="prefcat_bltouch">BACKLIGHT ON TOUCHSCREEN</string>
 	<string name="pt_bltouch">Backlight on touchscreen</string>	
 <!-- pfk -->
-    <string name="prefcat_pfk">PHANTOM KEY PRESSES FILTER</string>
+	<string name="pfk_info">Phantom Key Presses Filter module ver. %s\nAuthor Cristoforo Cataldo (Christopher83)</string>
+    	<string name="prefcat_pfk">PHANTOM KEY PRESSES FILTER</string>
 	<string name="pt_home_enabled">Home key filter</string>
 	<string name="ps_home_enabled">Ignored key pressed: %s</string>
 	<string name="home_allowed_irq_title">Max allowed interrupts</string>
@@ -128,7 +129,7 @@ Copyright (C) 2012  James Roberts
 	<string name="menuback_interrupt_checks_title">Interrupts checks</string>
 	<string name="menuback_first_err_wait_title">First error wait time</string>
 	<string name="menuback_last_err_wait_title">Last error wait time</string>
- <string name="ps_pfk_set_on_boot">If enabled will restore all pkf settings on reboot</string>
+	<string name="ps_pfk_set_on_boot">If enabled will restore all pkf settings on reboot</string>
 <!-- -->
 
     <string name="size_25_mb">25mb</string>
