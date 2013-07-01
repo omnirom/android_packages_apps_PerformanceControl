@@ -106,6 +106,9 @@ public interface Constants {
     public static final String DYNAMIC_DIRTY_WRITEBACK_PATH = "/proc/sys/vm/dynamic_dirty_writeback";
     public static final String DIRTY_WRITEBACK_ACTIVE_PATH = "/proc/sys/vm/dirty_writeback_active_centisecs";
     public static final String DIRTY_WRITEBACK_SUSPEND_PATH = "/proc/sys/vm/dirty_writeback_suspend_centisecs";
+    public static final String PREF_DYNAMIC_DIRTY_WRITEBACK = "pref_dynamic_dirty_writeback";
+    public static final String PREF_DIRTY_WRITEBACK_ACTIVE = "pref_dynamic_writeback_active";
+    public static final String PREF_DIRTY_WRITEBACK_SUSPEND = "pref_dirty_writeback_suspend";
 
     // VM settings
     public static final String PREF_DIRTY_RATIO = "pref_dirty_ratio";
