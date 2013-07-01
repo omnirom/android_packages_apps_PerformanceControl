@@ -101,7 +101,11 @@ public interface Constants {
     public static final String PFK_MENUBACK_FIRST_ERR_WAIT = "/sys/class/misc/phantom_kp_filter/menuback_first_err_wait";
     public static final String PFK_MENUBACK_LAST_ERR_WAIT = "/sys/class/misc/phantom_kp_filter/menuback_last_err_wait";
     public static final String PFK_MENUBACK_IGNORED_KP = "/sys/class/misc/phantom_kp_filter/menuback_ignored_kp";
-    public static final String PFK_SOB = "pfk_sob";    
+    public static final String PFK_SOB = "pfk_sob";
+    //------------------
+    public static final String DYNAMIC_DIRTY_WRITEBACK_PATH = "/proc/sys/vm/dynamic_dirty_writeback";
+    public static final String DIRTY_WRITEBACK_ACTIVE_PATH = "/proc/sys/vm/dirty_writeback_active_centisecs";
+    public static final String DIRTY_WRITEBACK_SUSPEND_PATH = "/proc/sys/vm/dirty_writeback_suspend_centisecs";
 
     // VM settings
     public static final String PREF_DIRTY_RATIO = "pref_dirty_ratio";
