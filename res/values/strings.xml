@@ -144,6 +144,7 @@ Copyright (C) 2012  James Roberts
     <string name="size_2048_kb">2048kb</string>
     <string name="size_4096_kb">4096kb</string>
     <!-- Voltage control -->
+    <string name="volt_info">ATTENTION! Before activating Set on boot, make sure that the values ​​entered do not exceed limits or risk the phone to freeze.</string>
     <string name="ps_volt_mhz_voltage">" Hz Voltage"</string>
     <string name="ps_volt_save">"Save"</string>
     <string name="ps_volt_current_voltage">"Current voltage: "</string>
