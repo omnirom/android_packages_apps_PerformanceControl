@@ -141,19 +141,19 @@ public class Advanced extends PreferenceFragment implements
 		getPreferenceScreen().removePreference(hideCat);
         }
 	else{
-		mDsync.setChecked(Helpers.readOneLine(DSYNC_PATH).equals("1")?true:false);
+		mDsync.setChecked(Helpers.readOneLine(DSYNC_PATH).equals("1"));
 	}
         if (!new File(PFK_HOME_ENABLED).exists() || !new File(PFK_MENUBACK_ENABLED).exists()) {
 		PreferenceCategory hideCat = (PreferenceCategory) findPreference("pfk");
 		getPreferenceScreen().removePreference(hideCat);
         }
 	else{
-		mHomeOn.setChecked(Helpers.readOneLine(PFK_HOME_ENABLED).equals("1")?true:false);
+		mHomeOn.setChecked(Helpers.readOneLine(PFK_HOME_ENABLED).equals("1"));
 		mHomeOn.setSummary(getString(R.string.ps_home_enabled,Helpers.readOneLine(PFK_HOME_IGNORED_KP)));
 		mHomeAllowedIrqs.setSummary(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
 		mHomeReportWait.setSummary(Helpers.readOneLine(PFK_HOME_REPORT_WAIT) +" ms");
 		
-		mMenuBackOn.setChecked(Helpers.readOneLine(PFK_MENUBACK_ENABLED).equals("1")?true:false);
+		mMenuBackOn.setChecked(Helpers.readOneLine(PFK_MENUBACK_ENABLED).equals("1"));
 		mMenuBackOn.setSummary(getString(R.string.ps_menuback_enabled,Helpers.readOneLine(PFK_MENUBACK_IGNORED_KP)));
 		mMenuBackIrqChecks.setSummary(Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
 		mMenuBackFirstErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)+" ms");
@@ -171,7 +171,7 @@ public class Advanced extends PreferenceFragment implements
 		getPreferenceScreen().removePreference(hideCat);
         } 
 	else{
-		mBltouch.setChecked(Helpers.readOneLine(BL_TOUCH_ON_PATH).equals("1")?true:false);
+		mBltouch.setChecked(Helpers.readOneLine(BL_TOUCH_ON_PATH).equals("1"));
 	}
 		
 	mReadAhead.setValue(Helpers.readOneLine(READ_AHEAD_PATH[0]));
