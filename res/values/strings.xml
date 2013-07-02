@@ -101,7 +101,7 @@ Copyright (C) 2012  James Roberts
    <string name="pt_veryaggressive">Very Aggressive</string>
    <string name="pref_veryaggressive">4096,8192,16384,32768,49152,65536</string>
 <!-- blx -->
-   <string name="dsync_info">Battery life extender\nAuthor Ezekeel</string>
+   <string name="blx_info">Battery life extender\nAuthor Ezekeel</string>
    <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
    <string name="pt_blx_boot">Set on boot</string>
    <string name="ps_blx_boot">Apply the amount above at boot</string>
