@@ -54,10 +54,9 @@ public class CPUInfo extends Fragment implements Constants {
     }
 
     public void updateData() {
-        String newInfo = "";
-        mKernelInfo.setText(newInfo);
-        mCPUInfo.setText(newInfo);
-        mMemInfo.setText(newInfo);
+        mKernelInfo.setText("");
+        mCPUInfo.setText("");
+        mMemInfo.setText("");
         readFile(mKernelInfo, KERNEL_INFO_PATH);
         if (new File(PFK_VER).exists()) {
             mKernelInfo.append("\n");
