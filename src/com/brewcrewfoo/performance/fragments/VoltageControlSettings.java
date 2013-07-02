@@ -155,7 +155,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
 		IncreasebyStep(-25);
 	}
 	else if(item.getItemId() == R.id.reset){
-		RemoveVolt();
+		ResetVolt();
 	}
         return true;
     }
