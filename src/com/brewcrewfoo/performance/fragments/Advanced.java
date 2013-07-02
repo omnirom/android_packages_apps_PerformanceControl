@@ -74,6 +74,9 @@ public class Advanced extends PreferenceFragment implements
 	private Preference mMenuBackLastErrWait;	
 //--------
 	private Preference mVfs;
+	private CheckBoxPreference mDynamicWriteBackOn;
+	private Preference mDynamicWriteBackActive;
+	private Preference mDynamicWriteBackSuspend;
 
 	private ListPreference mReadAhead;
 	private CheckBoxPreference mFastCharge;
@@ -114,7 +117,10 @@ public class Advanced extends PreferenceFragment implements
         mMinFreeK = (Preference) findPreference(PREF_MIN_FREE_KB);
         mOvercommit = (Preference) findPreference(PREF_OVERCOMMIT);
         mSwappiness = (Preference) findPreference(PREF_SWAPPINESS);
-        mVfs = (Preference) findPreference(PREF_VFS);		
+        mVfs = (Preference) findPreference(PREF_VFS);
+        mDynamicWriteBackOn = (CheckBoxPreference) findPreference(PREF_DYNAMIC_DIRTY_WRITEBACK);
+        mDynamicWriteBackActive = (Preference) findPreference(PREF_DYNAMIC_DIRTY_WRITEBACK);
+        mDynamicWriteBackSuspend = (Preference) findPreference(PREF_DYNAMIC_DIRTY_WRITEBACK);        
 		
         if (!new File(FASTCHARGE_PATH).exists()) {
 		PreferenceCategory hideCat = (PreferenceCategory) findPreference("kernel");
@@ -173,6 +179,14 @@ public class Advanced extends PreferenceFragment implements
 	else{
 		mBltouch.setChecked(Helpers.readOneLine(BL_TOUCH_ON_PATH).equals("1"));
 	}
+        if (!new File(DYNAMIC_DIRTY_WRITEBACK_PATH).exists()) {
+            mDirtyWriteback.setEnabled(true);
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("cat_dynamic_write_back");
+            getPreferenceScreen().removePreference(hideCat);
+        }
+        else{
+            mDirtyWriteback.setEnabled(!mPreferences.getBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK, false));
+        }	
 		
 	mReadAhead.setValue(Helpers.readOneLine(READ_AHEAD_PATH[0]));
         mReadAhead.setSummary(getString(R.string.ps_read_ahead, Helpers.readOneLine(READ_AHEAD_PATH[0]) + "  kb"));
@@ -184,6 +198,8 @@ public class Advanced extends PreferenceFragment implements
         mOvercommit.setSummary(Helpers.readOneLine(OVERCOMMIT_PATH));
         mSwappiness.setSummary(Helpers.readOneLine(SWAPPINESS_PATH));
         mVfs.setSummary(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));
+        mDynamicWriteBackActive.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
+        mDynamicWriteBackSuspend.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));        
         
         setHasOptionsMenu(true);
     }
