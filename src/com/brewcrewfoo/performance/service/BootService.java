@@ -125,9 +125,8 @@ public class BootService extends Service implements Constants {
 				}
 			}
 		}			
-
-		if(preferences.getBoolean(PREF_FASTCHARGE, false)){
-			if (new File(FASTCHARGE_PATH).exists()) {
+		if (new File(FASTCHARGE_PATH).exists()) {
+			if(preferences.getBoolean(PREF_FASTCHARGE, false)){
 				new CMDProcessor().su.runWaitFor("busybox echo 1 > " + FASTCHARGE_PATH);
 				Intent i = new Intent();
 				i.setAction(INTENT_ACTION_FASTCHARGE);
@@ -147,8 +146,8 @@ public class BootService extends Service implements Constants {
 				nm.notify(1337, n);
 			}
 		}
-		if (preferences.getBoolean(BLX_SOB, false)) {
-			if (new File(BLX_PATH).exists()) {
+		if (new File(BLX_PATH).exists()) {
+			if (preferences.getBoolean(BLX_SOB, false)) {
 				sb.append("busybox echo " + preferences.getInt(PREF_BLX, Integer.parseInt(Helpers.readOneLine(BLX_PATH)))
 				+ " > " + BLX_PATH + " \n");
 			}
@@ -161,8 +160,8 @@ public class BootService extends Service implements Constants {
 				sb.append("busybox echo 0 > " + DSYNC_PATH + " \n");
 			}
 		}
-		if (preferences.getBoolean(BLTIMEOUT_SOB, false)) {
-			if (new File(BL_TIMEOUT_PATH).exists()) {
+		if (new File(BL_TIMEOUT_PATH).exists()) {
+			if (preferences.getBoolean(BLTIMEOUT_SOB, false)) {
 				sb.append("busybox echo " + preferences.getInt(PREF_BLTIMEOUT, Integer.parseInt(Helpers.readOneLine(BL_TIMEOUT_PATH)))
 				+ " > " + BL_TIMEOUT_PATH + " \n");
 			}
@@ -215,8 +214,8 @@ public class BootService extends Service implements Constants {
 			sb.append("busybox echo " + preferences.getInt(PREF_VFS, Integer.parseInt(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH)))
 				+ " > " + VFS_CACHE_PRESSURE_PATH + " \n");
 		}
-		if (preferences.getBoolean(PFK_SOB, false)) {
-			if (new File(PFK_HOME_ENABLED).exists() && new File(PFK_MENUBACK_ENABLED).exists()) {
+		if (new File(PFK_HOME_ENABLED).exists() && new File(PFK_MENUBACK_ENABLED).exists()) {
+			if (preferences.getBoolean(PFK_SOB, false)) {
 				sb.append("busybox echo " + preferences.getInt(PREF_HOME_ALLOWED_IRQ,Integer.parseInt(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ)))
 				+ " > " + PFK_HOME_ALLOWED_IRQ + " \n");
 				sb.append("busybox echo " + preferences.getInt(PREF_HOME_REPORT_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_HOME_REPORT_WAIT)))
