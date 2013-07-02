@@ -413,7 +413,7 @@ public class Advanced extends PreferenceFragment implements
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
 		if (key.equals(PREF_READ_AHEAD)) {
 			String evalues = Helpers.readOneLine(READ_AHEAD_PATH[0]);
-			String values = mPreferences.getString(key,evalues);
+			String values = sharedPreferences.getString(key,evalues);//mPreferences.getString(key,evalues);
 			if (!values.equals(evalues)){
 				final StringBuilder sb = new StringBuilder();
 				for(int i=0; i<READ_AHEAD_PATH.length; i++){
