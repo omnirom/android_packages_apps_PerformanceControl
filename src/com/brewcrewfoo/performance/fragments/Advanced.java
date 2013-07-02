@@ -257,7 +257,7 @@ public class Advanced extends PreferenceFragment implements
 	else if (preference == mBlx){
             String title = getString(R.string.blx_title)+" (%)";
             int currentProgress = Integer.parseInt(Helpers.readOneLine(BLX_PATH));
-            openDialog(currentProgress, title, 50,100, mBlx,BLX_PATH, PREF_BLX);
+            openDialog(currentProgress, title, 50,100, preference,BLX_PATH, PREF_BLX);
             return true;
 	}
 	else if (preference == mDsync){
@@ -272,7 +272,7 @@ public class Advanced extends PreferenceFragment implements
 	else if (preference == mBltimeout){
             String title = getString(R.string.bltimeout_title)+" (ms)";
             int currentProgress = Integer.parseInt(Helpers.readOneLine(BL_TIMEOUT_PATH));
-            openDialog(currentProgress, title, 0,5000, mBltimeout,BL_TIMEOUT_PATH, PREF_BLTIMEOUT);
+            openDialog(currentProgress, title, 0,5000, preference,BL_TIMEOUT_PATH, PREF_BLTIMEOUT);
             return true;
 	}
 	else if (preference == mBltouch){
@@ -305,82 +305,90 @@ public class Advanced extends PreferenceFragment implements
 	else if (preference == mHomeAllowedIrqs) {
             String title = getString(R.string.home_allowed_irq_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
-            openDialog(currentProgress, title, 1,32, mHomeAllowedIrqs, PFK_HOME_ALLOWED_IRQ, PREF_HOME_ALLOWED_IRQ);
+            openDialog(currentProgress, title, 1,32, preference, PFK_HOME_ALLOWED_IRQ, PREF_HOME_ALLOWED_IRQ);
             return true;		
 	}
 	else if (preference == mHomeReportWait) {
             String title = getString(R.string.home_report_wait_title)+" (ms)";
             int currentProgress = Integer.parseInt(Helpers.readOneLine(PFK_HOME_REPORT_WAIT));
-            openDialog(currentProgress, title, 5,25, mHomeReportWait, PFK_HOME_REPORT_WAIT, PREF_HOME_REPORT_WAIT);
+            openDialog(currentProgress, title, 5,25, preference, PFK_HOME_REPORT_WAIT, PREF_HOME_REPORT_WAIT);
             return true;
 	}
 	else if (preference == mMenuBackIrqChecks) {
             String title = getString(R.string.menuback_interrupt_checks_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
-            openDialog(currentProgress, title, 1,10, mMenuBackIrqChecks, PFK_MENUBACK_INTERRUPT_CHECKS, PREF_MENUBACK_INTERRUPT_CHECKS);
+            openDialog(currentProgress, title, 1,10, preference, PFK_MENUBACK_INTERRUPT_CHECKS, PREF_MENUBACK_INTERRUPT_CHECKS);
             return true;
 	}
 	else if (preference == mMenuBackFirstErrWait) {
             String title = getString(R.string.menuback_first_err_wait_title)+" (ms)";
             int currentProgress = Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT));
-            openDialog(currentProgress, title, 50,1000, mMenuBackFirstErrWait, PFK_MENUBACK_FIRST_ERR_WAIT, PREF_MENUBACK_FIRST_ERR_WAIT);
+            openDialog(currentProgress, title, 50,1000, preference, PFK_MENUBACK_FIRST_ERR_WAIT, PREF_MENUBACK_FIRST_ERR_WAIT);
             return true;
 	}
 	else if (preference == mMenuBackLastErrWait) {
             String title = getString(R.string.menuback_last_err_wait_title)+" (ms)";
             int currentProgress = Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT));
-            openDialog(currentProgress, title, 50,100, mMenuBackLastErrWait,PFK_MENUBACK_LAST_ERR_WAIT, PREF_MENUBACK_LAST_ERR_WAIT);
+            openDialog(currentProgress, title, 50,100, preference,PFK_MENUBACK_LAST_ERR_WAIT, PREF_MENUBACK_LAST_ERR_WAIT);
             return true;
 	}		
 	else if (preference == mDirtyRatio) {
             String title = getString(R.string.dirty_ratio_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(DIRTY_RATIO_PATH));
-            openDialog(currentProgress, title, 0,100, mDirtyRatio,DIRTY_RATIO_PATH, PREF_DIRTY_RATIO);
+            openDialog(currentProgress, title, 0,100, preference,DIRTY_RATIO_PATH, PREF_DIRTY_RATIO);
             return true;
         }
 	else if (preference == mDirtyBackground) {
             String title = getString(R.string.dirty_background_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(DIRTY_BACKGROUND_PATH));
-            openDialog(currentProgress, title, 0,100, mDirtyBackground,DIRTY_BACKGROUND_PATH, PREF_DIRTY_BACKGROUND);
+            openDialog(currentProgress, title, 0,100, preference,DIRTY_BACKGROUND_PATH, PREF_DIRTY_BACKGROUND);
             return true;
         }
 	else if (preference == mDirtyExpireCentisecs) {
             String title = getString(R.string.dirty_expire_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(DIRTY_EXPIRE_PATH));
-            openDialog(currentProgress, title, 0,5000, mDirtyExpireCentisecs,DIRTY_EXPIRE_PATH, PREF_DIRTY_EXPIRE);
+            openDialog(currentProgress, title, 0,5000, preference,DIRTY_EXPIRE_PATH, PREF_DIRTY_EXPIRE);
             return true;
         }
 	else if (preference == mDirtyWriteback) {
             String title = getString(R.string.dirty_writeback_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_PATH));
-            openDialog(currentProgress, title, 0,5000, mDirtyWriteback,DIRTY_WRITEBACK_PATH, PREF_DIRTY_WRITEBACK);
+            openDialog(currentProgress, title, 0,5000, preference,DIRTY_WRITEBACK_PATH, PREF_DIRTY_WRITEBACK);
             return true;
         }
 	else if (preference == mMinFreeK) {
             String title = getString(R.string.min_free_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(MIN_FREE_PATH));
-            openDialog(currentProgress, title, 0,8192, mMinFreeK, MIN_FREE_PATH,PREF_MIN_FREE_KB);
+            openDialog(currentProgress, title, 0,8192, preference, MIN_FREE_PATH,PREF_MIN_FREE_KB);
             return true;
         }
 	else if (preference == mOvercommit) {
             String title = getString(R.string.overcommit_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(OVERCOMMIT_PATH));
-            openDialog(currentProgress, title, 0,100, mOvercommit,OVERCOMMIT_PATH, PREF_OVERCOMMIT);
+            openDialog(currentProgress, title, 0,100, preference,OVERCOMMIT_PATH, PREF_OVERCOMMIT);
             return true;
         }
 	else if (preference == mSwappiness) {
             String title = getString(R.string.swappiness_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(SWAPPINESS_PATH));
-            openDialog(currentProgress, title, 0,100, mSwappiness,SWAPPINESS_PATH, PREF_SWAPPINESS);
+            openDialog(currentProgress, title, 0,100, preference,SWAPPINESS_PATH, PREF_SWAPPINESS);
             return true;
         }
 	else if (preference == mVfs) {
             String title = getString(R.string.vfs_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));
-            openDialog(currentProgress, title, 0,200, mVfs,VFS_CACHE_PRESSURE_PATH, PREF_VFS);
+            openDialog(currentProgress, title, 0,200, preference,VFS_CACHE_PRESSURE_PATH, PREF_VFS);
             return true;
         }
-
+        /*
+	else if (preference == mDynamicWriteBackActive) {
+            String title = getString(R.string.vfs_title);
+            int currentProgress = Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
+            openDialog(currentProgress, title, 0,5000, preference,DIRTY_WRITEBACK_ACTIVE_PATH, PREF_DIRTY_WRITEBACK_ACTIVE);
+            return true;
+        }
+        */
+        
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
