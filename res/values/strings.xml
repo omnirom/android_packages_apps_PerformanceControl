@@ -101,7 +101,7 @@ Copyright (C) 2012  James Roberts
    <string name="pt_veryaggressive">Very Aggressive</string>
    <string name="pref_veryaggressive">4096,8192,16384,32768,49152,65536</string>
 <!-- blx -->
-   <string name="blx_info">Battery life extender\nAuthor Ezekeel</string>
+   <string name="blx_info">Battery Life eXtender feature\nAuthor Ezekeel</string>
    <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
    <string name="pt_blx_boot">Set on boot</string>
    <string name="ps_blx_boot">Apply the amount above at boot</string>
@@ -119,7 +119,7 @@ Copyright (C) 2012  James Roberts
    <string name="prefcat_bltouch">BACKLIGHT ON TOUCHSCREEN</string>
    <string name="pt_bltouch">Backlight on touchscreen</string>	
 <!-- pfk -->
-   <string name="pfk_info">Dynamic dirty page writebacks feature\nAuthor Cristoforo Cataldo (Christopher83)</string>
+   <string name="pfk_info">Dynamic Dirty Page Writebacks feature\nAuthor Cristoforo Cataldo (Christopher83)</string>
    <string name="prefcat_pfk">PHANTOM KEY PRESSES FILTER</string>
    <string name="pt_home_enabled">Home key filter</string>
    <string name="ps_home_enabled">Ignored key pressed: %s</string>
