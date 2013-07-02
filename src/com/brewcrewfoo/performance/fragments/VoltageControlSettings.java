@@ -154,18 +154,31 @@ public class VoltageControlSettings extends Fragment implements Constants {
 	else if(item.getItemId() == R.id.volt_decrease){
 		IncreasebyStep(-25);
 	}
+	else if(item.getItemId() == R.id.reset){
+		RemoveVolt();
+	}
         return true;
     }
+    private void ResetVolt() {
+	for (final Voltage volt : mVoltages) {
+		SharedPreferences.Editor editor = mPreferences.edit();
+                editor.remove(volt.getFreq()).commit();
+	}
+	final List<Voltage> volts = getVolts(mPreferences);
+	mVoltages.clear();
+	mVoltages.addAll(volts);
+	mAdapter.notifyDataSetChanged();
+    }
     private void IncreasebyStep(final int pas) {
-			for (final Voltage volt : mVoltages) {
-				String value=Integer.toString( Integer.parseInt(volt.getSavedMV())+pas);
-				SharedPreferences.Editor editor = mPreferences.edit();
+	for (final Voltage volt : mVoltages) {
+		String value=Integer.toString( Integer.parseInt(volt.getSavedMV())+pas);
+		SharedPreferences.Editor editor = mPreferences.edit();
                 editor.putString(volt.getFreq(), value).commit();
-			}
-			final List<Voltage> volts = getVolts(mPreferences);
-			mVoltages.clear();
-			mVoltages.addAll(volts);
-			mAdapter.notifyDataSetChanged();
+	}
+	final List<Voltage> volts = getVolts(mPreferences);
+	mVoltages.clear();
+	mVoltages.addAll(volts);
+	mAdapter.notifyDataSetChanged();
     }
     
     
