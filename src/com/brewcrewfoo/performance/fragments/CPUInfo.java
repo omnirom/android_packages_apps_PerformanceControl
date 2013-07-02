@@ -64,6 +64,21 @@ public class CPUInfo extends Fragment implements Constants {
             mKernelInfo.append(getString(R.string.pfk_info,Helpers.readOneLine(PFK_VER)));
             mKernelInfo.append("\n");
         }
+        if (new File(DYNAMIC_DIRTY_WRITEBACK_PATH).exists()) {
+            mKernelInfo.append("\n");
+            mKernelInfo.append(getString(R.string.dynamic_writeback_info));
+            mKernelInfo.append("\n");
+        }
+        if (new File(DSYNC_PATH).exists()) {
+            mKernelInfo.append("\n");
+            mKernelInfo.append(getString(R.string.dsync_info));
+            mKernelInfo.append("\n");
+        }
+        if (new File(BLX_PATH).exists()) {
+            mKernelInfo.append("\n");
+            mKernelInfo.append(getString(R.string.blx_info));
+            mKernelInfo.append("\n");
+        }
         readFile(mCPUInfo, CPU_INFO_PATH);
         readFile(mMemInfo, MEM_INFO_PATH);
     }
