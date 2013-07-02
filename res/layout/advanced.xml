@@ -144,7 +144,7 @@ Copyright (C) 2012  James Roberts
 
         <CheckBoxPreference
                 android:defaultValue="false"
-                android:key="pref_dynamic_write_back"
+                android:key="pref_dynamic_dirty_writeback"
                 android:title="@string/pt_dynamic_write_back"/>
         <Preference
                 android:key="pref_dynamic_writeback_active"
