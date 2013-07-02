@@ -119,8 +119,8 @@ public class Advanced extends PreferenceFragment implements
         mSwappiness = (Preference) findPreference(PREF_SWAPPINESS);
         mVfs = (Preference) findPreference(PREF_VFS);
         mDynamicWriteBackOn = (CheckBoxPreference) findPreference(PREF_DYNAMIC_DIRTY_WRITEBACK);
-        mDynamicWriteBackActive = (Preference) findPreference(PREF_DYNAMIC_DIRTY_WRITEBACK);
-        mDynamicWriteBackSuspend = (Preference) findPreference(PREF_DYNAMIC_DIRTY_WRITEBACK);        
+        mDynamicWriteBackActive = (Preference) findPreference(PREF_DIRTY_WRITEBACK_ACTIVE);
+        mDynamicWriteBackSuspend = (Preference) findPreference(PREF_DIRTY_WRITEBACK_SUSPEND);        
 		
         if (!new File(FASTCHARGE_PATH).exists()) {
 		PreferenceCategory hideCat = (PreferenceCategory) findPreference("kernel");
