@@ -179,7 +179,7 @@ public class Advanced extends PreferenceFragment implements
 	else{
 		mBltouch.setChecked(Helpers.readOneLine(BL_TOUCH_ON_PATH).equals("1"));
 	}
-        if (!new File(DYNAMIC_DIRTY_WRITEBACK_PATH).exists()) {
+     /*   if (!new File(DYNAMIC_DIRTY_WRITEBACK_PATH).exists()) {
             mDirtyWriteback.setEnabled(true);
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("cat_dynamic_write_back");
             getPreferenceScreen().removePreference(hideCat);
@@ -187,7 +187,7 @@ public class Advanced extends PreferenceFragment implements
         else{
             mDirtyWriteback.setEnabled(!mPreferences.getBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK, false));
         }	
-		
+*/		
 	mReadAhead.setValue(Helpers.readOneLine(READ_AHEAD_PATH[0]));
         mReadAhead.setSummary(getString(R.string.ps_read_ahead, Helpers.readOneLine(READ_AHEAD_PATH[0]) + "  kb"));
         mDirtyRatio.setSummary(Helpers.readOneLine(DIRTY_RATIO_PATH));
@@ -198,6 +198,7 @@ public class Advanced extends PreferenceFragment implements
         mOvercommit.setSummary(Helpers.readOneLine(OVERCOMMIT_PATH));
         mSwappiness.setSummary(Helpers.readOneLine(SWAPPINESS_PATH));
         mVfs.setSummary(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));
+        
         mDynamicWriteBackActive.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
         mDynamicWriteBackSuspend.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));        
         
