@@ -130,8 +130,12 @@ Copyright (C) 2012  James Roberts
 	<string name="menuback_first_err_wait_title">First error wait time</string>
 	<string name="menuback_last_err_wait_title">Last error wait time</string>
 	<string name="ps_pfk_set_on_boot">If enabled will restore all pkf settings on reboot</string>
-<!-- -->
-
+<!-- dynamic write back -->
+    	<string name="dynamic_write_back_title">DYNAMIC DIRTY PAGE WRITEBACKS</string>
+	<string name="pt_dynamic_write_back">Dynamic Dirty Page Writeback</string>
+	<string name="dynamic_writeback_active_title">Dirty Writeback Active centisecs</string>
+	<string name="dynamic_writeback_suspend_title">Dirty Writeback Suspend centisecs</string>
+<!--  -->
     <string name="size_25_mb">25mb</string>
     <string name="size_50_mb">50mb</string>
     <string name="size_75_mb">75mb</string>
