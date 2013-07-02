@@ -380,14 +380,13 @@ public class Advanced extends PreferenceFragment implements
             openDialog(currentProgress, title, 0,200, preference,VFS_CACHE_PRESSURE_PATH, PREF_VFS);
             return true;
         }
-        /*
 	else if (preference == mDynamicWriteBackActive) {
             String title = getString(R.string.vfs_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
             openDialog(currentProgress, title, 0,5000, preference,DIRTY_WRITEBACK_ACTIVE_PATH, PREF_DIRTY_WRITEBACK_ACTIVE);
             return true;
         }
-        */
+        
         
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
