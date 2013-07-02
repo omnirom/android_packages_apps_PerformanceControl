@@ -381,12 +381,17 @@ public class Advanced extends PreferenceFragment implements
             return true;
         }
 	else if (preference == mDynamicWriteBackActive) {
-            String title = getString(R.string.vfs_title);
+            String title = getString(R.string.dynamic_writeback_active_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
             openDialog(currentProgress, title, 0,5000, preference,DIRTY_WRITEBACK_ACTIVE_PATH, PREF_DIRTY_WRITEBACK_ACTIVE);
             return true;
         }
-        
+	else if (preference == mDynamicWriteBackSuspend) {
+            String title = getString(R.string.dynamic_writeback_suspend_title);
+            int currentProgress = Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
+            openDialog(currentProgress, title, 0,5000, preference,DIRTY_WRITEBACK_SUSPEND_PATH, PREF_DIRTY_WRITEBACK_SUSPEND);
+            return true;
+        }        
         
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
