@@ -137,6 +137,27 @@ Copyright (C) 2012  James Roberts
                 android:summary="@string/ps_pfk_set_on_boot"
                 android:title="@string/sob"/>	
     </PreferenceCategory>
+<!-- Dynamic write back-->
+    <PreferenceCategory
+            android:key="cat_dynamic_write_back"
+            android:title="@string/dynamic_write_back_title">
+
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="pref_dynamic_write_back"
+                android:title="@string/pt_dynamic_write_back"/>
+        <Preference
+                android:key="pref_dynamic_writeback_active"
+                android:title="@string/dynamic_writeback_active_title"/>
+        <Preference
+                android:key="pref_dynamic_writeback_suspend"
+                android:title="@string/dynamic_writeback_suspend_title"/>    
+	 <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="dynamic_write_back_sob"
+                android:summary="@string/ps_blx_boot"
+                android:title="@string/sob"/>	
+    </PreferenceCategory>
 <!-- -->
     <PreferenceCategory
             android:key="vm_settings"
