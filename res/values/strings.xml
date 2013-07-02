@@ -132,7 +132,7 @@ Copyright (C) 2012  James Roberts
 	<string name="ps_pfk_set_on_boot">If enabled will restore all pkf settings on reboot</string>
 <!-- dynamic write back -->
     	<string name="dynamic_write_back_title">DYNAMIC DIRTY PAGE WRITEBACKS</string>
-	<string name="pt_dynamic_write_back">Dynamic Dirty Page Writeback</string>
+	<string name="pt_dynamic_write_back">Dynamic Dirty Writeback</string>
 	<string name="dynamic_writeback_active_title">Dirty Writeback Active centisecs</string>
 	<string name="dynamic_writeback_suspend_title">Dirty Writeback Suspend centisecs</string>
 <!--  -->
