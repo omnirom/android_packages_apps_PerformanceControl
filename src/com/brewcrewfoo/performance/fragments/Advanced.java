@@ -186,6 +186,8 @@ public class Advanced extends PreferenceFragment implements
         }
         else{
             mDirtyWriteback.setEnabled(!mPreferences.getBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK, false));
+	mDynamicWriteBackActive.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
+        mDynamicWriteBackSuspend.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));  
         }	
 */		
 	mReadAhead.setValue(Helpers.readOneLine(READ_AHEAD_PATH[0]));
@@ -198,10 +200,7 @@ public class Advanced extends PreferenceFragment implements
         mOvercommit.setSummary(Helpers.readOneLine(OVERCOMMIT_PATH));
         mSwappiness.setSummary(Helpers.readOneLine(SWAPPINESS_PATH));
         mVfs.setSummary(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));
-        
-        mDynamicWriteBackActive.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
-        mDynamicWriteBackSuspend.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));        
-        
+            
         setHasOptionsMenu(true);
     }
 
