@@ -185,7 +185,9 @@ public class Advanced extends PreferenceFragment implements
 		getPreferenceScreen().removePreference(hideCat);
         }
         else{
-		mDirtyWriteback.setEnabled(!mPreferences.getBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK, false));
+        	boolean ison=Helpers.readOneLine(DYNAMIC_DIRTY_WRITEBACK_PATH).equals("1");
+        	mDynamicWriteBackOn.setChecked(ison);
+		mDirtyWriteback.setEnabled(!ison);
 		mDynamicWriteBackActive.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
         	mDynamicWriteBackSuspend.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));  
         }	
