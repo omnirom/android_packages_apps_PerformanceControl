@@ -185,15 +185,17 @@ public class BootService extends Service implements Constants {
 			}
 		}
 		if (new File(DYNAMIC_DIRTY_WRITEBACK_PATH).exists()) {
-			if (preferences.getBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK, false)) {
+			if (preferences.getBoolean(DYNAMIC_DIRTY_WRITEBACK_SOB, false)) {
+				if (preferences.getBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK, false)) {
+					sb.append("busybox echo 1 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
+				}
+				else{
+					sb.append("busybox echo 0 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
+				}
 				sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_WRITEBACK_ACTIVE,Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH)))
 				+ " > " + DIRTY_WRITEBACK_ACTIVE_PATH + " \n");
 				sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_WRITEBACK_SUSPEND,Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH)))
 				+ " > " + DIRTY_WRITEBACK_SUSPEND_PATH + " \n");
-				sb.append("busybox echo 1 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
-			}
-			else{
-				sb.append("busybox echo 0 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
 			}
 		}			
 		if (preferences.getBoolean(VM_SOB, false)) {
