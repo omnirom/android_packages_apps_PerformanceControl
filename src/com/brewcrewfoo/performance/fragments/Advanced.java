@@ -380,6 +380,17 @@ public class Advanced extends PreferenceFragment implements
             openDialog(currentProgress, title, 0,200, preference,VFS_CACHE_PRESSURE_PATH, PREF_VFS);
             return true;
         }
+	else if (preference == mDynamicWriteBackOn){
+		if (Integer.parseInt(Helpers.readOneLine(DYNAMIC_DIRTY_WRITEBACK_PATH))==0){
+			new CMDProcessor().su.runWaitFor("busybox echo 1 > " + DYNAMIC_DIRTY_WRITEBACK_PATH);
+			mDirtyWriteback.setEnabled(false);
+		}
+		else{
+			new CMDProcessor().su.runWaitFor("busybox echo 0 > " + DYNAMIC_DIRTY_WRITEBACK_PATH);
+			mDirtyWriteback.setEnabled(true);
+		}
+            return true;
+	}        
 	else if (preference == mDynamicWriteBackActive) {
             String title = getString(R.string.dynamic_writeback_active_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
