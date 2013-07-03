@@ -207,7 +207,14 @@ public class OOMSettings extends PreferenceFragment implements
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
-		//return true;
+    	if (key.equals(PREF_MINFREE_BOOT)) {
+    		if(sharedPreferences.getBoolean(key,false)){
+			sharedPreferences.edit().putString(PREF_MINFREE, Helpers.readOneLine(MINFREE_PATH)).apply();
+    		}
+    		else{
+    			sharedPreferences.edit().remove(PREF_MINFREE).apply();
+    		}
+	}
     }
 
 	private void updateOOM(String[] v) {
