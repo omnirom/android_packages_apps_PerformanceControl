@@ -121,7 +121,7 @@ public class BootService extends Service implements Constants {
 		}			
 		if (new File(FASTCHARGE_PATH).exists()) {
 			if(preferences.getBoolean(PREF_FASTCHARGE, false)){
-				new CMDProcessor().su.runWaitFor("busybox echo 1 > " + FASTCHARGE_PATH);
+				sb.append("busybox echo 1 > " + FASTCHARGE_PATH + " \n");
 				Intent i = new Intent();
 				i.setAction(INTENT_ACTION_FASTCHARGE);
 				c.sendBroadcast(i);
