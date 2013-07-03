@@ -67,15 +67,13 @@ public class BootService extends Service implements Constants {
         protected Void doInBackground(Void... args) {
         	
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		final Boolean isperformance = Helpers.GovernorExist("performance");
 		final String CURGOV = Helpers.readOneLine(GOVERNOR_PATH);
 		if(isperformance){
 			for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
 				sb.append("busybox echo performance > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i) + " \n");
 			}
-			Helpers.shExec(sb);
-			sb = new StringBuilder();
 		}
 
 		if (preferences.getBoolean(VOLTAGE_SOB, false)) {
