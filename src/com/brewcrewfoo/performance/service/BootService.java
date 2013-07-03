@@ -67,8 +67,8 @@ public class BootService extends Service implements Constants {
         protected Void doInBackground(Void... args) {
         	
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-		final StringBuilder sb = new StringBuilder();
-		final Boolean isperformance = GovernorExist("performance");
+		StringBuilder sb = new StringBuilder();
+		final Boolean isperformance = Helpers.GovernorExist("performance");
 		final String CURGOV = Helpers.readOneLine(GOVERNOR_PATH);
 		if(isperformance){
 			for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
