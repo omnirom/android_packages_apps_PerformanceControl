@@ -465,7 +465,7 @@ public class Advanced extends PreferenceFragment implements
 				}
 				editor.putString(PREF_HOME_ALLOWED_IRQ, Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
 				editor.putString(PREF_HOME_REPORT_WAIT, Helpers.readOneLine(PFK_HOME_REPORT_WAIT));
-				if(Helpers.readOneLine(PFK_MENUBACK_ON).equals("1")){
+				if(Helpers.readOneLine(PFK_MENUBACK_ENABLED).equals("1")){
 					editor.putBoolean(PFK_MENUBACK_ON,true);
 				}
 				else{
