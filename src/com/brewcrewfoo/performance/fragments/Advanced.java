@@ -456,24 +456,23 @@ public class Advanced extends PreferenceFragment implements
 		}
     		else if (key.equals(PFK_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
-				sharedPreferences.edit();
 				if(Helpers.readOneLine(PFK_HOME_ENABLED).equals("1")){
-					sharedPreferences.putBoolean(PFK_HOME_ON, true);
+					sharedPreferences.edit().putBoolean(PFK_HOME_ON, true);
 				}
 				else{
-					sharedPreferences.putBoolean(PFK_HOME_ON, false);
+					sharedPreferences.edit().putBoolean(PFK_HOME_ON, false);
 				}
-				sharedPreferences.putString(PREF_HOME_ALLOWED_IRQ, Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
-				sharedPreferences.putString(PREF_HOME_REPORT_WAIT, Helpers.readOneLine(PFK_HOME_REPORT_WAIT));
+				sharedPreferences.edit().putString(PREF_HOME_ALLOWED_IRQ, Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
+				sharedPreferences.edit().putString(PREF_HOME_REPORT_WAIT, Helpers.readOneLine(PFK_HOME_REPORT_WAIT));
 				if(Helpers.readOneLine(PFK_MENUBACK_ON).equals("1")){
-					sharedPreferences.putBoolean(PFK_MENUBACK_ON,true);
+					sharedPreferences.edit().putBoolean(PFK_MENUBACK_ON,true);
 				}
 				else{
-					sharedPreferences.putBoolean(PFK_MENUBACK_ON,false);
+					sharedPreferences.edit().putBoolean(PFK_MENUBACK_ON,false);
 				}
-				sharedPreferences.putString(PREF_MENUBACK_INTERRUPT_CHECKS, Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
-				sharedPreferences.putString(PREF_MENUBACK_FIRST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT));
-				sharedPreferences.putString(PREF_MENUBACK_LAST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT));
+				sharedPreferences.edit().putString(PREF_MENUBACK_INTERRUPT_CHECKS, Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
+				sharedPreferences.edit().putString(PREF_MENUBACK_FIRST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT));
+				sharedPreferences.edit().putString(PREF_MENUBACK_LAST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT));
 				sharedPreferences.apply();
     			}
     			else{
@@ -490,15 +489,14 @@ public class Advanced extends PreferenceFragment implements
 		}
     		else if (key.equals(DYNAMIC_DIRTY_WRITEBACK_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
-    				sharedPreferences.edit();
 				if(Helpers.readOneLine(DYNAMIC_DIRTY_WRITEBACK_PATH).equals("1")){
-					sharedPreferences.putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,true);
+					sharedPreferences.edit().putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,true);
 				}
 				else{
-					sharedPreferences.putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,false);
+					sharedPreferences.edit().putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,false);
 				}    				
-				sharedPreferences.putString(PREF_DIRTY_WRITEBACK_ACTIVE, Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
-				sharedPreferences.putString(PREF_DIRTY_WRITEBACK_SUSPEND, Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
+				sharedPreferences.edit().putString(PREF_DIRTY_WRITEBACK_ACTIVE, Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
+				sharedPreferences.edit().putString(PREF_DIRTY_WRITEBACK_SUSPEND, Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
 				sharedPreferences.apply();
     			}
     			else{
@@ -512,14 +510,14 @@ public class Advanced extends PreferenceFragment implements
     		else if (key.equals(VM_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
     				sharedPreferences.edit();
-				sharedPreferences.putString(PREF_DIRTY_RATIO, Helpers.readOneLine(DIRTY_RATIO_PATH));
-				sharedPreferences.putString(PREF_DIRTY_BACKGROUND, Helpers.readOneLine(DIRTY_BACKGROUND_PATH));
-				sharedPreferences.putString(PREF_DIRTY_EXPIRE, Helpers.readOneLine(DIRTY_EXPIRE_PATH));
-				sharedPreferences.putString(PREF_DIRTY_WRITEBACK, Helpers.readOneLine(DIRTY_WRITEBACK_PATH));
-				sharedPreferences.putString(PREF_MIN_FREE_KB, Helpers.readOneLine(MIN_FREE_PATH));
-				sharedPreferences.putString(PREF_OVERCOMMIT, Helpers.readOneLine(OVERCOMMIT_PATH));
-				sharedPreferences.putString(PREF_SWAPPINESS, Helpers.readOneLine(SWAPPINESS_PATH));
-				sharedPreferences.putString(PREF_VFS, Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));				
+				sharedPreferences.edit().putString(PREF_DIRTY_RATIO, Helpers.readOneLine(DIRTY_RATIO_PATH));
+				sharedPreferences.edit().putString(PREF_DIRTY_BACKGROUND, Helpers.readOneLine(DIRTY_BACKGROUND_PATH));
+				sharedPreferences.edit().putString(PREF_DIRTY_EXPIRE, Helpers.readOneLine(DIRTY_EXPIRE_PATH));
+				sharedPreferences.edit().putString(PREF_DIRTY_WRITEBACK, Helpers.readOneLine(DIRTY_WRITEBACK_PATH));
+				sharedPreferences.edit().putString(PREF_MIN_FREE_KB, Helpers.readOneLine(MIN_FREE_PATH));
+				sharedPreferences.edit().putString(PREF_OVERCOMMIT, Helpers.readOneLine(OVERCOMMIT_PATH));
+				sharedPreferences.edit().putString(PREF_SWAPPINESS, Helpers.readOneLine(SWAPPINESS_PATH));
+				sharedPreferences.edit().putString(PREF_VFS, Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));				
 				sharedPreferences.apply();
     			}
     			else{
