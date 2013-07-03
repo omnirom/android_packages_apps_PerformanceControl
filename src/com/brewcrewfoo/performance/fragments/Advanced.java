@@ -525,8 +525,8 @@ public class Advanced extends PreferenceFragment implements
     			else{
 				sharedPreferences.edit();
 				sharedPreferences.remove(PREF_DIRTY_RATIO);
-				sharedPreferences.remove(PREF_DIRTY_BACKGROUND));
-				sharedPreferences.remove(PREF_DIRTY_EXPIRE));
+				sharedPreferences.remove(PREF_DIRTY_BACKGROUND);
+				sharedPreferences.remove(PREF_DIRTY_EXPIRE);
 				sharedPreferences.remove(PREF_DIRTY_WRITEBACK);
 				sharedPreferences.remove(PREF_MIN_FREE_KB);
 				sharedPreferences.remove(PREF_OVERCOMMIT);
