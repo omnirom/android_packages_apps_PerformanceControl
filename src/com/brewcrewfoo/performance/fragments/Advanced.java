@@ -441,7 +441,7 @@ public class Advanced extends PreferenceFragment implements
 		}
     		else if (key.equals(BLX_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
-				editor.putString(PREF_BLX, Helpers.readOneLine(BLX_PATH)).apply();
+				editor.putInt(PREF_BLX, Helpers.readOneLine(BLX_PATH)).apply();
     			}
     			else{
     				editor.remove(PREF_BLX).apply();
@@ -449,7 +449,7 @@ public class Advanced extends PreferenceFragment implements
 		}
     		else if (key.equals(BLTIMEOUT_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
-				editor.putString(PREF_BLTIMEOUT, Helpers.readOneLine(BL_TIMEOUT_PATH)).apply();
+				editor.putInt(PREF_BLTIMEOUT, Helpers.readOneLine(BL_TIMEOUT_PATH)).apply();
     			}
     			else{
     				editor.remove(PREF_BLTIMEOUT).apply();
@@ -463,17 +463,17 @@ public class Advanced extends PreferenceFragment implements
 				else{
 					editor.putBoolean(PFK_HOME_ON, false);
 				}
-				editor.putString(PREF_HOME_ALLOWED_IRQ, Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
-				editor.putString(PREF_HOME_REPORT_WAIT, Helpers.readOneLine(PFK_HOME_REPORT_WAIT));
+				editor.putInt(PREF_HOME_ALLOWED_IRQ, Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
+				editor.putInt(PREF_HOME_REPORT_WAIT, Helpers.readOneLine(PFK_HOME_REPORT_WAIT));
 				if(Helpers.readOneLine(PFK_MENUBACK_ENABLED).equals("1")){
 					editor.putBoolean(PFK_MENUBACK_ON,true);
 				}
 				else{
 					editor.putBoolean(PFK_MENUBACK_ON,false);
 				}
-				editor.putString(PREF_MENUBACK_INTERRUPT_CHECKS, Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
-				editor.putString(PREF_MENUBACK_FIRST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT));
-				editor.putString(PREF_MENUBACK_LAST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT));
+				editor.putInt(PREF_MENUBACK_INTERRUPT_CHECKS, Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
+				editor.putInt(PREF_MENUBACK_FIRST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT));
+				editor.putInt(PREF_MENUBACK_LAST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT));
 				editor.apply();
     			}
     			else{
@@ -495,8 +495,8 @@ public class Advanced extends PreferenceFragment implements
 				else{
 					editor.putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,false);
 				}    				
-				editor.putString(PREF_DIRTY_WRITEBACK_ACTIVE, Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
-				editor.putString(PREF_DIRTY_WRITEBACK_SUSPEND, Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
+				editor.putInt(PREF_DIRTY_WRITEBACK_ACTIVE, Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
+				editor.putInt(PREF_DIRTY_WRITEBACK_SUSPEND, Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
 				editor.apply();
     			}
     			else{
@@ -508,14 +508,14 @@ public class Advanced extends PreferenceFragment implements
 		}
     		else if (key.equals(VM_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
-				editor.putString(PREF_DIRTY_RATIO, Helpers.readOneLine(DIRTY_RATIO_PATH));
-				editor.putString(PREF_DIRTY_BACKGROUND, Helpers.readOneLine(DIRTY_BACKGROUND_PATH));
-				editor.putString(PREF_DIRTY_EXPIRE, Helpers.readOneLine(DIRTY_EXPIRE_PATH));
-				editor.putString(PREF_DIRTY_WRITEBACK, Helpers.readOneLine(DIRTY_WRITEBACK_PATH));
-				editor.putString(PREF_MIN_FREE_KB, Helpers.readOneLine(MIN_FREE_PATH));
-				editor.putString(PREF_OVERCOMMIT, Helpers.readOneLine(OVERCOMMIT_PATH));
-				editor.putString(PREF_SWAPPINESS, Helpers.readOneLine(SWAPPINESS_PATH));
-				editor.putString(PREF_VFS, Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));				
+				editor.putInt(PREF_DIRTY_RATIO, Helpers.readOneLine(DIRTY_RATIO_PATH));
+				editor.putInt(PREF_DIRTY_BACKGROUND, Helpers.readOneLine(DIRTY_BACKGROUND_PATH));
+				editor.putInt(PREF_DIRTY_EXPIRE, Helpers.readOneLine(DIRTY_EXPIRE_PATH));
+				editor.putInt(PREF_DIRTY_WRITEBACK, Helpers.readOneLine(DIRTY_WRITEBACK_PATH));
+				editor.putInt(PREF_MIN_FREE_KB, Helpers.readOneLine(MIN_FREE_PATH));
+				editor.putInt(PREF_OVERCOMMIT, Helpers.readOneLine(OVERCOMMIT_PATH));
+				editor.putInt(PREF_SWAPPINESS, Helpers.readOneLine(SWAPPINESS_PATH));
+				editor.putInt(PREF_VFS, Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));				
 				editor.apply();
     			}
     			else{
