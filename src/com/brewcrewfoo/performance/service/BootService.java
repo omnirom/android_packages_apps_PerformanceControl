@@ -65,14 +65,29 @@ public class BootService extends Service implements Constants {
         @SuppressWarnings("deprecation")
         @Override
         protected Void doInBackground(Void... args) {
-        	
+
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
 		final StringBuilder sb = new StringBuilder();
-		final Boolean isperformance = Helpers.GovernorExist("performance");
-		final String CURGOV = Helpers.readOneLine(GOVERNOR_PATH);
-		if(isperformance){
+		
+		if (preferences.getBoolean(CPU_SOB, false)) {
+			final String max = preferences.getString(PREF_MAX_CPU, Helpers.readOneLine(MAX_FREQ_PATH));
+			final String min = preferences.getString(PREF_MIN_CPU, Helpers.readOneLine(MIN_FREQ_PATH));
+			final String gov = preferences.getString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
+			final String io = preferences.getString(PREF_IO, Helpers.getIOScheduler());
+
+			boolean mIsTegra3 = new File(TEGRA_MAX_FREQ_PATH).exists();
+
 			for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-				sb.append("busybox echo performance > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i) + " \n");
+				sb.append("busybox echo " + max + " > " + MAX_FREQ_PATH.replace("cpu0", "cpu" + i) + " \n");
+				sb.append("busybox echo " + min + " > " + MIN_FREQ_PATH.replace("cpu0", "cpu" + i) + " \n");
+				sb.append("busybox echo " + gov + " > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i) + " \n");
+			}
+			if (mIsTegra3) {
+				sb.append("busybox echo " + max + " > " + TEGRA_MAX_FREQ_PATH + " \n");
+			}
+			for(int i=0;i<IO_SCHEDULER_PATH.length; i++){
+				sb.append("busybox echo "+io+" > " + IO_SCHEDULER_PATH[i] + "\n");
+
 			}
 		}
 
@@ -221,34 +236,7 @@ public class BootService extends Service implements Constants {
 				}
 			}
 		}
-		if (preferences.getBoolean(CPU_SOB, false)) {
-			final String max = preferences.getString(PREF_MAX_CPU, Helpers.readOneLine(MAX_FREQ_PATH));
-			final String min = preferences.getString(PREF_MIN_CPU, Helpers.readOneLine(MIN_FREQ_PATH));
-			final String gov = preferences.getString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
-			final String io = preferences.getString(PREF_IO, Helpers.getIOScheduler());
 
-			boolean mIsTegra3 = new File(TEGRA_MAX_FREQ_PATH).exists();
-
-			for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-				sb.append("busybox echo " + max + " > " + MAX_FREQ_PATH.replace("cpu0", "cpu" + i) + " \n");
-				sb.append("busybox echo " + min + " > " + MIN_FREQ_PATH.replace("cpu0", "cpu" + i) + " \n");
-				sb.append("busybox echo " + gov + " > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i) + " \n");
-			}
-			if (mIsTegra3) {
-				sb.append("busybox echo " + max + " > " + TEGRA_MAX_FREQ_PATH + " \n");
-			}
-			for(int i=0;i<IO_SCHEDULER_PATH.length; i++){
-				sb.append("busybox echo "+io+" > " + IO_SCHEDULER_PATH[i] + "\n");
-
-			}
-		}
-		else{
-			if(isperformance){
-				for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-					sb.append("busybox echo "+CURGOV+" > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i) + " \n");
-				}
-			}
-		}
 		Helpers.shExec(sb);
 		return null;
         }
