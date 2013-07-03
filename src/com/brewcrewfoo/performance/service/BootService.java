@@ -177,20 +177,6 @@ public class BootService extends Service implements Constants {
 				sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
 			}
 		}
-		if (new File(DYNAMIC_DIRTY_WRITEBACK_PATH).exists()) {
-			if (preferences.getBoolean(DYNAMIC_DIRTY_WRITEBACK_SOB, false)) {
-				if (preferences.getBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK, false)) {
-					sb.append("busybox echo 1 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
-				}
-				else{
-					sb.append("busybox echo 0 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
-				}
-				sb.append("busybox echo " + preferences.getString(PREF_DIRTY_WRITEBACK_ACTIVE,Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH))
-				+ " > " + DIRTY_WRITEBACK_ACTIVE_PATH + " \n");
-				sb.append("busybox echo " + preferences.getString(PREF_DIRTY_WRITEBACK_SUSPEND,Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH))
-				+ " > " + DIRTY_WRITEBACK_SUSPEND_PATH + " \n");
-			}
-		}			
 
 		if (new File(PFK_HOME_ENABLED).exists() && new File(PFK_MENUBACK_ENABLED).exists()) {
 			if (preferences.getBoolean(PFK_SOB, false)) {
@@ -218,6 +204,23 @@ public class BootService extends Service implements Constants {
 				}
 			}
 		}
+		boolean isdynamic=false;
+		if (new File(DYNAMIC_DIRTY_WRITEBACK_PATH).exists()) {
+			if (preferences.getBoolean(DYNAMIC_DIRTY_WRITEBACK_SOB, false)) {
+				if (preferences.getBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK, false)) {
+					sb.append("busybox echo 1 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
+					isdynamic=true;
+				}
+				else{
+					sb.append("busybox echo 0 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
+				}
+				sb.append("busybox echo " + preferences.getString(PREF_DIRTY_WRITEBACK_ACTIVE,Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH))
+				+ " > " + DIRTY_WRITEBACK_ACTIVE_PATH + " \n");
+				sb.append("busybox echo " + preferences.getString(PREF_DIRTY_WRITEBACK_SUSPEND,Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH))
+				+ " > " + DIRTY_WRITEBACK_SUSPEND_PATH + " \n");
+			}
+		}			
+		
 		if (preferences.getBoolean(VM_SOB, false)) {
 			sb.append("busybox echo " + preferences.getString(PREF_DIRTY_RATIO,Helpers.readOneLine(DIRTY_RATIO_PATH))
 				+ " > " + DIRTY_RATIO_PATH + " \n");
@@ -225,8 +228,10 @@ public class BootService extends Service implements Constants {
 				+ " > " + DIRTY_BACKGROUND_PATH + " \n");
 			sb.append("busybox echo " + preferences.getString(PREF_DIRTY_EXPIRE, Helpers.readOneLine(DIRTY_EXPIRE_PATH))
 				+ " > " + DIRTY_EXPIRE_PATH + " \n");
+			if(!isdynamic){
 			sb.append("busybox echo " + preferences.getString(PREF_DIRTY_WRITEBACK, Helpers.readOneLine(DIRTY_WRITEBACK_PATH))
 				+ " > " + DIRTY_WRITEBACK_PATH + " \n");
+			}
 			sb.append("busybox echo " + preferences.getString(PREF_MIN_FREE_KB, Helpers.readOneLine(MIN_FREE_PATH))
 				+ " > " + MIN_FREE_PATH + " \n");
 			sb.append("busybox echo " + preferences.getString(PREF_OVERCOMMIT, Helpers.readOneLine(OVERCOMMIT_PATH))
