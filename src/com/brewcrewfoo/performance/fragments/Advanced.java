@@ -438,6 +438,103 @@ public class Advanced extends PreferenceFragment implements
 		else if (key.equals(PREF_MENUBACK_LAST_ERR_WAIT)){
 			mMenuBackLastErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)+"ms");
 		}
+    		else if (key.equals(BLX_SOB)) {
+    			if(sharedPreferences.getBoolean(key,false)){
+				sharedPreferences.edit().putString(PREF_BLX, Helpers.readOneLine(BLX_PATH)).apply();
+    			}
+    			else{
+    				sharedPreferences.edit().remove(PREF_BLX).apply();
+    			}
+		}
+    		else if (key.equals(BLTIMEOUT_SOB)) {
+    			if(sharedPreferences.getBoolean(key,false)){
+				sharedPreferences.edit().putString(PREF_BLTIMEOUT, Helpers.readOneLine(BL_TIMEOUT_PATH)).apply();
+    			}
+    			else{
+    				sharedPreferences.edit().remove(PREF_BLTIMEOUT).apply();
+    			}
+		}
+    		else if (key.equals(PFK_SOB)) {
+    			if(sharedPreferences.getBoolean(key,false)){
+				sharedPreferences.edit();
+				if(Helpers.readOneLine(PFK_HOME_ENABLED).equals("1")){
+					sharedPreferences.putString(PFK_HOME_ON, true);
+				}
+				else{
+					sharedPreferences.putString(PFK_HOME_ON, false);
+				}
+				sharedPreferences.putString(PREF_HOME_ALLOWED_IRQ, Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
+				sharedPreferences.putString(PREF_HOME_REPORT_WAIT, Helpers.readOneLine(PFK_HOME_REPORT_WAIT));
+				if(Helpers.readOneLine(PFK_MENUBACK_ON).equals("1")){
+					sharedPreferences.putString(PFK_MENUBACK_ON,true);
+				}
+				else{
+					sharedPreferences.putString(PFK_MENUBACK_ON,false);
+				}
+				sharedPreferences.putString(PREF_MENUBACK_INTERRUPT_CHECKS, Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
+				sharedPreferences.putString(PREF_MENUBACK_FIRST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT));
+				sharedPreferences.putString(PREF_MENUBACK_LAST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT));
+				sharedPreferences.apply();
+    			}
+    			else{
+				sharedPreferences.edit();
+				sharedPreferences.remove(PFK_HOME_ON);
+				sharedPreferences.remove(PREF_HOME_ALLOWED_IRQ);
+				sharedPreferences.remove(PREF_HOME_REPORT_WAIT);
+				sharedPreferences.remove(PFK_MENUBACK_ON);
+				sharedPreferences.remove(PREF_MENUBACK_INTERRUPT_CHECKS);
+				sharedPreferences.remove(PREF_MENUBACK_FIRST_ERR_WAIT);
+				sharedPreferences.remove(PREF_MENUBACK_LAST_ERR_WAIT);
+				sharedPreferences.apply();
+    			}
+		}
+    		else if (key.equals(DYNAMIC_DIRTY_WRITEBACK_SOB)) {
+    			if(sharedPreferences.getBoolean(key,false)){
+    				sharedPreferences.edit();
+				if(Helpers.readOneLine(DYNAMIC_DIRTY_WRITEBACK_PATH).equals("1")){
+					sharedPreferences.putString(PREF_DYNAMIC_DIRTY_WRITEBACK,true);
+				}
+				else{
+					sharedPreferences.putString(PREF_DYNAMIC_DIRTY_WRITEBACK,false);
+				}    				
+				sharedPreferences.putString(PREF_DIRTY_WRITEBACK_ACTIVE, Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
+				sharedPreferences.putString(PREF_DIRTY_WRITEBACK_SUSPEND, Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
+				sharedPreferences.apply();
+    			}
+    			else{
+				sharedPreferences.edit();
+				sharedPreferences.remove(PREF_DYNAMIC_DIRTY_WRITEBACK);
+				sharedPreferences.remove(PREF_DIRTY_WRITEBACK_ACTIVE);
+				sharedPreferences.remove(PREF_DIRTY_WRITEBACK_SUSPEND);
+				sharedPreferences.apply();
+    			}
+		}
+    		else if (key.equals(VM_SOB)) {
+    			if(sharedPreferences.getBoolean(key,false)){
+    				sharedPreferences.edit();
+				sharedPreferences.putString(PREF_DIRTY_RATIO, Helpers.readOneLine(DIRTY_RATIO_PATH));
+				sharedPreferences.putString(PREF_DIRTY_BACKGROUND, Helpers.readOneLine(DIRTY_BACKGROUND_PATH));
+				sharedPreferences.putString(PREF_DIRTY_EXPIRE, Helpers.readOneLine(DIRTY_EXPIRE_PATH));
+				sharedPreferences.putString(PREF_DIRTY_WRITEBACK, Helpers.readOneLine(DIRTY_WRITEBACK_PATH));
+				sharedPreferences.putString(PREF_MIN_FREE_KB, Helpers.readOneLine(MIN_FREE_PATH));
+				sharedPreferences.putString(PREF_OVERCOMMIT, Helpers.readOneLine(OVERCOMMIT_PATH));
+				sharedPreferences.putString(PREF_SWAPPINESS, Helpers.readOneLine(SWAPPINESS_PATH));
+				sharedPreferences.putString(PREF_VFS, Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));				
+				sharedPreferences.apply();
+    			}
+    			else{
+				sharedPreferences.edit();
+				sharedPreferences.remove(PREF_DIRTY_RATIO);
+				sharedPreferences.remove(PREF_DIRTY_BACKGROUND));
+				sharedPreferences.remove(PREF_DIRTY_EXPIRE));
+				sharedPreferences.remove(PREF_DIRTY_WRITEBACK);
+				sharedPreferences.remove(PREF_MIN_FREE_KB);
+				sharedPreferences.remove(PREF_OVERCOMMIT);
+				sharedPreferences.remove(PREF_SWAPPINESS);
+				sharedPreferences.remove(PREF_VFS);
+				sharedPreferences.apply();
+    			}
+		}		
     }
 	
     public boolean onPreferenceChange(Preference preference, Object newValue) {
