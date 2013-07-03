@@ -428,16 +428,16 @@ public class Advanced extends PreferenceFragment implements
 			mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
 		}
 		else if (key.equals(PREF_BLTIMEOUT)) {
-			mBltimeout.setSummary(Helpers.readOneLine(BL_TIMEOUT_PATH)+"ms");
+			mBltimeout.setSummary(Helpers.readOneLine(BL_TIMEOUT_PATH)+" ms");
 		}
 		else if (key.equals(PREF_HOME_REPORT_WAIT)){
-			mHomeReportWait.setSummary(Helpers.readOneLine(PFK_HOME_REPORT_WAIT) +"ms");
+			mHomeReportWait.setSummary(Helpers.readOneLine(PFK_HOME_REPORT_WAIT) +" ms");
 		}
 		else if (key.equals(PREF_MENUBACK_FIRST_ERR_WAIT)){
-			mMenuBackFirstErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)+"ms");
+			mMenuBackFirstErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)+" ms");
 		}
 		else if (key.equals(PREF_MENUBACK_LAST_ERR_WAIT)){
-			mMenuBackLastErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)+"ms");
+			mMenuBackLastErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)+" ms");
 		}
     		else if (key.equals(BLX_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
