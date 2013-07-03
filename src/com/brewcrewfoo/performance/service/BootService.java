@@ -142,7 +142,7 @@ public class BootService extends Service implements Constants {
 		}
 		if (new File(BLX_PATH).exists()) {
 			if (preferences.getBoolean(BLX_SOB, false)) {
-				sb.append("busybox echo " + preferences.getString(PREF_BLX, ( Integer.parseIntHelpers.readOneLine(BLX_PATH)))
+				sb.append("busybox echo " + preferences.getString(PREF_BLX, Integer.parseInt(Helpers.readOneLine(BLX_PATH)))
 				+ " > " + BLX_PATH + " \n");
 			}
 		}
