@@ -411,6 +411,7 @@ public class Advanced extends PreferenceFragment implements
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		if (key.equals(PREF_READ_AHEAD)) {
 			String evalues = Helpers.readOneLine(READ_AHEAD_PATH[0]);
 			String values = sharedPreferences.getString(key,evalues);//mPreferences.getString(key,evalues);
@@ -440,97 +441,93 @@ public class Advanced extends PreferenceFragment implements
 		}
     		else if (key.equals(BLX_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
-				sharedPreferences.edit().putString(PREF_BLX, Helpers.readOneLine(BLX_PATH)).apply();
+				editor.putString(PREF_BLX, Helpers.readOneLine(BLX_PATH)).apply();
     			}
     			else{
-    				sharedPreferences.edit().remove(PREF_BLX).apply();
+    				editor.remove(PREF_BLX).apply();
     			}
 		}
     		else if (key.equals(BLTIMEOUT_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
-				sharedPreferences.edit().putString(PREF_BLTIMEOUT, Helpers.readOneLine(BL_TIMEOUT_PATH)).apply();
+				editor.putString(PREF_BLTIMEOUT, Helpers.readOneLine(BL_TIMEOUT_PATH)).apply();
     			}
     			else{
-    				sharedPreferences.edit().remove(PREF_BLTIMEOUT).apply();
+    				editor.remove(PREF_BLTIMEOUT).apply();
     			}
 		}
     		else if (key.equals(PFK_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
 				if(Helpers.readOneLine(PFK_HOME_ENABLED).equals("1")){
-					sharedPreferences.edit().putBoolean(PFK_HOME_ON, true);
+					editor.putBoolean(PFK_HOME_ON, true);
 				}
 				else{
-					sharedPreferences.edit().putBoolean(PFK_HOME_ON, false);
+					editor.putBoolean(PFK_HOME_ON, false);
 				}
-				sharedPreferences.edit().putString(PREF_HOME_ALLOWED_IRQ, Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
-				sharedPreferences.edit().putString(PREF_HOME_REPORT_WAIT, Helpers.readOneLine(PFK_HOME_REPORT_WAIT));
+				editor.putString(PREF_HOME_ALLOWED_IRQ, Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
+				editor.putString(PREF_HOME_REPORT_WAIT, Helpers.readOneLine(PFK_HOME_REPORT_WAIT));
 				if(Helpers.readOneLine(PFK_MENUBACK_ON).equals("1")){
-					sharedPreferences.edit().putBoolean(PFK_MENUBACK_ON,true);
+					editor.putBoolean(PFK_MENUBACK_ON,true);
 				}
 				else{
-					sharedPreferences.edit().putBoolean(PFK_MENUBACK_ON,false);
+					editor.putBoolean(PFK_MENUBACK_ON,false);
 				}
-				sharedPreferences.edit().putString(PREF_MENUBACK_INTERRUPT_CHECKS, Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
-				sharedPreferences.edit().putString(PREF_MENUBACK_FIRST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT));
-				sharedPreferences.edit().putString(PREF_MENUBACK_LAST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT));
-				sharedPreferences.apply();
+				editor.putString(PREF_MENUBACK_INTERRUPT_CHECKS, Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
+				editor.putString(PREF_MENUBACK_FIRST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT));
+				editor.putString(PREF_MENUBACK_LAST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT));
+				editor.apply();
     			}
     			else{
-				sharedPreferences.edit();
-				sharedPreferences.remove(PFK_HOME_ON);
-				sharedPreferences.remove(PREF_HOME_ALLOWED_IRQ);
-				sharedPreferences.remove(PREF_HOME_REPORT_WAIT);
-				sharedPreferences.remove(PFK_MENUBACK_ON);
-				sharedPreferences.remove(PREF_MENUBACK_INTERRUPT_CHECKS);
-				sharedPreferences.remove(PREF_MENUBACK_FIRST_ERR_WAIT);
-				sharedPreferences.remove(PREF_MENUBACK_LAST_ERR_WAIT);
-				sharedPreferences.apply();
+				editor.remove(PFK_HOME_ON);
+				editor.remove(PREF_HOME_ALLOWED_IRQ);
+				editor.remove(PREF_HOME_REPORT_WAIT);
+				editor.remove(PFK_MENUBACK_ON);
+				editor.remove(PREF_MENUBACK_INTERRUPT_CHECKS);
+				editor.remove(PREF_MENUBACK_FIRST_ERR_WAIT);
+				editor.remove(PREF_MENUBACK_LAST_ERR_WAIT);
+				editor.apply();
     			}
 		}
     		else if (key.equals(DYNAMIC_DIRTY_WRITEBACK_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
 				if(Helpers.readOneLine(DYNAMIC_DIRTY_WRITEBACK_PATH).equals("1")){
-					sharedPreferences.edit().putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,true);
+					editor.putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,true);
 				}
 				else{
-					sharedPreferences.edit().putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,false);
+					editor.putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,false);
 				}    				
-				sharedPreferences.edit().putString(PREF_DIRTY_WRITEBACK_ACTIVE, Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
-				sharedPreferences.edit().putString(PREF_DIRTY_WRITEBACK_SUSPEND, Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
-				sharedPreferences.apply();
+				editor.putString(PREF_DIRTY_WRITEBACK_ACTIVE, Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
+				editor.putString(PREF_DIRTY_WRITEBACK_SUSPEND, Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
+				editor.apply();
     			}
     			else{
-				sharedPreferences.edit();
-				sharedPreferences.remove(PREF_DYNAMIC_DIRTY_WRITEBACK);
-				sharedPreferences.remove(PREF_DIRTY_WRITEBACK_ACTIVE);
-				sharedPreferences.remove(PREF_DIRTY_WRITEBACK_SUSPEND);
-				sharedPreferences.apply();
+				editor.remove(PREF_DYNAMIC_DIRTY_WRITEBACK);
+				editor.remove(PREF_DIRTY_WRITEBACK_ACTIVE);
+				editor.remove(PREF_DIRTY_WRITEBACK_SUSPEND);
+				editor.apply();
     			}
 		}
     		else if (key.equals(VM_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
-    				sharedPreferences.edit();
-				sharedPreferences.edit().putString(PREF_DIRTY_RATIO, Helpers.readOneLine(DIRTY_RATIO_PATH));
-				sharedPreferences.edit().putString(PREF_DIRTY_BACKGROUND, Helpers.readOneLine(DIRTY_BACKGROUND_PATH));
-				sharedPreferences.edit().putString(PREF_DIRTY_EXPIRE, Helpers.readOneLine(DIRTY_EXPIRE_PATH));
-				sharedPreferences.edit().putString(PREF_DIRTY_WRITEBACK, Helpers.readOneLine(DIRTY_WRITEBACK_PATH));
-				sharedPreferences.edit().putString(PREF_MIN_FREE_KB, Helpers.readOneLine(MIN_FREE_PATH));
-				sharedPreferences.edit().putString(PREF_OVERCOMMIT, Helpers.readOneLine(OVERCOMMIT_PATH));
-				sharedPreferences.edit().putString(PREF_SWAPPINESS, Helpers.readOneLine(SWAPPINESS_PATH));
-				sharedPreferences.edit().putString(PREF_VFS, Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));				
-				sharedPreferences.apply();
+				editor.putString(PREF_DIRTY_RATIO, Helpers.readOneLine(DIRTY_RATIO_PATH));
+				editor.putString(PREF_DIRTY_BACKGROUND, Helpers.readOneLine(DIRTY_BACKGROUND_PATH));
+				editor.putString(PREF_DIRTY_EXPIRE, Helpers.readOneLine(DIRTY_EXPIRE_PATH));
+				editor.putString(PREF_DIRTY_WRITEBACK, Helpers.readOneLine(DIRTY_WRITEBACK_PATH));
+				editor.putString(PREF_MIN_FREE_KB, Helpers.readOneLine(MIN_FREE_PATH));
+				editor.putString(PREF_OVERCOMMIT, Helpers.readOneLine(OVERCOMMIT_PATH));
+				editor.putString(PREF_SWAPPINESS, Helpers.readOneLine(SWAPPINESS_PATH));
+				editor.putString(PREF_VFS, Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH));				
+				editor.apply();
     			}
     			else{
-				sharedPreferences.edit();
-				sharedPreferences.remove(PREF_DIRTY_RATIO);
-				sharedPreferences.remove(PREF_DIRTY_BACKGROUND);
-				sharedPreferences.remove(PREF_DIRTY_EXPIRE);
-				sharedPreferences.remove(PREF_DIRTY_WRITEBACK);
-				sharedPreferences.remove(PREF_MIN_FREE_KB);
-				sharedPreferences.remove(PREF_OVERCOMMIT);
-				sharedPreferences.remove(PREF_SWAPPINESS);
-				sharedPreferences.remove(PREF_VFS);
-				sharedPreferences.apply();
+				editor.remove(PREF_DIRTY_RATIO);
+				editor.remove(PREF_DIRTY_BACKGROUND);
+				editor.remove(PREF_DIRTY_EXPIRE);
+				editor.remove(PREF_DIRTY_WRITEBACK);
+				editor.remove(PREF_MIN_FREE_KB);
+				editor.remove(PREF_OVERCOMMIT);
+				editor.remove(PREF_SWAPPINESS);
+				editor.remove(PREF_VFS);
+				editor.apply();
     			}
 		}		
     }
