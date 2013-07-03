@@ -458,18 +458,18 @@ public class Advanced extends PreferenceFragment implements
     			if(sharedPreferences.getBoolean(key,false)){
 				sharedPreferences.edit();
 				if(Helpers.readOneLine(PFK_HOME_ENABLED).equals("1")){
-					sharedPreferences.putString(PFK_HOME_ON, true);
+					sharedPreferences.putBoolean(PFK_HOME_ON, true);
 				}
 				else{
-					sharedPreferences.putString(PFK_HOME_ON, false);
+					sharedPreferences.putBoolean(PFK_HOME_ON, false);
 				}
 				sharedPreferences.putString(PREF_HOME_ALLOWED_IRQ, Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
 				sharedPreferences.putString(PREF_HOME_REPORT_WAIT, Helpers.readOneLine(PFK_HOME_REPORT_WAIT));
 				if(Helpers.readOneLine(PFK_MENUBACK_ON).equals("1")){
-					sharedPreferences.putString(PFK_MENUBACK_ON,true);
+					sharedPreferences.putBoolean(PFK_MENUBACK_ON,true);
 				}
 				else{
-					sharedPreferences.putString(PFK_MENUBACK_ON,false);
+					sharedPreferences.putBoolean(PFK_MENUBACK_ON,false);
 				}
 				sharedPreferences.putString(PREF_MENUBACK_INTERRUPT_CHECKS, Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS));
 				sharedPreferences.putString(PREF_MENUBACK_FIRST_ERR_WAIT, Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT));
@@ -492,10 +492,10 @@ public class Advanced extends PreferenceFragment implements
     			if(sharedPreferences.getBoolean(key,false)){
     				sharedPreferences.edit();
 				if(Helpers.readOneLine(DYNAMIC_DIRTY_WRITEBACK_PATH).equals("1")){
-					sharedPreferences.putString(PREF_DYNAMIC_DIRTY_WRITEBACK,true);
+					sharedPreferences.putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,true);
 				}
 				else{
-					sharedPreferences.putString(PREF_DYNAMIC_DIRTY_WRITEBACK,false);
+					sharedPreferences.putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,false);
 				}    				
 				sharedPreferences.putString(PREF_DIRTY_WRITEBACK_ACTIVE, Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
 				sharedPreferences.putString(PREF_DIRTY_WRITEBACK_SUSPEND, Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
