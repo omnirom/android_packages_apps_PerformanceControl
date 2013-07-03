@@ -142,7 +142,7 @@ public class BootService extends Service implements Constants {
 		}
 		if (new File(BLX_PATH).exists()) {
 			if (preferences.getBoolean(BLX_SOB, false)) {
-				sb.append("busybox echo " + preferences.getString(PREF_BLX, Integer.parseInt(Helpers.readOneLine(BLX_PATH)))
+				sb.append("busybox echo " + preferences.getInt(PREF_BLX, Integer.parseInt(Helpers.readOneLine(BLX_PATH)))
 				+ " > " + BLX_PATH + " \n");
 			}
 		}
@@ -156,7 +156,7 @@ public class BootService extends Service implements Constants {
 		}
 		if (new File(BL_TIMEOUT_PATH).exists()) {
 			if (preferences.getBoolean(BLTIMEOUT_SOB, false)) {
-				sb.append("busybox echo " + preferences.getString(PREF_BLTIMEOUT,  Integer.parseInt(Helpers.readOneLine(BL_TIMEOUT_PATH)))
+				sb.append("busybox echo " + preferences.getInt(PREF_BLTIMEOUT,  Integer.parseInt(Helpers.readOneLine(BL_TIMEOUT_PATH)))
 				+ " > " + BL_TIMEOUT_PATH + " \n");
 			}
 		}
@@ -180,15 +180,15 @@ public class BootService extends Service implements Constants {
 
 		if (new File(PFK_HOME_ENABLED).exists() && new File(PFK_MENUBACK_ENABLED).exists()) {
 			if (preferences.getBoolean(PFK_SOB, false)) {
-				sb.append("busybox echo " + preferences.getString(PREF_HOME_ALLOWED_IRQ, Integer.parseInt(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ)))
+				sb.append("busybox echo " + preferences.getInt(PREF_HOME_ALLOWED_IRQ, Integer.parseInt(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ)))
 				+ " > " + PFK_HOME_ALLOWED_IRQ + " \n");
-				sb.append("busybox echo " + preferences.getString(PREF_HOME_REPORT_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_HOME_REPORT_WAIT)))
+				sb.append("busybox echo " + preferences.getInt(PREF_HOME_REPORT_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_HOME_REPORT_WAIT)))
 				+ " > " + PFK_HOME_REPORT_WAIT + " \n");
-				sb.append("busybox echo " + preferences.getString(PREF_MENUBACK_INTERRUPT_CHECKS,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS)))
+				sb.append("busybox echo " + preferences.getInt(PREF_MENUBACK_INTERRUPT_CHECKS,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS)))
 				+ " > " + PFK_MENUBACK_INTERRUPT_CHECKS + " \n");
-				sb.append("busybox echo " + preferences.getString(PREF_MENUBACK_FIRST_ERR_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)))
+				sb.append("busybox echo " + preferences.getInt(PREF_MENUBACK_FIRST_ERR_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)))
 				+ " > " + PFK_MENUBACK_FIRST_ERR_WAIT + " \n");
-				sb.append("busybox echo " + preferences.getString(PREF_MENUBACK_LAST_ERR_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)))
+				sb.append("busybox echo " + preferences.getInt(PREF_MENUBACK_LAST_ERR_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)))
 				+ " > " + PFK_MENUBACK_LAST_ERR_WAIT + " \n");
 				if (preferences.getBoolean(PFK_HOME_ON, false)) {
 					sb.append("busybox echo 1 > " + PFK_HOME_ENABLED + " \n");
@@ -214,31 +214,31 @@ public class BootService extends Service implements Constants {
 				else{
 					sb.append("busybox echo 0 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
 				}
-				sb.append("busybox echo " + preferences.getString(PREF_DIRTY_WRITEBACK_ACTIVE,Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH)))
+				sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_WRITEBACK_ACTIVE,Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH)))
 				+ " > " + DIRTY_WRITEBACK_ACTIVE_PATH + " \n");
-				sb.append("busybox echo " + preferences.getString(PREF_DIRTY_WRITEBACK_SUSPEND,Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH)))
+				sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_WRITEBACK_SUSPEND,Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH)))
 				+ " > " + DIRTY_WRITEBACK_SUSPEND_PATH + " \n");
 			}
 		}			
 		
 		if (preferences.getBoolean(VM_SOB, false)) {
-			sb.append("busybox echo " + preferences.getString(PREF_DIRTY_RATIO,Integer.parseInt(Helpers.readOneLine(DIRTY_RATIO_PATH)))
+			sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_RATIO,Integer.parseInt(Helpers.readOneLine(DIRTY_RATIO_PATH)))
 				+ " > " + DIRTY_RATIO_PATH + " \n");
-			sb.append("busybox echo " + preferences.getString(PREF_DIRTY_BACKGROUND, Integer.parseInt(Helpers.readOneLine(DIRTY_BACKGROUND_PATH)))
+			sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_BACKGROUND, Integer.parseInt(Helpers.readOneLine(DIRTY_BACKGROUND_PATH)))
 				+ " > " + DIRTY_BACKGROUND_PATH + " \n");
-			sb.append("busybox echo " + preferences.getString(PREF_DIRTY_EXPIRE, Integer.parseInt(Helpers.readOneLine(DIRTY_EXPIRE_PATH)))
+			sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_EXPIRE, Integer.parseInt(Helpers.readOneLine(DIRTY_EXPIRE_PATH)))
 				+ " > " + DIRTY_EXPIRE_PATH + " \n");
 			if(!isdynamic){
-			sb.append("busybox echo " + preferences.getString(PREF_DIRTY_WRITEBACK, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_PATH)))
+			sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_WRITEBACK, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_PATH)))
 				+ " > " + DIRTY_WRITEBACK_PATH + " \n");
 			}
-			sb.append("busybox echo " + preferences.getString(PREF_MIN_FREE_KB, Integer.parseInt(Helpers.readOneLine(MIN_FREE_PATH)))
+			sb.append("busybox echo " + preferences.getInt(PREF_MIN_FREE_KB, Integer.parseInt(Helpers.readOneLine(MIN_FREE_PATH)))
 				+ " > " + MIN_FREE_PATH + " \n");
-			sb.append("busybox echo " + preferences.getString(PREF_OVERCOMMIT, Integer.parseInt(Helpers.readOneLine(OVERCOMMIT_PATH)))
+			sb.append("busybox echo " + preferences.getInt(PREF_OVERCOMMIT, Integer.parseInt(Helpers.readOneLine(OVERCOMMIT_PATH)))
 				+ " > " + OVERCOMMIT_PATH + " \n");
-			sb.append("busybox echo " + preferences.getString(PREF_SWAPPINESS, Integer.parseInt(Helpers.readOneLine(SWAPPINESS_PATH)))
+			sb.append("busybox echo " + preferences.getInt(PREF_SWAPPINESS, Integer.parseInt(Helpers.readOneLine(SWAPPINESS_PATH)))
 				+ " > " + SWAPPINESS_PATH + " \n");
-			sb.append("busybox echo " + preferences.getString(PREF_VFS, Integer.parseInt(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH)))
+			sb.append("busybox echo " + preferences.getInt(PREF_VFS, Integer.parseInt(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH)))
 				+ " > " + VFS_CACHE_PRESSURE_PATH + " \n");
 		}
 
