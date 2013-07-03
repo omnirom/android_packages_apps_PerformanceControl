@@ -68,35 +68,16 @@ public class BootService extends Service implements Constants {
         	
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
 		final StringBuilder sb = new StringBuilder();
-			
-		if (preferences.getBoolean(CPU_SOB, false)) {
-			final String max = preferences.getString(PREF_MAX_CPU, null);
-			final String min = preferences.getString(PREF_MIN_CPU, null);
-			final String gov = preferences.getString(PREF_GOV, null);
-			final String io = preferences.getString(PREF_IO, null);
-
-			boolean mIsTegra3 = new File(TEGRA_MAX_FREQ_PATH).exists();
-
+		final Boolean isperformance = GovernorExist("performance");
+		final String CURGOV = Helpers.readOneLine(GOVERNOR_PATH);
+		if(isperformance){
 			for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-				if (max != null) {
-					sb.append("busybox echo " + max + " > " + MAX_FREQ_PATH.replace("cpu0", "cpu" + i) + " \n");
-				}
-				if (min != null) {
-					sb.append("busybox echo " + min + " > " + MIN_FREQ_PATH.replace("cpu0", "cpu" + i) + " \n");
-				}
-				if (gov != null) {
-					sb.append("busybox echo " + gov + " > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i) + " \n");
-				}
+				sb.append("busybox echo performance > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i) + " \n");
 			}
-			if (mIsTegra3 && max != null) {
-				sb.append("busybox echo " + max + " > " + TEGRA_MAX_FREQ_PATH + " \n");
-			}
-			if (io != null) {
-				for(int i=0;i<IO_SCHEDULER_PATH.length; i++){
-					sb.append("busybox echo "+io+" > " + IO_SCHEDULER_PATH[i] + "\n");
-				}
-			}
+			Helpers.shExec(sb);
+			sb = new StringBuilder();
 		}
+
 		if (preferences.getBoolean(VOLTAGE_SOB, false)) {
 			if(Helpers.voltageFileExists()){
 				final List<Voltage> volts = VoltageControlSettings.getVolts(preferences);
@@ -239,6 +220,34 @@ public class BootService extends Service implements Constants {
 				}
 				else{
 					sb.append("busybox echo 0 > " + PFK_MENUBACK_ENABLED + " \n");
+				}
+			}
+		}
+		if (preferences.getBoolean(CPU_SOB, false)) {
+			final String max = preferences.getString(PREF_MAX_CPU, Helpers.readOneLine(MAX_FREQ_PATH));
+			final String min = preferences.getString(PREF_MIN_CPU, Helpers.readOneLine(MIN_FREQ_PATH));
+			final String gov = preferences.getString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
+			final String io = preferences.getString(PREF_IO, Helpers.getIOScheduler());
+
+			boolean mIsTegra3 = new File(TEGRA_MAX_FREQ_PATH).exists();
+
+			for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+				sb.append("busybox echo " + max + " > " + MAX_FREQ_PATH.replace("cpu0", "cpu" + i) + " \n");
+				sb.append("busybox echo " + min + " > " + MIN_FREQ_PATH.replace("cpu0", "cpu" + i) + " \n");
+				sb.append("busybox echo " + gov + " > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i) + " \n");
+			}
+			if (mIsTegra3) {
+				sb.append("busybox echo " + max + " > " + TEGRA_MAX_FREQ_PATH + " \n");
+			}
+			for(int i=0;i<IO_SCHEDULER_PATH.length; i++){
+				sb.append("busybox echo "+io+" > " + IO_SCHEDULER_PATH[i] + "\n");
+
+			}
+		}
+		else{
+			if(isperformance){
+				for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+					sb.append("busybox echo "+CURGOV+" > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i) + " \n");
 				}
 			}
 		}
