@@ -519,15 +519,15 @@ public class Advanced extends PreferenceFragment implements
 				editor.apply();
     			}
     			else{
-				editor.remove(PREF_DIRTY_RATIO);
-				editor.remove(PREF_DIRTY_BACKGROUND);
-				editor.remove(PREF_DIRTY_EXPIRE);
-				editor.remove(PREF_DIRTY_WRITEBACK);
-				editor.remove(PREF_MIN_FREE_KB);
-				editor.remove(PREF_OVERCOMMIT);
-				editor.remove(PREF_SWAPPINESS);
-				editor.remove(PREF_VFS);
-				editor.apply();
+				editor.remove(PREF_DIRTY_RATIO)
+				.remove(PREF_DIRTY_BACKGROUND)
+				.remove(PREF_DIRTY_EXPIRE)
+				.remove(PREF_DIRTY_WRITEBACK)
+				.remove(PREF_MIN_FREE_KB)
+				.remove(PREF_OVERCOMMIT)
+				.remove(PREF_SWAPPINESS)
+				.remove(PREF_VFS)
+				.apply();
     			}
 		}		
     }
