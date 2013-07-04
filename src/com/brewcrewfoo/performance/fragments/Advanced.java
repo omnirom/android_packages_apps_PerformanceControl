@@ -463,28 +463,28 @@ public class Advanced extends PreferenceFragment implements
 				else{
 					editor.putBoolean(PFK_HOME_ON, false);
 				}
-				editor.putInt(PREF_HOME_ALLOWED_IRQ, Integer.parseInt(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ)));
-				editor.putInt(PREF_HOME_REPORT_WAIT, Integer.parseInt(Helpers.readOneLine(PFK_HOME_REPORT_WAIT)));
+				editor.putInt(PREF_HOME_ALLOWED_IRQ, Integer.parseInt(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ)))
+				.putInt(PREF_HOME_REPORT_WAIT, Integer.parseInt(Helpers.readOneLine(PFK_HOME_REPORT_WAIT)));
 				if(Helpers.readOneLine(PFK_MENUBACK_ENABLED).equals("1")){
 					editor.putBoolean(PFK_MENUBACK_ON,true);
 				}
 				else{
 					editor.putBoolean(PFK_MENUBACK_ON,false);
 				}
-				editor.putInt(PREF_MENUBACK_INTERRUPT_CHECKS, Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS)));
-				editor.putInt(PREF_MENUBACK_FIRST_ERR_WAIT, Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)));
-				editor.putInt(PREF_MENUBACK_LAST_ERR_WAIT, Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)));
-				editor.apply();
+				editor.putInt(PREF_MENUBACK_INTERRUPT_CHECKS, Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS)))
+				.putInt(PREF_MENUBACK_FIRST_ERR_WAIT, Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)))
+				.putInt(PREF_MENUBACK_LAST_ERR_WAIT, Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)))
+				.apply();
     			}
     			else{
-				editor.remove(PFK_HOME_ON);
-				editor.remove(PREF_HOME_ALLOWED_IRQ);
-				editor.remove(PREF_HOME_REPORT_WAIT);
-				editor.remove(PFK_MENUBACK_ON);
-				editor.remove(PREF_MENUBACK_INTERRUPT_CHECKS);
-				editor.remove(PREF_MENUBACK_FIRST_ERR_WAIT);
-				editor.remove(PREF_MENUBACK_LAST_ERR_WAIT);
-				editor.apply();
+				editor.remove(PFK_HOME_ON)
+				.remove(PREF_HOME_ALLOWED_IRQ)
+				.remove(PREF_HOME_REPORT_WAIT)
+				.remove(PFK_MENUBACK_ON)
+				.remove(PREF_MENUBACK_INTERRUPT_CHECKS)
+				.remove(PREF_MENUBACK_FIRST_ERR_WAIT)
+				.remove(PREF_MENUBACK_LAST_ERR_WAIT)
+				.apply();
     			}
 		}
     		else if (key.equals(DYNAMIC_DIRTY_WRITEBACK_SOB)) {
@@ -495,28 +495,28 @@ public class Advanced extends PreferenceFragment implements
 				else{
 					editor.putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,false);
 				}    				
-				editor.putInt(PREF_DIRTY_WRITEBACK_ACTIVE, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH)));
-				editor.putInt(PREF_DIRTY_WRITEBACK_SUSPEND, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH)));
-				editor.apply();
+				editor.putInt(PREF_DIRTY_WRITEBACK_ACTIVE, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH)))
+				.putInt(PREF_DIRTY_WRITEBACK_SUSPEND, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH)))
+				.apply();
     			}
     			else{
-				editor.remove(PREF_DYNAMIC_DIRTY_WRITEBACK);
-				editor.remove(PREF_DIRTY_WRITEBACK_ACTIVE);
-				editor.remove(PREF_DIRTY_WRITEBACK_SUSPEND);
-				editor.apply();
+				editor.remove(PREF_DYNAMIC_DIRTY_WRITEBACK)
+				.remove(PREF_DIRTY_WRITEBACK_ACTIVE)
+				.remove(PREF_DIRTY_WRITEBACK_SUSPEND)
+				.apply();
     			}
 		}
     		else if (key.equals(VM_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
-				editor.putInt(PREF_DIRTY_RATIO, Integer.parseInt(Helpers.readOneLine(DIRTY_RATIO_PATH)));
-				editor.putInt(PREF_DIRTY_BACKGROUND, Integer.parseInt(Helpers.readOneLine(DIRTY_BACKGROUND_PATH)));
-				editor.putInt(PREF_DIRTY_EXPIRE, Integer.parseInt(Helpers.readOneLine(DIRTY_EXPIRE_PATH)));
-				editor.putInt(PREF_DIRTY_WRITEBACK, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_PATH)));
-				editor.putInt(PREF_MIN_FREE_KB, Integer.parseInt(Helpers.readOneLine(MIN_FREE_PATH)));
-				editor.putInt(PREF_OVERCOMMIT, Integer.parseInt(Helpers.readOneLine(OVERCOMMIT_PATH)));
-				editor.putInt(PREF_SWAPPINESS, Integer.parseInt(Helpers.readOneLine(SWAPPINESS_PATH)));
-				editor.putInt(PREF_VFS, Integer.parseInt(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH)));				
-				editor.apply();
+				editor.putInt(PREF_DIRTY_RATIO, Integer.parseInt(Helpers.readOneLine(DIRTY_RATIO_PATH)))
+				.putInt(PREF_DIRTY_BACKGROUND, Integer.parseInt(Helpers.readOneLine(DIRTY_BACKGROUND_PATH)))
+				.putInt(PREF_DIRTY_EXPIRE, Integer.parseInt(Helpers.readOneLine(DIRTY_EXPIRE_PATH)))
+				.putInt(PREF_DIRTY_WRITEBACK, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_PATH)))
+				.putInt(PREF_MIN_FREE_KB, Integer.parseInt(Helpers.readOneLine(MIN_FREE_PATH)))
+				.putInt(PREF_OVERCOMMIT, Integer.parseInt(Helpers.readOneLine(OVERCOMMIT_PATH)))
+				.putInt(PREF_SWAPPINESS, Integer.parseInt(Helpers.readOneLine(SWAPPINESS_PATH)))
+				.putInt(PREF_VFS, Integer.parseInt(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH)))				
+				.apply();
     			}
     			else{
 				editor.remove(PREF_DIRTY_RATIO)
