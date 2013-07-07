@@ -383,6 +383,10 @@ public class Helpers implements Constants {
         }
     }
 
+    public static boolean showBattery() {
+	return ((new File(BLX_PATH).exists()) && (new File(FASTCHARGE_PATH).exists()));
+    }
+
 	public static void shCreate(){
 		if (! new File(SH_PATH).exists()) {
 			new CMDProcessor().su.runWaitFor("busybox touch "+SH_PATH );	
