@@ -47,7 +47,7 @@ Constants {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-  	mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+  	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         setHasOptionsMenu(true);
     }
 
