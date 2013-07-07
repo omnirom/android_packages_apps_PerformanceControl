@@ -48,7 +48,12 @@ public interface Constants {
     // Time in state
     public static final String TIME_IN_STATE_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
     public static final String PREF_OFFSETS = "pref_offsets";
-
+    // Battery
+    public static final String BAT_VOLT_PATH = "/sys/class/power_supply/battery/voltage_now";
+    public static final String BAT_PERCENT_PATH = "/sys/class/power_supply/battery/capacity";
+    public static final String BAT_STAT_PATH = "/sys/class/power_supply/battery/status";
+    public static final String BAT_TEMP_PATH = "/sys/class/power_supply/battery/batt_temp";
+    public static final String BAT_TECH_PATH = "/sys/class/power_supply/battery/technology";
     // Other settings
     public static final String MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
     public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
@@ -143,4 +148,5 @@ public interface Constants {
     public static final String PREF_WIDGET_TEXT_COLOR = "widget_text_color";
     public static final String VERSION_NUM = "2.0.1";
 }
+
 
