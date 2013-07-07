@@ -19,7 +19,6 @@
 package com.brewcrewfoo.performance.fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,7 +29,6 @@ import android.preference.*;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -78,11 +76,9 @@ public class Advanced extends PreferenceFragment implements
 
 	private ListPreference mReadAhead;
 	private SharedPreferences mPreferences;
-	protected Context mContext;
 	
 	private int mSeekbarProgress;
 	private EditText settingText;
-	private String sminfree;
 	private String sreadahead;
 
     @Override
