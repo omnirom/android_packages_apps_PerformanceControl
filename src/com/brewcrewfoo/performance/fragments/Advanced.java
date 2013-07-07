@@ -56,8 +56,6 @@ public class Advanced extends PreferenceFragment implements
 	private Preference mOvercommit;
 	private Preference mSwappiness;
 //--------
-	private Preference mBlx;
-	
 	private CheckBoxPreference mDsync;
 	
 	private Preference mBltimeout;
@@ -79,7 +77,6 @@ public class Advanced extends PreferenceFragment implements
 	private Preference mDynamicWriteBackSuspend;
 
 	private ListPreference mReadAhead;
-	private CheckBoxPreference mFastCharge;
 	private SharedPreferences mPreferences;
 	protected Context mContext;
 	
@@ -95,21 +92,19 @@ public class Advanced extends PreferenceFragment implements
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.advanced);
         
-	sreadahead=getResources().getString(R.string.ps_read_ahead,"");
+	    sreadahead=getResources().getString(R.string.ps_read_ahead,"");
 
         mReadAhead = (ListPreference) findPreference(PREF_READ_AHEAD);
-	mFastCharge = (CheckBoxPreference) findPreference(PREF_FASTCHARGE);
-	mBlx=(Preference) findPreference(PREF_BLX);
-	mBltimeout=(Preference) findPreference(PREF_BLTIMEOUT);
-	mBltouch=(CheckBoxPreference) findPreference(PREF_BLTOUCH);
-	mDsync=(CheckBoxPreference) findPreference(PREF_DSYNC);
-	mHomeOn=(CheckBoxPreference) findPreference(PFK_HOME_ON);
-	mHomeAllowedIrqs = (Preference) findPreference(PREF_HOME_ALLOWED_IRQ);
-	mHomeReportWait = (Preference) findPreference(PREF_HOME_REPORT_WAIT);
-	mMenuBackOn= (CheckBoxPreference) findPreference(PFK_MENUBACK_ON);
-	mMenuBackIrqChecks=(Preference) findPreference(PREF_MENUBACK_INTERRUPT_CHECKS);
-	mMenuBackFirstErrWait=(Preference) findPreference(PREF_MENUBACK_FIRST_ERR_WAIT);
-	mMenuBackLastErrWait=(Preference) findPreference(PREF_MENUBACK_LAST_ERR_WAIT);
+        mBltimeout=(Preference) findPreference(PREF_BLTIMEOUT);
+        mBltouch=(CheckBoxPreference) findPreference(PREF_BLTOUCH);
+        mDsync=(CheckBoxPreference) findPreference(PREF_DSYNC);
+        mHomeOn=(CheckBoxPreference) findPreference(PFK_HOME_ON);
+        mHomeAllowedIrqs = (Preference) findPreference(PREF_HOME_ALLOWED_IRQ);
+        mHomeReportWait = (Preference) findPreference(PREF_HOME_REPORT_WAIT);
+        mMenuBackOn= (CheckBoxPreference) findPreference(PFK_MENUBACK_ON);
+        mMenuBackIrqChecks=(Preference) findPreference(PREF_MENUBACK_INTERRUPT_CHECKS);
+        mMenuBackFirstErrWait=(Preference) findPreference(PREF_MENUBACK_FIRST_ERR_WAIT);
+        mMenuBackLastErrWait=(Preference) findPreference(PREF_MENUBACK_LAST_ERR_WAIT);
         mDirtyRatio = (Preference) findPreference(PREF_DIRTY_RATIO);
         mDirtyBackground = (Preference) findPreference(PREF_DIRTY_BACKGROUND);
         mDirtyExpireCentisecs = (Preference) findPreference(PREF_DIRTY_EXPIRE);
@@ -122,26 +117,7 @@ public class Advanced extends PreferenceFragment implements
         mDynamicWriteBackActive = (Preference) findPreference(PREF_DIRTY_WRITEBACK_ACTIVE);
         mDynamicWriteBackSuspend = (Preference) findPreference(PREF_DIRTY_WRITEBACK_SUSPEND);        
 		
-        if (!new File(FASTCHARGE_PATH).exists()) {
-		PreferenceCategory hideCat = (PreferenceCategory) findPreference("kernel");
-		getPreferenceScreen().removePreference(hideCat);
-        }
-	else{
-		mFastCharge.setChecked(mPreferences.getBoolean(PREF_FASTCHARGE, false));
-		if(Helpers.readOneLine(FASTCHARGE_PATH).equals("1")){
-			mFastCharge.setSummary(getString(R.string.ps_fast_charge_active));
-		}
-		else{
-			mFastCharge.setSummary(getString(R.string.ps_fast_charge_inactive));
-		}
-	}
-        if (!new File(BLX_PATH).exists()) {
-		PreferenceCategory hideCat = (PreferenceCategory) findPreference("blx");
-		getPreferenceScreen().removePreference(hideCat);
-        }
-	else{
-		mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
-	}
+
         if (!new File(DSYNC_PATH).exists()) {
 		PreferenceCategory hideCat = (PreferenceCategory) findPreference("dsync");
 		getPreferenceScreen().removePreference(hideCat);
@@ -192,7 +168,7 @@ public class Advanced extends PreferenceFragment implements
         	mDynamicWriteBackSuspend.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));  
         }	
 		
-	mReadAhead.setValue(Helpers.readOneLine(READ_AHEAD_PATH[0]));
+	    mReadAhead.setValue(Helpers.readOneLine(READ_AHEAD_PATH[0]));
         mReadAhead.setSummary(getString(R.string.ps_read_ahead, Helpers.readOneLine(READ_AHEAD_PATH[0]) + "  kb"));
         mDirtyRatio.setSummary(Helpers.readOneLine(DIRTY_RATIO_PATH));
         mDirtyBackground.setSummary(Helpers.readOneLine(DIRTY_BACKGROUND_PATH));
@@ -228,41 +204,7 @@ public class Advanced extends PreferenceFragment implements
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key = preference.getKey();
-        if (PREF_FASTCHARGE.equals(key)) {
-            if (mPreferences.getBoolean(PREF_FASTCHARGE, false)) {
-                String warningMessage = getString(R.string.fast_charge_warning);
-                //----------------
-		String cancel = getString(R.string.cancel);
-		String ok = getString(R.string.ok);
-		//-----------------
-                new AlertDialog.Builder(getActivity())
-			.setMessage(warningMessage)
-			.setNegativeButton(cancel,
-			new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog,int which) {
-					mPreferences.edit().putBoolean(PREF_FASTCHARGE,false).apply();
-					mFastCharge.setChecked(false);
-				}
-			})
-			.setPositiveButton(ok,
-				new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog,int which) {
-					mPreferences.edit().putBoolean(PREF_FASTCHARGE,true).apply();
-					mFastCharge.setChecked(true);
-				}
-			}).create().show();
-                return true;
-            }
-        }
-	else if (preference == mBlx){
-            String title = getString(R.string.blx_title)+" (%)";
-            int currentProgress = Integer.parseInt(Helpers.readOneLine(BLX_PATH));
-            openDialog(currentProgress, title, 50,100, preference,BLX_PATH, PREF_BLX);
-            return true;
-	}
-	else if (preference == mDsync){
+	if (preference == mDsync){
 		if (Integer.parseInt(Helpers.readOneLine(DSYNC_PATH))==0){
 			new CMDProcessor().su.runWaitFor("busybox echo 1 > " + DSYNC_PATH);
 		}
@@ -424,9 +366,7 @@ public class Advanced extends PreferenceFragment implements
 			}
 			mReadAhead.setSummary(sreadahead+values + " kb");
 		}	
-		else if (key.equals(PREF_BLX)) {
-			mBlx.setSummary(Helpers.readOneLine(BLX_PATH)+"%");
-		}
+
 		else if (key.equals(PREF_BLTIMEOUT)) {
 			mBltimeout.setSummary(Helpers.readOneLine(BL_TIMEOUT_PATH)+" ms");
 		}
@@ -628,3 +568,4 @@ public class Advanced extends PreferenceFragment implements
 			}).create().show();
     }
 }
+
