@@ -23,12 +23,14 @@ Copyright (C) 2012  James Roberts
     <!-- Main tabs -->
     <string name="tab_cpu_settings">"CPU Settings"</string>
     <string name="tab_cpu_profiles">CPU Profiles</string>
+    <string name="tab_battery_info">Battery</string>
     <string name="tab_oom_settings">"Memory Settings"</string>
     <string name="tab_time_in_state">"Time In State"</string>
     <string name="tab_voltage_settings">"Voltage Settings"</string>
     <string name="tab_cpu_info">CPU Info</string>
     <!-- Titles -->
     <string name="t_cpu_settings">"CPU SETTINGS"</string>
+    <string name="t_battery_info">BATTERY</string>
     <string name="t_oom_settings">"MINFREE TASKKILLER"</string>
     <string name="t_volt_settings">"VOLTAGE SETTINGS"</string>
     <string name="t_adv_settings">"ADVANCED SETTINGS"</string>
@@ -39,8 +41,8 @@ Copyright (C) 2012  James Roberts
     <string name="mt_app_settings">"App Settings"</string>
     <string name="mt_reset">Reset</string>
     <string name="mt_restore">Restore</string>
-    <string name="mt_plus25">Increase by 25 mv</string>
-    <string name="mt_minus25">Decrease by 25 mv</string>
+    <string name="mt_plus25">Increase by 25 mV</string>
+    <string name="mt_minus25">Decrease by 25 mV</string>
     <!-- CPU settings -->
     <string name="current_speed">Current Speed</string>
     <string name="current_max">Current max:</string>
@@ -67,14 +69,10 @@ Copyright (C) 2012  James Roberts
     <string name="ps_read_ahead">Amount to read ahead on SDCard reads in kb |
         Current: %s
     </string>
-    <string name="ps_read_ahead_boot">Apply the amount above at boot</string>
-    <string name="pt_fast_charge_boot">Enable at boot</string>
+
     <string name="ps_fast_charge_boot">Fast charge</string>
-    <string name="ps_fast_charge_active">Fast Charge is active</string>
-    <string name="ps_fast_charge_inactive">Fast Charge is inactive</string>
     <string name="fast_charge_warning">YOU WILL NOT BE ABLE TO CONNECT TO YOUR PC AFTER
-        EACH REBOOT!\n\nThis setting will set fast charge ON after each
-        reboot. While fast charge is on, you can *only* charge your phone!
+        EACH REBOOT!\n\nWhile Fast Charge is ON, you can *only* charge your phone!
     </string>
     <string name="fast_charge_notification_title">Fast Charge is ON!</string>
     <string name="fast_charge_notification_message">Phone is in charge-only mode!</string>
@@ -105,7 +103,7 @@ Copyright (C) 2012  James Roberts
    <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
    <string name="pt_blx_boot">Set on boot</string>
    <string name="ps_blx_boot">Apply the amount above at boot</string>
-   <string name="blx_title">Charge limit</string>
+   <string name="blx_title">Charge limit:</string>
 <!-- dsync -->
    <string name="dsync_info">Dynamic FSync feature\nAuthor Faux123</string>
    <string name="prefcat_dsync">DYNAMIC FSYNC</string>
@@ -151,7 +149,7 @@ Copyright (C) 2012  James Roberts
     <string name="size_2048_kb">2048kb</string>
     <string name="size_4096_kb">4096kb</string>
     <!-- Voltage control -->
-    <string name="volt_info">ATTENTION! Before activating Set on boot, make sure that the values ​​entered do not exceed limits or risk the phone to freeze.</string>
+    <string name="volt_info">ATTENTION!\nBefore activating Set on boot, make sure that the values ​​entered do not exceed limits or risk the phone to freeze.</string>
     <string name="ps_volt_mhz_voltage">" Hz Voltage"</string>
     <string name="ps_volt_save">"Save"</string>
     <string name="ps_volt_current_voltage">"Current voltage: "</string>
