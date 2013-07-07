@@ -40,32 +40,6 @@ Copyright (C) 2012  James Roberts
                 android:title="@string/sob"/>
     </PreferenceCategory>
 
-    <PreferenceCategory
-            android:key="kernel"
-            android:title="@string/prefcat_tweaks">
-
-        <CheckBoxPreference
-                android:defaultValue="false"
-                android:key="pref_fast_charge"
-                android:summary="@string/ps_fast_charge_boot"
-                android:title="@string/pt_fast_charge_boot"/>
-</PreferenceCategory>
-
-<!--BLX -->
-    <PreferenceCategory
-            android:key="blx"
-            android:title="@string/prefcat_blx">
-
-        <Preference
-                android:key="pref_blx"
-                android:title="@string/blx_title"/>
-
-        <CheckBoxPreference
-                android:defaultValue="false"
-                android:key="blx_sob"
-                android:summary="@string/ps_blx_boot"
-                android:title="@string/sob"/>
-    </PreferenceCategory>
 <!-- Dynamic Fsync -->
     <PreferenceCategory
             android:key="dsync"
@@ -203,3 +177,4 @@ Copyright (C) 2012  James Roberts
     </PreferenceCategory>
 
 </PreferenceScreen>
+
