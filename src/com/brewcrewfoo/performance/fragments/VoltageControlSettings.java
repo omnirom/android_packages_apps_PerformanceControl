@@ -83,9 +83,32 @@ public class VoltageControlSettings extends Fragment implements Constants {
                 .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                        final SharedPreferences.Editor editor = mPreferences.edit();
-                        editor.putBoolean(VOLTAGE_SOB, isChecked);
-                        editor.commit();
+                        mPreferences.edit().putBoolean(VOLTAGE_SOB,isChecked).apply();
+                        if (isChecked){
+                            String warningMessage = getString(R.string.volt_info);
+                            //----------------
+                            String cancel = getString(R.string.cancel);
+                            String ok = getString(R.string.ok);
+                            //-----------------
+                            new AlertDialog.Builder(getActivity())
+                                    .setMessage(warningMessage)
+                                    .setNegativeButton(cancel,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog,int which) {
+                                                    //mPreferences.edit().putBoolean(VOLTAGE_SOB,false).apply();
+                                                    setOnBoot.setChecked(false);
+                                                }
+                                            })
+                                    .setPositiveButton(ok,
+                                            new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog,int which) {
+                                                    //mPreferences.edit().putBoolean(VOLTAGE_SOB,true).apply();
+                                                }
+                                            }).create().show();
+                        }
+
                     }
                 });
 
@@ -472,3 +495,4 @@ public class VoltageControlSettings extends Fragment implements Constants {
         }
     }
 }
+
