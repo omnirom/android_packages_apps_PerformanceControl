@@ -254,7 +254,7 @@ public class Helpers implements Constants {
      * @return available performance scheduler
      */
     public static Boolean GovernorExist(String gov) {
-		if(Helpers.readOneLine(GOVERNORS_LIST_PATH).indexOf(gov)>-1){
+		if(readOneLine(GOVERNORS_LIST_PATH).indexOf(gov)>-1){
 			return true;
 		}
 		else{
@@ -382,10 +382,11 @@ public class Helpers implements Constants {
             return null;
         }
     }
-    public static boolean binExist(String b) {
+    public static String binExist(String b) {
         CMDProcessor.CommandResult cr = null;
         cr = new CMDProcessor().sh.runWaitFor("busybox which " + b);
-        return (cr.success() && !cr.stdout.equals("") );
+        if (cr.success()){ return  cr.stdout; }
+        else{ return NOT_FOUND;}
     }
 
     public static String getCachePartition() {
@@ -408,10 +409,9 @@ public class Helpers implements Constants {
 	}
 	public static String shExec(StringBuilder s){
 		if (new File(SH_PATH).exists()) {
-			CMDProcessor.CommandResult cr = null;
-            cr = new CMDProcessor().sh.runWaitFor("busybox which sh");
-			s.insert(0,"#!"+cr.stdout+"\n\n");
+			s.insert(0,"#!"+binExist("sh")+"\n\n");
 			new CMDProcessor().su.runWaitFor("busybox echo \""+s.toString()+"\" > " + SH_PATH );
+            CMDProcessor.CommandResult cr = null;
 			cr=new CMDProcessor().su.runWaitFor(SH_PATH);
 			Log.d(TAG, "execute: "+s.toString());
             if(cr.success()){return cr.stdout;}
