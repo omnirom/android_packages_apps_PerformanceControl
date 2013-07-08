@@ -104,7 +104,7 @@ public class Tools extends PreferenceFragment implements
         final View alphaDialog = factory.inflate(R.layout.sh_dialog, null);
 
 
-        settingText = (EditText) alphaDialog.findViewById(R.id.setting_text);
+        settingText = (EditText) alphaDialog.findViewById(R.id.shText);
         settingText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
