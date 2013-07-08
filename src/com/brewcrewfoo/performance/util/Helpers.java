@@ -387,6 +387,17 @@ public class Helpers implements Constants {
         cr = new CMDProcessor().sh.runWaitFor("busybox which " + b);
         return (cr.success() && !cr.stdout.equals("") );
     }
+    public static String getCachePartition() {
+        CMDProcessor.CommandResult cr = null;
+        cr = new CMDProcessor().sh.runWaitFor("busybox mount | busybox grep cache | busybox cut -d'' -f1");
+        if (cr.success()){
+            return cr.stdout;
+        }
+        else{
+            return "";
+        }
+    }
+
     public static boolean showBattery() {
 	return ((new File(BLX_PATH).exists()) || (new File(FASTCHARGE_PATH).exists()));
     }

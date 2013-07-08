@@ -66,8 +66,10 @@ public class Tools extends PreferenceFragment implements
             getPreferenceScreen().removePreference(hideCat);
         }
         else{
-            mWipe_Cache.setSummary(getString(R.string.ps_wipe_cache,getCachePartition()));
+            final String partition=Helpers.getCachePartition();
+            mWipe_Cache.setSummary(getString(R.string.ps_wipe_cache,partition));
         }
+
         setHasOptionsMenu(true);
     }
     @Override
@@ -105,16 +107,7 @@ public class Tools extends PreferenceFragment implements
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
-    public String getCachePartition(){
-        CMDProcessor.CommandResult cr = null;
-        cr = new CMDProcessor().su.runWaitFor(CACHE_PARTITION);
-        if (cr.success()){
-            return cr.stdout;
-        }
-        else{
-            return "";
-        }
-    }
+
     public void shEditDialog(final String key,String title) {
         Resources res = getActivity().getResources();
         String cancel = res.getString(R.string.cancel);

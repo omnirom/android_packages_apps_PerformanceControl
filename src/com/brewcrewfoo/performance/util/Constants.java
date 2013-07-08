@@ -145,7 +145,6 @@ public interface Constants {
     //Tools
     public static final String PREF_SH = "pref_sh";
     public static final String PREF_WIPE_CACHE = "pref_wipe_cache";
-    public static final String CACHE_PARTITION ="busybox mount | busybox grep cache | busybox cut -d'' -f1";
 
     // PC Settings
     public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
