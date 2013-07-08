@@ -100,6 +100,8 @@ public class Tools extends PreferenceFragment implements
         Resources res = getActivity().getResources();
         String cancel = res.getString(R.string.cancel);
         String ok = res.getString(R.string.ok);
+        String clear = res.getString(R.string.clear);
+
         LayoutInflater factory = LayoutInflater.from(getActivity());
         final View alphaDialog = factory.inflate(R.layout.sh_dialog, null);
 
@@ -138,11 +140,18 @@ public class Tools extends PreferenceFragment implements
                 .setTitle(title)
                 .setView(alphaDialog)
                 .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,int which) {
+                    @Override
+                    public void onClick(DialogInterface dialog,int which) {
                                 // nothing
-                            }
-                        })
+                    }
+                })
+                .setNeutralButton(clear, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,int which) {
+                        // nothing
+                        settingText.setText("");
+                    }
+                })
                 .setPositiveButton(ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

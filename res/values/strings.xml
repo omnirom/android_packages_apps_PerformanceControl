@@ -207,8 +207,10 @@ Copyright (C) 2012  James Roberts
     <!-- Tools -->
     <string name="prefcat_sh">SHELL COMMAND</string>
     <string name="sh_title">Custom shell command</string>
-    <string name="ps_sh">Execute custom shell command at boot</string>    
-    
+    <string name="ps_sh">Execute custom shell command at boot</string>
+    <string name="sw_sh_sob">Execute at boot</string>
+    <string name="clear">Clear</string>
+
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>
     <string name="ps_use_light_theme">If checked, Performance Control will use a Holo light theme</string>
