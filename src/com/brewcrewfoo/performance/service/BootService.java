@@ -242,6 +242,8 @@ public class BootService extends Service implements Constants {
 				+ " > " + VFS_CACHE_PRESSURE_PATH + " \n");
 		}
 
+        sb.append(preferences.getString(PREF_SH,"# no custom shell command")+"\n");
+
 		Helpers.shExec(sb);
 		return null;
         }
