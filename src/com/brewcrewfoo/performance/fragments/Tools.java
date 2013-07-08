@@ -23,11 +23,18 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Resources;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.*;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.*;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
@@ -41,6 +48,8 @@ public class Tools extends PreferenceFragment implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener, Constants {
 
     private SharedPreferences mPreferences;
+    private EditText settingText;
+    private Preference mprefsh;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +90,64 @@ public class Tools extends PreferenceFragment implements
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key = preference.getKey();
+        if (key.equals(PREF_SH)) {
+            shEditDialog(key,getString(R.string.sh_title));
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+    public void shEditDialog(final String key,String title) {
+        Resources res = getActivity().getResources();
+        String cancel = res.getString(R.string.cancel);
+        String ok = res.getString(R.string.ok);
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View alphaDialog = factory.inflate(R.layout.sh_dialog, null);
+
+
+        settingText = (EditText) alphaDialog.findViewById(R.id.setting_text);
+        settingText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                   // String val = settingText.getText().toString();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        settingText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                   // s.toString();
+                } catch (NumberFormatException ex) {
+                }
+            }
+        });
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle(title)
+                .setView(alphaDialog)
+                .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,int which) {
+                                // nothing
+                            }
+                        })
+                .setPositiveButton(ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final SharedPreferences.Editor editor = mPreferences.edit();
+                        editor.putString(key, settingText.getText().toString()).commit();
+                    }
+                }).create().show();
     }
 }
