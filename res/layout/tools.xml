@@ -30,6 +30,15 @@ Copyright (C) 2012  James Roberts
                 android:title="@string/sh_title"/>
 
     </PreferenceCategory>
+    <PreferenceCategory
+            android:key="category_wipe_cache"
+            android:title="@string/prefcat_wipe_cache">
+        <Preference
+                android:key="pref_wipe_cache"
+                android:summary="@string/ps_wipe_cache"
+                android:title="@string/wipe_cache_title"/>
+
+    </PreferenceCategory>
 
 
 </PreferenceScreen>

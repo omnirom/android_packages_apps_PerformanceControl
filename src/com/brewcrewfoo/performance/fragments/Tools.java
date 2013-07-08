@@ -56,8 +56,12 @@ public class Tools extends PreferenceFragment implements
         super.onCreate(savedInstanceState);
   	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mPreferences.registerOnSharedPreferenceChangeListener(this);
-
         addPreferencesFromResource(R.layout.tools);
+
+        if(!Helpers.binExist("dd")){
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_wipe_cache");
+            getPreferenceScreen().removePreference(hideCat);
+        }
 
         setHasOptionsMenu(true);
     }
@@ -107,14 +111,11 @@ public class Tools extends PreferenceFragment implements
 
 
         settingText = (EditText) alphaDialog.findViewById(R.id.shText);
+        settingText.setText(mPreferences.getString(key,""));
         settingText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                   // String val = settingText.getText().toString();
-                    return true;
-                }
-                return false;
+                return true;
             }
         });
 

@@ -210,6 +210,9 @@ Copyright (C) 2012  James Roberts
     <string name="ps_sh">Execute custom shell command at boot</string>
     <string name="sw_sh_sob">Execute at boot</string>
     <string name="clear">Clear</string>
+    <string name="prefcat_wipe_cache">WIPE CACHE and DALVIK CACHE</string>
+    <string name="wipe_cache_title">Wipe cache and dalvik cache</string>
+    <string name="ps_wipe_cache">wipe cache partition and dalvik cache</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>
