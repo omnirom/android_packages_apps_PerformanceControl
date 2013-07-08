@@ -21,21 +21,23 @@ Copyright (C) 2012  James Roberts
 
     <string name="app_name">Performance Control</string>
     <!-- Main tabs -->
-    <string name="tab_cpu_settings">"CPU Settings"</string>
+    <string name="tab_cpu_settings">CPU Settings</string>
     <string name="tab_cpu_profiles">CPU Profiles</string>
     <string name="tab_battery_info">Battery</string>
-    <string name="tab_oom_settings">"Memory Settings"</string>
-    <string name="tab_time_in_state">"Time In State"</string>
-    <string name="tab_voltage_settings">"Voltage Settings"</string>
+    <string name="tab_oom_settings">Memory Settings</string>
+    <string name="tab_time_in_state">Time In State</string>
+    <string name="tab_voltage_settings">Voltage Settings</string>
     <string name="tab_cpu_info">CPU Info</string>
+    <string name="tab_tools">Tools</string>
     <!-- Titles -->
-    <string name="t_cpu_settings">"CPU SETTINGS"</string>
+    <string name="t_cpu_settings">CPU SETTINGS</string>
     <string name="t_battery_info">BATTERY</string>
-    <string name="t_oom_settings">"MINFREE TASKKILLER"</string>
-    <string name="t_volt_settings">"VOLTAGE SETTINGS"</string>
+    <string name="t_oom_settings">MINFREE TASKKILLER</string>
+    <string name="t_volt_settings">VOLTAGE SETTINGS</string>
     <string name="t_adv_settings">"ADVANCED SETTINGS"</string>
     <string name="t_time_in_state">"TIME IN STATE"</string>
-    <string name="t_cpu_info">"CPU INFO"</string>
+    <string name="t_cpu_info">CPU INFO</string>
+    <string name="t_tools">TOOLS</string>
     <!-- Menu -->
     <string name="mt_refresh">Refresh</string>
     <string name="mt_app_settings">"App Settings"</string>
