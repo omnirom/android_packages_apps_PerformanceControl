@@ -389,7 +389,7 @@ public class Helpers implements Constants {
     }
     public static String getCachePartition() {
         CMDProcessor.CommandResult cr = null;
-        cr = new CMDProcessor().sh.runWaitFor("sh -c busybox mount | busybox grep cache | busybox cut -d'' -f1");
+        cr = new CMDProcessor().sh.runWaitFor("echo `busybox mount | busybox grep cache | busybox cut -d'' -f1`");
         if (cr.success()){
             return cr.stdout;
         }
