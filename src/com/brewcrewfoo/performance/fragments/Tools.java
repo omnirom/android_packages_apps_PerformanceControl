@@ -22,14 +22,12 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.preference.PreferenceManager;
+import android.preference.*;
 import android.view.*;
-import android.widget.*;
-import android.widget.AdapterView.OnItemSelectedListener;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
@@ -39,8 +37,8 @@ import com.brewcrewfoo.performance.util.Helpers;
 import java.io.File;
 
 
-public class Tools extends Fragment implements
-Constants {
+public class Tools extends PreferenceFragment implements
+        OnSharedPreferenceChangeListener, OnPreferenceChangeListener, Constants {
 
     private SharedPreferences mPreferences;
 
@@ -71,7 +69,18 @@ Constants {
         return view;
     }
 
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object o) {
+        return false;
+    }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
 
-
+    }
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        String key = preference.getKey();
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
 }
