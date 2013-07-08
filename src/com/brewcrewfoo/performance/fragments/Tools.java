@@ -117,12 +117,13 @@ public class Tools extends PreferenceFragment implements
                                 @Override
                                 public void onClick(DialogInterface dialog,int which) {
                                     final StringBuilder sb = new StringBuilder();
-                                    sb.append("busybox rm -rf /cache/dalvik-cache\n");
-                                    sb.append("busybox rm -rf /data/dalvik-cache\n");
-                                    if(Helpers.binExist("dd") && !cache_partition.equals(NOT_FOUND)){
+                                   // sb.append("busybox rm -rf /cache/dalvik-cache/*\n");
+                                    sb.append("busybox rm -rf /data/dalvik-cache;\n");
+                                    sb.append("busybox rm -rf /cache/*;\n");
+                                   // if(Helpers.binExist("dd") && !cache_partition.equals(NOT_FOUND)){
                                        // sb.append("dd if=/dev/zero of="+cache_partition+" \n");
-                                    }
-                                    sb.append("reboot\n");
+                                    //}
+                                    sb.append("busybox reboot;\n");
                                     Helpers.shExec(sb);
                                 }
                             }).create().show();
