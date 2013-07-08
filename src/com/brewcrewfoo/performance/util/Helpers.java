@@ -387,15 +387,12 @@ public class Helpers implements Constants {
         cr = new CMDProcessor().sh.runWaitFor("busybox which " + b);
         return (cr.success() && !cr.stdout.equals("") );
     }
+
     public static String getCachePartition() {
         CMDProcessor.CommandResult cr = null;
-        cr = new CMDProcessor().sh.runWaitFor("echo `busybox mount | busybox grep cache | busybox cut -d'' -f1`");
-        if (cr.success()){
-            return cr.stdout;
-        }
-        else{
-            return "";
-        }
+        cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox grep cache | busybox cut -d' ' -f1`");
+        if(cr.success()&& !cr.stdout.equals("") ){return cr.stdout;}
+        else{return NOT_FOUND;}
     }
 
     public static boolean showBattery() {
@@ -409,18 +406,20 @@ public class Helpers implements Constants {
 			Log.d(TAG, "create: /data/PerformanceControl");
 		}
 	}
-	public static void shExec(StringBuilder s){
+	public static String shExec(StringBuilder s){
 		if (new File(SH_PATH).exists()) {
 			CMDProcessor.CommandResult cr = null;
-            cr = new CMDProcessor().su.runWaitFor("busybox which sh");
+            cr = new CMDProcessor().sh.runWaitFor("busybox which sh");
 			s.insert(0,"#!"+cr.stdout+"\n\n");
 			new CMDProcessor().su.runWaitFor("busybox echo \""+s.toString()+"\" > " + SH_PATH );
-			new CMDProcessor().su.runWaitFor(SH_PATH);
+			cr=new CMDProcessor().su.runWaitFor(SH_PATH);
 			Log.d(TAG, "execute: "+s.toString());
+            if(cr.success()){return cr.stdout;}
 		}
 		else{
 			Log.d(TAG, "missing file: /data/PerformanceControl");
 		}
+        return "";
 	}
 
 }

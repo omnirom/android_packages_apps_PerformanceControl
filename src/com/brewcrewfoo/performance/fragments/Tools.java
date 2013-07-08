@@ -50,6 +50,7 @@ public class Tools extends PreferenceFragment implements
     private SharedPreferences mPreferences;
     private EditText settingText;
     private Preference mWipe_Cache;
+    private String partition;
 
 
     @Override
@@ -66,7 +67,7 @@ public class Tools extends PreferenceFragment implements
             getPreferenceScreen().removePreference(hideCat);
         }
         else{
-            final String partition=Helpers.getCachePartition();
+            partition=Helpers.getCachePartition();
             mWipe_Cache.setSummary(getString(R.string.ps_wipe_cache,partition));
         }
 

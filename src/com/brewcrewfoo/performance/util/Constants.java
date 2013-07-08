@@ -145,6 +145,7 @@ public interface Constants {
     //Tools
     public static final String PREF_SH = "pref_sh";
     public static final String PREF_WIPE_CACHE = "pref_wipe_cache";
+    public static final String NOT_FOUND = "not found";
 
     // PC Settings
     public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
