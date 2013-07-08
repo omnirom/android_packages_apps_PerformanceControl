@@ -142,7 +142,7 @@ public class Tools extends PreferenceFragment implements
                 .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog,int which) {
-                                // nothing
+
                     }
                 })
                 .setNeutralButton(clear, new DialogInterface.OnClickListener() {
@@ -150,6 +150,7 @@ public class Tools extends PreferenceFragment implements
                     public void onClick(DialogInterface dialog,int which) {
                         // nothing
                         settingText.setText("");
+                        dialog.dismiss();
                     }
                 })
                 .setPositiveButton(ok, new DialogInterface.OnClickListener() {
@@ -157,6 +158,7 @@ public class Tools extends PreferenceFragment implements
                     public void onClick(DialogInterface dialog, int which) {
                         final SharedPreferences.Editor editor = mPreferences.edit();
                         editor.putString(key, settingText.getText().toString()).commit();
+
                     }
                 }).create().show();
     }
