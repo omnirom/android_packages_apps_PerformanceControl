@@ -112,8 +112,7 @@ public class Tools extends PreferenceFragment implements
     public void shEditDialog(final String key,String title) {
         Resources res = getActivity().getResources();
         String cancel = res.getString(R.string.cancel);
-        String ok = res.getString(R.string.ok);
-        String clear = res.getString(R.string.clear);
+        String ok = res.getString(R.string.ps_volt_save);
 
         LayoutInflater factory = LayoutInflater.from(getActivity());
         final View alphaDialog = factory.inflate(R.layout.sh_dialog, null);
@@ -145,22 +144,13 @@ public class Tools extends PreferenceFragment implements
                 }
             }
         });
-
         new AlertDialog.Builder(getActivity())
                 .setTitle(title)
                 .setView(alphaDialog)
                 .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog,int which) {
-
-                    }
-                })
-                .setNeutralButton(clear, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog,int which) {
-                        // nothing
-                        settingText.setText("");
-                        dialog.dismiss();
+                        /* nothing */
                     }
                 })
                 .setPositiveButton(ok, new DialogInterface.OnClickListener() {
@@ -170,7 +160,9 @@ public class Tools extends PreferenceFragment implements
                         editor.putString(key, settingText.getText().toString()).commit();
 
                     }
-                }).create().show();
+                })
+                .create()
+                .show();
     }
 
 }
