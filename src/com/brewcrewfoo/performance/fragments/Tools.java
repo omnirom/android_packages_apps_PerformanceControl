@@ -59,9 +59,9 @@ public class Tools extends PreferenceFragment implements
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.tools);
 
-        mWipe_Cache=(Preference) findPreference(PREF_WIPE_CACHE);
-        cache_partition=Helpers.getCachePartition();
-        mWipe_Cache.setSummary(getString(R.string.ps_wipe_cache,cache_partition));
+        //mWipe_Cache=(Preference) findPreference(PREF_WIPE_CACHE);
+        //cache_partition=Helpers.getCachePartition();
+        //mWipe_Cache.setSummary(getString(R.string.ps_wipe_cache,cache_partition));
 
         setHasOptionsMenu(true);
     }
@@ -104,6 +104,7 @@ public class Tools extends PreferenceFragment implements
             String ok = getString(R.string.yes);
             //-----------------
             new AlertDialog.Builder(getActivity())
+                    .setTitle(getString(R.string.wipe_cache_title))
                     .setMessage(getString(R.string.wipe_cache_msg))
                     .setNegativeButton(cancel,
                             new DialogInterface.OnClickListener() {
@@ -168,7 +169,8 @@ public class Tools extends PreferenceFragment implements
             }
         });
         new AlertDialog.Builder(getActivity())
-                .setTitle(title)
+                .setTitle(getString(R.string.sh_title))
+                .setMessage(getString(R.string.sh_msg))
                 .setView(alphaDialog)
                 .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                     @Override

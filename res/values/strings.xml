@@ -207,13 +207,14 @@ Copyright (C) 2012  James Roberts
     <!-- Tools -->
     <string name="prefcat_sh">CUSTOM SHELL COMMAND</string>
     <string name="sh_title">Edit shell command</string>
-    <string name="ps_sh">Command will be executed at boot. Leave blank for no operation.</string>
+    <string name="ps_sh">Command will be executed at boot.</string>
+    <string name="sh_msg">Leave blank for no operation.</string>
     <string name="clear">Clear</string>
     <string name="yes">Yes</string>
     <string name="prefcat_wipe_cache">CACHE and DALVIK CACHE</string>
     <string name="wipe_cache_title">Wipe cache and dalvik cache</string>
     <string name="ps_wipe_cache">Cache partition: %s</string>
-    <string name="wipe_cache_msg">Operation will wipe %s</string>
+    <string name="wipe_cache_msg">At the end, the system will reboot. Continue?</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>
