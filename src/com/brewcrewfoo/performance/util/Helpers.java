@@ -389,7 +389,7 @@ public class Helpers implements Constants {
     }
     public static String getCachePartition() {
         CMDProcessor.CommandResult cr = null;
-        cr = new CMDProcessor().su.runWaitFor("busybox mount | busybox grep cache | busybox cut -d'' -f1");
+        cr = new CMDProcessor().sh.runWaitFor("sh -c busybox mount | busybox grep cache | busybox cut -d'' -f1");
         if (cr.success()){
             return cr.stdout;
         }
@@ -412,7 +412,7 @@ public class Helpers implements Constants {
 	public static void shExec(StringBuilder s){
 		if (new File(SH_PATH).exists()) {
 			CMDProcessor.CommandResult cr = null;
-            		cr = new CMDProcessor().su.runWaitFor("busybox which sh");
+            cr = new CMDProcessor().su.runWaitFor("busybox which sh");
 			s.insert(0,"#!"+cr.stdout+"\n\n");
 			new CMDProcessor().su.runWaitFor("busybox echo \""+s.toString()+"\" > " + SH_PATH );
 			new CMDProcessor().su.runWaitFor(SH_PATH);
