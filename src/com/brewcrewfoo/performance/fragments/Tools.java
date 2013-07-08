@@ -50,8 +50,7 @@ public class Tools extends PreferenceFragment implements
     private SharedPreferences mPreferences;
     private EditText settingText;
     private Preference mWipe_Cache;
-    private String partition;
-
+    private String cache_partition;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,15 +60,8 @@ public class Tools extends PreferenceFragment implements
         addPreferencesFromResource(R.layout.tools);
 
         mWipe_Cache=(Preference) findPreference(PREF_WIPE_CACHE);
-
-        if(!Helpers.binExist("dd")){
-            PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_wipe_cache");
-            getPreferenceScreen().removePreference(hideCat);
-        }
-        else{
-            partition=Helpers.getCachePartition();
-            mWipe_Cache.setSummary(getString(R.string.ps_wipe_cache,partition));
-        }
+        cache_partition=Helpers.getCachePartition();
+        mWipe_Cache.setSummary(getString(R.string.ps_wipe_cache,cache_partition));
 
         setHasOptionsMenu(true);
     }
@@ -106,6 +98,36 @@ public class Tools extends PreferenceFragment implements
         if (key.equals(PREF_SH)) {
             shEditDialog(key,getString(R.string.sh_title));
         }
+        else if(key.equals(PREF_WIPE_CACHE)) {
+            //---------
+            String cancel = getString(R.string.cancel);
+            String ok = getString(R.string.yes);
+            //-----------------
+            new AlertDialog.Builder(getActivity())
+                    .setMessage(getString(R.string.wipe_cache_msg))
+                    .setNegativeButton(cancel,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,int which) {
+                                    //nothing
+                                }
+                            })
+                    .setPositiveButton(ok,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,int which) {
+                                    final StringBuilder sb = new StringBuilder();
+                                    sb.append("busybox rm -rf /cache/dalvik-cache\n");
+                                    sb.append("busybox rm -rf /data/dalvik-cache\n");
+                                    if(Helpers.binExist("dd") && !cache_partition.equals(NOT_FOUND)){
+                                        sb.append("dd if=/dev/zero of="+cache_partition+" \n");
+                                    }
+                                    sb.append("reboot\n");
+                                    Helpers.shExec(sb);
+                                }
+                            }).create().show();
+        }
+
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
