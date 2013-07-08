@@ -49,7 +49,8 @@ public class Tools extends PreferenceFragment implements
 
     private SharedPreferences mPreferences;
     private EditText settingText;
-    private Preference mprefsh;
+    private Preference mWipe_Cache;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,11 +59,21 @@ public class Tools extends PreferenceFragment implements
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.tools);
 
+        mWipe_Cache=(Preference) findPreference(PREF_WIPE_CACHE);
+
         if(!Helpers.binExist("dd")){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_wipe_cache");
             getPreferenceScreen().removePreference(hideCat);
         }
-
+        else{
+            String partition="";
+            CMDProcessor.CommandResult cr = null;
+            cr = new CMDProcessor().sh.runWaitFor(CACHE_PARTITION);
+            if (cr.success()){
+                partition=cr.stdout;
+            }
+            mWipe_Cache.setSummary(getString(R.string.ps_wipe_cache,partition));
+        }
         setHasOptionsMenu(true);
     }
     @Override
