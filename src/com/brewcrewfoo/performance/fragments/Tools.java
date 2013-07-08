@@ -66,13 +66,7 @@ public class Tools extends PreferenceFragment implements
             getPreferenceScreen().removePreference(hideCat);
         }
         else{
-            String partition="";
-            CMDProcessor.CommandResult cr = null;
-            cr = new CMDProcessor().sh.runWaitFor(CACHE_PARTITION);
-            if (cr.success()){
-                partition=cr.stdout;
-            }
-            mWipe_Cache.setSummary(getString(R.string.ps_wipe_cache,partition));
+            mWipe_Cache.setSummary(getString(R.string.ps_wipe_cache,getCachePartition()));
         }
         setHasOptionsMenu(true);
     }
@@ -110,6 +104,16 @@ public class Tools extends PreferenceFragment implements
             shEditDialog(key,getString(R.string.sh_title));
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+    public String getCachePartition(){
+        CMDProcessor.CommandResult cr = null;
+        cr = new CMDProcessor().su.runWaitFor(CACHE_PARTITION);
+        if (cr.success()){
+            return cr.stdout;
+        }
+        else{
+            return "";
+        }
     }
     public void shEditDialog(final String key,String title) {
         Resources res = getActivity().getResources();
