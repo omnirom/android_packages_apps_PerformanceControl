@@ -55,7 +55,15 @@ public class Tools extends PreferenceFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
   	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        addPreferencesFromResource(R.layout.tools);
+
         setHasOptionsMenu(true);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -69,13 +77,6 @@ public class Tools extends PreferenceFragment implements
             startActivity(intent);
         }
         return true;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup root,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.tools, root, false);
-
-        return view;
     }
 
     @Override
@@ -150,4 +151,5 @@ public class Tools extends PreferenceFragment implements
                     }
                 }).create().show();
     }
+
 }
