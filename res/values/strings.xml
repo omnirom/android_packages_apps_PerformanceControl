@@ -211,6 +211,7 @@ Copyright (C) 2012  James Roberts
     <string name="sh_msg">Leave blank for no operation.</string>
     <string name="clear">Clear</string>
     <string name="yes">Yes</string>
+    <string name="wait">Please wait...</string>
     <string name="prefcat_wipe_cache">CACHE and DALVIK CACHE</string>
     <string name="wipe_cache_title">Wipe cache and dalvik cache</string>
     <string name="ps_wipe_cache">Cache partition: %s</string>

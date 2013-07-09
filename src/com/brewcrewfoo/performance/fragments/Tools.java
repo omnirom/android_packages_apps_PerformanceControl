@@ -50,7 +50,8 @@ public class Tools extends PreferenceFragment implements
     private SharedPreferences mPreferences;
     private EditText settingText;
     private Preference mWipe_Cache;
-    private String cache_partition;
+    private String eraseimage;
+    private boolean flag;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,9 +60,7 @@ public class Tools extends PreferenceFragment implements
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.tools);
 
-        //mWipe_Cache=(Preference) findPreference(PREF_WIPE_CACHE);
-        //cache_partition=Helpers.getCachePartition();
-        //mWipe_Cache.setSummary(getString(R.string.ps_wipe_cache,cache_partition));
+        mWipe_Cache=(Preference) findPreference(PREF_WIPE_CACHE);
 
         setHasOptionsMenu(true);
     }
@@ -102,6 +101,8 @@ public class Tools extends PreferenceFragment implements
             //---------
             String cancel = getString(R.string.cancel);
             String ok = getString(R.string.yes);
+
+            final StringBuilder sb = new StringBuilder();
             //-----------------
             new AlertDialog.Builder(getActivity())
                     .setTitle(getString(R.string.wipe_cache_title))
@@ -109,25 +110,25 @@ public class Tools extends PreferenceFragment implements
                     .setNegativeButton(cancel,
                             new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog,int which) {
-                                    //nothing
-                                }
+                                public void onClick(DialogInterface dialog,int which) {flag=false;}
                             })
                     .setPositiveButton(ok,
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog,int which) {
-                                    final StringBuilder sb = new StringBuilder();
-                                   // sb.append("busybox rm -rf /cache/dalvik-cache/*\n");
-                                    sb.append("busybox rm -rf /data/dalvik-cache;\n");
-                                    sb.append("busybox rm -rf /cache/*;\n");
-                                   // if(Helpers.binExist("dd") && !cache_partition.equals(NOT_FOUND)){
-                                       // sb.append("dd if=/dev/zero of="+cache_partition+" \n");
-                                    //}
-                                    sb.append("busybox reboot;\n");
-                                    Helpers.shExec(sb);
+
+                                    mWipe_Cache.setSummary(getString(R.string.wait));
+                                    sb.append("busybox rm -rf /cache/dalvik-cache/*\n");
+                                    sb.append("busybox rm -rf /data/dalvik-cache/*\n");
+                                    eraseimage=Helpers.binExist("erase_image");
+                                    if(!eraseimage.equals(NOT_FOUND)){
+                                       sb.append(eraseimage+" cache\n");
+                                    }
+                                    sb.append("busybox reboot\n");
+                                    flag=true;
                                 }
                             }).create().show();
+            if(flag){Helpers.shExec(sb);}
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
