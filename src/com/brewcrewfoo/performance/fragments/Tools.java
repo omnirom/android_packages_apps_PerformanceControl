@@ -19,11 +19,13 @@
 package com.brewcrewfoo.performance.fragments;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import android.preference.*;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.*;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -49,6 +52,7 @@ public class Tools extends PreferenceFragment implements
     private EditText settingText;
     private Preference mWipe_Cache;
     private String pcache;
+    private Handler handler;
 
 
     @Override
@@ -98,36 +102,66 @@ public class Tools extends PreferenceFragment implements
             shEditDialog(key,getString(R.string.sh_title));
         }
         else if(key.equals(PREF_WIPE_CACHE)) {
-            //---------
-            String cancel = getString(R.string.cancel);
-            String ok = getString(R.string.yes);
 
-            final StringBuilder sb = new StringBuilder();
-            //-----------------
-            new AlertDialog.Builder(getActivity())
-                    .setTitle(getString(R.string.wipe_cache_title))
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(getString(R.string.wipe_cache_title))
                     .setMessage(getString(R.string.wipe_cache_msg))
-                    .setNegativeButton(cancel,
+                    .setNegativeButton(getString(R.string.cancel),
                             new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,int which) {;}
-                            })
-                    .setPositiveButton(ok,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,int which) {
-                                   // mWipe_Cache.setSummary(getString(R.string.wait));
-                                    sb.append("busybox rm -rf /data/dalvik-cache/*\n");
-                                    sb.append("busybox rm -rf /cache/*\n");
-                                    sb.append("reboot\n");
-                                    Helpers.shExec(sb);
+                                public void onClick(DialogInterface dialog,int id) {
+                                    //dialog.cancel();
 
                                 }
-                            }).create().show();
+                            })
+                    .setPositiveButton(getString(R.string.yes),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                    dialog.cancel();
+                                }
+                            });
+            ;
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            theButton.setOnClickListener(new CustomListener(alertDialog));
+
+            //-----------------
+
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
+
+    class CustomListener implements View.OnClickListener {
+        private final Dialog dialog;
+        public CustomListener(Dialog dialog) {
+            this.dialog = dialog;
+        }
+        @Override
+        public void onClick(View v) {
+            ((AlertDialog)dialog).setMessage(getString(R.string.wait));
+            handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    final StringBuilder sb = new StringBuilder();
+                    sb.append("busybox rm -rf /data/dalvik-cache/*\n");
+                    sb.append("busybox rm -rf /cache/*\n");
+                    sb.append("reboot\n");
+                    Helpers.shExec(sb);
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            new Thread(runnable).start();
+
+        }
+    }
+
 
     public void shEditDialog(final String key,String title) {
         Resources res = getActivity().getResources();
@@ -185,5 +219,6 @@ public class Tools extends PreferenceFragment implements
                 .create()
                 .show();
     }
+
 
 }
