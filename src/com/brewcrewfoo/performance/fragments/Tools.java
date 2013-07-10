@@ -50,7 +50,7 @@ public class Tools extends PreferenceFragment implements
     private SharedPreferences mPreferences;
     private EditText settingText;
     private Preference mWipe_Cache;
-    final private String pcache;
+    private String pcache;
 
 
     @Override
