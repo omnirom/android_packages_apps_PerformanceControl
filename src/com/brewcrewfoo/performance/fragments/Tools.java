@@ -50,8 +50,8 @@ public class Tools extends PreferenceFragment implements
     private SharedPreferences mPreferences;
     private EditText settingText;
     private Preference mWipe_Cache;
-    private String eraseimage;
-    private boolean flag;
+    final private String pcache;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,8 @@ public class Tools extends PreferenceFragment implements
         addPreferencesFromResource(R.layout.tools);
 
         mWipe_Cache=(Preference) findPreference(PREF_WIPE_CACHE);
+        pcache=Helpers.getCachePartition();
+
 
         setHasOptionsMenu(true);
     }
@@ -110,25 +112,27 @@ public class Tools extends PreferenceFragment implements
                     .setNegativeButton(cancel,
                             new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog,int which) {flag=false;}
+                                public void onClick(DialogInterface dialog,int which) {;}
                             })
                     .setPositiveButton(ok,
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog,int which) {
-
                                     mWipe_Cache.setSummary(getString(R.string.wait));
                                     sb.append("busybox rm -rf /cache/dalvik-cache/*\n");
                                     sb.append("busybox rm -rf /data/dalvik-cache/*\n");
-                                    eraseimage=Helpers.binExist("erase_image");
-                                    if(!eraseimage.equals(NOT_FOUND)){
-                                       sb.append(eraseimage+" cache\n");
+                                    if(!pcache.equals(NOT_FOUND)){
+                                        sb.append("busybox mount -o remount,rw rootfs /\n");
+                                        sb.append("mkdir -p /tmpmount\n");
+                                        sb.append("mount "+pcache+" /tmpmount || mount -o bind pcache /tmpmount\n");
+                                        sb.append("rm -rf /tmpmount/* /tmpmount/.[^.]*\n");
+                                        sb.append("umount /tmpmount\n");
                                     }
-                                    sb.append("busybox reboot\n");
-                                    flag=true;
+                                    sb.append("reboot\n");
+
                                 }
                             }).create().show();
-            if(flag){Helpers.shExec(sb);}
+            if(sb.length() >0){Helpers.shExec(sb);}
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
