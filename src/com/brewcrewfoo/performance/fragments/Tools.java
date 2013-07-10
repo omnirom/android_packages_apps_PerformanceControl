@@ -31,7 +31,6 @@ import android.preference.*;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.*;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -41,7 +40,6 @@ import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
-import java.io.File;
 
 
 public class Tools extends PreferenceFragment implements
@@ -118,21 +116,14 @@ public class Tools extends PreferenceFragment implements
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog,int which) {
-                                    mWipe_Cache.setSummary(getString(R.string.wait));
-                                    sb.append("busybox rm -rf /cache/dalvik-cache/*\n");
+                                   // mWipe_Cache.setSummary(getString(R.string.wait));
                                     sb.append("busybox rm -rf /data/dalvik-cache/*\n");
-                                    if(!pcache.equals(NOT_FOUND)){
-                                        sb.append("busybox mount -o remount,rw rootfs /\n");
-                                        sb.append("mkdir -p /tmpmount\n");
-                                        sb.append("mount "+pcache+" /tmpmount || mount -o bind pcache /tmpmount\n");
-                                        sb.append("rm -rf /tmpmount/* /tmpmount/.[^.]*\n");
-                                        sb.append("umount /tmpmount\n");
-                                    }
+                                    sb.append("busybox rm -rf /cache/*\n");
                                     sb.append("reboot\n");
+                                    Helpers.shExec(sb);
 
                                 }
                             }).create().show();
-            if(sb.length() >0){Helpers.shExec(sb);}
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
