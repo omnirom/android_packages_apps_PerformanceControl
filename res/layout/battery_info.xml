@@ -77,13 +77,12 @@ android:id="@+id/blx_layout"
 
       <LinearLayout
              android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
+             android:layout_height="0dp"
              android:orientation="horizontal"
              android:gravity="center_vertical"
              android:layout_weight="0.2">
 
          <TextView
-                 android:id="@+id/set_on_boot_label"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:layout_marginRight="10dip"
@@ -106,7 +105,6 @@ android:id="@+id/blx_layout"
             android:gravity="center_vertical">
 
         <TextView
-                android:id="@+id/set_on_boot_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dip"
