@@ -23,13 +23,13 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.view.*;
 import android.widget.*;
-import android.widget.AdapterView.OnItemSelectedListener;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
@@ -37,10 +37,12 @@ import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
+import android.app.Activity;
+import android.content.pm.PackageInfo;
 
 
 public class BatteryInfo extends Fragment implements
-SeekBar.OnSeekBarChangeListener, Constants {
+       SeekBar.OnSeekBarChangeListener, Constants {
 
     private CurBattThread mCurBattThread;
     private TextView mbattery_percent;
@@ -58,7 +60,8 @@ SeekBar.OnSeekBarChangeListener, Constants {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-  	mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+  	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
         setHasOptionsMenu(true);
     }
 
@@ -250,5 +253,20 @@ if (new File(FASTCHARGE_PATH).exists()) {
 
     }
 
+    public class AndroidIntentBatteryUsageActivity extends Activity {
+        Intent intentBatteryUsage;
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            intentBatteryUsage = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+        }
+        public void BattDetails() {
+            ResolveInfo resolveInfo = getPackageManager().resolveActivity(intentBatteryUsage,0);
+            if(resolveInfo != null){
+                startActivity(intentBatteryUsage);
+            }
+
+        }
+    }
 
 }
