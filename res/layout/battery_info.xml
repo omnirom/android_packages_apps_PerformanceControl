@@ -9,26 +9,26 @@
 
         <TextView
                 android:id="@+id/batt_volt"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="60sp"
                 android:layout_marginTop="20dp"
                 />
         <TextView
                 android:id="@+id/batt_percent"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="40sp"
                 android:layout_marginTop="5dp"/>
         <TextView
                 android:id="@+id/batt_status"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="22sp"
                 android:layout_marginTop="10dp"/>
         <TextView
                 android:id="@+id/batt_aux"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="22sp"
                 android:layout_marginTop="10dp"/>
