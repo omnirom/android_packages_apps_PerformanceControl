@@ -13,7 +13,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="60sp"
                 android:layout_marginTop="20dp"
-                />
+                android:onClick="battery_more"/>
         <TextView
                 android:id="@+id/batt_percent"
                 android:layout_width="wrap_content"

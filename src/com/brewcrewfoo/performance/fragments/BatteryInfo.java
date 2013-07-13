@@ -18,11 +18,13 @@
 
 package com.brewcrewfoo.performance.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -39,6 +41,18 @@ import java.io.File;
 
 public class BatteryInfo extends Fragment implements
        SeekBar.OnSeekBarChangeListener, Constants {
+
+
+    private class IntentBatteryUsage extends Activity {
+        public void showbatt(){
+            Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+            ResolveInfo resolveInfo = getPackageManager().resolveActivity(powerUsageIntent, 0);
+            if(resolveInfo!=null){
+                startActivity(powerUsageIntent);
+            }
+        }
+    }
+
 
     private CurBattThread mCurBattThread;
     private TextView mbattery_percent;
@@ -57,7 +71,10 @@ public class BatteryInfo extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
   	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final IntentBatteryUsage intentBatteryUsage = new IntentBatteryUsage();
+
         setHasOptionsMenu(true);
     }
 
@@ -73,6 +90,7 @@ public class BatteryInfo extends Fragment implements
         }
         return true;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup root,Bundle savedInstanceState) {
@@ -136,7 +154,6 @@ if (new File(FASTCHARGE_PATH).exists()) {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog,int which) {
-                                    //new CMDProcessor().su.runWaitFor("busybox echo 0 > " + FASTCHARGE_PATH);
                                     mPreferences.edit().putBoolean(PREF_FASTCHARGE,false).apply();
                                     mFastchargeOnBoot.setChecked(false);
                                 }
@@ -210,6 +227,10 @@ if (new File(FASTCHARGE_PATH).exists()) {
             }
         }
     }
+    public void battery_more(){
+        Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+        startActivity(powerUsageIntent);
+    }
 
     protected class CurBattThread extends Thread {
         private boolean mInterrupt = false;
@@ -243,10 +264,10 @@ if (new File(FASTCHARGE_PATH).exists()) {
             mbattery_percent.setText(rr[0]+"%");
             mbattery_volt.setText(rr[1]+" mV");
             mbattery_status.setText((Integer.parseInt(rr[4])/10)+"°C  "+rr[2]);
-            //mbattery_aux.setText((Integer.parseInt(rr[4])/10)+" °C");
             }
         };
 
     }
+
 
 }
