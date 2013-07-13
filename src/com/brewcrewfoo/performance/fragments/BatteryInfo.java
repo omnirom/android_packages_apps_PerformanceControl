@@ -18,13 +18,11 @@
 
 package com.brewcrewfoo.performance.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -40,19 +38,7 @@ import com.brewcrewfoo.performance.util.Helpers;
 import java.io.File;
 
 public class BatteryInfo extends Fragment implements
-       SeekBar.OnSeekBarChangeListener, Constants {
-
-
-    private class IntentBatteryUsage extends Activity {
-        public void showbatt(){
-            Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
-            ResolveInfo resolveInfo = getPackageManager().resolveActivity(powerUsageIntent, 0);
-            if(resolveInfo!=null){
-                startActivity(powerUsageIntent);
-            }
-        }
-    }
-
+        TextView.OnClickListener, SeekBar.OnSeekBarChangeListener, Constants {
 
     private CurBattThread mCurBattThread;
     private TextView mbattery_percent;
@@ -71,9 +57,7 @@ public class BatteryInfo extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
   	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        final IntentBatteryUsage intentBatteryUsage = new IntentBatteryUsage();
 
         setHasOptionsMenu(true);
     }
@@ -91,13 +75,13 @@ public class BatteryInfo extends Fragment implements
         return true;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup root,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.battery_info, root, false);
 
     mbattery_percent = (TextView) view.findViewById(R.id.batt_percent);
     mbattery_volt = (TextView) view.findViewById(R.id.batt_volt);
+
     mbattery_aux = (TextView) view.findViewById(R.id.batt_aux);
     mbattery_status = (TextView) view.findViewById(R.id.batt_status);
     mhide= (LinearLayout) view.findViewById(R.id.wlayout);
@@ -127,57 +111,57 @@ public class BatteryInfo extends Fragment implements
             }
             });
     }
-        else{
+    else{
         mpart= (LinearLayout) view.findViewById(R.id.blx_layout);
         mpart.setVisibility(LinearLayout.GONE);
     }
 
-if (new File(FASTCHARGE_PATH).exists()) {
-    mhide.setVisibility(LinearLayout.VISIBLE);
+    if (new File(FASTCHARGE_PATH).exists()) {
+        mhide.setVisibility(LinearLayout.VISIBLE);
 
-    mFastchargeOnBoot = (Switch) view.findViewById(R.id.fastcharge_sob);
-    mFastchargeOnBoot.setChecked(mPreferences.getBoolean(PREF_FASTCHARGE, false));
-    mFastchargeOnBoot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton v,boolean checked) {
-            mPreferences.edit().putBoolean(PREF_FASTCHARGE,checked).apply();
+        mFastchargeOnBoot = (Switch) view.findViewById(R.id.fastcharge_sob);
+        mFastchargeOnBoot.setChecked(mPreferences.getBoolean(PREF_FASTCHARGE, false));
+        mFastchargeOnBoot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton v,boolean checked) {
+                mPreferences.edit().putBoolean(PREF_FASTCHARGE,checked).apply();
 
-            if (checked){
-             String warningMessage = getString(R.string.fast_charge_warning);
-            //----------------
-            String cancel = getString(R.string.cancel);
-            String ok = getString(R.string.ok);
-            //-----------------
-            new AlertDialog.Builder(getActivity())
-                    .setMessage(warningMessage)
-                    .setNegativeButton(cancel,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,int which) {
-                                    mPreferences.edit().putBoolean(PREF_FASTCHARGE,false).apply();
-                                    mFastchargeOnBoot.setChecked(false);
-                                }
-                            })
-                    .setPositiveButton(ok,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog,int which) {
-                                    new CMDProcessor().su.runWaitFor("busybox echo 1 > " + FASTCHARGE_PATH);
-                                }
-                            }).create().show();
-            }
-            else{
-                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + FASTCHARGE_PATH);
-            }
-         }
-    });
-}
- else{
-    mpart= (LinearLayout) view.findViewById(R.id.fastcharge_layout);
-    mpart.setVisibility(LinearLayout.GONE);
- }
-    return view;
-}
+                if (checked){
+                 String warningMessage = getString(R.string.fast_charge_warning);
+                //----------------
+                String cancel = getString(R.string.cancel);
+                String ok = getString(R.string.ok);
+                //-----------------
+                new AlertDialog.Builder(getActivity())
+                        .setMessage(warningMessage)
+                        .setNegativeButton(cancel,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,int which) {
+                                        mPreferences.edit().putBoolean(PREF_FASTCHARGE,false).apply();
+                                        mFastchargeOnBoot.setChecked(false);
+                                    }
+                                })
+                        .setPositiveButton(ok,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,int which) {
+                                        new CMDProcessor().su.runWaitFor("busybox echo 1 > " + FASTCHARGE_PATH);
+                                    }
+                                }).create().show();
+                }
+                else{
+                    new CMDProcessor().su.runWaitFor("busybox echo 0 > " + FASTCHARGE_PATH);
+                }
+             }
+        });
+    }
+     else{
+        mpart= (LinearLayout) view.findViewById(R.id.fastcharge_layout);
+        mpart.setVisibility(LinearLayout.GONE);
+     }
+        return view;
+    }
 
    @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -227,9 +211,13 @@ if (new File(FASTCHARGE_PATH).exists()) {
             }
         }
     }
-    public void battery_more(){
-        Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
-        startActivity(powerUsageIntent);
+
+    @Override
+    public void onClick(View view) {
+        if( mbattery_volt.getId() == ((TextView)view).getId() ){
+            Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+            startActivity(powerUsageIntent);
+        }
     }
 
     protected class CurBattThread extends Thread {
