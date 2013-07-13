@@ -38,7 +38,7 @@ import com.brewcrewfoo.performance.util.Helpers;
 import java.io.File;
 
 public class BatteryInfo extends Fragment implements
-        TextView.OnClickListener, SeekBar.OnSeekBarChangeListener, Constants {
+       SeekBar.OnSeekBarChangeListener, Constants {
 
     private CurBattThread mCurBattThread;
     private TextView mbattery_percent;
@@ -81,6 +81,13 @@ public class BatteryInfo extends Fragment implements
 
     mbattery_percent = (TextView) view.findViewById(R.id.batt_percent);
     mbattery_volt = (TextView) view.findViewById(R.id.batt_volt);
+    mbattery_volt.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+            startActivity(powerUsageIntent);
+        }
+    });
 
     mbattery_aux = (TextView) view.findViewById(R.id.batt_aux);
     mbattery_status = (TextView) view.findViewById(R.id.batt_status);
@@ -212,13 +219,6 @@ public class BatteryInfo extends Fragment implements
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        if( mbattery_volt.getId() == ((TextView)view).getId() ){
-            Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
-            startActivity(powerUsageIntent);
-        }
-    }
 
     protected class CurBattThread extends Thread {
         private boolean mInterrupt = false;
