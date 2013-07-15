@@ -20,7 +20,6 @@ package com.brewcrewfoo.performance.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -110,13 +109,11 @@ public class Tools extends PreferenceFragment implements
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
                                     //dialog.cancel();
-
                                 }
                             })
                     .setPositiveButton(getString(R.string.yes),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-
                                     dialog.cancel();
                                 }
                             });
@@ -192,10 +189,6 @@ public class Tools extends PreferenceFragment implements
 
             @Override
             public void afterTextChanged(Editable s) {
-                try {
-                   // s.toString();
-                } catch (NumberFormatException ex) {
-                }
             }
         });
         new AlertDialog.Builder(getActivity())

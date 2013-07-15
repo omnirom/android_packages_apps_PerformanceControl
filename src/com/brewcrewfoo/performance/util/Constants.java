@@ -56,6 +56,7 @@ public interface Constants {
     public static final String BAT_TECH_PATH = "/sys/class/power_supply/battery/technology";
     // Other settings
     public static final String MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
+    public static final String MINFREE_ADJ_PATH = "/sys/module/lowmemorykiller/parameters/adj";
     public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
     //"/sys/devices/virtual/bdi/default/read_ahead_kb"
     
@@ -73,6 +74,17 @@ public interface Constants {
     public static final String OOM_HIDDEN_APP = "oom_hidden_app";
     public static final String OOM_CONTENT_PROVIDERS = "oom_content_providers";
     public static final String OOM_EMPTY_APP = "oom_empty_app";
+    //------ DoNotKillProc
+    public static final String USER_PROC_PATH = "/sys/module/lowmemorykiller/parameters/donotkill_proc";
+    public static final String SYS_PROC_PATH = "/sys/module/lowmemorykiller/parameters/donotkill_sysproc";
+    public static final String USER_PROC_NAMES_PATH = "/sys/module/lowmemorykiller/parameters/donotkill_proc_names";
+    public static final String USER_SYS_NAMES_PATH = "/sys/module/lowmemorykiller/parameters/donotkill_sysproc_names";
+    public static final String USER_PROC_SOB = "user_proc_sob";
+    public static final String SYS_PROC_SOB = "sys_proc_sob";
+    public static final String PREF_USER_PROC = "pref_user_proc";
+    public static final String PREF_SYS_PROC = "pref_sys_proc";
+    public static final String PREF_USER_NAMES = "pref_user_names";
+    public static final String PREF_SYS_NAMES = "pref_sys_names";
     //-------BLX---------
     public static final String PREF_BLX = "pref_blx";
     public static final String BLX_PATH = "/sys/class/misc/batterylifeextender/charging_limit";

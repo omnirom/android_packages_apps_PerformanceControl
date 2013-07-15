@@ -84,8 +84,12 @@ public class BatteryInfo extends Fragment implements
     mbattery_volt.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
-            startActivity(powerUsageIntent);
+            try{
+                Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+                startActivity(powerUsageIntent);
+            }
+            catch(Exception e){
+            }
         }
     });
 
