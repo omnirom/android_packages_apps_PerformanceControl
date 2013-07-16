@@ -243,10 +243,10 @@ public class OOMSettings extends PreferenceFragment implements
             return true;
         }
         else if (preference == mUserNames){
-            NamesEditDialog(key,getString(R.string.pt_user_names_proc));
+            ProcEditDialog(key,getString(R.string.pt_user_names_proc),"");
         }
         else if (preference == mSysNames){
-            NamesEditDialog(key,getString(R.string.pt_sys_names_proc));
+            ProcEditDialog(key,getString(R.string.pt_sys_names_proc),"");
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -328,7 +328,7 @@ public class OOMSettings extends PreferenceFragment implements
     }
 
 
-    public void NamesEditDialog(final String key,String title) {
+    public void ProcEditDialog(final String key,String title,String msg) {
         Resources res = getActivity().getResources();
         String cancel = res.getString(R.string.cancel);
         String ok = res.getString(R.string.ps_volt_save);
@@ -360,8 +360,8 @@ public class OOMSettings extends PreferenceFragment implements
             }
         });
         new AlertDialog.Builder(getActivity())
-                .setTitle(getString(R.string.sh_title))
-                .setMessage(getString(R.string.sh_msg))
+                .setTitle(title)
+                .setMessage(msg)
                 .setView(alphaDialog)
                 .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                     @Override

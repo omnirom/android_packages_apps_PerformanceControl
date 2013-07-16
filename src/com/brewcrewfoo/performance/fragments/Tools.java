@@ -98,7 +98,7 @@ public class Tools extends PreferenceFragment implements
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key = preference.getKey();
         if (key.equals(PREF_SH)) {
-            shEditDialog(key,getString(R.string.sh_title));
+            shEditDialog(key,getString(R.string.sh_title),getString(R.string.sh_msg));
         }
         else if(key.equals(PREF_WIPE_CACHE)) {
 
@@ -160,7 +160,7 @@ public class Tools extends PreferenceFragment implements
     }
 
 
-    public void shEditDialog(final String key,String title) {
+    public void shEditDialog(final String key,String title,String msg) {
         Resources res = getActivity().getResources();
         String cancel = res.getString(R.string.cancel);
         String ok = res.getString(R.string.ps_volt_save);
@@ -192,8 +192,8 @@ public class Tools extends PreferenceFragment implements
             }
         });
         new AlertDialog.Builder(getActivity())
-                .setTitle(getString(R.string.sh_title))
-                .setMessage(getString(R.string.sh_msg))
+                .setTitle(title)
+                .setMessage(msg)
                 .setView(alphaDialog)
                 .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                     @Override
