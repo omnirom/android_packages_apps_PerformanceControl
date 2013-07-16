@@ -10,7 +10,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:ems="10"
             android:id="@+id/shText"
             android:layout_gravity="center"
             android:editable="true"
@@ -18,6 +17,9 @@
             android:linksClickable="false"
             android:padding="4dp"
             android:layout_margin="8dp"
+            android:autoText="false"
+            android:focusable="true"
+            android:gravity="left|top"
             />
 
 </LinearLayout>

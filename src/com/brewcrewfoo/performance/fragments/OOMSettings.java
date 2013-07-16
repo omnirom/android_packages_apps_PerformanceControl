@@ -291,7 +291,6 @@ public class OOMSettings extends PreferenceFragment implements
     }
 	
 	private static String implodeArray(String[] inputArray, String glueString) {
-
 		String output = "";
 		if (inputArray.length > 0) {
 			StringBuilder sb = new StringBuilder();
