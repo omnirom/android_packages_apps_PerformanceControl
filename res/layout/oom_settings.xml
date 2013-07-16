@@ -74,10 +74,10 @@ Copyright (C) 2012  James Roberts
         <CheckBoxPreference
                 android:defaultValue="false"
                 android:key="pref_user_proc"
-                android:summary="@string/ps_user_proc"
                 android:title="@string/pt_user_proc"/>
         <Preference
                 android:key="pref_user_names_proc"
+                android:summary="@string/ps_user_proc"
                 android:title="@string/pt_sys_names_proc"/>
         <CheckBoxPreference
                 android:defaultValue="false"
@@ -92,10 +92,10 @@ Copyright (C) 2012  James Roberts
         <CheckBoxPreference
                 android:defaultValue="false"
                 android:key="pref_sys_proc"
-                android:summary="@string/ps_sys_proc"
                 android:title="@string/pt_sys_proc"/>
         <Preference
                 android:key="pref_sys_names_proc"
+                android:summary="@string/ps_sys_proc"
                 android:title="@string/pt_user_names_proc"/>
 
         <CheckBoxPreference
