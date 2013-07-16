@@ -86,13 +86,10 @@ public class VoltageControlSettings extends Fragment implements Constants {
                         mPreferences.edit().putBoolean(VOLTAGE_SOB,isChecked).apply();
                         if (isChecked){
                             String warningMessage = getString(R.string.volt_info);
-                            //----------------
-                            String cancel = getString(R.string.cancel);
-                            String ok = getString(R.string.ok);
-                            //-----------------
+
                             new AlertDialog.Builder(getActivity())
                                     .setMessage(warningMessage)
-                                    .setNegativeButton(cancel,
+                                    .setNegativeButton(getString(R.string.cancel),
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog,int which) {
@@ -100,7 +97,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
                                                     setOnBoot.setChecked(false);
                                                 }
                                             })
-                                    .setPositiveButton(ok,
+                                    .setPositiveButton(getString(R.string.ok),
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog,int which) {
@@ -359,17 +356,15 @@ public class VoltageControlSettings extends Fragment implements Constants {
                                     public void onClick(DialogInterface dialog,
                                                         int whichButton) {
                                         removeDialog(id);
-                                        final String value = voltageEdit.getText()
-                                                .toString();
-                                        SharedPreferences.Editor editor = mPreferences
-                                                .edit();
+                                        final String value = voltageEdit.getText().toString();
+                                        SharedPreferences.Editor editor = mPreferences.edit();
                                         editor.putString(mVoltage.getFreq(), value);
                                         editor.commit();
                                         mVoltage.setSavedMV(value);
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 })
-                        .setNegativeButton(null,
+                        .setNegativeButton(getString(R.string.cancel),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                                         int whichButton) {
@@ -384,10 +379,8 @@ public class VoltageControlSettings extends Fragment implements Constants {
         if (dialog != null) {
             FragmentManager fm = getActivity().getFragmentManager();
             FragmentTransaction ftr = fm.beginTransaction();
-            CustomDialogFragment newFragment = CustomDialogFragment
-                    .newInstance(dialog);
-            DialogFragment fragmentDialog = (DialogFragment) fm
-                    .findFragmentByTag("" + id);
+            CustomDialogFragment newFragment = CustomDialogFragment.newInstance(dialog);
+            DialogFragment fragmentDialog = (DialogFragment) fm.findFragmentByTag("" + id);
             if (fragmentDialog != null) {
                 ftr.remove(fragmentDialog);
                 ftr.commit();
@@ -452,12 +445,11 @@ public class VoltageControlSettings extends Fragment implements Constants {
                 convertView = mInflater.inflate(R.layout.list_volt, null);
                 holder = new ViewHolder();
                 holder.mFreq = (TextView) convertView.findViewById(R.id.Freq);
-                holder.mCurrentMV = (TextView) convertView
-                        .findViewById(R.id.mVCurrent);
-                holder.mSavedMV = (TextView) convertView
-                        .findViewById(R.id.mVSaved);
+                holder.mCurrentMV = (TextView) convertView.findViewById(R.id.mVCurrent);
+                holder.mSavedMV = (TextView) convertView.findViewById(R.id.mVSaved);
                 convertView.setTag(holder);
-            } else {
+            }
+            else {
                 holder = (ViewHolder) convertView.getTag();
             }
 

@@ -79,27 +79,27 @@ public class OOMSettings extends PreferenceFragment implements
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.oom_settings);
 	
-	values = Helpers.readOneLine(MINFREE_PATH).split(",");
-	
-	mForegroundApp=(Preference) findPreference(OOM_FOREGROUND_APP);
-	mVisibleApp=(Preference) findPreference(OOM_VISIBLE_APP);
-	mSecondaryServer=(Preference) findPreference(OOM_SECONDARY_SERVER);
-	mHiddenApp=(Preference) findPreference(OOM_HIDDEN_APP);
-	mContentProviders=(Preference) findPreference(OOM_CONTENT_PROVIDERS);
-	mEmptyApp=(Preference) findPreference(OOM_EMPTY_APP);
-		
-	mVerylight=(Preference) findPreference("oom_verylight");
-	mVerylight.setSummary( getString(R.string.pref_verylight));
-	mLight=(Preference) findPreference("oom_light");
-	mLight.setSummary( getString(R.string.pref_light));
-	mMedium=(Preference) findPreference("oom_medium");
-	mMedium.setSummary( getString(R.string.pref_medium));
-	mAggressive=(Preference) findPreference("oom_aggressive");
-	mAggressive.setSummary( getString(R.string.pref_aggressive));
-	mVeryaggressive=(Preference) findPreference("oom_veryaggressive");
-	mVeryaggressive.setSummary( getString(R.string.pref_veryaggressive));
+        values = Helpers.readOneLine(MINFREE_PATH).split(",");
 
-	updateOOM(values);
+        mForegroundApp=(Preference) findPreference(OOM_FOREGROUND_APP);
+        mVisibleApp=(Preference) findPreference(OOM_VISIBLE_APP);
+        mSecondaryServer=(Preference) findPreference(OOM_SECONDARY_SERVER);
+        mHiddenApp=(Preference) findPreference(OOM_HIDDEN_APP);
+        mContentProviders=(Preference) findPreference(OOM_CONTENT_PROVIDERS);
+        mEmptyApp=(Preference) findPreference(OOM_EMPTY_APP);
+
+        mVerylight=(Preference) findPreference("oom_verylight");
+        mVerylight.setSummary( getString(R.string.pref_verylight));
+        mLight=(Preference) findPreference("oom_light");
+        mLight.setSummary( getString(R.string.pref_light));
+        mMedium=(Preference) findPreference("oom_medium");
+        mMedium.setSummary( getString(R.string.pref_medium));
+        mAggressive=(Preference) findPreference("oom_aggressive");
+        mAggressive.setSummary( getString(R.string.pref_aggressive));
+        mVeryaggressive=(Preference) findPreference("oom_veryaggressive");
+        mVeryaggressive.setSummary( getString(R.string.pref_veryaggressive));
+
+        updateOOM(values);
 
     }
 
@@ -209,7 +209,7 @@ public class OOMSettings extends PreferenceFragment implements
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
     	if (key.equals(PREF_MINFREE_BOOT)) {
     		if(sharedPreferences.getBoolean(key,false)){
-			sharedPreferences.edit().putString(PREF_MINFREE, Helpers.readOneLine(MINFREE_PATH)).apply();
+			    sharedPreferences.edit().putString(PREF_MINFREE, Helpers.readOneLine(MINFREE_PATH)).apply();
     		}
     		else{
     			sharedPreferences.edit().remove(PREF_MINFREE).apply();

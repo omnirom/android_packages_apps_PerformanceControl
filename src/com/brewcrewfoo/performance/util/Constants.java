@@ -79,12 +79,12 @@ public interface Constants {
     public static final String SYS_PROC_PATH = "/sys/module/lowmemorykiller/parameters/donotkill_sysproc";
     public static final String USER_PROC_NAMES_PATH = "/sys/module/lowmemorykiller/parameters/donotkill_proc_names";
     public static final String USER_SYS_NAMES_PATH = "/sys/module/lowmemorykiller/parameters/donotkill_sysproc_names";
-    public static final String USER_PROC_SOB = "user_proc_sob";
-    public static final String SYS_PROC_SOB = "sys_proc_sob";
+    public static final String USER_PROC_SOB = "user_proc_boot";
+    public static final String SYS_PROC_SOB = "sys_proc_boot";
     public static final String PREF_USER_PROC = "pref_user_proc";
     public static final String PREF_SYS_PROC = "pref_sys_proc";
-    public static final String PREF_USER_NAMES = "pref_user_names";
-    public static final String PREF_SYS_NAMES = "pref_sys_names";
+    public static final String PREF_USER_NAMES = "pref_user_names_proc";
+    public static final String PREF_SYS_NAMES = "pref_sys_names_proc";
     //-------BLX---------
     public static final String PREF_BLX = "pref_blx";
     public static final String BLX_PATH = "/sys/class/misc/batterylifeextender/charging_limit";
@@ -163,7 +163,7 @@ public interface Constants {
     public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
     public static final String PREF_WIDGET_BG_COLOR = "widget_bg_color";
     public static final String PREF_WIDGET_TEXT_COLOR = "widget_text_color";
-    public static final String VERSION_NUM = "2.0.2";
+    public static final String VERSION_NUM = "2.0.3";
 }
 
 

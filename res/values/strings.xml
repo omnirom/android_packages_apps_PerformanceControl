@@ -89,7 +89,7 @@ Copyright (C) 2012  James Roberts
    <string name="title_empty_app">Empty Applications</string>
    <string name="prefcat_oom_predefines">PRESETS</string>
    <string name="pt_oom">Minfree Taskkiller Presets</string>
-   
+
    <string name="pt_verylight">Very Light</string>
    <string name="pref_verylight">512,1024,1280,2048,3072,4096</string>
    <string name="pt_light">Light</string>
@@ -100,6 +100,15 @@ Copyright (C) 2012  James Roberts
    <string name="pref_aggressive">2048,4096,8192,16384,24576,32768</string>
    <string name="pt_veryaggressive">Very Aggressive</string>
    <string name="pref_veryaggressive">4096,8192,16384,32768,49152,65536</string>
+
+    <!-- do not kill proc -->
+    <string name="prefcat_user_proc">NOT KILLABLE USER PROCESSES</string>
+    <string name="prefcat_sys_proc">NOT KILLABLE SYSTEM PROCESSES</string>
+    <string name="pt_user_proc">Enable not killable user processes</string>
+    <string name="pt_sys_proc">Enable not killable system processes</string>
+    <string name="pt_user_names_proc">User Processes white list</string>
+    <string name="pt_sys_names_proc">System Processes white list</string>
+
 <!-- blx -->
    <string name="blx_info">Battery Life eXtender feature\nAuthor Ezekeel</string>
    <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
@@ -107,7 +116,7 @@ Copyright (C) 2012  James Roberts
    <string name="ps_blx_boot">Apply the amount above at boot</string>
    <string name="blx_title">Charge limit:</string>
 <!-- dsync -->
-   <string name="dsync_info">Dynamic FSync feature\nAuthor Faux123</string>
+   <string name="dsync_info">Dynamic FSync feature\nAuthor Paul Reioux (faux123)</string>
    <string name="prefcat_dsync">DYNAMIC FSYNC</string>
    <string name="ps_dsync">Setting will be restored on reboot</string>
    <string name="pt_dsync">Dynamic Fsync</string>
