@@ -213,5 +213,4 @@ public class Tools extends PreferenceFragment implements
                 .show();
     }
 
-
 }
