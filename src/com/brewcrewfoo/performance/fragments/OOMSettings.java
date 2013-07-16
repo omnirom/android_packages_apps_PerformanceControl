@@ -70,8 +70,6 @@ public class OOMSettings extends PreferenceFragment implements
 	
 	private String values[];
 
-    private CheckBoxPreference mUserSOB;
-    private CheckBoxPreference mSysSOB;
     private CheckBoxPreference mUserON;
     private CheckBoxPreference mSysON;
     private Preference mUserNames;
@@ -108,8 +106,6 @@ public class OOMSettings extends PreferenceFragment implements
 
         updateOOM(values);
 
-        mUserSOB=(CheckBoxPreference) findPreference(USER_PROC_SOB);
-        mSysSOB=(CheckBoxPreference) findPreference(SYS_PROC_SOB);
         mUserON=(CheckBoxPreference) findPreference(PREF_USER_PROC);
         mSysON=(CheckBoxPreference) findPreference(PREF_SYS_PROC);
         mUserNames=(Preference) findPreference(PREF_USER_NAMES);
@@ -246,6 +242,13 @@ public class OOMSettings extends PreferenceFragment implements
             }
             return true;
         }
+        else if (preference == mUserNames){
+            NamesEditDialog(key,getString(R.string.pt_user_names_proc));
+        }
+        else if (preference == mSysNames){
+            NamesEditDialog(key,getString(R.string.pt_sys_names_proc));
+        }
+
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
@@ -259,7 +262,26 @@ public class OOMSettings extends PreferenceFragment implements
     			sharedPreferences.edit().remove(PREF_MINFREE).apply();
     		}
 	    }
-
+        if (key.equals(USER_PROC_SOB)) {
+            if(sharedPreferences.getBoolean(key,false)){
+                //sharedPreferences.edit().putBoolean(PREF_USER_PROC, Helpers.readOneLine(USER_PROC_PATH).equals("1")).apply();
+                sharedPreferences.edit().putString(PREF_USER_NAMES, Helpers.readOneLine(USER_PROC_NAMES_PATH)).apply();
+            }
+            else{
+                //sharedPreferences.edit().remove(PREF_USER_PROC).apply();
+                sharedPreferences.edit().remove(PREF_USER_NAMES).apply();
+            }
+        }
+        if (key.equals(SYS_PROC_SOB)) {
+            if(sharedPreferences.getBoolean(key,false)){
+                //sharedPreferences.edit().putBoolean(PREF_SYS_PROC, Helpers.readOneLine(SYS_PROC_PATH).equals("1")).apply();
+                sharedPreferences.edit().putString(PREF_SYS_NAMES, Helpers.readOneLine(USER_SYS_NAMES_PATH)).apply();
+            }
+            else{
+                //sharedPreferences.edit().remove(PREF_SYS_PROC).apply();
+                sharedPreferences.edit().remove(PREF_SYS_NAMES).apply();
+            }
+        }
     }
 
 	private void updateOOM(String[] v) {
@@ -304,6 +326,61 @@ public class OOMSettings extends PreferenceFragment implements
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         return false;
     }
+
+
+    public void NamesEditDialog(final String key,String title) {
+        Resources res = getActivity().getResources();
+        String cancel = res.getString(R.string.cancel);
+        String ok = res.getString(R.string.ps_volt_save);
+
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View alphaDialog = factory.inflate(R.layout.sh_dialog, null);
+
+
+        settingText = (EditText) alphaDialog.findViewById(R.id.shText);
+        settingText.setText(mPreferences.getString(key,""));
+        settingText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                return true;
+            }
+        });
+
+        settingText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        new AlertDialog.Builder(getActivity())
+                .setTitle(getString(R.string.sh_title))
+                .setMessage(getString(R.string.sh_msg))
+                .setView(alphaDialog)
+                .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,int which) {
+                        /* nothing */
+                    }
+                })
+                .setPositiveButton(ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final SharedPreferences.Editor editor = mPreferences.edit();
+                        editor.putString(key, settingText.getText().toString()).commit();
+
+                    }
+                })
+                .create()
+                .show();
+    }
+
 
     public void openDialog(final int idx,int currentProgress, String title, final int min, final int max,
                            final Preference pref, final String path, final String key) {
