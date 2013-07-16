@@ -78,7 +78,7 @@ Copyright (C) 2012  James Roberts
         <Preference
                 android:key="pref_user_names_proc"
                 android:summary="@string/ps_user_proc"
-                android:title="@string/pt_sys_names_proc"/>
+                android:title="@string/pt_user_names_proc"/>
         <CheckBoxPreference
                 android:defaultValue="false"
                 android:key="user_proc_boot"
@@ -96,7 +96,7 @@ Copyright (C) 2012  James Roberts
         <Preference
                 android:key="pref_sys_names_proc"
                 android:summary="@string/ps_sys_proc"
-                android:title="@string/pt_user_names_proc"/>
+                android:title="@string/pt_sys_names_proc"/>
 
         <CheckBoxPreference
                 android:defaultValue="false"

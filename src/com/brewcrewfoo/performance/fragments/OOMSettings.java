@@ -311,8 +311,8 @@ public class OOMSettings extends PreferenceFragment implements
 
     public void ProcEditDialog(final String key,String title,String msg,String path,Boolean type) {
         Resources res = getActivity().getResources();
-        String cancel = res.getString(R.string.cancel);
-        String ok = res.getString(R.string.ps_volt_save);
+        final String cancel = res.getString(R.string.cancel);
+        final String ok = res.getString(R.string.ps_volt_save);
 
         LayoutInflater factory = LayoutInflater.from(getActivity());
         final View alphaDialog = factory.inflate(R.layout.sh_dialog, null);
