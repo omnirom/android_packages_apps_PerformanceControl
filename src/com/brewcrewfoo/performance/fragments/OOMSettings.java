@@ -116,6 +116,7 @@ public class OOMSettings extends PreferenceFragment implements
         }
         else{
             mUserON.setChecked(Helpers.readOneLine(USER_PROC_PATH).equals("1"));
+            mPreferences.edit().putString(PREF_USER_NAMES, Helpers.readOneLine(USER_PROC_NAMES_PATH)).apply();
         }
         if (!new File(SYS_PROC_PATH).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("notkill_sys_proc");
@@ -123,6 +124,7 @@ public class OOMSettings extends PreferenceFragment implements
         }
         else{
             mSysON.setChecked(Helpers.readOneLine(SYS_PROC_PATH).equals("1"));
+            mPreferences.edit().putString(PREF_SYS_NAMES, Helpers.readOneLine(USER_SYS_NAMES_PATH)).apply();
         }
     }
 
