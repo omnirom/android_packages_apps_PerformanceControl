@@ -243,10 +243,10 @@ public class OOMSettings extends PreferenceFragment implements
             return true;
         }
         else if (preference == mUserNames){
-            ProcEditDialog(key,getString(R.string.pt_user_names_proc),"");
+            ProcEditDialog(key,getString(R.string.pt_user_names_proc),"",USER_PROC_NAMES_PATH,false);
         }
         else if (preference == mSysNames){
-            ProcEditDialog(key,getString(R.string.pt_sys_names_proc),"");
+            ProcEditDialog(key,getString(R.string.pt_sys_names_proc),"",USER_SYS_NAMES_PATH,true);
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -262,26 +262,7 @@ public class OOMSettings extends PreferenceFragment implements
     			sharedPreferences.edit().remove(PREF_MINFREE).apply();
     		}
 	    }
-        if (key.equals(USER_PROC_SOB)) {
-            if(sharedPreferences.getBoolean(key,false)){
-                //sharedPreferences.edit().putBoolean(PREF_USER_PROC, Helpers.readOneLine(USER_PROC_PATH).equals("1")).apply();
-                sharedPreferences.edit().putString(PREF_USER_NAMES, Helpers.readOneLine(USER_PROC_NAMES_PATH)).apply();
-            }
-            else{
-                //sharedPreferences.edit().remove(PREF_USER_PROC).apply();
-                sharedPreferences.edit().remove(PREF_USER_NAMES).apply();
-            }
-        }
-        if (key.equals(SYS_PROC_SOB)) {
-            if(sharedPreferences.getBoolean(key,false)){
-                //sharedPreferences.edit().putBoolean(PREF_SYS_PROC, Helpers.readOneLine(SYS_PROC_PATH).equals("1")).apply();
-                sharedPreferences.edit().putString(PREF_SYS_NAMES, Helpers.readOneLine(USER_SYS_NAMES_PATH)).apply();
-            }
-            else{
-                //sharedPreferences.edit().remove(PREF_SYS_PROC).apply();
-                sharedPreferences.edit().remove(PREF_SYS_NAMES).apply();
-            }
-        }
+
     }
 
 	private void updateOOM(String[] v) {
@@ -328,13 +309,14 @@ public class OOMSettings extends PreferenceFragment implements
     }
 
 
-    public void ProcEditDialog(final String key,String title,String msg) {
+    public void ProcEditDialog(final String key,String title,String msg,String path,Boolean type) {
         Resources res = getActivity().getResources();
         String cancel = res.getString(R.string.cancel);
         String ok = res.getString(R.string.ps_volt_save);
 
         LayoutInflater factory = LayoutInflater.from(getActivity());
         final View alphaDialog = factory.inflate(R.layout.sh_dialog, null);
+        final String namespath = path;
 
 
         settingText = (EditText) alphaDialog.findViewById(R.id.shText);
@@ -374,6 +356,7 @@ public class OOMSettings extends PreferenceFragment implements
                     public void onClick(DialogInterface dialog, int which) {
                         final SharedPreferences.Editor editor = mPreferences.edit();
                         editor.putString(key, settingText.getText().toString()).commit();
+                        new CMDProcessor().su.runWaitFor("busybox echo "+mPreferences.getString(key, Helpers.readOneLine(namespath))+" > " + namespath);
 
                     }
                 })

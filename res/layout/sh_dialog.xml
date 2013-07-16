@@ -14,9 +14,10 @@
             android:id="@+id/shText"
             android:layout_gravity="center"
             android:editable="true"
-            android:lines="10"
+            android:lines="8"
             android:linksClickable="false"
             android:padding="4dp"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:textSize="10dp"/>
 
 </LinearLayout>
