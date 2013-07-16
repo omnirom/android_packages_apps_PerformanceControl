@@ -71,8 +71,10 @@ Copyright (C) 2012  James Roberts
     <PreferenceCategory
             android:key="notkill_user_proc"
             android:title="@string/prefcat_user_proc">
-        <Preference
+        <CheckBoxPreference
+                android:defaultValue="false"
                 android:key="pref_user_proc"
+                android:summary="@string/ps_user_proc"
                 android:title="@string/pt_user_proc"/>
         <Preference
                 android:key="pref_user_names_proc"
@@ -80,15 +82,17 @@ Copyright (C) 2012  James Roberts
         <CheckBoxPreference
                 android:defaultValue="false"
                 android:key="user_proc_boot"
-                android:summary="@string/ps_blx_boot"
+                android:summary="@string/ps_restore_boot"
                 android:title="@string/sob"/>
     </PreferenceCategory>
 
     <PreferenceCategory
             android:key="notkill_sys_proc"
             android:title="@string/prefcat_sys_proc">
-        <Preference
+        <CheckBoxPreference
+                android:defaultValue="false"
                 android:key="pref_sys_proc"
+                android:summary="@string/ps_sys_proc"
                 android:title="@string/pt_sys_proc"/>
         <Preference
                 android:key="pref_sys_names_proc"
@@ -97,7 +101,7 @@ Copyright (C) 2012  James Roberts
         <CheckBoxPreference
                 android:defaultValue="false"
                 android:key="sys_proc_boot"
-                android:summary="@string/ps_blx_boot"
+                android:summary="@string/ps_restore_boot"
                 android:title="@string/sob"/>
 
     </PreferenceCategory>

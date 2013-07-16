@@ -80,7 +80,7 @@ Copyright (C) 2012  James Roberts
     <string name="fast_charge_notification_message">Phone is in charge-only mode!</string>
 
 <!-- minfree -->
-   <string name="prefcat_oom">MINFREE TASKKILLER SETTINGS</string>
+   <string name="prefcat_oom">MEMORY MANAGEMENT</string>
    <string name="title_foreground_app">Foreground Applications</string>
    <string name="title_visible_app">Visible Applications</string>
    <string name="title_secondary_server">Secondary Server</string>
@@ -106,8 +106,11 @@ Copyright (C) 2012  James Roberts
     <string name="prefcat_sys_proc">NOT KILLABLE SYSTEM PROCESSES</string>
     <string name="pt_user_proc">Enable not killable user processes</string>
     <string name="pt_sys_proc">Enable not killable system processes</string>
-    <string name="pt_user_names_proc">User Processes white list</string>
-    <string name="pt_sys_names_proc">System Processes white list</string>
+    <string name="pt_user_names_proc">User Processes whitelist</string>
+    <string name="pt_sys_names_proc">System Processes whitelist</string>
+    <string name="ps_restore_boot">Restore above settings at boot</string>
+    <string name="ps_user_proc">The list of user process names (comma separated)</string>
+    <string name="ps_sys_proc">The list of system process names (comma separated)</string>
 
 <!-- blx -->
    <string name="blx_info">Battery Life eXtender feature\nAuthor Ezekeel</string>
