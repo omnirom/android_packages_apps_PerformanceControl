@@ -69,6 +69,13 @@ public class OOMSettings extends PreferenceFragment implements
 	private Preference mVeryaggressive;
 	
 	private String values[];
+
+    private CheckBoxPreference mUserSOB;
+    private CheckBoxPreference mSysSOB;
+    private CheckBoxPreference mUserON;
+    private CheckBoxPreference mSysON;
+    private Preference mUserNames;
+    private Preference mSysNames;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,6 +108,26 @@ public class OOMSettings extends PreferenceFragment implements
 
         updateOOM(values);
 
+        mUserSOB=(CheckBoxPreference) findPreference(USER_PROC_SOB);
+        mSysSOB=(CheckBoxPreference) findPreference(SYS_PROC_SOB);
+        mUserON=(CheckBoxPreference) findPreference(PREF_USER_PROC);
+        mSysON=(CheckBoxPreference) findPreference(PREF_SYS_PROC);
+        mUserNames=(Preference) findPreference(PREF_USER_NAMES);
+        mSysNames=(Preference) findPreference(PREF_SYS_NAMES);
+        if (!new File(USER_PROC_PATH).exists()) {
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("notkill_user_proc");
+            getPreferenceScreen().removePreference(hideCat);
+        }
+        else{
+            mUserON.setChecked(Helpers.readOneLine(USER_PROC_PATH).equals("1"));
+        }
+        if (!new File(SYS_PROC_PATH).exists()) {
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("notkill_sys_proc");
+            getPreferenceScreen().removePreference(hideCat);
+        }
+        else{
+            mSysON.setChecked(Helpers.readOneLine(SYS_PROC_PATH).equals("1"));
+        }
     }
 
     @Override
@@ -201,7 +228,24 @@ public class OOMSettings extends PreferenceFragment implements
 			updateOOM(values);
 			return true;
 		}
-
+        else if (preference == mUserON){
+            if (Integer.parseInt(Helpers.readOneLine(USER_PROC_PATH))==0){
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + USER_PROC_PATH);
+            }
+            else{
+                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + USER_PROC_PATH);
+            }
+            return true;
+        }
+        else if (preference == mSysON){
+            if (Integer.parseInt(Helpers.readOneLine(SYS_PROC_PATH))==0){
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + SYS_PROC_PATH);
+            }
+            else{
+                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + SYS_PROC_PATH);
+            }
+            return true;
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
@@ -214,7 +258,8 @@ public class OOMSettings extends PreferenceFragment implements
     		else{
     			sharedPreferences.edit().remove(PREF_MINFREE).apply();
     		}
-	}
+	    }
+
     }
 
 	private void updateOOM(String[] v) {
