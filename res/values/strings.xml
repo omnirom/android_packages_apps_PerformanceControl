@@ -32,7 +32,7 @@ Copyright (C) 2012  James Roberts
     <!-- Titles -->
     <string name="t_cpu_settings">CPU SETTINGS</string>
     <string name="t_battery_info">BATTERY</string>
-    <string name="t_oom_settings">MINFREE TASKKILLER</string>
+    <string name="t_oom_settings">MEMORY SETTINGS</string>
     <string name="t_volt_settings">VOLTAGE SETTINGS</string>
     <string name="t_adv_settings">"ADVANCED SETTINGS"</string>
     <string name="t_time_in_state">"TIME IN STATE"</string>
@@ -80,7 +80,7 @@ Copyright (C) 2012  James Roberts
     <string name="fast_charge_notification_message">Phone is in charge-only mode!</string>
 
 <!-- minfree -->
-   <string name="prefcat_oom">MEMORY MANAGEMENT</string>
+   <string name="prefcat_oom">MINFREE TASKKILLER</string>
    <string name="title_foreground_app">Foreground Applications</string>
    <string name="title_visible_app">Visible Applications</string>
    <string name="title_secondary_server">Secondary Server</string>
