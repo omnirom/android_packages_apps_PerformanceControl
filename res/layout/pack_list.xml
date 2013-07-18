@@ -4,8 +4,21 @@
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-        >
+                android:layout_height="match_parent">
+    <LinearLayout
+            android:id="@+id/linlaHeaderProgress"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+        <ProgressBar
+                android:id="@+id/pbHeaderProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+        </ProgressBar>
+    </LinearLayout>
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,7 +31,8 @@
     <ListView
             android:id="@+id/applist"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fastScrollEnabled="false"/>
     </LinearLayout>
 
     <LinearLayout
@@ -28,7 +42,8 @@
                   android:layout_height="wrap_content"
                   android:layout_gravity="bottom"
                   android:layout_alignParentBottom="true"
-                  android:gravity="top">
+                  android:gravity="top"
+                  android:visibility="gone">
 
         <EditText
                 android:layout_width="match_parent"
@@ -39,8 +54,8 @@
                 android:lines="3"
                 android:padding="10dp"
                 android:editable="true"
-                android:enabled="true"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:enabled="true"/>
 
         <Button
                 android:layout_width="match_parent"

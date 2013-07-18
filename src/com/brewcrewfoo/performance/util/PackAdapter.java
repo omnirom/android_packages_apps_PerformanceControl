@@ -28,7 +28,6 @@ public class PackAdapter extends BaseAdapter {
     public PackAdapter(Activity context,String[] pmList, PackageManager packageManager) {
         super();
         this.context = context;
-        this.packageList = packageList;
         this.packageManager = packageManager;
         this.pList=pmList;
     }
