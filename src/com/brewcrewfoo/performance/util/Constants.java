@@ -163,7 +163,7 @@ public interface Constants {
     public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
     public static final String PREF_WIDGET_BG_COLOR = "widget_bg_color";
     public static final String PREF_WIDGET_TEXT_COLOR = "widget_text_color";
-    public static final String VERSION_NUM = "2.0.3";
+    public static final String VERSION_NUM = "2.0.4";
 }
 
 

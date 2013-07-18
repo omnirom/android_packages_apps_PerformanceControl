@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+        * Created by h0rn3t on 17.07.2013.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+        >
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_gravity="top"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/tools"
+            android:layout_marginBottom="4dp">
+    <ListView
+            android:id="@+id/applist"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+                  android:id="@+id/tools"
+                  android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="bottom"
+                  android:layout_alignParentBottom="true"
+                  android:gravity="top">
+
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/procNames"
+                android:lines="3"
+                android:padding="10dp"
+                android:editable="true"
+                android:enabled="true"
+                android:layout_marginTop="10dp"/>
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ps_volt_save"
+                android:id="@+id/applyBtn"
+                android:layout_gravity="right|center_vertical"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+        * Created by h0rn3t on 17.07.2013.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:paddingLeft="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingRight="10dp">
+
+    <ImageView
+            android:id="@+id/icon"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:paddingRight="4dp" />
+
+    <TextView
+            android:id="@+id/packname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_toRightOf="@+id/icon"
+            android:textSize="16dp"
+            android:layout_marginLeft="4dp"
+            />
+
+    <TextView
+            android:id="@+id/packraw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/packname"
+            android:layout_toRightOf="@+id/icon"
+            android:textSize="14dp"
+            android:layout_marginLeft="4dp"/>
+
+</RelativeLayout>

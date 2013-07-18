@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.brewcrewfoo.performance"
           android:versionCode="4"
-          android:versionName="2.0.3">
+          android:versionName="2.0.4">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.brewcrewfoo.performance.activities.PCSettings"/>
+        <activity android:name="com.brewcrewfoo.performance.activities.PackActivity"/>
 
         <receiver android:name=".service.BootReceiver">
             <intent-filter>

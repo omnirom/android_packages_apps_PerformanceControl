@@ -39,6 +39,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
+import com.brewcrewfoo.performance.activities.PackActivity;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
@@ -74,6 +75,7 @@ public class OOMSettings extends PreferenceFragment implements
     private CheckBoxPreference mSysON;
     private Preference mUserNames;
     private Preference mSysNames;
+
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -245,10 +247,24 @@ public class OOMSettings extends PreferenceFragment implements
             return true;
         }
         else if (preference == mUserNames){
-            ProcEditDialog(key,getString(R.string.pt_user_names_proc),"",USER_PROC_NAMES_PATH,false);
+            if(Helpers.binExist("pm")== NOT_FOUND){
+                ProcEditDialog(key,getString(R.string.pt_user_names_proc),"",USER_PROC_NAMES_PATH,false);
+            }
+            else{
+                Intent getpacks = new Intent(getActivity(), PackActivity.class);
+                mPreferences.edit().putInt("MOD", 0).apply();
+                startActivity(getpacks);
+            }
         }
         else if (preference == mSysNames){
-            ProcEditDialog(key,getString(R.string.pt_sys_names_proc),"",USER_SYS_NAMES_PATH,true);
+            if(Helpers.binExist("pm")== NOT_FOUND){
+                ProcEditDialog(key,getString(R.string.pt_sys_names_proc),"",USER_SYS_NAMES_PATH,true);
+            }
+            else{
+                Intent getpacks = new Intent(getActivity(), PackActivity.class);
+                mPreferences.edit().putInt("MOD", 1).apply();
+                startActivity(getpacks);
+            }
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
