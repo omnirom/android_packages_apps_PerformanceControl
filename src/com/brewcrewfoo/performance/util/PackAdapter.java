@@ -19,7 +19,6 @@ import com.brewcrewfoo.performance.R;
 
 public class PackAdapter extends BaseAdapter {
 
-    List<PackageInfo> packageList;
     Activity context;
     PackageManager packageManager;
     String[] pList;
@@ -43,6 +42,7 @@ public class PackAdapter extends BaseAdapter {
     }
 
     public String getItem(int position) {
+        if(pList.length<=0){return null;}
         return pList[position];
     }
 
@@ -69,15 +69,17 @@ public class PackAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        PackageInfo packageInfo = null;// (PackageInfo) getItem(position);
+        PackageInfo packageInfo = null;
         try {
             packageInfo = context.getPackageManager().getPackageInfo(getItem(position), 0);
+            holder.packRaw.setText(packageInfo.packageName);
+            holder.packName.setText(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString());
+            holder.imageView.setImageDrawable(packageManager.getApplicationIcon(packageInfo.applicationInfo));
+
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        holder.packRaw.setText(packageInfo.packageName);
-        holder.packName.setText(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString());
-        holder.imageView.setImageDrawable(packageManager.getApplicationIcon(packageInfo.applicationInfo));
+
 
         return convertView;
     }
