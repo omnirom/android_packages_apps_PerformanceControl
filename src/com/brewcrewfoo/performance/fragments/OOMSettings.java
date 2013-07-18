@@ -37,6 +37,8 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.activities.PackActivity;
@@ -76,6 +78,7 @@ public class OOMSettings extends PreferenceFragment implements
     private Preference mUserNames;
     private Preference mSysNames;
 
+    private Boolean ispm;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,6 +131,7 @@ public class OOMSettings extends PreferenceFragment implements
             mSysON.setChecked(Helpers.readOneLine(SYS_PROC_PATH).equals("1"));
             mPreferences.edit().putString(PREF_SYS_NAMES, Helpers.readOneLine(USER_SYS_NAMES_PATH)).apply();
         }
+        ispm=(Helpers.binExist("pm")!= NOT_FOUND);
     }
 
     @Override
@@ -152,43 +156,43 @@ public class OOMSettings extends PreferenceFragment implements
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key = preference.getKey();
-		if (preference == mForegroundApp) {
+		if (preference.equals(mForegroundApp)) {
 			String title = getString(R.string.title_foreground_app)+" (mb)";
 			int currentProgress = oomConv(values[0]);
 			openDialog(0,currentProgress, title, 0,oomConv(values[1]), preference, MINFREE_PATH, PREF_MINFREE);
 			return true;
 		}
-		else if (preference == mVisibleApp) {
+		else if (preference.equals(mVisibleApp)) {
 			String title = getString(R.string.title_visible_app)+" (mb)";
 			int currentProgress = oomConv(values[1]);
 			openDialog(1,currentProgress, title, oomConv(values[0]),oomConv(values[2]), preference, MINFREE_PATH, PREF_MINFREE);
 			return true;
 		}
-		else if (preference == mSecondaryServer) {
+		else if (preference.equals(mSecondaryServer)) {
 			String title = getString(R.string.title_secondary_server)+" (mb)";
 			int currentProgress = oomConv(values[2]);
 			openDialog(2,currentProgress, title, oomConv(values[1]),oomConv(values[3]), preference, MINFREE_PATH, PREF_MINFREE);
 			return true;
 		}
-		else if (preference == mHiddenApp) {
+		else if (preference.equals(mHiddenApp)) {
 			String title = getString(R.string.title_hidden_app)+" (mb)";
 			int currentProgress = oomConv(values[3]);
 			openDialog(3,currentProgress, title, oomConv(values[2]),oomConv(values[4]), preference, MINFREE_PATH, PREF_MINFREE);
 			return true;
 		}
-		else if (preference == mContentProviders) {
+		else if (preference.equals(mContentProviders)) {
 			String title = getString(R.string.title_content_providers)+" (mb)";
 			int currentProgress = oomConv(values[4]);
 			openDialog(4,currentProgress, title, oomConv(values[3]),oomConv(values[5]), preference, MINFREE_PATH, PREF_MINFREE);
 			return true;
 		}
-		else if (preference == mEmptyApp) {
+		else if (preference.equals(mEmptyApp)) {
 			String title = getString(R.string.title_empty_app)+" (mb)";
 			int currentProgress = oomConv(values[5]);
 			openDialog(5,currentProgress, title, oomConv(values[4]),256, preference, MINFREE_PATH, PREF_MINFREE);
 			return true;
 		}
-		else if (preference == mVerylight) {
+		else if (preference.equals(mVerylight)) {
 			final String s = getString(R.string.pref_verylight);
 			new CMDProcessor().su.runWaitFor("busybox echo " + s + " > " + MINFREE_PATH);
 			mPreferences.edit().putString(PREF_MINFREE, s).apply();
@@ -196,7 +200,7 @@ public class OOMSettings extends PreferenceFragment implements
 			updateOOM(values);
 			return true;
 		}
-		else if (preference == mLight) {
+		else if (preference.equals(mLight)) {
 			final String s = getString(R.string.pref_light);
 			new CMDProcessor().su.runWaitFor("busybox echo " + s + " > " + MINFREE_PATH);
 			mPreferences.edit().putString(PREF_MINFREE, s).apply();
@@ -204,7 +208,7 @@ public class OOMSettings extends PreferenceFragment implements
 			updateOOM(values);
 			return true;
 		}
-		else if (preference == mMedium) {
+		else if (preference.equals(mMedium)) {
 			final String s = getString(R.string.pref_medium);
 			new CMDProcessor().su.runWaitFor("busybox echo " + s + " > " + MINFREE_PATH);
 			mPreferences.edit().putString(PREF_MINFREE, s).apply();
@@ -212,7 +216,7 @@ public class OOMSettings extends PreferenceFragment implements
 			updateOOM(values);
 			return true;
 		}
-		else if (preference == mAggressive) {
+		else if (preference.equals(mAggressive)) {
 			final String s = getString(R.string.pref_aggressive);
 			new CMDProcessor().su.runWaitFor("busybox echo " + s + " > " + MINFREE_PATH);
 			mPreferences.edit().putString(PREF_MINFREE, s).apply();
@@ -220,7 +224,7 @@ public class OOMSettings extends PreferenceFragment implements
 			updateOOM(values);
 			return true;
 		}
-		else if (preference == mVeryaggressive) {
+		else if (preference.equals(mVeryaggressive)) {
 			final String s = getString(R.string.pref_veryaggressive);
 			new CMDProcessor().su.runWaitFor("busybox echo " + s + " > " + MINFREE_PATH);
 			mPreferences.edit().putString(PREF_MINFREE, s).apply();
@@ -228,7 +232,7 @@ public class OOMSettings extends PreferenceFragment implements
 			updateOOM(values);
 			return true;
 		}
-        else if (preference == mUserON){
+        else if (preference.equals(mUserON)){
             if (Integer.parseInt(Helpers.readOneLine(USER_PROC_PATH))==0){
                 new CMDProcessor().su.runWaitFor("busybox echo 1 > " + USER_PROC_PATH);
             }
@@ -237,7 +241,7 @@ public class OOMSettings extends PreferenceFragment implements
             }
             return true;
         }
-        else if (preference == mSysON){
+        else if (preference.equals(mSysON)){
             if (Integer.parseInt(Helpers.readOneLine(SYS_PROC_PATH))==0){
                 new CMDProcessor().su.runWaitFor("busybox echo 1 > " + SYS_PROC_PATH);
             }
@@ -246,23 +250,23 @@ public class OOMSettings extends PreferenceFragment implements
             }
             return true;
         }
-        else if (preference == mUserNames){
-            if(Helpers.binExist("pm")== NOT_FOUND){
+        else if (preference.equals(mUserNames)){
+            mPreferences.edit().putBoolean("MOD",false).apply();
+            if(!ispm){
                 ProcEditDialog(key,getString(R.string.pt_user_names_proc),"",USER_PROC_NAMES_PATH,false);
             }
             else{
                 Intent getpacks = new Intent(getActivity(), PackActivity.class);
-                mPreferences.edit().putInt("MOD", 0).apply();
                 startActivity(getpacks);
             }
         }
-        else if (preference == mSysNames){
-            if(Helpers.binExist("pm")== NOT_FOUND){
+        else if (preference.equals(mSysNames)){
+            mPreferences.edit().putBoolean("MOD",true).apply();
+            if(!ispm){
                 ProcEditDialog(key,getString(R.string.pt_sys_names_proc),"",USER_SYS_NAMES_PATH,true);
             }
             else{
                 Intent getpacks = new Intent(getActivity(), PackActivity.class);
-                mPreferences.edit().putInt("MOD", 1).apply();
                 startActivity(getpacks);
             }
         }
