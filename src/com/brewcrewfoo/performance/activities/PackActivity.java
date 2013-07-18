@@ -122,7 +122,9 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
             adapter=new PackAdapter(PackActivity.this, pmList, packageManager );
             packList.setAdapter(adapter);
             linlaHeaderProgress.setVisibility(View.GONE);
-            linTools.setVisibility(View.VISIBLE);
+            if(adapter.getCount()>0){
+                linTools.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
