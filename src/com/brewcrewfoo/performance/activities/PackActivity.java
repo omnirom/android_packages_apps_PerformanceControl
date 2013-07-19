@@ -41,10 +41,11 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
     SharedPreferences mPreferences;
     LinearLayout linlaHeaderProgress;
     LinearLayout linTools;
+    LinearLayout linNopack;
     private boolean mIsLightTheme;
     private String pack_path;
     private String pack_pref;
-    private String[] pmList;
+    private String pmList[];
     private PackAdapter adapter;
 
 
@@ -54,7 +55,7 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme();
         setContentView(R.layout.pack_list);
-
+        pmList=new String[] {};
 
         packageManager = getPackageManager();
 
@@ -68,6 +69,8 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
         }
         linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
         linTools = (LinearLayout) findViewById(R.id.tools);
+        linNopack = (LinearLayout) findViewById(R.id.noproc);
+
         packList = (ListView) findViewById(R.id.applist);
         packList.setOnItemClickListener(this);
         new LongOperation().execute();
@@ -98,19 +101,17 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
             if(mPreferences.getBoolean("MOD",false)){
                 CMDProcessor.CommandResult cr = null;
                 cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -s | cut -d':' -f2`");
-                pmList =cr.stdout.split(" ");
+                if(!cr.stdout.equals("")){pmList =cr.stdout.split(" ");}
             }
             else{
                 CMDProcessor.CommandResult cr = null;
                 cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -3 | cut -d':' -f2`");
-                pmList =cr.stdout.split(" ");
+                if(!cr.stdout.equals("")){pmList =cr.stdout.split(" ");}
             }
-
             try {
                 Thread.sleep(200);
             }
             catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -122,8 +123,9 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
             adapter=new PackAdapter(PackActivity.this, pmList, packageManager );
             packList.setAdapter(adapter);
             linlaHeaderProgress.setVisibility(View.GONE);
-            if(adapter.getCount()>0){
-                linTools.setVisibility(View.VISIBLE);
+            linTools.setVisibility(View.VISIBLE);
+            if(adapter.getCount()<=0){
+                linNopack.setVisibility(View.VISIBLE);
             }
         }
 
@@ -131,6 +133,7 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
         protected void onPreExecute() {
             linlaHeaderProgress.setVisibility(View.VISIBLE);
             linTools.setVisibility(View.GONE);
+            linNopack.setVisibility(View.GONE);
         }
 
         @Override

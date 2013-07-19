@@ -21,10 +21,10 @@ public class PackAdapter extends BaseAdapter {
 
     Activity context;
     PackageManager packageManager;
-    String[] pList;
+    String pList[];
 
 
-    public PackAdapter(Activity context,String[] pmList, PackageManager packageManager) {
+    public PackAdapter(Activity context,String pmList[], PackageManager packageManager) {
         super();
         this.context = context;
         this.packageManager = packageManager;
@@ -42,7 +42,6 @@ public class PackAdapter extends BaseAdapter {
     }
 
     public String getItem(int position) {
-        if(pList.length<=0){return null;}
         return pList[position];
     }
 

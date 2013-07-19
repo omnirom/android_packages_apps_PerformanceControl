@@ -111,6 +111,7 @@ Copyright (C) 2012  James Roberts
     <string name="ps_restore_boot">Restore above settings at boot</string>
     <string name="ps_user_proc">The list of user process names (comma separated)</string>
     <string name="ps_sys_proc">The list of system process names (comma separated)</string>
+    <string name="no_proc">No packages</string>
 
 <!-- blx -->
    <string name="blx_info">Battery Life eXtender feature\nAuthor Ezekeel</string>
