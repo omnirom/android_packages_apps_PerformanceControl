@@ -230,6 +230,10 @@ Copyright (C) 2012  James Roberts
     <string name="ps_wipe_cache">Cache partition: %s</string>
     <string name="wipe_cache_msg">At the end, the system will reboot. Continue?</string>
 
+    <string name="prefcat_flash_img">FLASH IMAGE FILE</string>
+    <string name="kernel_img_title">Kernel image file</string>
+    <string name="recovery_img_title">Recovery image file</string>
+
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>
     <string name="ps_use_light_theme">If checked, Performance Control will use a Holo light theme</string>

@@ -49,9 +49,9 @@ public class Tools extends PreferenceFragment implements
 
     private SharedPreferences mPreferences;
     private EditText settingText;
-    private Preference mWipe_Cache;
-    private String pcache;
-    private Handler handler;
+   // private Preference mWipe_Cache;
+   // private String pcache;
+   // private Handler handler;
 
 
     @Override
@@ -61,8 +61,12 @@ public class Tools extends PreferenceFragment implements
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.tools);
 
-        mWipe_Cache=(Preference) findPreference(PREF_WIPE_CACHE);
-        pcache=Helpers.getCachePartition();
+        //mWipe_Cache=(Preference) findPreference(PREF_WIPE_CACHE);
+        //pcache=Helpers.getCachePartition();
+        if(Helpers.binExist("dd").equals(NOT_FOUND)){
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_flash_img");
+            getPreferenceScreen().removePreference(hideCat);
+        }
 
 
         setHasOptionsMenu(true);
@@ -138,7 +142,7 @@ public class Tools extends PreferenceFragment implements
         @Override
         public void onClick(View v) {
             ((AlertDialog)dialog).setMessage(getString(R.string.wait));
-            handler = new Handler();
+            Handler handler = new Handler();
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
