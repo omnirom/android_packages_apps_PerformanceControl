@@ -5,6 +5,7 @@ package com.brewcrewfoo.performance.activities;
  */
 import java.util.Arrays;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -47,6 +48,7 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
     private String pack_pref;
     private String pmList[];
     private PackAdapter adapter;
+    private Boolean tip;
 
 
     @Override
@@ -56,17 +58,22 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
         setTheme();
         setContentView(R.layout.pack_list);
         pmList=new String[] {};
-
+        Intent i=getIntent();
+        tip=i.getBooleanExtra("mod",false);
         packageManager = getPackageManager();
 
-        if(mPreferences.getBoolean("MOD",false)){
+        packNames=(TextView)  findViewById(R.id.procNames);
+        if(tip){
             pack_path=USER_SYS_NAMES_PATH;
             pack_pref=PREF_SYS_NAMES;
+            packNames.setHint(R.string.ps_sys_proc);
         }
         else{
             pack_path=USER_PROC_NAMES_PATH;
             pack_pref=PREF_USER_NAMES;
+            packNames.setHint(R.string.ps_user_proc);
         }
+        packNames.setText(mPreferences.getString(pack_pref,""));
         linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
         linTools = (LinearLayout) findViewById(R.id.tools);
         linNopack = (LinearLayout) findViewById(R.id.noproc);
@@ -74,10 +81,6 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
         packList = (ListView) findViewById(R.id.applist);
         packList.setOnItemClickListener(this);
         new LongOperation().execute();
-
-
-        packNames=(TextView)  findViewById(R.id.procNames);
-        packNames.setText(mPreferences.getString(pack_pref,""));
 
         applyBtn=(Button) findViewById(R.id.applyBtn);
         applyBtn.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +101,7 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
 
         @Override
         protected String doInBackground(String... params) {
-            if(mPreferences.getBoolean("MOD",false)){
+            if(tip){
                 CMDProcessor.CommandResult cr = null;
                 cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -s | cut -d':' -f2`");
                 if(!cr.stdout.equals("")){pmList =cr.stdout.split(" ");}
