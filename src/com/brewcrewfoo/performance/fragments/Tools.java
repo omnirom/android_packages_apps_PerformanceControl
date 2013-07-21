@@ -37,6 +37,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
+import com.brewcrewfoo.performance.activities.FlasherActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
@@ -130,7 +131,16 @@ public class Tools extends PreferenceFragment implements
             //-----------------
 
         }
-
+        else if(key.equals(FLASH_KERNEL)) {
+            Intent flash = new Intent(getActivity(), FlasherActivity.class);
+            flash.putExtra("mod","kernel");
+            startActivity(flash);
+        }
+        else if(key.equals(FLASH_RECOVERY)) {
+            Intent flash = new Intent(getActivity(), FlasherActivity.class);
+            flash.putExtra("mod","recovery");
+            startActivity(flash);
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 

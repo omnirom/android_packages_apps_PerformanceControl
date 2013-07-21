@@ -158,6 +158,8 @@ public interface Constants {
     public static final String PREF_SH = "pref_sh";
     public static final String PREF_WIPE_CACHE = "pref_wipe_cache";
     public static final String NOT_FOUND = "not found";
+    public static final String FLASH_KERNEL = "pref_kernel_img";
+    public static final String FLASH_RECOVERY = "pref_recovery_img";
 
     // PC Settings
     public static final String PREF_USE_LIGHT_THEME = "use_light_theme";

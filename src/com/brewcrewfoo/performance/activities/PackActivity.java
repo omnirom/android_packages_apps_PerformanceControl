@@ -104,12 +104,12 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
             if(tip){
                 CMDProcessor.CommandResult cr = null;
                 cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -s | cut -d':' -f2`");
-                if(!cr.stdout.equals("")){pmList =cr.stdout.split(" ");}
+                if(cr.success()&& !cr.stdout.equals("")){pmList =cr.stdout.split(" ");}
             }
             else{
                 CMDProcessor.CommandResult cr = null;
                 cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -3 | cut -d':' -f2`");
-                if(!cr.stdout.equals("")){pmList =cr.stdout.split(" ");}
+                if(cr.success()&& !cr.stdout.equals("")){pmList =cr.stdout.split(" ");}
             }
             try {
                 Thread.sleep(200);

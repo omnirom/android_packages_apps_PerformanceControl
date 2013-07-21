@@ -24,6 +24,7 @@
         </activity>
         <activity android:name="com.brewcrewfoo.performance.activities.PCSettings"/>
         <activity android:name="com.brewcrewfoo.performance.activities.PackActivity"/>
+        <activity android:name="com.brewcrewfoo.performance.activities.FlasherActivity"/>
 
         <receiver android:name=".service.BootReceiver">
             <intent-filter>
