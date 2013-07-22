@@ -9,7 +9,7 @@ File contain partitions layout for flashing kernel & recovery
         <recovery>/dev/block/mmcblk0p13</recovery>
     </device>
     <device>
-        <model>W I8150</model>
+        <model>I8150</model>
         <kernel>/dev/block/mmcblk0p8</kernel>
         <recovery>/dev/block/mmcblk0p13</recovery>
     </device>

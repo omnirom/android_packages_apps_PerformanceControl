@@ -11,24 +11,30 @@ import java.util.Collections;
 import java.util.List;
 import java.text.DateFormat;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.FileArrayAdapter;
+import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.util.Item;
 
 public class FileChooser extends ListActivity implements Constants, ActivityThemeChangeInterface {
-
+    final Context context = this;
     private File currentDir;
     SharedPreferences mPreferences;
     private boolean mIsLightTheme;
@@ -36,6 +42,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
 
     private String tip;
     private String part;
+    private String nFile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +54,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         tip=intent1.getStringExtra("mod");
         part=intent1.getStringExtra("part");
 
-        currentDir = new File(Environment.getExternalStorageDirectory().getPath());
+        currentDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
         fill(currentDir);
     }
     @Override
@@ -78,17 +85,12 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                 DateFormat formater = DateFormat.getDateTimeInstance();
                 String date_modify = formater.format(lastModDate);
                 if(ff.isDirectory()){
-                    File[] fbuf = ff.listFiles();
-                    int buf = 0;
-                    if(fbuf != null){ buf = fbuf.length;}
-                    else buf = 0;
-                    String num_item = getString(R.string.nitem)+": "+String.valueOf(buf);
-                    dir.add(new Item(ff.getName(),num_item,date_modify,ff.getAbsolutePath(),"dir"));
+                    dir.add(new Item(ff.getName(),getString(R.string.dir),date_modify,ff.getAbsolutePath(),"dir"));
                 }
                 else{
-                    int dot = ff.getName().lastIndexOf(".");
-                    String ext = ff.getName().substring(dot + 1);
-                    if(ext.equalsIgnoreCase("img"))
+                    //int dot = ff.getName().lastIndexOf(".");
+                    //String ext = ff.getName().substring(dot + 1);
+                    if((tip.equalsIgnoreCase("kernel") && ff.getName().equalsIgnoreCase("boot.img"))||(tip.equalsIgnoreCase("recovery") && ff.getName().equalsIgnoreCase("recovery.img")))
                         fls.add(new Item(ff.getName(),ReadableByteCount(ff.length()), date_modify, ff.getAbsolutePath(),"file"));
                 }
             }
@@ -121,18 +123,65 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
             fill(currentDir);
         }
         else{
-            onFileClick(o);
+            nFile=currentDir+"/"+o.getName();
+            String dtitlu;
+            if(tip.equalsIgnoreCase("kernel")){
+                dtitlu=getString(R.string.kernel_img_title);
+            }
+            else{
+               dtitlu=getString(R.string.recovery_img_title);
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle(dtitlu)
+                    .setMessage("Selected " + nFile+" flash as "+tip+" as "+part)
+                    .setNegativeButton(getString(R.string.cancel),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    //dialog.cancel();
+                                }
+                            })
+                    .setPositiveButton(getString(R.string.yes),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            ;
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            theButton.setOnClickListener(new CustomListener(alertDialog));
         }
     }
 
-    private void onFileClick(Item o){
-        Toast.makeText(this, "Selected " + currentDir+"/"+o.getName()+" flash as "+tip+" as "+part, Toast.LENGTH_SHORT).show();
+    class CustomListener implements View.OnClickListener {
+        private final Dialog dialog;
+        public CustomListener(Dialog dialog) {
+            this.dialog = dialog;
+        }
+        @Override
+        public void onClick(View v) {
+            ((AlertDialog)dialog).setMessage(getString(R.string.wait));
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    final StringBuilder sb = new StringBuilder();
+                    sb.append("dd if="+nFile+" of="+part+"\n");
+                    sb.append("busybox rm -rf /data/dalvik-cache/*\n");
+                    sb.append("busybox rm -rf /cache/*\n");
+                    sb.append("reboot\n");
+                    Helpers.shExec(sb);
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            new Thread(runnable).start();
 
-        /*Intent intent = new Intent();
-        intent.putExtra("GetPath",currentDir.toString());
-        intent.putExtra("GetFileName",o.getName());
-        setResult(RESULT_OK, intent);
-        finish();*/
+        }
     }
 
 }

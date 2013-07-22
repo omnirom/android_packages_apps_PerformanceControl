@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,9 @@ import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.Constants;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -59,8 +63,14 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         deviceName.setText(Build.DEVICE);//Build.PRODUCT
 
         Boolean gasit=false;
+        InputStream is;
         try {
-            InputStream is = getResources().openRawResource(R.raw.devices);
+            if (new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/PerformanceControl/devices.xml").exists()){
+                is = new BufferedInputStream(new FileInputStream(Environment.getExternalStorageDirectory().getAbsolutePath()+"/PerformanceControl/devices.xml"));
+            }
+            else{
+                is = getResources().openRawResource(R.raw.devices);
+            }
             DocumentBuilder builder=DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc=builder.parse(is, null);
             doc.getDocumentElement().normalize();
@@ -72,7 +82,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                     org.w3c.dom.Element element = (org.w3c.dom.Element) node;
                     if(getValue("model", element).equalsIgnoreCase(model)){
                         part=getValue(tip, element);
-                        Log.i(TAG,"partition = "+part);
+                        Log.i(TAG,tip+" partition = "+part);
                         gasit=true;
                         break;
                     }
