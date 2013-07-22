@@ -71,8 +71,7 @@ public class PCSettings extends PreferenceActivity implements Constants,
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mWidgetBgColorPref) {
-            String hex = ColorPickerPreference.convertToARGB(Integer
-                    .valueOf(String.valueOf(newValue)));
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             final SharedPreferences.Editor editor = mPreferences.edit();
@@ -81,8 +80,7 @@ public class PCSettings extends PreferenceActivity implements Constants,
             Helpers.updateAppWidget(this);
             return true;
         } else if (preference == mWidgetTextColorPref) {
-            String hex = ColorPickerPreference.convertToARGB(Integer
-                    .valueOf(String.valueOf(newValue)));
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             final SharedPreferences.Editor editor = mPreferences.edit();
@@ -108,12 +106,10 @@ public class PCSettings extends PreferenceActivity implements Constants,
 
     @Override
     public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(
-                PREF_USE_LIGHT_THEME, false);
+        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
         setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
         getListView().setBackgroundDrawable(
                 getResources().getDrawable(
-                        is_light_theme ? R.drawable.background_holo_light
-                                : R.drawable.background_holo_dark));
+                        is_light_theme ? R.drawable.background_holo_light : R.drawable.background_holo_dark));
     }
 }

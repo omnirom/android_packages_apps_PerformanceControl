@@ -78,6 +78,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
             super(fm);
             // Display the Voltage Control fragment only
             // if a table is found.
+            // Display the Battery fragment only if fastcharge and battery life extender exists
             if (mVoltageExists) {
             	if(Helpers.showBattery()){
 	                frags[0] = new CPUSettings();
@@ -100,23 +101,23 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
             	}
             } 
             else {
-		if(Helpers.showBattery()){
-	                frags[0] = new CPUSettings();
-		            frags[1] = new BatteryInfo();
-		            frags[2] = new OOMSettings();
-	                frags[3] = new Advanced();
-	                frags[4] = new TimeInState();
-	                frags[5] = new CPUInfo();
-                    frags[6] = new Tools();
-	      }
-	      else{
-	                frags[0] = new CPUSettings();
-		            frags[1] = new OOMSettings();
-	                frags[2] = new Advanced();
-	                frags[3] = new TimeInState();
-	                frags[4] = new CPUInfo();
-                    frags[5] = new Tools();
-	      }
+                if(Helpers.showBattery()){
+                        frags[0] = new CPUSettings();
+                        frags[1] = new BatteryInfo();
+                        frags[2] = new OOMSettings();
+                        frags[3] = new Advanced();
+                        frags[4] = new TimeInState();
+                        frags[5] = new CPUInfo();
+                        frags[6] = new Tools();
+                }
+                else{
+                        frags[0] = new CPUSettings();
+                        frags[1] = new OOMSettings();
+                        frags[2] = new Advanced();
+                        frags[3] = new TimeInState();
+                        frags[4] = new CPUInfo();
+                        frags[5] = new Tools();
+                }
             }
         }
 
@@ -250,8 +251,8 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
 
     /**
      * Get a list of titles for the tabstrip to display depending on if the
-     * voltage control fragment will be displayed. (Depends on the result of
-     * Helpers.voltageTableExists()
+     * voltage control fragment and battery fragment will be displayed. (Depends on the result of
+     * Helpers.voltageTableExists() & Helpers.showBattery()
      *
      * @return String[] containing titles
      */
@@ -259,47 +260,47 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         String titleString[];
         if (mVoltageExists) {
         	if(Helpers.showBattery()){
-			titleString = new String[]{
-	                getString(R.string.t_cpu_settings),
-	                getString(R.string.t_battery_info),
-			        getString(R.string.t_oom_settings),
-	                getString(R.string.t_volt_settings),
-	                getString(R.string.t_adv_settings),
-	                getString(R.string.t_time_in_state),
-	                getString(R.string.t_cpu_info),
-                    getString(R.string.t_tools)};
-        	}
-        	else{
-			titleString = new String[]{
-	                getString(R.string.t_cpu_settings),
-			        getString(R.string.t_oom_settings),
-	                getString(R.string.t_volt_settings),
-	                getString(R.string.t_adv_settings),
-	                getString(R.string.t_time_in_state),
-	                getString(R.string.t_cpu_info),
-                    getString(R.string.t_tools)};
-        	}
+                titleString = new String[]{
+                        getString(R.string.t_cpu_settings),
+                        getString(R.string.t_battery_info),
+                        getString(R.string.t_oom_settings),
+                        getString(R.string.t_volt_settings),
+                        getString(R.string.t_adv_settings),
+                        getString(R.string.t_time_in_state),
+                        getString(R.string.t_cpu_info),
+                        getString(R.string.t_tools)};
+                }
+                else{
+                    titleString = new String[]{
+                            getString(R.string.t_cpu_settings),
+                            getString(R.string.t_oom_settings),
+                            getString(R.string.t_volt_settings),
+                            getString(R.string.t_adv_settings),
+                            getString(R.string.t_time_in_state),
+                            getString(R.string.t_cpu_info),
+                            getString(R.string.t_tools)};
+                }
         } 
         else {
         	if(Helpers.showBattery()){
-			titleString = new String[]{
-	                getString(R.string.t_cpu_settings),
-	                getString(R.string.t_battery_info),
-			        getString(R.string.t_oom_settings),
-	                getString(R.string.t_adv_settings),
-	                getString(R.string.t_time_in_state),
-	                getString(R.string.t_cpu_info),
-                    getString(R.string.t_tools)};
-        	}
+                titleString = new String[]{
+                        getString(R.string.t_cpu_settings),
+                        getString(R.string.t_battery_info),
+                        getString(R.string.t_oom_settings),
+                        getString(R.string.t_adv_settings),
+                        getString(R.string.t_time_in_state),
+                        getString(R.string.t_cpu_info),
+                        getString(R.string.t_tools)};
+            }
         	else{
-			titleString = new String[]{
-	                getString(R.string.t_cpu_settings),
-			        getString(R.string.t_oom_settings),
-	                getString(R.string.t_adv_settings),
-	                getString(R.string.t_time_in_state),
-	                getString(R.string.t_cpu_info),
-                    getString(R.string.t_tools)};
-        	}
+                titleString = new String[]{
+                        getString(R.string.t_cpu_settings),
+                        getString(R.string.t_oom_settings),
+                        getString(R.string.t_adv_settings),
+                        getString(R.string.t_time_in_state),
+                        getString(R.string.t_cpu_info),
+                        getString(R.string.t_tools)};
+            }
         }
         return titleString;
     }
