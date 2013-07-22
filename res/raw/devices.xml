@@ -4,13 +4,11 @@ File contain partitions layout for flashing kernel & recovery
 -->
 <devices>
     <device>
-        <name>Samsung Galaxy S Plus</name>
         <model>GT-I9001</model>
         <kernel>/dev/block/mmcblk0p8</kernel>
         <recovery>/dev/block/mmcblk0p13</recovery>
     </device>
     <device>
-        <name>Samsung Galaxy W I8150</name>
         <model>W I8150</model>
         <kernel>/dev/block/mmcblk0p8</kernel>
         <recovery>/dev/block/mmcblk0p13</recovery>
