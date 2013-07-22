@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!--
+File contain partitions layout for flashing kernel & recovery
+-->
 <devices>
     <device>
         <name>Samsung Galaxy S Plus</name>
