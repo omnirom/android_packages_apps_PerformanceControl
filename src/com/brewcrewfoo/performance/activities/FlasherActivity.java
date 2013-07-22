@@ -95,18 +95,25 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
             gasit=false;
             e.printStackTrace();
         }
-
+        final String bf;
+        if(tip.equalsIgnoreCase("kernel")){
+            bf="boot.img";
+        }
+        else{
+            bf="recovery.img";
+        }
         chooseBtn=(Button) findViewById(R.id.chooseBtn);
+        chooseBtn.setText(getString(R.string.btn_choose,bf));
         chooseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 //------------
                 try{
-                Intent intent2 = new Intent(FlasherActivity.this, FileChooser.class);
-                intent2.putExtra("mod",tip);
-                intent2.putExtra("part",part);
-                startActivity(intent2);
-                //finish();
+                    Intent intent2 = new Intent(FlasherActivity.this, FileChooser.class);
+                    intent2.putExtra("mod",tip);
+                    intent2.putExtra("part",part);
+                    startActivity(intent2);
+                    //finish();
                 }
                 catch(Exception e){
                     Log.e(TAG,"Error launching filechooser activity");
@@ -115,7 +122,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         });
 
         if(gasit){
-            flasherInfo.setText(getString(R.string.flash_info,part)+" "+tip.toUpperCase());
+            flasherInfo.setText(bf+" "+getString(R.string.flash_info,part)+" "+tip.toUpperCase());
         }
         else{
             chooseBtn.setVisibility(View.GONE);

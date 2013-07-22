@@ -133,11 +133,11 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
             }
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(dtitlu)
-                    .setMessage("Selected " + nFile+" flash as "+tip+" as "+part)
+                    .setMessage(nFile+" "+getString(R.string.flash_info,part)+" "+tip.toUpperCase()+"\n\n"+getString(R.string.wipe_cache_msg))
                     .setNegativeButton(getString(R.string.cancel),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
-                                    //dialog.cancel();
+                                    finish();
                                 }
                             })
                     .setPositiveButton(getString(R.string.yes),
@@ -168,9 +168,14 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                 public void run() {
                     final StringBuilder sb = new StringBuilder();
                     sb.append("dd if="+nFile+" of="+part+"\n");
-                    sb.append("busybox rm -rf /data/dalvik-cache/*\n");
-                    sb.append("busybox rm -rf /cache/*\n");
-                    sb.append("reboot\n");
+                    if(tip.equalsIgnoreCase("kernel")){
+                        sb.append("busybox rm -rf /data/dalvik-cache/*\n");
+                        sb.append("busybox rm -rf /cache/*\n");
+                        sb.append("reboot\n");
+                    }
+                    else{
+                        sb.append("reboot recovery\n");
+                    }
                     Helpers.shExec(sb);
                     try {
                         Thread.sleep(2000);

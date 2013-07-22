@@ -231,11 +231,11 @@ Copyright (C) 2012  James Roberts
     <string name="wipe_cache_msg">At the end, the system will reboot. Continue?</string>
 
     <string name="prefcat_flash_img">FLASH IMAGE FILE</string>
-    <string name="kernel_img_title">Flash Kernel</string>
-    <string name="recovery_img_title">Flash Recovery</string>
-    <string name="btn_choose">Choose File</string>
+    <string name="kernel_img_title">Flash KERNEL</string>
+    <string name="recovery_img_title">Flash RECOVERY</string>
+    <string name="btn_choose">Choose %s</string>
     <string name="unsupported_info">Your device is not supported.</string>
-    <string name="flash_info">Image file will be flashed on partition\n%s\n as</string>
+    <string name="flash_info">will be flashed on partition\n%s\n as</string>
     <string name="dir_parent">&lt;Parent DIR&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
 
