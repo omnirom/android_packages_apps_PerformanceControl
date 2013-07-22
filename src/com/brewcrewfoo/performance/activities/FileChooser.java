@@ -162,8 +162,10 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         @Override
         public void onClick(View v) {
             ((AlertDialog)dialog).setMessage(getString(R.string.wait));
-            Handler handler = new Handler();
-            Runnable runnable = new Runnable() {
+            ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+            ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
+            final Handler handler = new Handler();
+            final Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
                     final StringBuilder sb = new StringBuilder();
@@ -177,11 +179,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                         sb.append("reboot recovery\n");
                     }
                     Helpers.shExec(sb);
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                 }
             };
             new Thread(runnable).start();
