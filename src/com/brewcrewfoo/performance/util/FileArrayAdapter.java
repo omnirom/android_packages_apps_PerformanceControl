@@ -7,11 +7,11 @@ package com.brewcrewfoo.performance.util;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
@@ -46,8 +46,8 @@ public class FileArrayAdapter extends ArrayAdapter<Item>{
             TextView t3 = (TextView) v.findViewById(R.id.TextViewDate);
 
             if(t1!=null){
-               // if(o.getImage().equalsIgnoreCase("directory")){;}
-               // else{;}
+                if(o.getImage().equalsIgnoreCase("dir")){t1.setTypeface(null, Typeface.BOLD);}
+                else{t1.setTypeface(null, Typeface.NORMAL);}
                 t1.setText(o.getName());
             }
             if(t2!=null)

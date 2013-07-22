@@ -72,7 +72,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                     org.w3c.dom.Element element = (org.w3c.dom.Element) node;
                     if(getValue("model", element).equalsIgnoreCase(model)){
                         part=getValue(tip, element);
-                        Log.i(TAG,"partition: "+part);
+                        Log.i(TAG,"partition = "+part);
                         gasit=true;
                         break;
                     }
@@ -94,6 +94,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                 try{
                 Intent intent2 = new Intent(FlasherActivity.this, FileChooser.class);
                 intent2.putExtra("mod",tip);
+                intent2.putExtra("part",part);
                 startActivity(intent2);
                 //finish();
                 }
@@ -109,8 +110,6 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         else{
             chooseBtn.setVisibility(View.GONE);
         }
-
-
     }
 
     private static String getValue(String tag, org.w3c.dom.Element element) {

@@ -35,6 +35,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
     private FileArrayAdapter adapter;
 
     private String tip;
+    private String part;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,9 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
 
         Intent intent1=getIntent();
         tip=intent1.getStringExtra("mod");
+        part=intent1.getStringExtra("part");
 
-        currentDir = new File(Environment.getExternalStorageDirectory().getPath());//"/sdcard/"
+        currentDir = new File(Environment.getExternalStorageDirectory().getPath());
         fill(currentDir);
     }
     @Override
@@ -78,27 +80,26 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                 if(ff.isDirectory()){
                     File[] fbuf = ff.listFiles();
                     int buf = 0;
-                    if(fbuf != null){
-                        buf = fbuf.length;
-                    }
+                    if(fbuf != null){ buf = fbuf.length;}
                     else buf = 0;
                     String num_item = getString(R.string.nitem)+": "+String.valueOf(buf);
-                    dir.add(new Item(ff.getName(),num_item,date_modify,ff.getAbsolutePath(),"directory"));
+                    dir.add(new Item(ff.getName(),num_item,date_modify,ff.getAbsolutePath(),"dir"));
                 }
                 else{
-
-                    fls.add(new Item(ff.getName(),ReadableByteCount(ff.length()), date_modify, ff.getAbsolutePath(),"file"));
+                    int dot = ff.getName().lastIndexOf(".");
+                    String ext = ff.getName().substring(dot + 1);
+                    if(ext.equalsIgnoreCase("img"))
+                        fls.add(new Item(ff.getName(),ReadableByteCount(ff.length()), date_modify, ff.getAbsolutePath(),"file"));
                 }
             }
         }
         catch(Exception e){
-
         }
         Collections.sort(dir);
         Collections.sort(fls);
         dir.addAll(fls);
         if(!f.getName().equalsIgnoreCase(""))
-        dir.add(0,new Item("..",getString(R.string.dir_parent),"",f.getParent(),"directory"));
+        dir.add(0,new Item("..",getString(R.string.dir_parent),"",f.getParent(),"dir"));
         adapter = new FileArrayAdapter(this,R.layout.file_view, dir);
         this.setListAdapter(adapter);
 
@@ -115,7 +116,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Item o = adapter.getItem(position);
-        if(o.getImage().equalsIgnoreCase("directory")){
+        if(o.getImage().equalsIgnoreCase("dir")){
             currentDir = new File(o.getPath());
             fill(currentDir);
         }
@@ -125,7 +126,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
     }
 
     private void onFileClick(Item o){
-        Toast.makeText(this, "Selected " + currentDir+"/"+o.getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Selected " + currentDir+"/"+o.getName()+" flash as "+tip+" as "+part, Toast.LENGTH_SHORT).show();
 
         /*Intent intent = new Intent();
         intent.putExtra("GetPath",currentDir.toString());
@@ -133,8 +134,5 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         setResult(RESULT_OK, intent);
         finish();*/
     }
-
-
-
 
 }
