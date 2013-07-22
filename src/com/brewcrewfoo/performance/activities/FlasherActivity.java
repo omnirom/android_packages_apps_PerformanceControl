@@ -6,19 +6,17 @@ package com.brewcrewfoo.performance.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
-import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
-import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.InputStream;
 
@@ -47,37 +45,20 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         setTheme();
         setContentView(R.layout.flasher);
 
-        Intent i=getIntent();
-        tip=i.getStringExtra("mod");
+        Intent intent1=getIntent();
+        tip=intent1.getStringExtra("mod");
 
         flasherInfo=(TextView)findViewById(R.id.flashinfo);
         deviceName=(TextView)findViewById(R.id.name);
         deviceModel=(TextView)findViewById(R.id.model);
         deviceBoard=(TextView)findViewById(R.id.board);
-        String board="-";
-        String model="-";
-        CMDProcessor.CommandResult cr = null;
-        cr=new CMDProcessor().sh.runWaitFor("getprop ro.product.model");
-        if(cr.success()&& !cr.stdout.equals("")){
-            model=cr.stdout;
-        }
-        else{
-            model="-";
-        }
+
+        String model=Build.MODEL;
         deviceModel.setText(model);
-        cr = null;
-        cr=new CMDProcessor().sh.runWaitFor("getprop ro.product.board");
-        if(cr.success()&& !cr.stdout.equals("")){
-            board=cr.stdout;
-        }
-        else{
-            board="-";
-        }
-        deviceBoard.setText(board);
+        deviceBoard.setText(Build.MANUFACTURER);
+        deviceName.setText(Build.DEVICE);//Build.PRODUCT
 
-        String nd="";
         Boolean gasit=false;
-
         try {
             InputStream is = getResources().openRawResource(R.raw.devices);
             DocumentBuilder builder=DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -90,7 +71,6 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     org.w3c.dom.Element element = (org.w3c.dom.Element) node;
                     if(getValue("model", element).equalsIgnoreCase(model)){
-                        nd=getValue("name", element);
                         part=getValue(tip, element);
                         Log.i(TAG,"partition: "+part);
                         gasit=true;
@@ -101,7 +81,8 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
             is.close();
         }
         catch (Exception e) {
-            Log.i(TAG,"Error reading devices.xml");
+            Log.e(TAG,"Error reading devices.xml");
+            gasit=false;
             e.printStackTrace();
         }
 
@@ -110,13 +91,20 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
             @Override
             public void onClick(View arg0) {
                 //------------
+                try{
+                Intent intent2 = new Intent(FlasherActivity.this, FileChooser.class);
+                intent2.putExtra("mod",tip);
+                startActivity(intent2);
                 //finish();
+                }
+                catch(Exception e){
+                    Log.e(TAG,"Error launching filechooser activity");
+                }
             }
         });
 
         if(gasit){
             flasherInfo.setText(getString(R.string.flash_info,part)+" "+tip.toUpperCase());
-            deviceName.setText(nd);
         }
         else{
             chooseBtn.setVisibility(View.GONE);

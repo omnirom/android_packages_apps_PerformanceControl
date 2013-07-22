@@ -236,6 +236,8 @@ Copyright (C) 2012  James Roberts
     <string name="btn_choose">Choose File</string>
     <string name="unsupported_info">Your device is not supported.</string>
     <string name="flash_info">Image file will be flashed on partition\n%s\n as</string>
+    <string name="dir_parent">Parent Directory</string>
+    <string name="nitem">items</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>
