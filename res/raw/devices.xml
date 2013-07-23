@@ -4,13 +4,33 @@ File contain partitions layout for flashing kernel & recovery
 -->
 <devices>
     <device>
-        <model>GT-I9001</model>
+        <model>GT-I9001</model> <!-- GALAXY S PLUS -->
         <kernel>/dev/block/mmcblk0p8</kernel>
         <recovery>/dev/block/mmcblk0p13</recovery>
     </device>
     <device>
-        <model>GT-I8150</model>
+        <model>GT-I8150</model> <!-- GALAXY W -->
         <kernel>/dev/block/mmcblk0p8</kernel>
         <recovery>/dev/block/mmcblk0p13</recovery>
+    </device>
+    <device>
+        <model>GT-I9505</model> <!-- GALAXY S IV -->
+        <kernel>/dev/block/platform/msm_sdcc.1/by-name/boot</kernel>
+        <recovery>/dev/block/platform/msm_sdcc.1/by-name/recovery</recovery>
+    </device>
+    <device>
+        <model>GT-I9250</model> <!-- GALAXY NEXUS -->
+        <kernel>/dev/block/platform/omap/omap_hsmmc.0/by-name/boot</kernel>
+        <recovery>/dev/block/platform/omap/omap_hsmmc.0/by-name/recovery</recovery>
+    </device>
+    <device>
+        <model>LG-E960</model> <!-- NEXUS 4 -->
+        <kernel>/dev/block/platform/msm_sdcc.1/by-name/boot</kernel>
+        <recovery>/dev/block/platform/msm_sdcc.1/by-name/recovery</recovery>
+    </device>
+    <device>
+        <model>S720e</model> <!-- HTC ONE X -->
+        <kernel>/dev/block/mmcblk0p4</kernel>
+        <recovery>/dev/block/mmcblk0p5</recovery>
     </device>
 </devices>
