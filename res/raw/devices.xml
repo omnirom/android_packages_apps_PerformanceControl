@@ -22,19 +22,19 @@ File contain partitions layout for flashing kernel & recovery
         <cache>/dev/block/platform/msm_sdcc.1/by-name/cache</cache>
     </device>
     <device>
-        <model>Galaxy Nexus</model> <!-- GALAXY NEXUS -->
+        <model>Galaxy Nexus,GT-I9250</model> <!-- GALAXY NEXUS -->
         <kernel>/dev/block/platform/omap/omap_hsmmc.0/by-name/boot</kernel>
         <recovery>/dev/block/platform/omap/omap_hsmmc.0/by-name/recovery</recovery>
         <cache>/dev/block/platform/omap/omap_hsmmc.0/by-name/cache</cache>
     </device>
     <device>
-        <model>Nexus 4</model> <!-- NEXUS 4 -->
+        <model>Nexus 4,LG-E960</model> <!-- NEXUS 4 -->
         <kernel>/dev/block/platform/msm_sdcc.1/by-name/boot</kernel>
         <recovery>/dev/block/platform/msm_sdcc.1/by-name/recovery</recovery>
         <cache>/dev/block/platform/msm_sdcc.1/by-name/cache</cache>
     </device>
     <device>
-        <model>HTC One X</model> <!-- HTC ONE X -->
+        <model>HTC One X,S720e</model> <!-- HTC ONE X -->
         <kernel>/dev/block/mmcblk0p4</kernel>
         <recovery>/dev/block/mmcblk0p5</recovery>
         <cache>/dev/block/mmcblk0p13</cache>
