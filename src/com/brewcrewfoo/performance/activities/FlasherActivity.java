@@ -77,15 +77,27 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
             NodeList nList=doc.getElementsByTagName("device");
             for (int k = 0; k < nList.getLength(); k++) {
                 Node node = nList.item(k);
-
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     org.w3c.dom.Element element = (org.w3c.dom.Element) node;
+                    final String models[]=getValue("model", element).split(",");
+                    for (String m : models) {
+                        if(m.equalsIgnoreCase(model)){
+                            part=getValue(tip, element);
+                            gasit=true;
+                        }
+                    }
+                    if(gasit) {
+                        Log.i(TAG,tip+" partition = "+part);
+                        break;
+                    }
+                    /*
                     if(getValue("model", element).equalsIgnoreCase(model)){
                         part=getValue(tip, element);
                         Log.i(TAG,tip+" partition = "+part);
                         gasit=true;
                         break;
                     }
+                    */
                 }
             }
             is.close();
