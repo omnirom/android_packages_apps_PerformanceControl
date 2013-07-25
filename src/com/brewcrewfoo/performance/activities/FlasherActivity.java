@@ -46,6 +46,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
     private String tip;
     private String model;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         deviceModel=(TextView)findViewById(R.id.model);
         deviceBoard=(TextView)findViewById(R.id.board);
         chooseBtn=(Button) findViewById(R.id.chooseBtn);
+
 
         model=Build.MODEL;
         deviceModel.setText(model);
@@ -107,16 +109,19 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
 
     private Boolean getPart(String m){
         Boolean gasit=false;
-        InputStream is;
+        InputStream f;
+
+        final String fn=Environment.getExternalStorageDirectory().getAbsolutePath()+"/PerformanceControl/devices.xml";
         try {
-            if (new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/PerformanceControl/devices.xml").exists()){
-                is = new BufferedInputStream(new FileInputStream(Environment.getExternalStorageDirectory().getAbsolutePath()+"/PerformanceControl/devices.xml"));
+            if (new File(fn).exists()){
+                f = new BufferedInputStream(new FileInputStream(fn));
+                Log.i(TAG,"open /PerformanceControl/devices.xml");
             }
             else{
-                is = getResources().openRawResource(R.raw.devices);
+                f = getResources().openRawResource(R.raw.devices);
             }
             DocumentBuilder builder=DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document doc=builder.parse(is, null);
+            Document doc=builder.parse(f, null);
             doc.getDocumentElement().normalize();
             NodeList nList=doc.getElementsByTagName("device");
             for (int k = 0; k < nList.getLength(); k++) {
@@ -125,7 +130,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                     org.w3c.dom.Element element = (org.w3c.dom.Element) node;
                     final String models[]=getValue("model", element).split(",");
                     for (String mi : models) {
-                        if(mi.equalsIgnoreCase(mi)){
+                        if(mi.equalsIgnoreCase(m)){
                             part=getValue(tip, element);
                             gasit=true;
                         }
@@ -136,7 +141,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                     }
                 }
             }
-            is.close();
+            f.close();
         }
         catch (Exception e) {
             Log.e(TAG,"Error reading devices.xml");
@@ -162,7 +167,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.flash_kernel) {
             tip="kernel";
-            if(getPart(this.model)){
+            if(getPart(model)){
                 if(tip.equalsIgnoreCase("kernel")){
                     flasherInfo.setText("boot.img "+getString(R.string.flash_info,part)+" "+tip.toUpperCase());
                     chooseBtn.setText(getString(R.string.btn_choose,"boot.img"));
