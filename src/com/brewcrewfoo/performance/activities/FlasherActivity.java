@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -41,6 +44,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
     private boolean mIsLightTheme;
     private String part;
     private String tip;
+    private String model;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,12 +60,52 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         deviceName=(TextView)findViewById(R.id.name);
         deviceModel=(TextView)findViewById(R.id.model);
         deviceBoard=(TextView)findViewById(R.id.board);
+        chooseBtn=(Button) findViewById(R.id.chooseBtn);
 
-        String model=Build.MODEL;
+        model=Build.MODEL;
         deviceModel.setText(model);
         deviceBoard.setText(Build.MANUFACTURER);
         deviceName.setText(Build.DEVICE);//Build.PRODUCT
 
+        if(getPart(model)){
+            if(tip.equalsIgnoreCase("kernel")){
+                flasherInfo.setText("boot.img "+getString(R.string.flash_info,part)+" "+tip.toUpperCase());
+                chooseBtn.setText(getString(R.string.btn_choose,"boot.img"));
+            }
+            else{
+                flasherInfo.setText("recovery.img "+getString(R.string.flash_info,part)+" "+tip.toUpperCase());
+                chooseBtn.setText(getString(R.string.btn_choose,"recovery.img"));
+            }
+            chooseBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    //------------
+                    try{
+                        Intent intent2 = new Intent(FlasherActivity.this, FileChooser.class);
+                        intent2.putExtra("mod",tip);
+                        intent2.putExtra("part",part);
+                        startActivity(intent2);
+                        //finish();
+                    }
+                    catch(Exception e){
+                        Log.e(TAG,"Error launching filechooser activity");
+                    }
+                }
+            });
+        }
+        else{
+            chooseBtn.setVisibility(View.GONE);
+        }
+    }
+
+
+    private static String getValue(String tag, org.w3c.dom.Element element) {
+        NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
+        Node node = (Node) nodes.item(0);
+        return node.getNodeValue();
+    }
+
+    private Boolean getPart(String m){
         Boolean gasit=false;
         InputStream is;
         try {
@@ -80,8 +124,8 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     org.w3c.dom.Element element = (org.w3c.dom.Element) node;
                     final String models[]=getValue("model", element).split(",");
-                    for (String m : models) {
-                        if(m.equalsIgnoreCase(model)){
+                    for (String mi : models) {
+                        if(mi.equalsIgnoreCase(mi)){
                             part=getValue(tip, element);
                             gasit=true;
                         }
@@ -90,14 +134,6 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                         Log.i(TAG,tip+" partition = "+part);
                         break;
                     }
-                    /*
-                    if(getValue("model", element).equalsIgnoreCase(model)){
-                        part=getValue(tip, element);
-                        Log.i(TAG,tip+" partition = "+part);
-                        gasit=true;
-                        break;
-                    }
-                    */
                 }
             }
             is.close();
@@ -107,52 +143,89 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
             gasit=false;
             e.printStackTrace();
         }
-        final String bf;
-        if(tip.equalsIgnoreCase("kernel")){
-            bf="boot.img";
-        }
-        else{
-            bf="recovery.img";
-        }
-        chooseBtn=(Button) findViewById(R.id.chooseBtn);
-        chooseBtn.setText(getString(R.string.btn_choose,bf));
-        chooseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                //------------
-                try{
-                    Intent intent2 = new Intent(FlasherActivity.this, FileChooser.class);
-                    intent2.putExtra("mod",tip);
-                    intent2.putExtra("part",part);
-                    startActivity(intent2);
-                    //finish();
-                }
-                catch(Exception e){
-                    Log.e(TAG,"Error launching filechooser activity");
-                }
-            }
-        });
-
-        if(gasit){
-            flasherInfo.setText(bf+" "+getString(R.string.flash_info,part)+" "+tip.toUpperCase());
-        }
-        else{
-            chooseBtn.setVisibility(View.GONE);
-        }
+        return gasit;
     }
-
-    private static String getValue(String tag, org.w3c.dom.Element element) {
-        NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
-        Node node = (Node) nodes.item(0);
-        return node.getNodeValue();
-    }
-
 
     @Override
     public void onResume() {
         super.onResume();
     }
 
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.flasher_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.flash_kernel) {
+            tip="kernel";
+            if(getPart(this.model)){
+                if(tip.equalsIgnoreCase("kernel")){
+                    flasherInfo.setText("boot.img "+getString(R.string.flash_info,part)+" "+tip.toUpperCase());
+                    chooseBtn.setText(getString(R.string.btn_choose,"boot.img"));
+                }
+                else{
+                    flasherInfo.setText("recovery.img "+getString(R.string.flash_info,part)+" "+tip.toUpperCase());
+                    chooseBtn.setText(getString(R.string.btn_choose,"recovery.img"));
+                }
+                chooseBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        //------------
+                        try{
+                            Intent intent2 = new Intent(FlasherActivity.this, FileChooser.class);
+                            intent2.putExtra("mod",tip);
+                            intent2.putExtra("part",part);
+                            startActivity(intent2);
+                        }
+                        catch(Exception e){
+                            Log.e(TAG,"Error launching filechooser activity");
+                        }
+                    }
+                });
+            }
+            else{
+                chooseBtn.setVisibility(View.GONE);
+            }
+
+        }
+        if (item.getItemId() == R.id.flash_recovery) {
+            tip="recovery";
+            if(getPart(model)){
+                if(tip.equalsIgnoreCase("kernel")){
+                    flasherInfo.setText("boot.img "+getString(R.string.flash_info,part)+" "+tip.toUpperCase());
+                    chooseBtn.setText(getString(R.string.btn_choose,"boot.img"));
+                }
+                else{
+                    flasherInfo.setText("recovery.img "+getString(R.string.flash_info,part)+" "+tip.toUpperCase());
+                    chooseBtn.setText(getString(R.string.btn_choose,"recovery.img"));
+                }
+                chooseBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        //------------
+                        try{
+                            Intent intent2 = new Intent(FlasherActivity.this, FileChooser.class);
+                            intent2.putExtra("mod",tip);
+                            intent2.putExtra("part",part);
+                            startActivity(intent2);
+                        }
+                        catch(Exception e){
+                            Log.e(TAG,"Error launching filechooser activity");
+                        }
+                    }
+                });
+            }
+            else{
+                chooseBtn.setVisibility(View.GONE);
+            }
+
+        }
+        return true;
+    }
 
     @Override
     public boolean isThemeChanged() {
