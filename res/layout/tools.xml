@@ -49,5 +49,12 @@ Copyright (C) 2012  James Roberts
                 android:title="@string/recovery_img_title"/>
 
     </PreferenceCategory>
+    <PreferenceCategory
+            android:key="category_residual_files"
+            android:title="@string/prefcat_residual_files">
+        <Preference
+                android:key="pref_residual_files"
+                android:title="@string/residual_files_title"/>
 
+    </PreferenceCategory>
 </PreferenceScreen>

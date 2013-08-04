@@ -30,12 +30,14 @@
     </TextView>
     <TextView android:text="@+id/TextView02"
               android:id="@+id/TextView02"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_toRightOf="@+id/fd_Icon1"
               android:layout_below="@+id/TextView01"
               android:layout_marginLeft="5dip"
-              android:textSize="12dp">
+              android:textSize="12dp"
+              android:layout_toLeftOf="@+id/TextViewDate"
+              android:layout_marginRight="5dip">
 
     </TextView>
     <TextView android:text="@+id/TextViewDate"

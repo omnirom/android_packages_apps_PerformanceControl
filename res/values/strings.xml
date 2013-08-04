@@ -239,6 +239,21 @@ Copyright (C) 2012  James Roberts
     <string name="dir_parent">&lt;Parent DIR&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
 
+    <string name="prefcat_residual_files">CLEAN RESIDUAL FILES</string>
+    <string name="residual_files_title">Clean residual files</string>
+    <string name="btncleanall">Clean All</string>
+    <string name="clean_files_msg">All files in %s will be deleted. Continue?</string>
+    <string name="filesstr">files</string>
+    <string name="no_residuals">No residual files</string>
+
+    <string-array name="residual_info">
+        <item>Contains Android system log files</item>
+        <item>Contains log files from crashed apps</item>
+        <item>Contains constantly generated log files</item>
+        <item>Contains statistics about what apps you started</item>
+        <item>Contains traces from \'application not responding\' events</item>
+    </string-array>
+
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>
     <string name="ps_use_light_theme">If checked, Performance Control will use a Holo light theme</string>

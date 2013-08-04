@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 
-import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -22,7 +21,6 @@ import android.widget.ListView;
 import android.preference.PreferenceManager;
 import android.content.SharedPreferences;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;

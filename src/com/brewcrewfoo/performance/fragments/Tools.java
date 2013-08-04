@@ -24,7 +24,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
-import android.os.Handler;
+
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -39,6 +39,7 @@ import android.widget.TextView;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.FlasherActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
+import com.brewcrewfoo.performance.activities.ResidualsActivity;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
@@ -50,9 +51,7 @@ public class Tools extends PreferenceFragment implements
 
     private SharedPreferences mPreferences;
     private EditText settingText;
-   // private Preference mWipe_Cache;
-   // private String pcache;
-   // private Handler handler;
+
 
 
     @Override
@@ -137,6 +136,10 @@ public class Tools extends PreferenceFragment implements
             flash.putExtra("mod","recovery");
             startActivity(flash);
         }
+        else if(key.equals(RESIDUAL_FILES)) {
+            Intent intent = new Intent(getActivity(), ResidualsActivity.class);
+            startActivity(intent);
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
@@ -150,20 +153,15 @@ public class Tools extends PreferenceFragment implements
             ((AlertDialog)dialog).setMessage(getString(R.string.wait));
             ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
             ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
-            final Handler handler = new Handler();
+            final
+            StringBuilder sb = new StringBuilder();
+            sb.append("busybox rm -rf /data/dalvik-cache/*\n");
+            sb.append("busybox rm -rf /cache/*\n");
+            sb.append("reboot\n");
             final Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    final StringBuilder sb = new StringBuilder();
-                    sb.append("busybox rm -rf /data/dalvik-cache/*\n");
-                    sb.append("busybox rm -rf /cache/*\n");
-                    sb.append("reboot\n");
                     Helpers.shExec(sb);
-                    /*try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }*/
                 }
             };
             new Thread(runnable).start();

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.brewcrewfoo.performance"
           android:versionCode="4"
-          android:versionName="2.0.5">
+          android:versionName="2.0.6">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -27,6 +27,7 @@
         <activity android:name="com.brewcrewfoo.performance.activities.PackActivity"/>
         <activity android:name="com.brewcrewfoo.performance.activities.FlasherActivity"/>
         <activity android:name="com.brewcrewfoo.performance.activities.FileChooser"/>
+        <activity android:name="com.brewcrewfoo.performance.activities.ResidualsActivity"/>
 
         <receiver android:name=".service.BootReceiver">
             <intent-filter>

@@ -415,11 +415,12 @@ public class Helpers implements Constants {
 			cr=new CMDProcessor().su.runWaitFor(SH_PATH);
 			Log.d(TAG, "execute: "+s.toString());
             if(cr.success()){return cr.stdout;}
+            else{return "";}
 		}
 		else{
 			Log.d(TAG, "missing file: /data/PerformanceControl");
+            return "";
 		}
-        return "";
 	}
 
 }

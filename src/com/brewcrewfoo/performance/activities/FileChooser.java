@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Environment;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +39,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
     private boolean mIsLightTheme;
     private FileArrayAdapter adapter;
 
+
     private String tip;
     private String part;
     private String nFile;
@@ -49,7 +49,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         super.onCreate(savedInstanceState);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme();
-
         Intent intent1=getIntent();
         tip=intent1.getStringExtra("mod");
         part=intent1.getStringExtra("part");
@@ -76,7 +75,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
 
     private void fill(File f){
         File[]dirs = f.listFiles();
-        //this.setTitle("Current Dir: "+f.getName());
         List<Item>dir = new ArrayList<Item>();
         List<Item>fls = new ArrayList<Item>();
         try{
@@ -88,8 +86,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                     dir.add(new Item(ff.getName(),getString(R.string.dir),date_modify,ff.getAbsolutePath(),"dir"));
                 }
                 else{
-                    //int dot = ff.getName().lastIndexOf(".");
-                    //String ext = ff.getName().substring(dot + 1);
                     if((tip.equalsIgnoreCase("kernel") && ff.getName().equalsIgnoreCase("boot.img"))||(tip.equalsIgnoreCase("recovery") && ff.getName().equalsIgnoreCase("recovery.img")))
                         fls.add(new Item(ff.getName(),ReadableByteCount(ff.length()), date_modify, ff.getAbsolutePath(),"file"));
                 }
@@ -116,7 +112,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
         Item o = adapter.getItem(position);
         if(o.getImage().equalsIgnoreCase("dir")){
             currentDir = new File(o.getPath());
@@ -164,20 +159,20 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
             ((AlertDialog)dialog).setMessage(getString(R.string.wait));
             ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
             ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
-            final Handler handler = new Handler();
+            final StringBuilder sb = new StringBuilder();
+            sb.append("dd if="+nFile+" of="+part+"\n");
+            if(tip.equalsIgnoreCase("kernel")){
+                sb.append("busybox rm -rf /data/dalvik-cache/*\n");
+                sb.append("busybox rm -rf /cache/*\n");
+                sb.append("reboot\n");
+            }
+            else{
+                sb.append("reboot recovery\n");
+            }
+
             final Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    final StringBuilder sb = new StringBuilder();
-                    sb.append("dd if="+nFile+" of="+part+"\n");
-                    if(tip.equalsIgnoreCase("kernel")){
-                        sb.append("busybox rm -rf /data/dalvik-cache/*\n");
-                        sb.append("busybox rm -rf /cache/*\n");
-                        sb.append("reboot\n");
-                    }
-                    else{
-                        sb.append("reboot recovery\n");
-                    }
                     Helpers.shExec(sb);
                 }
             };
