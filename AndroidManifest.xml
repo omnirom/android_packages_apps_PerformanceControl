@@ -6,7 +6,7 @@
 
     <uses-sdk
             android:minSdkVersion="14"
-            android:targetSdkVersion="17"/>
+            android:targetSdkVersion="18"/>
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
@@ -21,6 +21,7 @@
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name="com.brewcrewfoo.performance.activities.PCSettings"/>
