@@ -183,9 +183,11 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
             final String fls[]=rez.split("=");
 
             for(int i=0;i< residualfiles.length;i++){
-                final String fs[]=fls[i].split("\n");
-                if(new File(residualfiles[i]).exists()&&(fs.length-1>0)){
-                    dir.add(new Item(residualfiles[i],rinfos[i],Integer.toString(fs.length-1)+" "+getString(R.string.filesstr),"","dir"));
+                if(!fls[i].isEmpty()){
+                    final String fs[]=fls[i].split("\n");
+                    if(new File(residualfiles[i]).exists()&&(fs.length-1>0)){
+                        dir.add(new Item(residualfiles[i],rinfos[i],Integer.toString(fs.length-1)+" "+getString(R.string.filesstr),"","dir"));
+                    }
                 }
             }
             linlaHeaderProgress.setVisibility(View.GONE);

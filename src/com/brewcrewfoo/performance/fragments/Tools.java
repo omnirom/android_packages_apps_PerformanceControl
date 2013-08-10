@@ -66,6 +66,8 @@ public class Tools extends PreferenceFragment implements
             getPreferenceScreen().removePreference(hideCat);
         }
 
+        //PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_residual_files");
+        //getPreferenceScreen().removePreference(hideCat);
 
         setHasOptionsMenu(true);
     }
