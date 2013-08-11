@@ -53,7 +53,6 @@ public class Tools extends PreferenceFragment implements
     private EditText settingText;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +64,6 @@ public class Tools extends PreferenceFragment implements
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_flash_img");
             getPreferenceScreen().removePreference(hideCat);
         }
-
-        PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_residual_files");
-        getPreferenceScreen().removePreference(hideCat);
 
         setHasOptionsMenu(true);
     }
@@ -155,8 +151,7 @@ public class Tools extends PreferenceFragment implements
             ((AlertDialog)dialog).setMessage(getString(R.string.wait));
             ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
             ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
-            final
-            StringBuilder sb = new StringBuilder();
+            final StringBuilder sb = new StringBuilder();
             sb.append("busybox rm -rf /data/dalvik-cache/*\n");
             sb.append("busybox rm -rf /cache/*\n");
             sb.append("reboot\n");

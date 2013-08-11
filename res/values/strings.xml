@@ -241,9 +241,9 @@ Copyright (C) 2012  James Roberts
 
     <string name="prefcat_residual_files">CLEAN RESIDUAL FILES</string>
     <string name="residual_files_title">Clean residual files</string>
-    <string name="btncleanall">Clean All</string>
-    <string name="clean_files_msg">All files in %s will be deleted. Continue?</string>
-    <string name="filesstr">files</string>
+    <string name="btncleanall">Clean all</string>
+    <string name="clean_files_msg">Residual files from %s will be deleted. Continue?</string>
+    <string name="filesstr">file(s)</string>
     <string name="no_residuals">No residual files</string>
 
     <string-array name="residual_info">
@@ -253,6 +253,8 @@ Copyright (C) 2012  James Roberts
         <item>Contains statistics about what apps you started</item>
         <item>Contains traces from \'application not responding\' events</item>
     </string-array>
+    <string name="prefcat_fix_permissions">FIX PERMISSIONS</string>
+    <string name="fix_permissions_title">Fix permissions</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>

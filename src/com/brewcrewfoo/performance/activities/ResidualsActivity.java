@@ -10,6 +10,7 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -67,15 +68,19 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                     final Item o = adapter.getItem(i);
                     sb.append("busybox rm -f "+o.getName()+"/* > "+TMPFILE+";\n");
                 }
+                adapter.clear();
 
+                linlaHeaderProgress.setVisibility(View.VISIBLE);
+                tools.setVisibility(View.GONE);
                 final Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
                         Helpers.shExec(sb);
+                        finish();
                     }
                 };
                 new Thread(runnable).start();
-                finish();
+
             }
         });
         new LongOperation().execute();
@@ -160,8 +165,8 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                     else{
                         sb.append("busybox ls "+residualfiles[i]+" >> "+TMPFILE+";\n");
                     }
-                    sb.append("busybox echo \"=\" >> "+TMPFILE+";\n");
                 }
+                sb.append("busybox echo \"===\" >> "+TMPFILE+";\n");
             }
             sb.append("busybox cat "+TMPFILE+";\n");
             sb.append("busybox rm -f "+TMPFILE+";\n");
@@ -180,16 +185,15 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
         protected void onPostExecute(String result) {
             final List<Item> dir = new ArrayList<Item>();
             final String[] rinfos = res.getStringArray(R.array.residual_info);
-            final String fls[]=rez.split("=");
+            final String fls[]=rez.split("===");
 
             for(int i=0;i< residualfiles.length;i++){
-                if(!fls[i].isEmpty()){
                     final String fs[]=fls[i].split("\n");
-                    if(new File(residualfiles[i]).exists()&&(fs.length-1>0)){
+                    if(fs.length-1>0){
                         dir.add(new Item(residualfiles[i],rinfos[i],Integer.toString(fs.length-1)+" "+getString(R.string.filesstr),"","dir"));
                     }
-                }
             }
+
             linlaHeaderProgress.setVisibility(View.GONE);
             if(dir.isEmpty()){
                 nofiles.setVisibility(View.VISIBLE);
