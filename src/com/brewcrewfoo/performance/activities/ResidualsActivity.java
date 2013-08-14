@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -85,6 +86,13 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
         });
         new LongOperation().execute();
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        packList.setAdapter(adapter);
+    }
+
     @Override
     public boolean isThemeChanged() {
         final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
@@ -124,6 +132,7 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
         ;
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+        //alertDialog.setCancelable(false);
         Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
         theButton.setOnClickListener(new CustomListener(alertDialog));
     }
@@ -172,12 +181,6 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
             sb.append("busybox rm -f "+TMPFILE+";\n");
             rez=Helpers.shExec(sb);
 
-            try {
-                Thread.sleep(200);
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             return null;
         }
 

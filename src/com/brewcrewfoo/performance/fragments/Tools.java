@@ -14,23 +14,32 @@
  * 
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Modded by h0rn3t
  */
 
 package com.brewcrewfoo.performance.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 
+import android.os.AsyncTask;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.*;
+
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.*;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,6 +53,9 @@ import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 public class Tools extends PreferenceFragment implements
@@ -51,11 +63,17 @@ public class Tools extends PreferenceFragment implements
 
     private SharedPreferences mPreferences;
     private EditText settingText;
+    private Boolean isrun=false;
+    private ProgressDialog progressDialog;
+
+    byte[] buffer;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
   	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.tools);
@@ -65,13 +83,28 @@ public class Tools extends PreferenceFragment implements
             getPreferenceScreen().removePreference(hideCat);
         }
 
+        setRetainInstance(true);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (isrun) {
+            progressDialog = ProgressDialog.show(getActivity(), getString(R.string.fix_perms_title),getString(R.string.wait));
+        }
     }
     @Override
     public void onResume() {
         super.onResume();
     }
-
+    @Override
+    public void onDetach() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+        super.onDetach();
+    }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.tools_menu, menu);
@@ -108,20 +141,21 @@ public class Tools extends PreferenceFragment implements
                     .setNegativeButton(getString(R.string.cancel),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
-                                    //dialog.cancel();
+                                    dialog.cancel();
                                 }
                             })
                     .setPositiveButton(getString(R.string.yes),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
+
                                 }
                             });
             ;
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+            //alertDialog.setCancelable(false);
             Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            theButton.setOnClickListener(new CustomListener(alertDialog));
+            theButton.setOnClickListener(new WipeCacheListener(alertDialog));
 
         }
         else if(key.equals(FLASH_KERNEL)) {
@@ -138,31 +172,115 @@ public class Tools extends PreferenceFragment implements
             Intent intent = new Intent(getActivity(), ResidualsActivity.class);
             startActivity(intent);
         }
+        else if(key.equals(PREF_FIX_PERMS)) {
+            get_assetsFile("fix_permissions");
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(getString(R.string.fix_perms_title))
+                        .setMessage(getString(R.string.fix_perms_msg))
+                        .setNegativeButton(getString(R.string.cancel),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                })
+                        .setPositiveButton(getString(R.string.yes),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                });
+                ;
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                //alertDialog.setCancelable(false);
+
+                Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                theButton.setOnClickListener(new fpListener(alertDialog));
+
+
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
-    class CustomListener implements View.OnClickListener {
+    class fpListener implements View.OnClickListener {
         private final Dialog dialog;
-        public CustomListener(Dialog dialog) {
+        public fpListener(Dialog dialog) {
             this.dialog = dialog;
         }
         @Override
         public void onClick(View v) {
-            ((AlertDialog)dialog).setMessage(getString(R.string.wait));
-            ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
-            ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
+            dialog.cancel();
+            new FixPermissionsOperation().execute();
+        }
+
+    }
+
+    private class FixPermissionsOperation extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            new CMDProcessor().su.runWaitFor(SH_PATH + " -r");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            isrun=false;
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            isrun=true;
+            progressDialog = ProgressDialog.show(getActivity(), getString(R.string.fix_perms_title),getString(R.string.wait));
+            new CMDProcessor().su.runWaitFor("busybox cat "+ISTORAGE+"fix_permissions > " + SH_PATH );
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
+    class WipeCacheListener implements View.OnClickListener {
+        private final Dialog dialog;
+        public WipeCacheListener(Dialog dialog) {
+            this.dialog = dialog;
+        }
+        @Override
+        public void onClick(View v) {
+            dialog.cancel();
+            new WipeCacheOperation().execute();
+        }
+    }
+    private class WipeCacheOperation extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
             final StringBuilder sb = new StringBuilder();
             sb.append("busybox rm -rf /data/dalvik-cache/*\n");
             sb.append("busybox rm -rf /cache/*\n");
             sb.append("reboot\n");
-            final Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    Helpers.shExec(sb);
-                }
-            };
-            new Thread(runnable).start();
+            Helpers.shExec(sb);
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(String result) {
+            isrun=false;
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            isrun=true;
+            progressDialog = ProgressDialog.show(getActivity(), getString(R.string.wipe_cache_title),getString(R.string.wait));
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
         }
     }
 
@@ -219,5 +337,34 @@ public class Tools extends PreferenceFragment implements
                 .create()
                 .show();
     }
+
+    public void get_assetsFile(String fn){
+
+        final AssetManager assetManager = getActivity().getAssets();
+        try {
+            InputStream f =assetManager.open(fn);
+            buffer = new byte[f.available()];
+            f.read(buffer);
+            f.close();
+            try {
+                FileOutputStream fos;
+                fos = getActivity().openFileOutput(fn, Context.MODE_PRIVATE);
+                fos.write(buffer);
+                fos.close();
+
+            } catch (IOException e) {
+                Log.d(TAG, "error write "+fn+" file");
+                e.printStackTrace();
+            }
+
+        }
+        catch (IOException e) {
+            Log.d(TAG, "error read "+fn+" file");
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 }

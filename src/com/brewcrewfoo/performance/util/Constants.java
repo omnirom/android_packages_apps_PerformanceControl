@@ -22,6 +22,8 @@ public interface Constants {
 
     public static final String TAG = "PerformanceControl";
 
+    public static final String ISTORAGE="/data/data/com.brewcrewfoo.performance/files/";
+
     // CPU settings
     public static final String CUR_CPU_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
     public static final String MAX_FREQ_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
@@ -163,12 +165,13 @@ public interface Constants {
     public static final String RESIDUAL_FILES="pref_residual_files";
     public static final String residualfiles[]={"/data/log","/data/tombstones","/data/system/dropbox","/data/system/usagestats","data/anr"};
     public static final String TMPFILE="/data/pc.tmp";
+    public static final String PREF_FIX_PERMS = "pref_fix_perms";
 
     // PC Settings
     public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
     public static final String PREF_WIDGET_BG_COLOR = "widget_bg_color";
     public static final String PREF_WIDGET_TEXT_COLOR = "widget_text_color";
-    public static final String VERSION_NUM = "2.0.6";
+    public static final String VERSION_NUM = "2.0.7";
 }
 
 

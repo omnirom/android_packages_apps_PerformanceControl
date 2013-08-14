@@ -6,11 +6,13 @@ package com.brewcrewfoo.performance.activities;
 import java.util.Arrays;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -90,6 +92,7 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
             }
         });
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -102,18 +105,16 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
             if(tip){
                 CMDProcessor.CommandResult cr = null;
                 cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -s | cut -d':' -f2`");
-                if(cr.success()&& !cr.stdout.equals("")){pmList =cr.stdout.split(" ");}
+                if(cr.success()&& !cr.stdout.equals("")){
+                    return cr.stdout;
+                }
             }
             else{
                 CMDProcessor.CommandResult cr = null;
                 cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -3 | cut -d':' -f2`");
-                if(cr.success()&& !cr.stdout.equals("")){pmList =cr.stdout.split(" ");}
-            }
-            try {
-                Thread.sleep(200);
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
+                if(cr.success()&& !cr.stdout.equals("")){
+                    return cr.stdout;
+                }
             }
 
             return null;
@@ -121,11 +122,17 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
 
         @Override
         protected void onPostExecute(String result) {
-            adapter=new PackAdapter(PackActivity.this, pmList, packageManager );
-            packList.setAdapter(adapter);
+            if(result!=null)
+                pmList =result.split(" ");
             linlaHeaderProgress.setVisibility(View.GONE);
-            linTools.setVisibility(View.VISIBLE);
-            if(adapter.getCount()<=0){
+            if(pmList.length>0){
+                adapter=new PackAdapter(PackActivity.this, pmList, packageManager );
+                packList.setAdapter(adapter);
+                linTools.setVisibility(View.VISIBLE);
+                linNopack.setVisibility(View.GONE);
+            }
+            else{
+                linTools.setVisibility(View.GONE);
                 linNopack.setVisibility(View.VISIBLE);
             }
         }

@@ -404,7 +404,7 @@ public class Helpers implements Constants {
 		if (! new File(SH_PATH).exists()) {
 			new CMDProcessor().su.runWaitFor("busybox touch "+SH_PATH );	
 			new CMDProcessor().su.runWaitFor("busybox chmod 755 "+SH_PATH );
-			Log.d(TAG, "create: /data/PerformanceControl");
+			Log.d(TAG, "create: "+SH_PATH);
 		}
 	}
 	public static String shExec(StringBuilder s){
@@ -418,7 +418,7 @@ public class Helpers implements Constants {
             else{return "";}
 		}
 		else{
-			Log.d(TAG, "missing file: /data/PerformanceControl");
+			Log.d(TAG, "missing file: "+SH_PATH);
             return "";
 		}
 	}

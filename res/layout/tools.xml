@@ -50,6 +50,14 @@ Copyright (C) 2012  James Roberts
 
     </PreferenceCategory>
     <PreferenceCategory
+            android:key="category_fix_perms"
+            android:title="@string/prefcat_fix_perms">
+        <Preference
+                android:key="pref_fix_perms"
+                android:title="@string/fix_perms_title"/>
+
+    </PreferenceCategory>
+    <PreferenceCategory
             android:key="category_residual_files"
             android:title="@string/prefcat_residual_files">
         <Preference
@@ -57,4 +65,5 @@ Copyright (C) 2012  James Roberts
                 android:title="@string/residual_files_title"/>
 
     </PreferenceCategory>
+
 </PreferenceScreen>

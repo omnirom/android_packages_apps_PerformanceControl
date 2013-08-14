@@ -230,7 +230,7 @@ Copyright (C) 2012  James Roberts
     <string name="ps_wipe_cache">Cache partition: %s</string>
     <string name="wipe_cache_msg">At the end, the system will reboot. Continue?</string>
 
-    <string name="prefcat_flash_img">FLASH IMAGE FILE</string>
+    <string name="prefcat_flash_img">FLASH IMG FILE</string>
     <string name="kernel_img_title">Flash KERNEL</string>
     <string name="recovery_img_title">Flash RECOVERY</string>
     <string name="btn_choose">Choose %s</string>
@@ -253,8 +253,9 @@ Copyright (C) 2012  James Roberts
         <item>Contains statistics about what apps you started</item>
         <item>Contains traces from \'application not responding\' events</item>
     </string-array>
-    <string name="prefcat_fix_permissions">FIX PERMISSIONS</string>
-    <string name="fix_permissions_title">Fix permissions</string>
+    <string name="prefcat_fix_perms">FIX PERMISSIONS</string>
+    <string name="fix_perms_title">Fix permissions</string>
+    <string name="fix_perms_msg">This operation may take several minutes. Continue?</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>

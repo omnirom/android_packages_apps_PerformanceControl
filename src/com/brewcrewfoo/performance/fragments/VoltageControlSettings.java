@@ -35,7 +35,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
-import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.util.Voltage;
@@ -272,15 +271,11 @@ public class VoltageControlSettings extends Fragment implements Constants {
         switch (id) {
             case DIALOG_EDIT_VOLT:
                 final LayoutInflater factory = LayoutInflater.from(getActivity());
-                final View voltageDialog = factory.inflate(R.layout.voltage_dialog,
-                        null);
+                final View voltageDialog = factory.inflate(R.layout.voltage_dialog,null);
 
-                final EditText voltageEdit = (EditText) voltageDialog
-                        .findViewById(R.id.voltageEdit);
-                final SeekBar voltageSeek = (SeekBar) voltageDialog
-                        .findViewById(R.id.voltageSeek);
-                final TextView voltageMeter = (TextView) voltageDialog
-                        .findViewById(R.id.voltageMeter);
+                final EditText voltageEdit = (EditText) voltageDialog.findViewById(R.id.voltageEdit);
+                final SeekBar voltageSeek = (SeekBar) voltageDialog.findViewById(R.id.voltageSeek);
+                final TextView voltageMeter = (TextView) voltageDialog.findViewById(R.id.voltageMeter);
 
                 final String savedMv = mVoltage.getSavedMV();
                 final int savedVolt = Integer.parseInt(savedMv);
@@ -288,17 +283,14 @@ public class VoltageControlSettings extends Fragment implements Constants {
                 voltageEdit.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void afterTextChanged(Editable arg0) {
-                        //
                     }
 
                     @Override
                     public void beforeTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
-                        //
                     }
 
                     @Override
-                    public void onTextChanged(CharSequence arg0, int arg1,
-                                              int arg2, int arg3) {
+                    public void onTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
                         final String text = voltageEdit.getText().toString();
                         int value = 0;
                         try {
@@ -342,17 +334,15 @@ public class VoltageControlSettings extends Fragment implements Constants {
                         });
 
                 dialog = new AlertDialog.Builder(getActivity())
-                        .setTitle(
-                                mVoltage.getFreq()
-                                        + getResources().getString(
+                        .setTitle(mVoltage.getFreq()+ getResources().getString(
                                         R.string.ps_volt_mhz_voltage))
                         .setView(voltageDialog)
                         .setPositiveButton(
                                 getResources().getString(R.string.ps_volt_save),
                                 new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int whichButton) {
-                                        removeDialog(id);
+                                    public void onClick(DialogInterface dialog,int whichButton) {
+                                        //removeDialog(id);
+                                        dialog.cancel();
                                         final String value = voltageEdit.getText().toString();
                                         SharedPreferences.Editor editor = mPreferences.edit();
                                         editor.putString(mVoltage.getFreq(), value);
@@ -363,16 +353,20 @@ public class VoltageControlSettings extends Fragment implements Constants {
                                 })
                         .setNegativeButton(getString(R.string.cancel),
                                 new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int whichButton) {
-                                        removeDialog(id);
+                                    public void onClick(DialogInterface dialog,int whichButton) {
+                                        //removeDialog(id);
+                                        dialog.cancel();
                                     }
                                 }).create();
                 break;
             default:
                 break;
         }
-
+        if (dialog != null) {
+            dialog.show();
+            //dialog.setCancelable(false);
+        }
+/*
         if (dialog != null) {
             FragmentManager fm = getActivity().getFragmentManager();
             FragmentTransaction ftr = fm.beginTransaction();
@@ -384,8 +378,9 @@ public class VoltageControlSettings extends Fragment implements Constants {
             }
             newFragment.show(fm, "" + id);
         }
+        */
     }
-
+/*
     protected void removeDialog(int pDialogId) {
         FragmentManager fm = getActivity().getFragmentManager();
         FragmentTransaction ftr = fm.beginTransaction();
@@ -410,7 +405,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
             return mDialog;
         }
     }
-
+*/
     public class ListAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
         private List<Voltage> results;

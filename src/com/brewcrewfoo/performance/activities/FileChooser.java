@@ -13,9 +13,11 @@ import java.text.DateFormat;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -39,6 +41,8 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
     private boolean mIsLightTheme;
     private FileArrayAdapter adapter;
 
+    private ProgressDialog progressDialog;
+
 
     private String tip;
     private String part;
@@ -54,6 +58,11 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         part=intent1.getStringExtra("part");
 
         currentDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        fill(currentDir);
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
         fill(currentDir);
     }
     @Override
@@ -124,7 +133,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                 dtitlu=getString(R.string.kernel_img_title);
             }
             else{
-               dtitlu=getString(R.string.recovery_img_title);
+                dtitlu=getString(R.string.recovery_img_title);
             }
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(dtitlu)
@@ -132,7 +141,8 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                     .setNegativeButton(getString(R.string.cancel),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
-                                    finish();
+                                    dialog.cancel();
+                                    //finish();
                                 }
                             })
                     .setPositiveButton(getString(R.string.yes),
@@ -143,7 +153,9 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                             });
             ;
             AlertDialog alertDialog = builder.create();
+
             alertDialog.show();
+            //alertDialog.setCancelable(false);
             Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             theButton.setOnClickListener(new CustomListener(alertDialog));
         }
@@ -156,9 +168,16 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         }
         @Override
         public void onClick(View v) {
-            ((AlertDialog)dialog).setMessage(getString(R.string.wait));
-            ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
-            ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
+
+            dialog.cancel();
+            String dtitlu;
+            if(tip.equalsIgnoreCase("kernel")){
+                dtitlu=getString(R.string.kernel_img_title);
+            }
+            else{
+                dtitlu=getString(R.string.recovery_img_title);
+            }
+            progressDialog = ProgressDialog.show(FileChooser.this, dtitlu, getString(R.string.wait));
             final StringBuilder sb = new StringBuilder();
             sb.append("dd if="+nFile+" of="+part+"\n");
             if(tip.equalsIgnoreCase("kernel")){
@@ -180,5 +199,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
 
         }
     }
+
+
 
 }
