@@ -112,7 +112,9 @@ Copyright (C) 2012  James Roberts
     <string name="ps_user_proc">The list of user process names (comma separated)</string>
     <string name="ps_sys_proc">The list of system process names (comma separated)</string>
     <string name="no_proc">No packages</string>
-
+    <!-- bln -->
+    <string name="prefcat_bln">BACKLIGHT NOTIFICATION</string>
+    <string name="pt_bln">Backlight Notification</string>
 <!-- blx -->
    <string name="blx_info">Battery Life eXtender feature\nAuthor Ezekeel</string>
    <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
@@ -246,6 +248,10 @@ Copyright (C) 2012  James Roberts
     <string name="filesstr">file(s)</string>
     <string name="no_residuals">No residual files</string>
 
+    <string name="prefcat_optim_db">OPTIMIZE DBs</string>
+    <string name="optim_db_title">Optimize Databases</string>
+    <string name="ps_optim_db">This will optimize databases by using SQL command VACUUM.</string>
+
     <string-array name="residual_info">
         <item>Contains Android system log files</item>
         <item>Contains log files from crashed apps</item>
@@ -256,6 +262,8 @@ Copyright (C) 2012  James Roberts
     <string name="prefcat_fix_perms">FIX PERMISSIONS</string>
     <string name="fix_perms_title">Fix permissions</string>
     <string name="fix_perms_msg">This operation may take several minutes. Continue?</string>
+    <string name="preflogg_fix_perms">Disable logging (run faster)</string>
+    <string name="prefclean_fix_perms">Remove stale data directories</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>
