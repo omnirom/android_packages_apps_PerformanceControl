@@ -101,6 +101,9 @@ public interface Constants {
     public static final String PREF_BLTOUCH= "pref_bltouch";
     public static final String BL_TIMEOUT_PATH="/sys/class/misc/notification/bl_timeout";
     public static final String BL_TOUCH_ON_PATH="/sys/class/misc/notification/touchlight_enabled";
+    //-------BLN---------
+    public static final String BLN_PATH="/sys/class/misc/backlightnotification/enabled";
+    public static final String PREF_BLN= "pref_bln";
     //-------PFK---------
     public static final String PFK_VER = "/sys/class/misc/phantom_kp_filter/version";
     public static final String PFK_HOME_ON = "pfk_home_on";
@@ -166,6 +169,8 @@ public interface Constants {
     public static final String residualfiles[]={"/data/log","/data/tombstones","/data/system/dropbox","/data/system/usagestats","data/anr"};
     public static final String TMPFILE="/data/pc.tmp";
     public static final String PREF_FIX_PERMS = "pref_fix_perms";
+    public static final String FP_LOG = "fp_log";
+    public static final String FP_CLEAN = "fp_clean";
 
     // PC Settings
     public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
