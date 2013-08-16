@@ -240,6 +240,7 @@ Copyright (C) 2012  James Roberts
     <string name="flash_info">will be flashed on partition\n%s\n as</string>
     <string name="dir_parent">&lt;Parent DIR&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
+    <string name="bkexit">Press again to exit</string>
 
     <string name="prefcat_residual_files">CLEAN RESIDUAL FILES</string>
     <string name="residual_files_title">Clean residual files</string>

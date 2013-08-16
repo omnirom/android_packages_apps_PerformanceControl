@@ -26,6 +26,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
@@ -47,6 +48,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
     private String tip;
     private String part;
     private String nFile;
+    private int nbk=1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,6 +119,23 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         int exp = (int) (Math.log(bytes) / Math.log(unit));
         String pre = String.valueOf("KMGTPE".charAt(exp-1));
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+    }
+    @Override
+    public void onBackPressed(){
+
+        if(adapter.getItem(0).getName().equalsIgnoreCase("..")){
+            currentDir=currentDir.getParentFile();
+            fill(currentDir);
+            nbk=1;
+        }
+        else{
+            if(nbk==2){finish();}
+            else{
+                nbk++;
+                Toast.makeText(getApplicationContext(), R.string.bkexit, Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     @Override
