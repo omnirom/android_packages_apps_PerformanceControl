@@ -83,8 +83,7 @@ if $TEST "$SD_EXT_DIRECTORY" = ""; then
         fi
     done
 fi
-fp_usage()
-{
+fp_usage(){
    $ECHO "Usage $0 [OPTIONS] [APK_PATH]"
    $ECHO "      -d         turn on debug"
    $ECHO "      -f         fix only package APK_PATH"
@@ -98,8 +97,7 @@ fp_usage()
    $ECHO "      -h         this help"
 }
 
-fp_parseargs()
-{
+fp_parseargs(){
    # Parse options
    while $TEST $# -ne 0; do
       case "$1" in
@@ -162,18 +160,16 @@ fp_parseargs()
    done
 }
 
-fp_print()
-{
+fp_print(){
    MSG=$@
    if $TEST $LOGGING -eq 1; then
       $ECHO $MSG | $TEE -a $LOG_FILE
-   else
-      $ECHO $MSG
+  # else
+  #    $ECHO $MSG
    fi
 }
 
-fp_start()
-{
+fp_start(){
    if $TEST $SIMULATE -eq 0 ; then
       if $TEST $( $GREP -c " /system " "/proc/mounts" ) -ne 0; then
          DEVICE=$( $GREP " /system " "/proc/mounts" | $CUT -d ' ' -f1 )
@@ -207,15 +203,14 @@ fp_start()
 
    busybox rm -f "$LOG_FILE";
 
-   if $TEST ! -e "$LOG_FILE"; then
-      > $LOG_FILE
+   if $TEST ! -e "$LOG_FILE" && $TEST $LOGGING -eq 1; then
+          > $LOG_FILE
    fi
-   
+
    fp_print "$0 $VERSION started at $FP_STARTTIME"
 }
 
-fp_chown_uid()
-{
+fp_chown_uid(){
    FP_OLDUID=$1
    FP_UID=$2
    FP_FILE=$3
@@ -231,8 +226,7 @@ fp_chown_uid()
    fi
 }
 
-fp_chown_gid()
-{
+fp_chown_gid(){
    FP_OLDGID=$1
    FP_GID=$2
    FP_FILE=$3
@@ -248,8 +242,7 @@ fp_chown_gid()
    fi
 }
 
-fp_chmod()
-{
+fp_chmod(){
    FP_OLDPER=$1
    FP_OLDPER=$( $ECHO $FP_OLDPER | cut -c2-10 )
    FP_PERSTR=$2
@@ -268,8 +261,7 @@ fp_chmod()
    fi
 }
 
-fp_all()
-{
+fp_all(){
    FP_NUMS=$( $CAT /data/system/packages.xml | $EGREP "^<package.*serId" | $GREP -v framework-res.apk | $GREP -v com.htc.resources.apk | $WC -l )
    I=0
    $CAT /data/system/packages.xml | $EGREP "^<package.*serId" | $GREP -v framework-res.apk | $GREP -v com.htc.resources.apk | while read all_line; do
@@ -291,8 +283,7 @@ fp_single()
    fi
 }
 
-fp_package()
-{
+fp_package(){
    pkgline=$1
    curnum=$2
    endnum=$3
@@ -437,8 +428,7 @@ fp_package()
    fi
 }
 
-date_diff()
-{
+date_diff(){
    if $TEST $# -ne 2; then
       FP_DDM="E"
       FP_DDS="E"
@@ -449,8 +439,7 @@ date_diff()
    FP_DDS=$( $EXPR $FP_DDD % 60 )
 }
 
-fp_end()
-{
+fp_end(){
    if $TEST $SYSREMOUNT -eq 1; then
       $MOUNT -o remount,ro $DEVICE /system > /dev/null 2>&1
    fi
