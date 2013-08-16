@@ -262,7 +262,7 @@ Copyright (C) 2012  James Roberts
     <string name="prefcat_fix_perms">FIX PERMISSIONS</string>
     <string name="fix_perms_title">Fix permissions</string>
     <string name="fix_perms_msg">This operation may take several minutes. Continue?</string>
-    <string name="preflogg_fix_perms">Disable logging (run faster)</string>
+    <string name="preflogg_fix_perms">Disable logging</string>
     <string name="prefclean_fix_perms">Remove stale data directories</string>
 
     <!-- PC Settings -->
