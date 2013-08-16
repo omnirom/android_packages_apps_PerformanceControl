@@ -173,7 +173,14 @@ public class BootService extends Service implements Constants {
 				sb.append("busybox echo 0 > " + BL_TOUCH_ON_PATH + " \n");
 			}
 		}
-
+        if (new File(BLN_PATH).exists()) {
+            if (preferences.getBoolean(PREF_BLN, false)) {
+                sb.append("busybox echo 1 > " + BLN_PATH + " \n");
+            }
+            else{
+                sb.append("busybox echo 0 > " + BLN_PATH + " \n");
+            }
+        }
 		if (new File(PFK_HOME_ENABLED).exists() && new File(PFK_MENUBACK_ENABLED).exists()) {
 			if (preferences.getBoolean(PFK_SOB, false)) {
 				sb.append("busybox echo " + preferences.getInt(PREF_HOME_ALLOWED_IRQ, Integer.parseInt(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ)))

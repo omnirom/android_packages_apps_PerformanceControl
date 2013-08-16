@@ -72,8 +72,18 @@ Copyright (C) 2012  James Roberts
                 android:key="pref_bltouch"
                 android:summary="@string/ps_dsync"
                 android:title="@string/pt_bltouch"/>
-  </PreferenceCategory>    
-<!-- PFK -->
+  </PreferenceCategory>
+    <!-- BLN -->
+    <PreferenceCategory
+            android:key="bln"
+            android:title="@string/prefcat_bln">
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="pref_bln"
+                android:summary="@string/ps_dsync"
+                android:title="@string/pt_bln"/>
+    </PreferenceCategory>
+    <!-- PFK -->
     <PreferenceCategory
             android:key="pfk"
             android:title="@string/prefcat_pfk">

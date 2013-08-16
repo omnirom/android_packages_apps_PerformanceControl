@@ -57,8 +57,10 @@ public class Advanced extends PreferenceFragment implements
 	private CheckBoxPreference mDsync;
 	
 	private Preference mBltimeout;
-	private CheckBoxPreference mBltouch;	
-//--------
+	private CheckBoxPreference mBltouch;
+
+    private CheckBoxPreference mBln;
+    //--------
 	private CheckBoxPreference mHomeOn;
 	private CheckBoxPreference mMenuBackOn;
 	
@@ -93,6 +95,7 @@ public class Advanced extends PreferenceFragment implements
         mReadAhead = (ListPreference) findPreference(PREF_READ_AHEAD);
         mBltimeout=(Preference) findPreference(PREF_BLTIMEOUT);
         mBltouch=(CheckBoxPreference) findPreference(PREF_BLTOUCH);
+        mBln=(CheckBoxPreference) findPreference(PREF_BLN);
         mDsync=(CheckBoxPreference) findPreference(PREF_DSYNC);
         mHomeOn=(CheckBoxPreference) findPreference(PFK_HOME_ON);
         mHomeAllowedIrqs = (Preference) findPreference(PREF_HOME_ALLOWED_IRQ);
@@ -150,6 +153,13 @@ public class Advanced extends PreferenceFragment implements
             }
         else{
             mBltouch.setChecked(Helpers.readOneLine(BL_TOUCH_ON_PATH).equals("1"));
+        }
+        if (!new File(BLN_PATH).exists()) {
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("bln");
+            getPreferenceScreen().removePreference(hideCat);
+        }
+        else{
+            mBln.setChecked(Helpers.readOneLine(BLN_PATH).equals("1"));
         }
         if (!new File(DYNAMIC_DIRTY_WRITEBACK_PATH).exists()) {
             mDirtyWriteback.setEnabled(true);
@@ -223,8 +233,17 @@ public class Advanced extends PreferenceFragment implements
 			new CMDProcessor().su.runWaitFor("busybox echo 0 > " + BL_TOUCH_ON_PATH);
 		}
             return true;
-	}	
-	else if (preference == mHomeOn){
+	}
+    else if (preference == mBln){
+        if (Integer.parseInt(Helpers.readOneLine(BLN_PATH))==0){
+            new CMDProcessor().su.runWaitFor("busybox echo 1 > " + BLN_PATH);
+        }
+        else{
+            new CMDProcessor().su.runWaitFor("busybox echo 0 > " + BLN_PATH);
+        }
+        return true;
+    }
+    else if (preference == mHomeOn){
 		if (Integer.parseInt(Helpers.readOneLine(PFK_HOME_ENABLED))==0){
 			new CMDProcessor().su.runWaitFor("busybox echo 1 > " + PFK_HOME_ENABLED);
 		}
