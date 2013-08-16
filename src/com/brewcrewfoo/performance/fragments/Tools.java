@@ -42,7 +42,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.*;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
@@ -65,6 +67,8 @@ public class Tools extends PreferenceFragment implements
     private EditText settingText;
     private Boolean isrun=false;
     private ProgressDialog progressDialog;
+    private Switch sw1;
+    private Switch sw2;
 
     byte[] buffer;
 
@@ -174,9 +178,30 @@ public class Tools extends PreferenceFragment implements
         }
         else if(key.equals(PREF_FIX_PERMS)) {
             get_assetsFile("fix_permissions");
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle(getString(R.string.fix_perms_title))
-                        .setMessage(getString(R.string.fix_perms_msg))
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            View view = getActivity().getLayoutInflater().inflate(R.layout.fp_dialog, null);
+
+            sw1 = (Switch) view.findViewById(R.id.fplog);
+            sw1.setChecked(mPreferences.getBoolean(FP_LOG, false));
+            sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton v,boolean checked) {
+                            final SharedPreferences.Editor editor = mPreferences.edit();
+                            editor.putBoolean(FP_LOG, checked).commit();
+                        }
+            });
+            sw2 = (Switch) view.findViewById(R.id.fpclean);
+            sw2.setChecked(mPreferences.getBoolean(FP_CLEAN, false));
+            sw2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton v,boolean checked) {
+                            final SharedPreferences.Editor editor = mPreferences.edit();
+                            editor.putBoolean(FP_CLEAN, checked).commit();
+                        }
+            });
+
+            builder.setTitle(getString(R.string.fix_perms_title))
+                        .setView(view)
                         .setNegativeButton(getString(R.string.cancel),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
@@ -219,7 +244,13 @@ public class Tools extends PreferenceFragment implements
     private class FixPermissionsOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            new CMDProcessor().su.runWaitFor(SH_PATH + " -r");
+            final StringBuilder sb = new StringBuilder();
+            sb.append("");
+            if(mPreferences.getBoolean(FP_LOG, false))
+                sb.append(" -l");
+            if(mPreferences.getBoolean(FP_CLEAN, false))
+                sb.append(" -r");
+            new CMDProcessor().su.runWaitFor(SH_PATH + sb.toString());
             return null;
         }
 
