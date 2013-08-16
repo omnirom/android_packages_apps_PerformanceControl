@@ -86,7 +86,10 @@ public class Tools extends PreferenceFragment implements
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_flash_img");
             getPreferenceScreen().removePreference(hideCat);
         }
-
+        if(Helpers.binExist("sqlite3").equals(NOT_FOUND)){
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_optim_db");
+            getPreferenceScreen().removePreference(hideCat);
+        }
         setRetainInstance(true);
         setHasOptionsMenu(true);
     }
@@ -225,6 +228,34 @@ public class Tools extends PreferenceFragment implements
 
 
         }
+        else if(key.equals(PREF_OPTIM_DB)) {
+            get_assetsFile("sql_optimize");
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(getString(R.string.optim_db_title))
+                    .setMessage(getString(R.string.fix_perms_msg))
+                    .setNegativeButton(getString(R.string.cancel),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            })
+                    .setPositiveButton(getString(R.string.yes),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                }
+                            });
+            ;
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            //alertDialog.setCancelable(false);
+
+            Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            theButton.setOnClickListener(new sqlListener(alertDialog));
+
+
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
@@ -308,6 +339,44 @@ public class Tools extends PreferenceFragment implements
         protected void onPreExecute() {
             isrun=true;
             progressDialog = ProgressDialog.show(getActivity(), getString(R.string.wipe_cache_title),getString(R.string.wait));
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
+    class sqlListener implements View.OnClickListener {
+        private final Dialog dialog;
+        public sqlListener(Dialog dialog) {
+            this.dialog = dialog;
+        }
+        @Override
+        public void onClick(View v) {
+            dialog.cancel();
+            new DBoptimOperation().execute();
+        }
+    }
+    private class DBoptimOperation extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            new CMDProcessor().su.runWaitFor(SH_PATH);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            isrun=false;
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            isrun=true;
+            progressDialog = ProgressDialog.show(getActivity(), getString(R.string.optim_db_title),getString(R.string.wait));
+            new CMDProcessor().su.runWaitFor("busybox cat "+ISTORAGE+"sql_optimize > " + SH_PATH );
         }
 
         @Override

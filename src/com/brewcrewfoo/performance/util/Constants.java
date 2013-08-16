@@ -171,6 +171,7 @@ public interface Constants {
     public static final String PREF_FIX_PERMS = "pref_fix_perms";
     public static final String FP_LOG = "fp_log";
     public static final String FP_CLEAN = "fp_clean";
+    public static final String PREF_OPTIM_DB = "pref_optim_db";
 
     // PC Settings
     public static final String PREF_USE_LIGHT_THEME = "use_light_theme";

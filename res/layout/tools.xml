@@ -65,5 +65,12 @@ Copyright (C) 2012  James Roberts
                 android:title="@string/residual_files_title"/>
 
     </PreferenceCategory>
-
+    <PreferenceCategory
+            android:key="category_optim_db"
+            android:title="@string/prefcat_optim_db">
+        <Preference
+                android:key="pref_optim_db"
+                android:title="@string/optim_db_title"
+                android:summary="@string/ps_optim_db"/>
+    </PreferenceCategory>
 </PreferenceScreen>
