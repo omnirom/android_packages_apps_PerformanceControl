@@ -202,7 +202,6 @@ fp_start(){
    fi
 
    busybox rm -f "$LOG_FILE";
-
    if $TEST ! -e "$LOG_FILE" && $TEST $LOGGING -eq 1; then
           > $LOG_FILE
    fi
