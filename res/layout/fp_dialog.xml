@@ -24,21 +24,11 @@
             android:id="@+id/fplog"
             />
 
-    <Switch
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/prefclean_fix_perms"
-            android:id="@+id/fpclean"
-            android:checked="false"/>
-
-
-
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fix_perms_msg"
             android:id="@+id/msg"
-            android:textSize="16dip"
             android:layout_marginTop="10dip"/>
 
 

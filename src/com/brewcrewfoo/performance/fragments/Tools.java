@@ -58,6 +58,7 @@ import com.brewcrewfoo.performance.util.Helpers;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.CharBuffer;
 
 
 public class Tools extends PreferenceFragment implements
@@ -193,15 +194,6 @@ public class Tools extends PreferenceFragment implements
                             editor.putBoolean(FP_LOG, checked).commit();
                         }
             });
-            sw2 = (Switch) view.findViewById(R.id.fpclean);
-            sw2.setChecked(mPreferences.getBoolean(FP_CLEAN, false));
-            sw2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton v,boolean checked) {
-                            final SharedPreferences.Editor editor = mPreferences.edit();
-                            editor.putBoolean(FP_CLEAN, checked).commit();
-                        }
-            });
 
             builder.setTitle(getString(R.string.fix_perms_title))
                         .setView(view)
@@ -279,8 +271,6 @@ public class Tools extends PreferenceFragment implements
             sb.append("");
             if(mPreferences.getBoolean(FP_LOG, false))
                 sb.append(" -l");
-            if(mPreferences.getBoolean(FP_CLEAN, false))
-                sb.append(" -r");
             new CMDProcessor().su.runWaitFor(SH_PATH + sb.toString());
             return null;
         }
@@ -446,10 +436,14 @@ public class Tools extends PreferenceFragment implements
             buffer = new byte[f.available()];
             f.read(buffer);
             f.close();
+            final String s = new String(buffer);
+            final StringBuffer sb = new StringBuffer(s);
+            sb.insert(0,"#!"+Helpers.binExist("sh")+"\n\n");
+            //sb.insert(0,"#!/system/xbin/sh\n\n");
             try {
                 FileOutputStream fos;
                 fos = getActivity().openFileOutput(fn, Context.MODE_PRIVATE);
-                fos.write(buffer);
+                fos.write(sb.toString().getBytes());
                 fos.close();
 
             } catch (IOException e) {

@@ -67,7 +67,7 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                 final StringBuilder sb = new StringBuilder();
                 for(int i=0;i<adapter.getCount();i++){
                     final Item o = adapter.getItem(i);
-                    sb.append("busybox rm -f "+o.getName()+"/* > "+TMPFILE+";\n");
+                    sb.append("busybox rm -f "+o.getName()+"/*;\n");
                 }
                 adapter.clear();
 
