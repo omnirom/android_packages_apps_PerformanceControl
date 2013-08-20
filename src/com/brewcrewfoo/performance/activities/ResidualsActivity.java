@@ -51,7 +51,6 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
     Button applyBtn;
     private int poz;
 
-    byte[] buffer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -209,7 +208,12 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
             linlaHeaderProgress.setVisibility(View.VISIBLE);
             nofiles.setVisibility(View.GONE);
             tools.setVisibility(View.GONE);
-            get_assetsFile("count_files");
+            final StringBuffer t=new StringBuffer();
+            for(int i=0;i<residualfiles.length;i++){
+                t.append(residualfiles[i]);
+                t.append(" ");
+            }
+            Helpers.get_assetsFile("count_files",context,"DIRS=\""+t.toString()+"\"");
             new CMDProcessor().su.runWaitFor("busybox cat "+ISTORAGE+"count_files > " + SH_PATH );
         }
 
@@ -218,38 +222,5 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
         }
     }
 
-    public void get_assetsFile(String fn){
-        final AssetManager assetManager = context.getAssets();
-        try {
-            InputStream f =assetManager.open(fn);
-            buffer = new byte[f.available()];
-            f.read(buffer);
-            f.close();
-            final String s = new String(buffer);
-            final StringBuffer sb = new StringBuffer(s);
-            final StringBuffer t=new StringBuffer();
-            for(int i=0;i<residualfiles.length;i++){
-                t.append(residualfiles[i]);
-                t.append(" ");
-            }
 
-            sb.insert(0,"DIRS=\""+t.toString()+"\";\n");
-            sb.insert(0,"#!"+Helpers.binExist("sh")+"\n\n");
-            try {
-                FileOutputStream fos;
-                fos = context.openFileOutput(fn, Context.MODE_PRIVATE);
-                fos.write(sb.toString().getBytes());
-                fos.close();
-
-            } catch (IOException e) {
-                Log.d(TAG, "error write "+fn+" file");
-                e.printStackTrace();
-            }
-
-        }
-        catch (IOException e) {
-            Log.d(TAG, "error read "+fn+" file");
-            e.printStackTrace();
-        }
-    }
 }

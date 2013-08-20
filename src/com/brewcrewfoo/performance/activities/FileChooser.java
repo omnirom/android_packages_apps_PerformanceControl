@@ -98,7 +98,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                 }
                 else{
                     if((tip.equalsIgnoreCase("kernel") && ff.getName().equalsIgnoreCase("boot.img"))||(tip.equalsIgnoreCase("recovery") && ff.getName().equalsIgnoreCase("recovery.img")))
-                        fls.add(new Item(ff.getName(),ReadableByteCount(ff.length()), date_modify, ff.getAbsolutePath(),"file"));
+                        fls.add(new Item(ff.getName(),Helpers.ReadableByteCount(ff.length()), date_modify, ff.getAbsolutePath(),"file"));
                 }
             }
         }
@@ -113,13 +113,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         this.setListAdapter(adapter);
 
     }
-    public static String ReadableByteCount(long bytes) {
-        int unit = 1024;
-        if (bytes < unit) return bytes + " B";
-        int exp = (int) (Math.log(bytes) / Math.log(unit));
-        String pre = String.valueOf("KMGTPE".charAt(exp-1));
-        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
-    }
+
     @Override
     public void onBackPressed(){
 

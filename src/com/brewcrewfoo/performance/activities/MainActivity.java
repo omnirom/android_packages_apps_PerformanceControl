@@ -88,7 +88,8 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
 	                frags[4] = new Advanced();
 	                frags[5] = new TimeInState();
 	                frags[6] = new CPUInfo();
-                    frags[7] = new Tools();
+                    frags[7] = new DiskInfo();
+                    frags[8] = new Tools();
             	}
             	else{
 			        frags[0] = new CPUSettings();
@@ -97,26 +98,29 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                 	frags[3] = new Advanced();
                 	frags[4] = new TimeInState();
                 	frags[5] = new CPUInfo();
-                    frags[6] = new Tools();
+                    frags[6] = new DiskInfo();
+                    frags[7] = new Tools();
             	}
             } 
             else {
                 if(Helpers.showBattery()){
-                        frags[0] = new CPUSettings();
-                        frags[1] = new BatteryInfo();
-                        frags[2] = new OOMSettings();
-                        frags[3] = new Advanced();
-                        frags[4] = new TimeInState();
-                        frags[5] = new CPUInfo();
-                        frags[6] = new Tools();
+                    frags[0] = new CPUSettings();
+                    frags[1] = new BatteryInfo();
+                    frags[2] = new OOMSettings();
+                    frags[3] = new Advanced();
+                    frags[4] = new TimeInState();
+                    frags[5] = new CPUInfo();
+                    frags[6] = new DiskInfo();
+                    frags[7] = new Tools();
                 }
                 else{
-                        frags[0] = new CPUSettings();
-                        frags[1] = new OOMSettings();
-                        frags[2] = new Advanced();
-                        frags[3] = new TimeInState();
-                        frags[4] = new CPUInfo();
-                        frags[5] = new Tools();
+                    frags[0] = new CPUSettings();
+                    frags[1] = new OOMSettings();
+                    frags[2] = new Advanced();
+                    frags[3] = new TimeInState();
+                    frags[4] = new CPUInfo();
+                    frags[5] = new DiskInfo();
+                    frags[6] = new Tools();
                 }
             }
         }
@@ -268,6 +272,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                         getString(R.string.t_adv_settings),
                         getString(R.string.t_time_in_state),
                         getString(R.string.t_cpu_info),
+                        getString(R.string.t_disk_info),
                         getString(R.string.t_tools)};
                 }
                 else{
@@ -278,6 +283,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                             getString(R.string.t_adv_settings),
                             getString(R.string.t_time_in_state),
                             getString(R.string.t_cpu_info),
+                            getString(R.string.t_disk_info),
                             getString(R.string.t_tools)};
                 }
         } 
@@ -290,6 +296,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                         getString(R.string.t_adv_settings),
                         getString(R.string.t_time_in_state),
                         getString(R.string.t_cpu_info),
+                        getString(R.string.t_disk_info),
                         getString(R.string.t_tools)};
             }
         	else{
@@ -299,6 +306,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                         getString(R.string.t_adv_settings),
                         getString(R.string.t_time_in_state),
                         getString(R.string.t_cpu_info),
+                        getString(R.string.t_disk_info),
                         getString(R.string.t_tools)};
             }
         }

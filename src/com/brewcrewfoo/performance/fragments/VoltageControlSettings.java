@@ -366,46 +366,8 @@ public class VoltageControlSettings extends Fragment implements Constants {
             dialog.show();
             //dialog.setCancelable(false);
         }
-/*
-        if (dialog != null) {
-            FragmentManager fm = getActivity().getFragmentManager();
-            FragmentTransaction ftr = fm.beginTransaction();
-            CustomDialogFragment newFragment = CustomDialogFragment.newInstance(dialog);
-            DialogFragment fragmentDialog = (DialogFragment) fm.findFragmentByTag("" + id);
-            if (fragmentDialog != null) {
-                ftr.remove(fragmentDialog);
-                ftr.commit();
-            }
-            newFragment.show(fm, "" + id);
-        }
-        */
-    }
-/*
-    protected void removeDialog(int pDialogId) {
-        FragmentManager fm = getActivity().getFragmentManager();
-        FragmentTransaction ftr = fm.beginTransaction();
-        DialogFragment fragmentDialog = null;
-        fragmentDialog = (DialogFragment) fm.findFragmentByTag("" + pDialogId);
-        if (fragmentDialog != null) {
-            FragmentTransaction f = ftr.remove(fragmentDialog);
-            f.commit();
-        }
     }
 
-    public static class CustomDialogFragment extends DialogFragment {
-        private Dialog mDialog;
-
-        public static CustomDialogFragment newInstance(Dialog dialog) {
-            CustomDialogFragment frag = new CustomDialogFragment();
-            frag.mDialog = dialog;
-            return frag;
-        }
-
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return mDialog;
-        }
-    }
-*/
     public class ListAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
         private List<Voltage> results;

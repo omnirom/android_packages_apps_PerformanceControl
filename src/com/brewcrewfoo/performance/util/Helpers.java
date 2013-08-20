@@ -23,6 +23,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.Log;
@@ -33,6 +34,7 @@ import java.io.*;
 public class Helpers implements Constants {
 
     private static String mVoltagePath;
+    private static String mSDextPath;
 
     /**
      * Checks device for SuperUser permission
@@ -423,4 +425,61 @@ public class Helpers implements Constants {
 		}
 	}
 
+    public static void get_assetsFile(String fn,Context c,String aux){
+        byte[] buffer;
+        final AssetManager assetManager = c.getAssets();
+        try {
+            InputStream f =assetManager.open(fn);
+            buffer = new byte[f.available()];
+            f.read(buffer);
+            f.close();
+            final String s = new String(buffer);
+            final StringBuffer sb = new StringBuffer(s);
+            if(!aux.equals("")){ sb.insert(0,aux); }
+            sb.insert(0,"#!"+Helpers.binExist("sh")+"\n\n");
+            try {
+                FileOutputStream fos;
+                fos = c.openFileOutput(fn, Context.MODE_PRIVATE);
+                fos.write(sb.toString().getBytes());
+                fos.close();
+
+            } catch (IOException e) {
+                Log.d(TAG, "error write "+fn+" file");
+                e.printStackTrace();
+            }
+
+        }
+        catch (IOException e) {
+            Log.d(TAG, "error read "+fn+" file");
+            e.printStackTrace();
+        }
+    }
+    public static String ReadableByteCount(long bytes) {
+        int unit = 1024;
+        if (bytes < unit) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = String.valueOf("KMGTPE".charAt(exp-1));
+        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+    }
+
+    public static boolean ExtsdExists() {
+        if (new File("/external_sd").exists()) {
+            setExtSD("/external_sd");
+            return true;
+        } else if (new File("/storage/sdcard1").exists()) {
+            setExtSD("/storage/sdcard1");
+            return true;
+        } else if (new File("/sd-ext").exists()) {
+            setExtSD("/sd-ext");
+            return true;
+        }
+        return false;
+    }
+    public static void setExtSD(String vFile) {
+        Log.d(TAG, vFile + " is external sd");
+        mSDextPath= vFile;
+    }
+    public static String getExtSD() {
+        return mSDextPath;
+    }
 }

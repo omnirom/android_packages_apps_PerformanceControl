@@ -24,11 +24,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.AssetManager;
 import android.content.res.Resources;
 
 import android.os.AsyncTask;
@@ -39,12 +37,9 @@ import android.preference.*;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.*;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
@@ -55,11 +50,6 @@ import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.CharBuffer;
-
 
 public class Tools extends PreferenceFragment implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener, Constants {
@@ -68,11 +58,6 @@ public class Tools extends PreferenceFragment implements
     private EditText settingText;
     private Boolean isrun=false;
     private ProgressDialog progressDialog;
-    private Switch sw1;
-    private Switch sw2;
-
-    byte[] buffer;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -181,7 +166,7 @@ public class Tools extends PreferenceFragment implements
             startActivity(intent);
         }
         else if(key.equals(PREF_FIX_PERMS)) {
-            get_assetsFile("fix_permissions");
+            Helpers.get_assetsFile("fix_permissions",getActivity(),"#");
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             /*View view = getActivity().getLayoutInflater().inflate(R.layout.fp_dialog, null);
 
@@ -221,7 +206,7 @@ public class Tools extends PreferenceFragment implements
 
         }
         else if(key.equals(PREF_OPTIM_DB)) {
-            get_assetsFile("sql_optimize");
+            Helpers.get_assetsFile("sql_optimize",getActivity(),"#");
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getString(R.string.optim_db_title))
                     .setMessage(getString(R.string.fix_perms_msg))
@@ -427,37 +412,6 @@ public class Tools extends PreferenceFragment implements
                 .create()
                 .show();
     }
-
-    public void get_assetsFile(String fn){
-
-        final AssetManager assetManager = getActivity().getAssets();
-        try {
-            InputStream f =assetManager.open(fn);
-            buffer = new byte[f.available()];
-            f.read(buffer);
-            f.close();
-            final String s = new String(buffer);
-            final StringBuffer sb = new StringBuffer(s);
-            sb.insert(0,"#!"+Helpers.binExist("sh")+"\n\n");
-            //sb.insert(0,"#!/system/xbin/sh\n\n");
-            try {
-                FileOutputStream fos;
-                fos = getActivity().openFileOutput(fn, Context.MODE_PRIVATE);
-                fos.write(sb.toString().getBytes());
-                fos.close();
-
-            } catch (IOException e) {
-                Log.d(TAG, "error write "+fn+" file");
-                e.printStackTrace();
-            }
-
-        }
-        catch (IOException e) {
-            Log.d(TAG, "error read "+fn+" file");
-            e.printStackTrace();
-        }
-    }
-
 
 
 
