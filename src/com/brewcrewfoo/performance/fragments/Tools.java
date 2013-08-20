@@ -183,7 +183,7 @@ public class Tools extends PreferenceFragment implements
         else if(key.equals(PREF_FIX_PERMS)) {
             get_assetsFile("fix_permissions");
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            View view = getActivity().getLayoutInflater().inflate(R.layout.fp_dialog, null);
+            /*View view = getActivity().getLayoutInflater().inflate(R.layout.fp_dialog, null);
 
             sw1 = (Switch) view.findViewById(R.id.fplog);
             sw1.setChecked(mPreferences.getBoolean(FP_LOG, false));
@@ -194,9 +194,9 @@ public class Tools extends PreferenceFragment implements
                             editor.putBoolean(FP_LOG, checked).commit();
                         }
             });
-
+*/
             builder.setTitle(getString(R.string.fix_perms_title))
-                        .setView(view)
+                    .setMessage(getString(R.string.fix_perms_msg))
                         .setNegativeButton(getString(R.string.cancel),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
@@ -267,11 +267,11 @@ public class Tools extends PreferenceFragment implements
     private class FixPermissionsOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            final StringBuilder sb = new StringBuilder();
-            sb.append("");
-            if(mPreferences.getBoolean(FP_LOG, false))
-                sb.append(" -l");
-            new CMDProcessor().su.runWaitFor(SH_PATH + sb.toString());
+            //final StringBuilder sb = new StringBuilder();
+            //sb.append("");
+            //if(mPreferences.getBoolean(FP_LOG, false))
+            //    sb.append(" -l");
+            new CMDProcessor().su.runWaitFor(SH_PATH);// + sb.toString());
             return null;
         }
 

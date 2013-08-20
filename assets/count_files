@@ -1,0 +1,14 @@
+r="";
+for d in $DIRS; do
+if [ -d $d ]; then
+i=$( busybox ls $d | busybox wc -l );
+else
+i=0;
+fi;
+if [ "$r" == "" ]; then
+r="$i";
+else
+r="$r:$i";
+fi;
+done;
+echo $r;

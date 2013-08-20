@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -27,6 +28,9 @@ import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.util.Item;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +41,7 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
     SharedPreferences mPreferences;
     private boolean mIsLightTheme;
     private FileArrayAdapter adapter;
-    private String rez;
+
     Resources res;
     Context context;
     ListView packList;
@@ -46,6 +50,8 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
     LinearLayout tools;
     Button applyBtn;
     private int poz;
+
+    byte[] buffer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -165,38 +171,25 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
     private class LongOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            final StringBuilder sb = new StringBuilder();
-            for(int i=0;i<residualfiles.length;i++){
-                if(new File(residualfiles[i]).exists()){
-                    if(i==0){
-                        sb.append("busybox ls "+residualfiles[i]+" > "+TMPFILE+";\n");
-                    }
-                    else{
-                        sb.append("busybox ls "+residualfiles[i]+" >> "+TMPFILE+";\n");
-                    }
-                }
-                sb.append("busybox echo \"===\" >> "+TMPFILE+";\n");
-            }
-            sb.append("busybox cat "+TMPFILE+";\n");
-            sb.append("busybox rm -f "+TMPFILE+";\n");
-            rez=Helpers.shExec(sb);
-
-            return null;
+            CMDProcessor.CommandResult cr = null;
+            cr=new CMDProcessor().su.runWaitFor(SH_PATH);
+            if(cr.success()){return cr.stdout;}
+            else{ return null;}
         }
 
         @Override
         protected void onPostExecute(String result) {
             final List<Item> dir = new ArrayList<Item>();
             final String[] rinfos = res.getStringArray(R.array.residual_info);
-            final String fls[]=rez.split("===");
+            if(result!=null){
+                final String fls[]=result.split(":");
 
-            for(int i=0;i< residualfiles.length;i++){
-                    final String fs[]=fls[i].split("\n");
-                    if(fs.length-1>0){
-                        dir.add(new Item(residualfiles[i],rinfos[i],Integer.toString(fs.length-1)+" "+getString(R.string.filesstr),"","dir"));
-                    }
+                for(int i=0;i< residualfiles.length;i++){
+                        if(!fls[i].equals("0")){
+                            dir.add(new Item(residualfiles[i],rinfos[i],fls[i]+" "+getString(R.string.filesstr),"","dir"));
+                        }
+                }
             }
-
             linlaHeaderProgress.setVisibility(View.GONE);
             if(dir.isEmpty()){
                 nofiles.setVisibility(View.VISIBLE);
@@ -216,6 +209,8 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
             linlaHeaderProgress.setVisibility(View.VISIBLE);
             nofiles.setVisibility(View.GONE);
             tools.setVisibility(View.GONE);
+            get_assetsFile("count_files");
+            new CMDProcessor().su.runWaitFor("busybox cat "+ISTORAGE+"count_files > " + SH_PATH );
         }
 
         @Override
@@ -223,5 +218,38 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
         }
     }
 
+    public void get_assetsFile(String fn){
+        final AssetManager assetManager = context.getAssets();
+        try {
+            InputStream f =assetManager.open(fn);
+            buffer = new byte[f.available()];
+            f.read(buffer);
+            f.close();
+            final String s = new String(buffer);
+            final StringBuffer sb = new StringBuffer(s);
+            final StringBuffer t=new StringBuffer();
+            for(int i=0;i<residualfiles.length;i++){
+                t.append(residualfiles[i]);
+                t.append(" ");
+            }
 
+            sb.insert(0,"DIRS=\""+t.toString()+"\";\n");
+            sb.insert(0,"#!"+Helpers.binExist("sh")+"\n\n");
+            try {
+                FileOutputStream fos;
+                fos = context.openFileOutput(fn, Context.MODE_PRIVATE);
+                fos.write(sb.toString().getBytes());
+                fos.close();
+
+            } catch (IOException e) {
+                Log.d(TAG, "error write "+fn+" file");
+                e.printStackTrace();
+            }
+
+        }
+        catch (IOException e) {
+            Log.d(TAG, "error read "+fn+" file");
+            e.printStackTrace();
+        }
+    }
 }
