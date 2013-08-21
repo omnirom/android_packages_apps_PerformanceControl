@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -65,6 +66,9 @@ public class CPUSettings extends Fragment implements
 
     private boolean mIsTegra3 = false;
     private int mFrequenciesNum;
+
+    private static final int NEW_MENU_ID=Menu.FIRST+1;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,8 +117,7 @@ public class CPUSettings extends Fragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup root,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup root, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cpu_settings, root, false);
 
         mCurFreq = (TextView) view.findViewById(R.id.current_speed);
@@ -190,6 +193,13 @@ public class CPUSettings extends Fragment implements
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.cpu_settings_menu, menu);
+        final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
+        final ViewPager mViewPager = (ViewPager) getView().getParent();
+        final int cur=mViewPager.getCurrentItem();
+        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
+            if(i!=cur)
+            smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
+        }
     }
 
     @Override
@@ -198,12 +208,17 @@ public class CPUSettings extends Fragment implements
             Intent intent = new Intent(getActivity(), PCSettings.class);
             startActivity(intent);
         }
+        final ViewPager mViewPager = (ViewPager) getView().getParent();
+        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
+            if(item.getItemId() == NEW_MENU_ID+i+1) {
+                mViewPager.setCurrentItem(i);
+            }
+        }
         return true;
     }
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress,
-                                  boolean fromUser) {
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
             if (seekBar.getId() == R.id.max_slider) {
                 setMaxSpeed(seekBar, progress);

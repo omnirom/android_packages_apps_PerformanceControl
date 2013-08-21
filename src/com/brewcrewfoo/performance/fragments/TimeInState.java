@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewPager;
 import android.view.*;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -45,6 +46,7 @@ import java.util.Map;
 
 public class TimeInState extends Fragment implements Constants {
 
+    private static final int NEW_MENU_ID=Menu.FIRST+1;
     private LinearLayout mStatesView;
     private TextView mAdditionalStates;
     private TextView mTotalStateTime;
@@ -106,6 +108,13 @@ public class TimeInState extends Fragment implements Constants {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.time_in_state_menu, menu);
+        final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
+        final ViewPager mViewPager = (ViewPager) getView().getParent();
+        final int cur=mViewPager.getCurrentItem();
+        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
+            if(i!=cur)
+            smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
+        }
     }
 
     @Override
@@ -127,6 +136,12 @@ public class TimeInState extends Fragment implements Constants {
         } else if (item.getItemId() == R.id.app_settings) {
             Intent intent = new Intent(getActivity(), PCSettings.class);
             startActivity(intent);
+        }
+        final ViewPager mViewPager = (ViewPager) getView().getParent();
+        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
+            if(item.getItemId() == NEW_MENU_ID+i+1) {
+                mViewPager.setCurrentItem(i);
+            }
         }
         return true;
     }

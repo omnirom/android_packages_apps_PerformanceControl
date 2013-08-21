@@ -28,6 +28,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.*;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -48,11 +49,11 @@ import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
 
-public class OOMSettings extends PreferenceFragment implements
-        OnSharedPreferenceChangeListener, OnPreferenceChangeListener, Constants {
+public class OOMSettings extends PreferenceFragment implements OnSharedPreferenceChangeListener, OnPreferenceChangeListener, Constants {
 
+    private static final int NEW_MENU_ID=Menu.FIRST+1;
 
-  private SharedPreferences mPreferences;
+    private SharedPreferences mPreferences;
 	protected Context mContext;
 	
 	private int mSeekbarProgress;
@@ -142,6 +143,13 @@ public class OOMSettings extends PreferenceFragment implements
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.oom_menu, menu);
+        final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
+        final ViewPager mViewPager = (ViewPager) getView().getParent();
+        final int cur=mViewPager.getCurrentItem();
+        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
+            if(i!=cur)
+            smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
+        }
     }
 
     @Override
@@ -149,7 +157,13 @@ public class OOMSettings extends PreferenceFragment implements
         if (item.getItemId() == R.id.app_settings) {
             Intent intent = new Intent(getActivity(), PCSettings.class);
             startActivity(intent);
-        }		
+        }
+        final ViewPager mViewPager = (ViewPager) getView().getParent();
+        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
+            if(item.getItemId() == NEW_MENU_ID+i+1) {
+                mViewPager.setCurrentItem(i);
+            }
+        }
         return true;
     }
 

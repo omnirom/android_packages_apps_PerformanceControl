@@ -21,6 +21,7 @@ package com.brewcrewfoo.performance.fragments;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.*;
 import android.widget.TextView;
 import com.brewcrewfoo.performance.R;
@@ -32,6 +33,7 @@ import java.io.*;
 
 public class CPUInfo extends Fragment implements Constants {
 
+    private static final int NEW_MENU_ID=Menu.FIRST+1;
     private TextView mKernelInfo;
     private TextView mCPUInfo;
     private TextView mMemInfo;
@@ -43,8 +45,7 @@ public class CPUInfo extends Fragment implements Constants {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup root,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup root, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cpu_info, root, false);
         mKernelInfo = (TextView) view.findViewById(R.id.kernel_info);
         mCPUInfo = (TextView) view.findViewById(R.id.cpu_info);
@@ -85,6 +86,13 @@ public class CPUInfo extends Fragment implements Constants {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.cpu_info_menu, menu);
+        final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
+        final ViewPager mViewPager = (ViewPager) getView().getParent();
+        final int cur=mViewPager.getCurrentItem();
+        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
+            if(i!=cur)
+            smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
+        }
     }
 
     @Override
@@ -94,6 +102,12 @@ public class CPUInfo extends Fragment implements Constants {
         } else if (item.getItemId() == R.id.app_settings) {
             Intent intent = new Intent(getActivity(), PCSettings.class);
             startActivity(intent);
+        }
+        final ViewPager mViewPager = (ViewPager) getView().getParent();
+        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
+            if(item.getItemId() == NEW_MENU_ID+i+1) {
+                mViewPager.setCurrentItem(i);
+            }
         }
         return true;
     }

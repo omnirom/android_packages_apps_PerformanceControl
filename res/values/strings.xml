@@ -40,6 +40,8 @@ Copyright (C) 2012  James Roberts
     <string name="t_cpu_info">CPU INFO</string>
     <string name="t_disk_info">DISK INFO</string>
     <string name="t_tools">TOOLS</string>
+
+    <string name="menu_tab">Tabs</string>
     <!-- Menu -->
     <string name="mt_refresh">Refresh</string>
     <string name="mt_app_settings">"App Settings"</string>
@@ -228,7 +230,7 @@ Copyright (C) 2012  James Roberts
     <string name="sh_msg">Leave blank for no operation.</string>
     <string name="clear">Clear</string>
     <string name="yes">Yes</string>
-    <string name="wait">Please wait...</string>
+    <string name="wait">Please wait…</string>
     <string name="prefcat_wipe_cache">CACHE and DALVIK CACHE</string>
     <string name="wipe_cache_title">Wipe cache and dalvik cache</string>
     <string name="ps_wipe_cache">Cache partition: %s</string>
