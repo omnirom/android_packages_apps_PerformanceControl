@@ -76,6 +76,16 @@ public class CPUSettings extends Fragment implements
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
+
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup root, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.cpu_settings, root, false);
+
+        mCurFreq = (TextView) view.findViewById(R.id.current_speed);
+
         mIsTegra3 = new File(TEGRA_MAX_FREQ_PATH).exists();
         mAvailableFrequencies = new String[0];
 
@@ -113,14 +123,6 @@ public class CPUSettings extends Fragment implements
             }
         }
 
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup root, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.cpu_settings, root, false);
-
-        mCurFreq = (TextView) view.findViewById(R.id.current_speed);
 
         mMaxSlider = (SeekBar) view.findViewById(R.id.max_slider);
         mMaxSlider.setMax(mFrequenciesNum);
