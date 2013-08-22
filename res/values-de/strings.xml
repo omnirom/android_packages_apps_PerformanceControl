@@ -198,8 +198,8 @@ Translation by Rhonin86
         BusyBox. Drücke OK um weiter zu machen. Abbrechen, wenn der Anwendung kein Root Zugang
         gewährt werden soll.
     </string>
-    <string name="su_success_message">Performance Control hat Root Zugang und hat BusyBox
-        gefunden. Los geht's !
+    <string name="su_success_message">"Performance Control hat Root Zugang und hat BusyBox
+        gefunden. Los geht's !"
     </string>
     <string name="su_cancel_message">Du hast Dich entschieden der Anwendung keinen Rootzugang zu gewähren.
         Die meisten Funktionen benötigen aber Root Zugang. Tut mir leid!
