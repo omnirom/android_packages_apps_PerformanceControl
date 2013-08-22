@@ -43,7 +43,7 @@ Translation by Laurentiu1996
     <string name="io">IO Scheduler</string>
     <string name="sob">Aplică la bootare</string>
     <string name="ok">OK</string>
-    <string name="cancel">Anulează</string>
+    <string name="cancel">Renunţă</string>
     <!-- Other settings -->
     <string name="prefcat_free_memory">MEMORIE LIBERĂ</string>
     <string name="prefcat_tweaks">ÎNCĂRCARE RAPIDĂ</string>
@@ -108,7 +108,7 @@ Translation by Laurentiu1996
     <!-- dsync -->
     <string name="dsync_info">Funcţia Dynamic FSync \nAutor Paul Reioux (faux123)</string>
     <string name="prefcat_dsync">DYNAMIC FSYNC</string>
-    <string name="ps_dsync">Setările vor fi restaurate după repornire</string>
+    <string name="ps_dsync">Setarea va fi restaurată după repornire</string>
     <string name="pt_dsync">Dynamic Fsync</string>
     <!-- bl_timeout -->
     <string name="prefcat_bltimeout">BACKLIGHT TIMEOUT</string>
@@ -152,7 +152,7 @@ Translation by Laurentiu1996
     <!-- Voltage control -->
     <string name="volt_info">ATENŢIE!\nÎnaintea activării "Aplică la bootare", asigură-te că valorile introduse nu depăşesc limitele admise, altfel telefonul se va bloca.</string>
     <string name="ps_volt_mhz_voltage">" Hz"</string>
-    <string name="ps_volt_save">"Salveză"</string>
+    <string name="ps_volt_save">"Salvează"</string>
     <string name="ps_volt_current_voltage">"Tensiunea Curentă: "</string>
     <string name="ps_volt_setting_to_apply">"Setările de aplicat : "</string>
     <string name="pt_volt_control">Controlul Tensiunii</string>
@@ -215,7 +215,7 @@ Translation by Laurentiu1996
     <string name="btn_choose">Alege %s</string>
     <string name="unsupported_info">Telefonul dumneavoastră nu este suportat.</string>
     <string name="flash_info">va fi flash-uit pe partitia\n%s\n ca şi</string>
-    <string name="dir_parent">&lt;Parent DIR&gt;</string>
+    <string name="dir_parent">&lt;DIR părinte&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
     <string name="bkexit">Apăsaţi din nou pentru ieşire</string>
 
