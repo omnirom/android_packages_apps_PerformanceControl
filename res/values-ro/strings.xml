@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Translation by Laurentiu1996
+-->
+
+<resources>
+
+    <string name="app_name">Performance Control</string>
+    <!-- Main tabs -->
+    <string name="tab_cpu_settings">Setările CPU</string>
+    <string name="tab_cpu_profiles">Profilele CPU</string>
+    <string name="tab_battery_info">Bateria</string>
+    <string name="tab_oom_settings">Setările memoriei</string>
+    <string name="tab_time_in_state">Timp de lucru</string>
+    <string name="tab_voltage_settings">Setările Tensiunii</string>
+    <string name="tab_cpu_info">Informaţii CPU</string>
+    <string name="tab_disk_info">Informatii Disk</string>
+    <string name="tab_tools">Unelte</string>
+    <!-- Titles -->
+    <string name="t_cpu_settings">SETĂRILE CPU</string>
+    <string name="t_battery_info">BATERIA</string>
+    <string name="t_oom_settings">SETĂRILE MEMORIEI</string>
+    <string name="t_volt_settings">SETĂRILE TENSIUNII</string>
+    <string name="t_adv_settings">"SETĂRI AVANSATE"</string>
+    <string name="t_time_in_state">"TIMP DE LUCRU"</string>
+    <string name="t_cpu_info">INFORMAŢII CPU</string>
+    <string name="t_disk_info">INFORMAŢII DISK</string>
+    <string name="t_tools">UNELTE</string>
+
+    <string name="menu_tab">Tab-uri</string>
+    <!-- Menu -->
+    <string name="mt_refresh">Reîmprospătare</string>
+    <string name="mt_app_settings">"Setările Aplicaţiei"</string>
+    <string name="mt_reset">Resetare</string>
+    <string name="mt_restore">Restaurare</string>
+    <string name="mt_plus25">Creşte cu 25 mV</string>
+    <string name="mt_minus25">Scade cu 25 mV</string>
+    <!-- CPU settings -->
+    <string name="current_speed">Viteza curentă</string>
+    <string name="current_max">Max. curentă:</string>
+    <string name="current_min">Min. curentă:</string>
+    <string name="governor">Governator</string>
+    <string name="io">IO Scheduler</string>
+    <string name="sob">Aplică la bootare</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Anulează</string>
+    <!-- Other settings -->
+    <string name="prefcat_free_memory">MEMORIE LIBERĂ</string>
+    <string name="prefcat_tweaks">ÎNCĂRCARE RAPIDĂ</string>
+    <string name="prefcat_misc_short">DIVERSE</string>
+    <string name="prefcat_read_ahead">SD READ AHEAD</string>
+    <string name="prefcat_vm_settings">SETĂRI VM</string>
+    <string name="dt_free_memory">Minfree Taskkiller</string>
+    <string name="dt_read_ahead">SD Read Ahead</string>
+    <string name="pt_free_memory">Memorie libera</string>
+    <string name="ps_free_memory">Valoarea minimă RAM pe care taskkiller o păstrează | Actual: %s</string>
+    <string name="ps_free_memory_boot">Aplică cele de mai sus la bootare</string>
+    <string name="pt_read_ahead">SD read ahead</string>
+    <string name="ps_read_ahead">Valoarea în kb cu care se va citi de pe SDCard | Actual: %s</string>
+
+    <string name="ps_fast_charge_boot">Încărcare rapidă</string>
+    <string name="fast_charge_warning">NU SE VA PUTEA CONECTA LA PC DUPĂ REPORNIRE!\n\nCÂT TIMP Încărcarea Rapidă este PORNITĂ, poţi *doar* să încarci telefonul!</string>
+    <string name="fast_charge_notification_title">Încărcarea Rapidă este PORNITĂ!</string>
+    <string name="fast_charge_notification_message">Telefonul se poate doar încărca!</string>
+
+    <!-- minfree -->
+    <string name="prefcat_oom">MINFREE TASKKILLER</string>
+    <string name="title_foreground_app">Aplicaţii din Prim Plan</string>
+    <string name="title_visible_app">Aplicaţii Vizibile</string>
+    <string name="title_secondary_server">Server Secundar</string>
+    <string name="title_hidden_app">Aplicaţii Ascunse</string>
+    <string name="title_content_providers">Furnizori de conţinut</string>
+    <string name="title_empty_app">Aplicaţii Goale</string>
+    <string name="prefcat_oom_predefines">PRESETĂRI</string>
+    <string name="pt_oom">Presetări Minfree Taskkiller</string>
+
+    <string name="pt_verylight">Foarte Uşor</string>
+    <string name="pref_verylight">512,1024,1280,2048,3072,4096</string>
+    <string name="pt_light">Uşor</string>
+    <string name="pref_light">1024,2048,2560,4096,6144,8192</string>
+    <string name="pt_medium">Mediu</string>
+    <string name="pref_medium">1024,2048,4096,8192,12288,16384</string>
+    <string name="pt_aggressive">Agresiv</string>
+    <string name="pref_aggressive">2048,4096,8192,16384,24576,32768</string>
+    <string name="pt_veryaggressive">Foarte Agresiv</string>
+    <string name="pref_veryaggressive">4096,8192,16384,32768,49152,65536</string>
+
+    <!-- do not kill proc -->
+    <string name="prefcat_user_proc">PROCESELE UTILIZATORULUI CARE NU POT FI ÎNCHISE</string>
+    <string name="prefcat_sys_proc">PROCESELE SISTEMULUI CARE NU POT FI ÎNCHISE</string>
+    <string name="pt_user_proc">Activaţi procesele utilizatorului care să nu fie închise</string>
+    <string name="pt_sys_proc">Activaţi procesele sistemului care să nu fie închise</string>
+    <string name="pt_user_names_proc">Lista proceselor utilizatorului</string>
+    <string name="pt_sys_names_proc">Lista proceselor sistemului</string>
+    <string name="ps_restore_boot">Restaurează setările de mai sus la bootare</string>
+    <string name="ps_user_proc">Lista cu numele proceselor utilizatorului (separate prin virgulă)</string>
+    <string name="ps_sys_proc">Lista cu numele proceselor sistemului (separate prin virgulă)</string>
+    <string name="no_proc">Nu s-au găsit procese</string>
+    <!-- bln -->
+    <string name="prefcat_bln">BACKLIGHT NOTIFICATION</string>
+    <string name="pt_bln">Backlight Notification</string>
+    <!-- blx -->
+    <string name="blx_info">Funcţia Extinderea duratei de viaţă a bateriei\nAutor Ezekeel</string>
+    <string name="prefcat_blx">EXTINDEREA DURATEI DE VIAŢĂ A BATERIEI</string>
+    <string name="pt_blx_boot">Aplică la bootare</string>
+    <string name="ps_blx_boot">Aplică valorile de mai sus la bootare</string>
+    <string name="blx_title">Limita de încărcare:</string>
+    <!-- dsync -->
+    <string name="dsync_info">Funcţia Dynamic FSync \nAutor Paul Reioux (faux123)</string>
+    <string name="prefcat_dsync">DYNAMIC FSYNC</string>
+    <string name="ps_dsync">Setările vor fi restaurate după repornire</string>
+    <string name="pt_dsync">Dynamic Fsync</string>
+    <!-- bl_timeout -->
+    <string name="prefcat_bltimeout">BACKLIGHT TIMEOUT</string>
+    <string name="ps_bltimeout">%s ms</string>
+    <string name="bltimeout_title">Backlight timeout</string>
+    <!-- bl_touch -->
+    <string name="prefcat_bltouch">BACKLIGHT ON TOUCHSCREEN</string>
+    <string name="pt_bltouch">Backlight on touchscreen</string>
+    <!-- pfk -->
+    <string name="pfk_info">Filtru Phantom Key Presses ver. %s\nAutor Cristoforo Cataldo (Christopher83)</string>
+    <string name="prefcat_pfk">FILTRU PHANTOM KEY PRESSES</string>
+    <string name="pt_home_enabled">Filtru pentru tasta Acasă</string>
+    <string name="ps_home_enabled">Atingerile ignorate: %s</string>
+    <string name="home_allowed_irq_title">Numărul maxim de întreruperi</string>
+    <string name="home_report_wait_title">Raportarea timpului de aşteptare</string>
+
+    <string name="pt_menuback_enabled">Filtru pentru tastele Meniu/Înapoi</string>
+    <string name="ps_menuback_enabled">Atingerile ignorate: %s</string>
+    <string name="menuback_interrupt_checks_title">Întreruperi verificate</string>
+    <string name="menuback_first_err_wait_title">Timpul de aşteptare până la prima eroare</string>
+    <string name="menuback_last_err_wait_title">Timpul de aşteptare până la ultima eroare</string>
+    <string name="ps_pfk_set_on_boot">Dacă este activată, va restabili toate setările la repornire</string>
+    <!-- dynamic write back -->
+    <string name="dynamic_writeback_info">Funcţia Dynamic Dirty Page Writebacks\nAutor Cristoforo Cataldo (Christopher83)</string>
+    <string name="dynamic_write_back_title">DYNAMIC DIRTY PAGE WRITEBACKS</string>
+    <string name="pt_dynamic_write_back">Dynamic Dirty Writeback</string>
+    <string name="dynamic_writeback_active_title">Dirty Writeback Active centisecs</string>
+    <string name="dynamic_writeback_suspend_title">Dirty Writeback Suspend centisecs</string>
+    <!--  -->
+    <string name="size_25_mb">25mb</string>
+    <string name="size_50_mb">50mb</string>
+    <string name="size_75_mb">75mb</string>
+    <string name="size_80_mb">80mb</string>
+    <string name="size_100_mb">100mb</string>
+    <string name="size_128_kb">128kb</string>
+    <string name="size_256_kb">256kb</string>
+    <string name="size_512_kb">512kb</string>
+    <string name="size_1024_kb">1024kb</string>
+    <string name="size_2048_kb">2048kb</string>
+    <string name="size_4096_kb">4096kb</string>
+    <!-- Voltage control -->
+    <string name="volt_info">ATENŢIE!\nÎnaintea activării "Aplică la bootare", asigură-te că valorile introduse nu depăşesc limitele admise, altfel telefonul se va bloca.</string>
+    <string name="ps_volt_mhz_voltage">"Tensiunea în Hz"</string>
+    <string name="ps_volt_save">"Salveză"</string>
+    <string name="ps_volt_current_voltage">"Tensiunea Curentă: "</string>
+    <string name="ps_volt_setting_to_apply">"Setările de aplicat : "</string>
+    <string name="pt_volt_control">Controlul Tensiunii</string>
+    <string name="ps_volt_control">Setează tensiunea pentru fiecare frecvenţă</string>
+    <string name="apply_values">Aplică valorile</string>
+    <string name="freq">Frecvenţă</string>
+    <string name="current">mV curent</string>
+    <string name="saved">mV salvat</string>
+    <string name="not_supported">Kernel-ul folosit nu suportă controlul tensiunii</string>
+    <!-- VM settings -->
+    <string name="ps_vm_set_on_boot">Dacă este selectat, se vor restaura toate setărilen vm la repornire</string>
+    <string name="dirty_ratio_title">Dirty ratio</string>
+    <string name="dirty_background_title">Dirty background ratio</string>
+    <string name="dirty_expire_title">Dirty expire centisecs</string>
+    <string name="dirty_writeback_title">Dirty writeback centisecs</string>
+    <string name="min_free_title">Minfree kbytes</string>
+    <string name="overcommit_title">Overcommit ratio</string>
+    <string name="swappiness_title">Swappiness</string>
+    <string name="vfs_title">VFS cache pressure</string>
+    <!-- Time in state -->
+    <string name="time_in_state">TIMP DE LUCRU</string>
+    <string name="unused_cpu_states">FRECVENŢE CPU NEFOLOSITE</string>
+    <string name="total_state_time">TIMPUL TOTAL DE LUCRU</string>
+    <string name="no_states_file_found">Frecvenţe indisponibile. Sunteţi sigur că telefonul este compatibil?\n\nDacă folosiţi un custom ROM sau kernel, încercaţi să contactaţi dezvolatorul pentru informare.
+    </string>
+    <string name="deep_sleep">"Deep Sleep"</string>
+    <!-- CPU info -->
+    <string name="kernel_info">INFORMAŢII DESPRE LINUX KERNEL</string>
+    <string name="cpu_info">INFORMAŢII CPU</string>
+    <string name="mem_info">INFORMAŢII MEMORIE</string>
+    <string name="first_run_title">Verificarea root-ului pentru prima dată</string>
+    <string name="su_success_title">Succes!</string>
+    <string name="su_failed_title">Oops!</string>
+    <string name="first_run_message">Aplicaţia trebuie sa verifie accesul la root şi busybox. Apăsaţi OK pentru continuare. Anulaţi dacă nu permiteţi accesul la root.</string>
+    <string name="su_success_message">Aplicaţia a primit accesul la root şi a găsit busybox. Ready to rock!</string>
+    <string name="su_cancel_message">Ai ales să nu se verifice root-ul şi busybox.
+        Cele mai multe opţiuni nu vor putea fi folosite fară accesul la root. Ne pare rău!
+    </string>
+    <string name="su_failed_su_or_busybox">Accesul la root a eşuat sau busybox nu a fost găsit. Cele mai multe opţiuni nu vor putea fi folosite fară accesul la root. Ne pare rău!
+    </string>
+
+    <!-- Tools -->
+    <string name="prefcat_sh">COMANDĂ SHELL</string>
+    <string name="sh_title">Editează comanda shell</string>
+    <string name="ps_sh">Comanda va fi executată la pornire.</string>
+    <string name="sh_msg">Lasă-l gol pentru nicio operaţie.</string>
+    <string name="clear">Şterge</string>
+    <string name="yes">Da</string>
+    <string name="wait">Vă rugăm aşteptaţi…</string>
+    <string name="prefcat_wipe_cache">CACHE şi DALVIK CACHE</string>
+    <string name="wipe_cache_title">Şterge cache şi dalvik cache</string>
+    <string name="ps_wipe_cache">Partiţia Cache: %s</string>
+    <string name="wipe_cache_msg">La sfârşit, sistemul va reporni. Continuaţi?</string>
+
+    <string name="prefcat_flash_img">FLASH FIŞIER IMG</string>
+    <string name="kernel_img_title">Flash KERNEL</string>
+    <string name="ps_kernel_img">Flash fişier boot.img ca şi kernel folosind \'dd\' binar</string>
+    <string name="recovery_img_title">Flash RECOVERY</string>
+    <string name="ps_recovery_img">Flash fişier recovery.img ca şi recovery folosind \'dd\' binar</string>
+    <string name="btn_choose">Alege %s</string>
+    <string name="unsupported_info">Telefonul dumneavoastră nu este suportat.</string>
+    <string name="flash_info">Va fi flash-uit pe partitia\n%s\n ca şi</string>
+    <string name="dir_parent">&lt;Parent DIR&gt;</string>
+    <string name="dir">&lt;DIR&gt;</string>
+    <string name="bkexit">Apăsaţi din nou pentru ieşire</string>
+
+    <string name="prefcat_residual_files">ŞTERGERE FIŞIERE REZIDUALE</string>
+    <string name="residual_files_title">Ştergerea fişierelor reziduale</string>
+    <string name="btncleanall">Ştergeţi tot</string>
+    <string name="clean_files_msg">Fişierele reziduale din %s vor fi şterse. Continuaţi?</string>
+    <string name="filesstr">fişier(e)</string>
+    <string name="no_residuals">Niciun fişier rezidual</string>
+
+    <string name="prefcat_optim_db">OPTIMIZAREA DBs</string>
+    <string name="optim_db_title">Optimizarea Bazelor de Date</string>
+    <string name="ps_optim_db">Bazele de date vor fi optimizate folosind comanda SQL VACUUM.</string>
+
+    <string-array name="residual_info">
+        <item>Conține fișiere jurnal ale sistemului Android</item>
+        <item>Conține fișiere jurnal ale aplicaţiilor închise subit</item>
+        <item>Conține fișiere jurnal generate permanent</item>
+        <item>Conţine statistici despre ce aplicaţii au fost deschise deschise</item>
+        <item>Conţine urme de la \'aplicaţia nu răspunde\'</item>
+    </string-array>
+    <string name="prefcat_fix_perms">CORECTARE PERMISIUNI</string>
+    <string name="fix_perms_title">Corectarea permisiunilor</string>
+    <string name="fix_perms_msg">Această operaţie poate dura câteva minute. Continuaţi?</string>
+    <string name="preflogg_fix_perms">Permite înregistrarea</string>
+
+    <string name="free">liber %s</string>
+    <string name="used">folosit %s</string>
+
+    <!-- PC Settings -->
+    <string name="pt_use_light_theme">Utilizaţi o temă deschisă</string>
+    <string name="ps_use_light_theme">Dacă este bifată, aplicaţia va folosi o temă deschisă Holo</string>
+    <string name="pt_widget_bg_color">Culoarea Widgetului  bg</string>
+    <string name="pt_widget_text_color">Culoarea textului Widgetului</string>
+    <string name="pt_ver">"Versiune - "</string>
+    <!-- Color picker -->
+    <string name="dialog_color_picker">Alegerea Culorii</string>
+    <string name="press_color_to_apply">Apăsaţi pe Culoare pentru aplicare</string>
+    <string name="arrow_right">→</string>
+    <string name="arrow_down">↓</string>
+    <string name="hex">Hex:</string>
+    <string name="hex_hint">#FF000000</string>
+    <string name="set">Setaţi</string>
+    <string name="ics_color">Holo</string>
+
+</resources>

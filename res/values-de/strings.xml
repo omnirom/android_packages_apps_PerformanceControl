@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Translation by Rhonin86
+-->
+
+<resources>
+
+    <string name="app_name">Performance Control</string>
+    <!-- Main tabs -->
+    <string name="tab_cpu_settings">CPU Einstellungen</string>
+    <string name="tab_cpu_profiles">CPU Profile</string>
+    <string name="tab_battery_info">Akku</string>
+    <string name="tab_oom_settings">Speicher Einstellungen</string>
+    <string name="tab_time_in_state">Frequenzverteilung</string>
+    <string name="tab_voltage_settings">Spannungseinstellung</string>
+    <string name="tab_cpu_info">CPU Info</string>
+    <string name="tab_disk_info">Disk Info</string>
+    <string name="tab_tools">Tools</string>
+    <!-- Titles -->
+    <string name="t_cpu_settings">CPU Einstellungen</string>
+    <string name="t_battery_info">Akku</string>
+    <string name="t_oom_settings">Speicher Einstellungen</string>
+    <string name="t_volt_settings">Spannungseinstellung</string>
+    <string name="t_adv_settings">"Erweiterte Einstellungen"</string>
+    <string name="t_time_in_state">"Frequenzverteilung"</string>
+    <string name="t_cpu_info">CPU INFO</string>
+    <string name="t_disk_info">DISK INFO</string>
+    <string name="t_tools">TOOLS</string>
+
+    <string name="menu_tab">Tab</string>
+    <!-- Menu -->
+    <string name="mt_refresh">Aktualisiere</string>
+    <string name="mt_app_settings">"App Einstellungen"</string>
+    <string name="mt_reset">Reset</string>
+    <string name="mt_restore">Wiederherstellen</string>
+    <string name="mt_plus25">Erhöhe um 25 mV</string>
+    <string name="mt_minus25">Erniedrige um 25 mV</string>
+    <!-- CPU settings -->
+    <string name="current_speed">Aktuelle Geschwindigkeit</string>
+    <string name="current_max">Aktuelles Max:</string>
+    <string name="current_min">Aktuelles Min:</string>
+    <string name="governor">Governor</string>
+    <string name="io">IO Scheduler</string>
+    <string name="sob">Beim Start setzen</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Abbrechen</string>
+    <!-- Other settings -->
+    <string name="prefcat_free_memory">Freier Speicher</string>
+    <string name="prefcat_tweaks">Schnelles Laden</string>
+    <string name="prefcat_misc_short">Verschiedenes</string>
+    <string name="prefcat_read_ahead">Vorablesen von SD</string>
+    <string name="prefcat_vm_settings">VM Einstellungen</string>
+    <string name="dt_free_memory">Mindestverfügbarer Speicher</string>
+    <string name="dt_read_ahead">Vorablesen von SD</string>
+    <string name="pt_free_memory">Freier Speicher</string>
+    <string name="ps_free_memory">Die Menge an freien Speicher, die bereitgestellt wird |
+        Aktuell: %s
+    </string>
+    <string name="ps_free_memory_boot">Übernehme die o. g. Einstellungen beim Neustart</string>
+    <string name="pt_read_ahead">Vorablesen von SD</string>
+    <string name="ps_read_ahead">Vorab einzulesende Datenmenge beim SD-Karten Zugriff in kb |
+        Aktuell: %s
+    </string>
+
+    <string name="ps_fast_charge_boot">Schnelles Laden</string>
+    <string name="fast_charge_warning">Nach dem Neustart kann vom PC aus nicht auf das Handy
+        zu gegriffen werden!\n\nWährend "Schnelles Laden" aktiviert ist, kann nur geladen werden!
+    </string>
+    <string name="fast_charge_notification_title">Schnelles Laden ist aktiviert!</string>
+    <string name="fast_charge_notification_message">Das Handy kann nur geladen werden!</string>
+
+    <!-- minfree -->
+    <string name="prefcat_oom">Mindestverfügbarer Speicher</string>
+    <string name="title_foreground_app">Vordergrund Applikationen</string>
+    <string name="title_visible_app">Sichtbare Applikationen</string>
+    <string name="title_secondary_server">Hintergrund Applikationen</string>
+    <string name="title_hidden_app">Versteckte Applikationen</string>
+    <string name="title_content_providers">Inhaltsversorger</string>
+    <string name="title_empty_app">Leere Applikationen</string>
+    <string name="prefcat_oom_predefines">Voreinstellungen</string>
+    <string name="pt_oom">Mindestverfügbarer Speicher Voreinstellungen</string>
+
+    <string name="pt_verylight">Sehr Mild</string>
+    <string name="pref_verylight">2 MB,4 MB,5 MB,8 MB,12 MB,16 MB</string>
+    <string name="pt_light">Mild</string>
+    <string name="pref_light">4 MB,8 MB,2560,16 MB,24 MB,32 MB</string>
+    <string name="pt_medium">Mittel</string>
+    <string name="pref_medium">1024,8 MB,16 MB,32 MB,48 MB,64 MB</string>
+    <string name="pt_aggressive">Aggressiv</string>
+    <string name="pref_aggressive">8 MB,16 MB,32 MB,64 MB,96 MB,128 MB</string>
+    <string name="pt_veryaggressive">Sehr Aggressiv</string>
+    <string name="pref_veryaggressive">16 MB,32 MB,64 MB,128 MB,192 MB,256 MB</string>
+
+    <!-- do not kill proc -->
+    <string name="prefcat_user_proc">Speicherresistente Benutzerprozesse</string>
+    <string name="prefcat_sys_proc">Speicherresistente Systemprozesse</string>
+    <string name="pt_user_proc">Aktiviere Speicherresistente Benutzerprozesse</string>
+    <string name="pt_sys_proc">Aktiviere Speicherresistente Systemprozesse</string>
+    <string name="pt_user_names_proc">Liste der Benutzerprozesse</string>
+    <string name="pt_sys_names_proc">Liste der Systemprozesse</string>
+    <string name="ps_restore_boot">Stelle die obeen gemachten Einstellungen wieder her</string>
+    <string name="ps_user_proc">Liste der Namen der Benutzerprozesse durch Komma getrennt</string>
+    <string name="ps_sys_proc">Liste der Namen der Systemprozesse durch Komma getrennt</string>
+    <string name="no_proc">Keine Pakete</string>
+    <!-- bln -->
+    <string name="prefcat_bln">Backlight Notification</string>
+    <string name="pt_bln">Backlight Notification</string>
+    <!-- blx -->
+    <string name="blx_info">Batterie Lebensdauer Verlängerungsoption\nAuthor Ezekeel</string>
+    <string name="prefcat_blx">Batterie Ledensdauer Verlängerer</string>
+    <string name="pt_blx_boot">Beim Neustart anwenden</string>
+    <string name="ps_blx_boot">Den eingestellten Wert nach dem Neustart anwenden</string>
+    <string name="blx_title">Maximale Ladung:</string>
+    <!-- dsync -->
+    <string name="dsync_info">Dynamisches FSync \nAuthor Paul Reioux (faux123)</string>
+    <string name="prefcat_dsync">Dynamisches FSYNC</string>
+    <string name="ps_dsync">Einstellungen werden nach dem Neustart wieder hergestellt</string>
+    <string name="pt_dsync">Dynamisches Fsync</string>
+    <!-- bl_timeout -->
+    <string name="prefcat_bltimeout">Backlight Dauer</string>
+    <string name="ps_bltimeout">%s ms</string>
+    <string name="bltimeout_title">Backlight Dauer</string>
+    <!-- bl_touch -->
+    <string name="prefcat_bltouch">Backlight des Touchscreens</string>
+    <string name="pt_bltouch">Backlight des Touchscreens</string>
+    <!-- pfk -->
+    <string name="pfk_info">Phantomtastendruck Filter Modul ver. %s\nAuthor Cristoforo Cataldo (Christopher83)</string>
+    <string name="prefcat_pfk">Phantomtastendruck Filter</string>
+    <string name="pt_home_enabled">Home Tasten Filter</string>
+    <string name="ps_home_enabled">Ignorierte Tastendrücke: %s</string>
+    <string name="home_allowed_irq_title">Max. erlaubte Interrupts</string>
+    <string name="home_report_wait_title">Berichtswartezeit </string>
+
+    <string name="pt_menuback_enabled">Menü/Zurück Tasten Filter</string>
+    <string name="ps_menuback_enabled">Ignorierte Tastendrücke: %s</string>
+    <string name="menuback_interrupt_checks_title">Interrupt Überprüfungen</string>
+    <string name="menuback_first_err_wait_title">Wartezeit nach erstem Fehler</string>
+    <string name="menuback_last_err_wait_title">Wartezeit nach letztem Fehler</string>
+    <string name="ps_pfk_set_on_boot">Wenn aktiviert werden die PKF-Einstellungen nach einem Neustart wieder hergestellt</string>
+    <!-- dynamic write back -->
+    <string name="dynamic_writeback_info">Dynamic Dirty Page Writebacks \nAuthor Cristoforo Cataldo (Christopher83)</string>
+    <string name="dynamic_write_back_title">DYNAMIC DIRTY PAGE WRITEBACKS</string>
+    <string name="pt_dynamic_write_back">Dynamic Dirty Writeback</string>
+    <string name="dynamic_writeback_active_title">Dirty Writeback aktiv Hundertstel Sek.</string>
+    <string name="dynamic_writeback_suspend_title">Dirty Writeback inaktiv Hundertstel Sek.</string>
+    <!--  -->
+    <string name="size_25_mb">25mb</string>
+    <string name="size_50_mb">50mb</string>
+    <string name="size_75_mb">75mb</string>
+    <string name="size_80_mb">80mb</string>
+    <string name="size_100_mb">100mb</string>
+    <string name="size_128_kb">128kb</string>
+    <string name="size_256_kb">256kb</string>
+    <string name="size_512_kb">512kb</string>
+    <string name="size_1024_kb">1024kb</string>
+    <string name="size_2048_kb">2048kb</string>
+    <string name="size_4096_kb">4096kb</string>
+    <!-- Voltage control -->
+    <string name="volt_info">Achtung!\nBevor nach Neustart anwenden aktiviert wurde sicherstellen, dass die eingegebenen Werte keine Grenzen verletzten.</string>
+    <string name="ps_volt_mhz_voltage">" Hz Spannung"</string>
+    <string name="ps_volt_save">"Speichern"</string>
+    <string name="ps_volt_current_voltage">"Aktuelle Spannung: "</string>
+    <string name="ps_volt_setting_to_apply">"Anzuwendende Einstellung: "</string>
+    <string name="pt_volt_control">Spannungskontrolle</string>
+    <string name="ps_volt_control">Weise jeder Frequenz eine Spannung zu</string>
+    <string name="apply_values">Wende die Daten an</string>
+    <string name="freq">Frequenz</string>
+    <string name="current">mV aktuell</string>
+    <string name="saved">mV gespeichert</string>
+    <string name="not_supported">Dein Kernel unterstützt keine Spannungsanpassung</string>
+    <!-- VM settings -->
+    <string name="ps_vm_set_on_boot">Wenn aktiviert werden alle VM Einstellungen nach dem Neustart wieder hergestellt</string>
+    <string name="dirty_ratio_title">Dirty ratio</string>
+    <string name="dirty_background_title">Dirty background ratio</string>
+    <string name="dirty_expire_title">Dirty expire Hundertstel Sek.</string>
+    <string name="dirty_writeback_title">Dirty writeback Hundertstel Sek.</string>
+    <string name="min_free_title">Minfree kbytes</string>
+    <string name="overcommit_title">Overcommit ratio</string>
+    <string name="swappiness_title">Swappiness</string>
+    <string name="vfs_title">VFS cache pressure</string>
+    <!-- Time in state -->
+    <string name="time_in_state">Frequenzverteilung</string>
+    <string name="unused_cpu_states">Ungenutzte CPU Frequenzen</string>
+    <string name="total_state_time">Gesamtlaufzeit</string>
+    <string name="no_states_file_found">Keine Status-Datei gefunden. Bist Du sicher, dass Dein Handy kompatibel
+        ist?\n\nWenn Du eine Custom ROM oder einen Custom Kernel nutzt, informiere den
+        Entwickler, dass keine lesbare Status-Datei erzeugt wird
+    </string>
+    <string name="deep_sleep">"Deep Sleep"</string>
+    <!-- CPU info -->
+    <string name="kernel_info">Linux Kernel Information</string>
+    <string name="cpu_info">CPU Information</string>
+    <string name="mem_info">Speicher Information</string>
+    <string name="first_run_title">Rootberechtigung überprüfen</string>
+    <string name="su_success_title">Erfolgreich!</string>
+    <string name="su_failed_title">Ups!</string>
+    <string name="first_run_message">Die Anwendung überprüft den Rootzugriff und
+        BusyBox. Drücke OK um weiter zu machen. Abbrechen, wenn der Anwendung kein Root Zugang
+        gewährt werden soll.
+    </string>
+    <string name="su_success_message">Performance Control hat Root Zugang und hat BusyBox
+        gefunden. Los geht's !
+    </string>
+    <string name="su_cancel_message">Du hast Dich entschieden der Anwendung keinen Rootzugang zu gewähren.
+        Die meisten Funktionen benötigen aber Root Zugang. Tut mir leid!
+    </string>
+    <string name="su_failed_su_or_busybox">Kein Root Zugang oder BusyBox nicht gefunden. Die meisten
+        Funktionen benötigen aber Root Zugang. Tut mir leid!
+    </string>
+
+    <!-- Tools -->
+    <string name="prefcat_sh">Individueller Shell Befehl</string>
+    <string name="sh_title">Editiere Shell Befehl</string>
+    <string name="ps_sh">Der Befehl wird nach dem Neustart ausgeführt</string>
+    <string name="sh_msg">Leer lassen für keine Aktion</string>
+    <string name="clear">Lösche</string>
+    <string name="yes">Ja</string>
+    <string name="wait">Bitte warten…</string>
+    <string name="prefcat_wipe_cache">Cache und Dalvik Cache</string>
+    <string name="wipe_cache_title">Lösche Cache und Dalvik Cache</string>
+    <string name="ps_wipe_cache">Cache Partition: %s</string>
+    <string name="wipe_cache_msg">Am Ende wird das System neu gestartet. Weiter machen?</string>
+
+    <string name="prefcat_flash_img">Flash *.img Datei</string>
+    <string name="kernel_img_title">Flash Kernel</string>
+    <string name="ps_kernel_img">Flash boot.img als Kernel und benutze \'dd\' binary</string>
+    <string name="recovery_img_title">Flash Recovery</string>
+    <string name="ps_recovery_img">Flash recovery.img als Recovery und benutze \'dd\' binary</string>
+    <string name="btn_choose">Wähle %s</string>
+    <string name="unsupported_info">Dein Gerät wird nciht unterstützt</string>
+    <string name="flash_info">wird geflasht auf die Partition \n%s\n as</string>
+    <string name="dir_parent">&lt;Parent DIR&gt;</string>
+    <string name="dir">&lt;DIR&gt;</string>
+    <string name="bkexit">Drücke nochmal zum Beenden</string>
+
+    <string name="prefcat_residual_files">Lösche überflüssige Dateien</string>
+    <string name="residual_files_title">Lösche überflüssige Dateien</string>
+    <string name="btncleanall">Lösche alle</string>
+    <string name="clean_files_msg">Überflüssige Dateien von %s werden gelöscht. Weiter machen?</string>
+    <string name="filesstr">Datei(en)</string>
+    <string name="no_residuals">keine überflüssigen Dateien</string>
+
+    <string name="prefcat_optim_db">Optimiere DBs</string>
+    <string name="optim_db_title">Optimiere Datenbank</string>
+    <string name="ps_optim_db">Dies optimiert die Datenbank unter Verwendung des SQL Befehls VACUUM.</string>
+
+    <string-array name="residual_info">
+        <item>Beinhaltet Android System Log Dateien</item>
+        <item>Beinhaltet Log Dateine von abgestürzten Apps</item>
+        <item>Beinhaltet ständig erzeugte Log Dateien</item>
+        <item>Beinhaltet Statistiken Deiner gestarteten Apps</item>
+        <item>Beinhaltet Traces von \'Anwendung reagiert nicht\' Ereignissen</item>
+    </string-array>
+    <string name="prefcat_fix_perms">Repariere Berechtigungen</string>
+    <string name="fix_perms_title">Repariere Berechtigungen</string>
+    <string name="fix_perms_msg">Diese Aktion benötigt mehrere Minuten. Weiter machen?</string>
+    <string name="preflogg_fix_perms">Aktiviere Loggen</string>
+
+    <string name="free">frei %s</string>
+    <string name="used">genutzt %s</string>
+
+    <!-- PC Settings -->
+    <string name="pt_use_light_theme">Benutze das helle Theme</string>
+    <string name="ps_use_light_theme">Wenn angewählt wird das helle HOLO-Theme verwendet</string>
+    <string name="pt_widget_bg_color">Widget Hintergrundfarbe</string>
+    <string name="pt_widget_text_color">Widget Textfarbe</string>
+    <string name="pt_ver">"Version - "</string>
+    <!-- Color picker -->
+    <string name="dialog_color_picker">Farbwähler</string>
+    <string name="press_color_to_apply">Drücke die zu benutzende Farbe</string>
+    <string name="arrow_right">→</string>
+    <string name="arrow_down">↓</string>
+    <string name="hex">Hex:</string>
+    <string name="hex_hint">#FF000000</string>
+    <string name="set">Set</string>
+    <string name="ics_color">Holo</string>
+
+</resources>
