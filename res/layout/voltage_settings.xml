@@ -56,7 +56,8 @@ Copyright (C) 2012  James Roberts
                 android:textSize="14sp"
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
-                android:paddingBottom="4dip"/>
+                android:paddingBottom="4dip"
+                android:paddingLeft="4dip"/>
 
         <Switch
                 android:id="@+id/applyAtBoot"
