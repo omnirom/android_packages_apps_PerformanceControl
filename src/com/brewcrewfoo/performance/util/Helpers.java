@@ -435,7 +435,7 @@ public class Helpers implements Constants {
             f.close();
             final String s = new String(buffer);
             final StringBuffer sb = new StringBuffer(s);
-            if(!aux.equals("")){ sb.insert(0,aux); }
+            if(!aux.equals("")){ sb.insert(0,aux+"\n"); }
             sb.insert(0,"#!"+Helpers.binExist("sh")+"\n\n");
             try {
                 FileOutputStream fos;
