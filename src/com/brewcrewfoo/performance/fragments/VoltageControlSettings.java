@@ -76,7 +76,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
 
         if (mVoltages.isEmpty()) {
             ((TextView) view.findViewById(R.id.emptyList)).setVisibility(View.VISIBLE);
-            ((LinearLayout) view.findViewById(R.id.BottomBar)).setVisibility(View.GONE);
+            ((RelativeLayout) view.findViewById(R.id.BottomBar)).setVisibility(View.GONE);
         }
 
         setOnBoot.setChecked(mPreferences.getBoolean(VOLTAGE_SOB, false));
