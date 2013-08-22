@@ -38,44 +38,49 @@ Copyright (C) 2012  James Roberts
             android:text="@string/not_supported"
             android:visibility="gone"/>
 
-    <LinearLayout
+
+    <RelativeLayout
             android:id="@+id/BottomBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="14dip">
 
         <TextView
                 android:id="@+id/set_on_boot_voltage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:layout_marginTop="10dip"
                 android:gravity="center_vertical"
                 android:text="@string/sob"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="false"
+                android:paddingBottom="4dip"/>
 
         <Switch
                 android:id="@+id/applyAtBoot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"/>
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="false"
+                android:layout_below="@+id/set_on_boot_voltage"/>
 
         <Button
                 android:id="@+id/applyBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="10dip"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:text="@string/apply_values"
-                android:textSize="14sp"/>
-    </LinearLayout>
+                android:textSize="14sp"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="false"
+                android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
 
 </RelativeLayout>
 

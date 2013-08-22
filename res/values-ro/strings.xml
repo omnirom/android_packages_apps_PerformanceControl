@@ -151,7 +151,7 @@ Translation by Laurentiu1996
     <string name="size_4096_kb">4096kb</string>
     <!-- Voltage control -->
     <string name="volt_info">ATENŢIE!\nÎnaintea activării "Aplică la bootare", asigură-te că valorile introduse nu depăşesc limitele admise, altfel telefonul se va bloca.</string>
-    <string name="ps_volt_mhz_voltage">"Tensiunea în Hz"</string>
+    <string name="ps_volt_mhz_voltage">" Hz"</string>
     <string name="ps_volt_save">"Salveză"</string>
     <string name="ps_volt_current_voltage">"Tensiunea Curentă: "</string>
     <string name="ps_volt_setting_to_apply">"Setările de aplicat : "</string>
@@ -214,7 +214,7 @@ Translation by Laurentiu1996
     <string name="ps_recovery_img">Flash fişier recovery.img ca şi recovery folosind \'dd\' binar</string>
     <string name="btn_choose">Alege %s</string>
     <string name="unsupported_info">Telefonul dumneavoastră nu este suportat.</string>
-    <string name="flash_info">Va fi flash-uit pe partitia\n%s\n ca şi</string>
+    <string name="flash_info">va fi flash-uit pe partitia\n%s\n ca şi</string>
     <string name="dir_parent">&lt;Parent DIR&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
     <string name="bkexit">Apăsaţi din nou pentru ieşire</string>

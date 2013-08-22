@@ -157,7 +157,7 @@ Translation by Rhonin86
     <string name="size_4096_kb">4096kb</string>
     <!-- Voltage control -->
     <string name="volt_info">Achtung!\nBevor nach Neustart anwenden aktiviert wurde sicherstellen, dass die eingegebenen Werte keine Grenzen verletzten.</string>
-    <string name="ps_volt_mhz_voltage">" Hz Spannung"</string>
+    <string name="ps_volt_mhz_voltage">" Hz"</string>
     <string name="ps_volt_save">"Speichern"</string>
     <string name="ps_volt_current_voltage">"Aktuelle Spannung: "</string>
     <string name="ps_volt_setting_to_apply">"Anzuwendende Einstellung: "</string>
