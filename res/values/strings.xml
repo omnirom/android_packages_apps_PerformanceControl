@@ -268,7 +268,7 @@ Copyright (C) 2012  James Roberts
     </string-array>
     <string name="prefcat_fix_perms">FIX PERMISSIONS</string>
     <string name="fix_perms_title">Fix permissions</string>
-    <string name="fix_perms_msg">This operation may take several minutes. Continue?</string>
+    <string name="fix_perms_msg">Operation may take several minutes. Continue?</string>
     <string name="preflogg_fix_perms">Enable logging</string>
 
     <string name="free">free %s</string>

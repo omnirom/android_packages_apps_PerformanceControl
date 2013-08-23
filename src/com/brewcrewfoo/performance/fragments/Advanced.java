@@ -224,7 +224,7 @@ public class Advanced extends PreferenceFragment implements
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        String key = preference.getKey();
+
 	if (preference == mDsync){
 		if (Integer.parseInt(Helpers.readOneLine(DSYNC_PATH))==0){
 			new CMDProcessor().su.runWaitFor("busybox echo 1 > " + DSYNC_PATH);

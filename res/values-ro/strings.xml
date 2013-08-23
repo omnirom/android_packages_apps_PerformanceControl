@@ -7,20 +7,20 @@ Translation by Laurentiu1996
 
     <string name="app_name">Performance Control</string>
     <!-- Main tabs -->
-    <string name="tab_cpu_settings">Setările CPU</string>
-    <string name="tab_cpu_profiles">Profilele CPU</string>
-    <string name="tab_battery_info">Bateria</string>
-    <string name="tab_oom_settings">Setările memoriei</string>
+    <string name="tab_cpu_settings">Setări CPU</string>
+    <string name="tab_cpu_profiles">Profile CPU</string>
+    <string name="tab_battery_info">Baterie</string>
+    <string name="tab_oom_settings">Setări memoriei</string>
     <string name="tab_time_in_state">Timp de lucru</string>
-    <string name="tab_voltage_settings">Setările Tensiunii</string>
+    <string name="tab_voltage_settings">Setări Tensiune</string>
     <string name="tab_cpu_info">Informaţii CPU</string>
     <string name="tab_disk_info">Informatii Disk</string>
     <string name="tab_tools">Unelte</string>
     <!-- Titles -->
-    <string name="t_cpu_settings">SETĂRILE CPU</string>
-    <string name="t_battery_info">BATERIA</string>
-    <string name="t_oom_settings">SETĂRILE MEMORIEI</string>
-    <string name="t_volt_settings">SETĂRILE TENSIUNII</string>
+    <string name="t_cpu_settings">SETĂRI CPU</string>
+    <string name="t_battery_info">BATERIE</string>
+    <string name="t_oom_settings">SETĂRI MEMORIEI</string>
+    <string name="t_volt_settings">SETĂRI TENSIUNE</string>
     <string name="t_adv_settings">"SETĂRI AVANSATE"</string>
     <string name="t_time_in_state">"TIMP DE LUCRU"</string>
     <string name="t_cpu_info">INFORMAŢII CPU</string>
@@ -36,9 +36,9 @@ Translation by Laurentiu1996
     <string name="mt_plus25">Creşte cu 25 mV</string>
     <string name="mt_minus25">Scade cu 25 mV</string>
     <!-- CPU settings -->
-    <string name="current_speed">Viteza curentă</string>
-    <string name="current_max">Max. curentă:</string>
-    <string name="current_min">Min. curentă:</string>
+    <string name="current_speed">Frecvenţa curentă</string>
+    <string name="current_max">Frecvenţa actuală max.:</string>
+    <string name="current_min">Frecvenţa actuală min.:</string>
     <string name="governor">Governator</string>
     <string name="io">IO Scheduler</string>
     <string name="sob">Aplică la bootare</string>
@@ -239,7 +239,7 @@ Translation by Laurentiu1996
     </string-array>
     <string name="prefcat_fix_perms">CORECTARE PERMISIUNI</string>
     <string name="fix_perms_title">Corectarea permisiunilor</string>
-    <string name="fix_perms_msg">Această operaţie poate dura câteva minute. Continuaţi?</string>
+    <string name="fix_perms_msg">Operaţia poate dura câteva minute. Continuaţi?</string>
     <string name="preflogg_fix_perms">Permite înregistrarea</string>
 
     <string name="free">liber %s</string>

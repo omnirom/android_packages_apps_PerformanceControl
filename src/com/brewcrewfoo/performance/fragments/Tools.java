@@ -38,6 +38,7 @@ import android.preference.*;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateUtils;
 import android.view.*;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,19 +57,34 @@ public class Tools extends PreferenceFragment implements
         OnSharedPreferenceChangeListener, OnPreferenceChangeListener, Constants {
 
     private static final int NEW_MENU_ID=Menu.FIRST+1;
+    private byte tip;
     private SharedPreferences mPreferences;
     private EditText settingText;
     private Boolean isrun=false;
     private ProgressDialog progressDialog;
+    private Preference mResidualFiles;
+    private Preference mOptimDB;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
   	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.tools);
+
+        mResidualFiles=(Preference) findPreference(RESIDUAL_FILES);
+        mOptimDB=(Preference) findPreference(PREF_OPTIM_DB);
+
+        long mStartTime=mPreferences.getLong(RESIDUAL_FILES, 0);
+        mResidualFiles.setSummary("");
+        if (mStartTime>0)
+            mResidualFiles.setSummary(DateUtils.getRelativeTimeSpanString(mStartTime));
+
+        mStartTime=mPreferences.getLong(PREF_OPTIM_DB, 0);
+        mOptimDB.setSummary("");
+        if (mStartTime>0)
+            mOptimDB.setSummary(DateUtils.getRelativeTimeSpanString(mStartTime));
 
         if(Helpers.binExist("dd").equals(NOT_FOUND)){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_flash_img");
@@ -82,11 +98,22 @@ public class Tools extends PreferenceFragment implements
         setHasOptionsMenu(true);
     }
 
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (isrun) {
-            progressDialog = ProgressDialog.show(getActivity(), getString(R.string.fix_perms_title),getString(R.string.wait));
+            switch (tip){
+                case 0:
+                    progressDialog = ProgressDialog.show(getActivity(), getString(R.string.wipe_cache_title),getString(R.string.wait));
+                    break;
+                case 1:
+                    progressDialog = ProgressDialog.show(getActivity(), getString(R.string.fix_perms_title),getString(R.string.wait));
+                    break;
+                case 2:
+                    progressDialog = ProgressDialog.show(getActivity(), getString(R.string.optim_db_title),getString(R.string.wait));
+                    break;
+            }
         }
     }
     @Override
@@ -132,12 +159,26 @@ public class Tools extends PreferenceFragment implements
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(RESIDUAL_FILES)) {
+            mResidualFiles.setSummary("");
+            final long mStartTime=sharedPreferences.getLong(key,0);
+            if (mStartTime>0)
+                mResidualFiles.setSummary(DateUtils.getRelativeTimeSpanString(mStartTime));
+
+        }
+        else if (key.equals(PREF_OPTIM_DB)) {
+            mOptimDB.setSummary("");
+            final long mStartTime=sharedPreferences.getLong(key,0);
+            if (mStartTime>0)
+                mOptimDB.setSummary(DateUtils.getRelativeTimeSpanString(mStartTime));
+        }
 
     }
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key = preference.getKey();
+
         if (key.equals(PREF_SH)) {
             shEditDialog(key,getString(R.string.sh_title),getString(R.string.sh_msg));
         }
@@ -183,18 +224,6 @@ public class Tools extends PreferenceFragment implements
         else if(key.equals(PREF_FIX_PERMS)) {
             Helpers.get_assetsFile("fix_permissions",getActivity(),"#");
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            /*View view = getActivity().getLayoutInflater().inflate(R.layout.fp_dialog, null);
-
-            sw1 = (Switch) view.findViewById(R.id.fplog);
-            sw1.setChecked(mPreferences.getBoolean(FP_LOG, false));
-            sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton v,boolean checked) {
-                            final SharedPreferences.Editor editor = mPreferences.edit();
-                            editor.putBoolean(FP_LOG, checked).commit();
-                        }
-            });
-*/
             builder.setTitle(getString(R.string.fix_perms_title))
                     .setMessage(getString(R.string.fix_perms_msg))
                         .setNegativeButton(getString(R.string.cancel),
@@ -224,7 +253,7 @@ public class Tools extends PreferenceFragment implements
             Helpers.get_assetsFile("sql_optimize",getActivity(),"#");
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getString(R.string.optim_db_title))
-                    .setMessage(getString(R.string.fix_perms_msg))
+                    .setMessage(getString(R.string.ps_optim_db)+"\n\n"+getString(R.string.fix_perms_msg))
                     .setNegativeButton(getString(R.string.cancel),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -267,11 +296,7 @@ public class Tools extends PreferenceFragment implements
     private class FixPermissionsOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            //final StringBuilder sb = new StringBuilder();
-            //sb.append("");
-            //if(mPreferences.getBoolean(FP_LOG, false))
-            //    sb.append(" -l");
-            new CMDProcessor().su.runWaitFor(SH_PATH);// + sb.toString());
+            new CMDProcessor().su.runWaitFor(SH_PATH);
             return null;
         }
 
@@ -286,6 +311,7 @@ public class Tools extends PreferenceFragment implements
         @Override
         protected void onPreExecute() {
             isrun=true;
+            tip=1;
             progressDialog = ProgressDialog.show(getActivity(), getString(R.string.fix_perms_title),getString(R.string.wait));
             new CMDProcessor().su.runWaitFor("busybox cat "+ISTORAGE+"fix_permissions > " + SH_PATH );
         }
@@ -306,6 +332,7 @@ public class Tools extends PreferenceFragment implements
             new WipeCacheOperation().execute();
         }
     }
+
     private class WipeCacheOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
@@ -328,6 +355,7 @@ public class Tools extends PreferenceFragment implements
         @Override
         protected void onPreExecute() {
             isrun=true;
+            tip=0;
             progressDialog = ProgressDialog.show(getActivity(), getString(R.string.wipe_cache_title),getString(R.string.wait));
         }
 
@@ -365,7 +393,9 @@ public class Tools extends PreferenceFragment implements
         @Override
         protected void onPreExecute() {
             isrun=true;
+            tip=2;
             progressDialog = ProgressDialog.show(getActivity(), getString(R.string.optim_db_title),getString(R.string.wait));
+            mPreferences.edit().putLong(PREF_OPTIM_DB,System.currentTimeMillis()).commit();
             new CMDProcessor().su.runWaitFor("busybox cat "+ISTORAGE+"sql_optimize > " + SH_PATH );
         }
 

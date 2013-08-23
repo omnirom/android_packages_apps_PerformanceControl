@@ -253,7 +253,7 @@ Translation by Rhonin86
     </string-array>
     <string name="prefcat_fix_perms">Repariere Berechtigungen</string>
     <string name="fix_perms_title">Repariere Berechtigungen</string>
-    <string name="fix_perms_msg">Diese Aktion benötigt mehrere Minuten. Weiter machen?</string>
+    <string name="fix_perms_msg">Aktion benötigt mehrere Minuten. Weiter machen?</string>
     <string name="preflogg_fix_perms">Aktiviere Loggen</string>
 
     <string name="free">frei %s</string>

@@ -39,6 +39,14 @@ Copyright (C) 2012  James Roberts
 
     </PreferenceCategory>
     <PreferenceCategory
+            android:key="category_fix_perms"
+            android:title="@string/prefcat_fix_perms">
+        <Preference
+                android:key="pref_fix_perms"
+                android:title="@string/fix_perms_title"/>
+
+    </PreferenceCategory>
+    <PreferenceCategory
             android:key="category_flash_img"
             android:title="@string/prefcat_flash_img">
         <Preference
@@ -51,14 +59,7 @@ Copyright (C) 2012  James Roberts
                 android:title="@string/recovery_img_title"/>
 
     </PreferenceCategory>
-    <PreferenceCategory
-            android:key="category_fix_perms"
-            android:title="@string/prefcat_fix_perms">
-        <Preference
-                android:key="pref_fix_perms"
-                android:title="@string/fix_perms_title"/>
 
-    </PreferenceCategory>
     <PreferenceCategory
             android:key="category_residual_files"
             android:title="@string/prefcat_residual_files">
@@ -72,7 +73,6 @@ Copyright (C) 2012  James Roberts
             android:title="@string/prefcat_optim_db">
         <Preference
                 android:key="pref_optim_db"
-                android:title="@string/optim_db_title"
-                android:summary="@string/ps_optim_db"/>
+                android:title="@string/optim_db_title"/>
     </PreferenceCategory>
 </PreferenceScreen>
