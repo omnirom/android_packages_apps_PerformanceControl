@@ -39,7 +39,7 @@ Translation by Laurentiu1996
     <string name="current_speed">Frecvenţa curentă</string>
     <string name="current_max">Frecvenţa actuală max.:</string>
     <string name="current_min">Frecvenţa actuală min.:</string>
-    <string name="governor">Governator</string>
+    <string name="governor">Governor</string>
     <string name="io">IO Scheduler</string>
     <string name="sob">Aplică la bootare</string>
     <string name="ok">OK</string>
