@@ -54,7 +54,6 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
     private static final int NEW_MENU_ID=Menu.FIRST+1;
 
     private SharedPreferences mPreferences;
-	protected Context mContext;
 	
 	private int mSeekbarProgress;
 	private EditText settingText;
@@ -65,12 +64,18 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 	private Preference mHiddenApp;
 	private Preference mContentProviders;
 	private Preference mEmptyApp;
+
+    private Preference mVerylight;
+    private Preference mLight;
+    private Preference mMedium;
+    private Preference mAggressive;
+    private Preference mVeryaggressive;
 	
-	private Preference mVerylight;
-	private Preference mLight;
-	private Preference mMedium;
-	private Preference mAggressive;
-	private Preference mVeryaggressive;
+	final private String Verylight="512,1024,1280,2048,3072,4096";
+	final private String Light="1024,2048,2560,4096,6144,8192";
+	final private String Medium="1024,2048,4096,8192,12288,16384";
+	final private String Aggressive="2048,4096,8192,16384,24576,32768";
+	final private String Veryaggressive="4096,8192,16384,32768,49152,65536";
 	
 	private String values[];
 
@@ -100,15 +105,15 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
         mEmptyApp=(Preference) findPreference(OOM_EMPTY_APP);
 
         mVerylight=(Preference) findPreference("oom_verylight");
-        mVerylight.setSummary( getString(R.string.pref_verylight));
+        mVerylight.setSummary(Verylight);
         mLight=(Preference) findPreference("oom_light");
-        mLight.setSummary( getString(R.string.pref_light));
+        mLight.setSummary( Light);
         mMedium=(Preference) findPreference("oom_medium");
-        mMedium.setSummary( getString(R.string.pref_medium));
+        mMedium.setSummary(Medium);
         mAggressive=(Preference) findPreference("oom_aggressive");
-        mAggressive.setSummary( getString(R.string.pref_aggressive));
+        mAggressive.setSummary(Aggressive);
         mVeryaggressive=(Preference) findPreference("oom_veryaggressive");
-        mVeryaggressive.setSummary( getString(R.string.pref_veryaggressive));
+        mVeryaggressive.setSummary(Veryaggressive);
 
         updateOOM(values);
 
@@ -207,41 +212,36 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 			return true;
 		}
 		else if (preference.equals(mVerylight)) {
-			final String s = getString(R.string.pref_verylight);
-			new CMDProcessor().su.runWaitFor("busybox echo " + s + " > " + MINFREE_PATH);
-			mPreferences.edit().putString(PREF_MINFREE, s).apply();
+			new CMDProcessor().su.runWaitFor("busybox echo " + Verylight + " > " + MINFREE_PATH);
+			mPreferences.edit().putString(PREF_MINFREE, Verylight).apply();
 			values = Helpers.readOneLine(MINFREE_PATH).split(",");		
 			updateOOM(values);
 			return true;
 		}
 		else if (preference.equals(mLight)) {
-			final String s = getString(R.string.pref_light);
-			new CMDProcessor().su.runWaitFor("busybox echo " + s + " > " + MINFREE_PATH);
-			mPreferences.edit().putString(PREF_MINFREE, s).apply();
+			new CMDProcessor().su.runWaitFor("busybox echo " + Light + " > " + MINFREE_PATH);
+			mPreferences.edit().putString(PREF_MINFREE, Light).apply();
 			values = Helpers.readOneLine(MINFREE_PATH).split(",");		
 			updateOOM(values);
 			return true;
 		}
 		else if (preference.equals(mMedium)) {
-			final String s = getString(R.string.pref_medium);
-			new CMDProcessor().su.runWaitFor("busybox echo " + s + " > " + MINFREE_PATH);
-			mPreferences.edit().putString(PREF_MINFREE, s).apply();
+			new CMDProcessor().su.runWaitFor("busybox echo " + Medium + " > " + MINFREE_PATH);
+			mPreferences.edit().putString(PREF_MINFREE, Medium).apply();
 			values = Helpers.readOneLine(MINFREE_PATH).split(",");		
 			updateOOM(values);
 			return true;
 		}
 		else if (preference.equals(mAggressive)) {
-			final String s = getString(R.string.pref_aggressive);
-			new CMDProcessor().su.runWaitFor("busybox echo " + s + " > " + MINFREE_PATH);
-			mPreferences.edit().putString(PREF_MINFREE, s).apply();
+			new CMDProcessor().su.runWaitFor("busybox echo " + Aggressive + " > " + MINFREE_PATH);
+			mPreferences.edit().putString(PREF_MINFREE, Aggressive).apply();
 			values = Helpers.readOneLine(MINFREE_PATH).split(",");		
 			updateOOM(values);
 			return true;
 		}
 		else if (preference.equals(mVeryaggressive)) {
-			final String s = getString(R.string.pref_veryaggressive);
-			new CMDProcessor().su.runWaitFor("busybox echo " + s + " > " + MINFREE_PATH);
-			mPreferences.edit().putString(PREF_MINFREE, s).apply();
+			new CMDProcessor().su.runWaitFor("busybox echo " + Veryaggressive + " > " + MINFREE_PATH);
+			mPreferences.edit().putString(PREF_MINFREE, Veryaggressive).apply();
 			values = Helpers.readOneLine(MINFREE_PATH).split(",");		
 			updateOOM(values);
 			return true;
@@ -311,17 +311,8 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 	}
 	
     private int oomConv(String s) {
-        int v = 0;
-
-        if (!s.equals(null) || !s.equals("")) {
-            try {
-                int mb = Integer.parseInt(s.trim()) * 4 / 1024;
-                v = (int) Math.ceil(mb);
-            } catch (NumberFormatException nfe) {
-                Log.i(TAG, "error processing " + s);
-            }
-        }
-        return v;
+        final int mb = Integer.parseInt(s.trim()) * 4 / 1024;
+        return (int) Math.ceil(mb);
     }
 	
 	private static String implodeArray(String[] inputArray, String glueString) {

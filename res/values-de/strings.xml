@@ -81,15 +81,10 @@ Translation by Rhonin86
     <string name="pt_oom">Mindestverfügbarer Speicher Voreinstellungen</string>
 
     <string name="pt_verylight">Sehr Mild</string>
-    <string name="pref_verylight">512,1024,1280,2048,3072,4096</string>
     <string name="pt_light">Mild</string>
-    <string name="pref_light">1024,2048,2560,4096,6144,8192</string>
     <string name="pt_medium">Mittel</string>
-    <string name="pref_medium">1024,2048,4096,8192,12288,16384</string>
     <string name="pt_aggressive">Aggressiv</string>
-    <string name="pref_aggressive">2048,4096,8192,16384,24576,32768</string>
     <string name="pt_veryaggressive">Sehr Aggressiv</string>
-    <string name="pref_veryaggressive">4096,8192,16384,32768,49152,65536</string>
 
     <!-- do not kill proc -->
     <string name="prefcat_user_proc">Speicherresistente Benutzerprozesse</string>
