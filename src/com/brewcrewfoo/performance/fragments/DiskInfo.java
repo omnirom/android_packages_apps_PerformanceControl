@@ -75,7 +75,7 @@ public class DiskInfo extends Fragment implements Constants {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        //setRetainInstance(true);
         setHasOptionsMenu(true);
     }
     @Override
