@@ -157,7 +157,10 @@ public class VoltageControlSettings extends Fragment implements Constants {
 
         return view;
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.voltage_control_menu, menu);
