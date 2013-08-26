@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,8 +17,11 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
+import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
@@ -65,20 +69,86 @@ public class DiskInfo extends Fragment implements Constants {
     private TextView sd2free;
     private ProgressBar sd2bar;
 
+    private String internalsd="";
+    private String externalsd="";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         setHasOptionsMenu(true);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup root,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.disk_info, root, false);
+        CMDProcessor.CommandResult cr;
 
         lsys=(RelativeLayout) view.findViewById(R.id.system);
+        lsys.setOnClickListener(new View.OnClickListener(){
+            private byte ck=0;
+            @Override
+            public void onClick(View v){
+                if(++ck%2==1){
+                    set_ex_info("/system",systotal, sysused, sysfree);
+                }
+                else{
+                    set_part_info("/system", "System", sysname, systotal, sysused, sysfree, sysbar, lsys);
+                }
+            }
+        });
+
         ldata=(RelativeLayout) view.findViewById(R.id.data);
+        ldata.setOnClickListener(new View.OnClickListener(){
+            private byte ck=0;
+            @Override
+            public void onClick(View v){
+                if(++ck%2==1){
+                    set_ex_info("/data", datatotal, dataused, datafree);
+                }
+                else{
+                    set_part_info("/data", "Data", dataname, datatotal, dataused, datafree, databar, ldata);
+                }
+            }
+        });
         lcache=(RelativeLayout) view.findViewById(R.id.cache);
+        lcache.setOnClickListener(new View.OnClickListener(){
+            private byte ck=0;
+            @Override
+            public void onClick(View v){
+                if(++ck%2==1){
+                    set_ex_info("/cache",cachetotal,cacheused,cachefree);
+                }
+                else{
+                    set_part_info("/cache","Cache",cachename,cachetotal,cacheused,cachefree,cachebar,lcache);
+                }
+            }
+        });
         lsd1=(RelativeLayout) view.findViewById(R.id.sd1);
+        lsd1.setOnClickListener(new View.OnClickListener(){
+            private byte ck=0;
+            @Override
+            public void onClick(View v){
+                if(++ck%2==1){
+                    set_ex_info(internalsd,sd1total,sd1used,sd1free);
+                }
+                else{
+                    set_part_info(internalsd,"SD card 1",sd1name,sd1total,sd1used,sd1free,sd1bar,lsd1);
+                }
+            }
+        });
         lsd2=(RelativeLayout) view.findViewById(R.id.sd2);
+        lsd2.setOnClickListener(new View.OnClickListener(){
+            private byte ck=0;
+            @Override
+            public void onClick(View v){
+                if(++ck%2==1){
+                    set_ex_info(externalsd,sd2total,sd2used,sd2free);
+                }
+                else{
+                    set_part_info(externalsd,"SD card 2",sd2name,sd2total,sd2used,sd2free,sd2bar,lsd2);
+                }
+            }
+        });
 
         sysname = (TextView) view.findViewById(R.id.systemname);
         systotal = (TextView) view.findViewById(R.id.systemtotal);
@@ -110,12 +180,38 @@ public class DiskInfo extends Fragment implements Constants {
         sd2free = (TextView) view.findViewById(R.id.sd2free);
         sd2bar= (ProgressBar) view.findViewById(R.id.sd2Bar);
 
-        get_disk_info();
+        set_part_info("/system","System",sysname,systotal,sysused,sysfree,sysbar,lsys);
+        set_part_info("/data","Data",dataname,datatotal,dataused,datafree,databar,ldata);
+        set_part_info("/cache","Cache",cachename,cachetotal,cacheused,cachefree,cachebar,lcache);
+        cr = null;
+        cr=new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v \"asec|android_secure|sdcard1|external_sd|sd-ext\" | busybox egrep -i \"(sdcard|sdcard0)\" | busybox awk '{print $3}'`" );
+        Log.d(TAG, "detected: "+cr.stdout);
+        Log.d(TAG, "error detected: "+cr.stderr);
+
+        if(cr.success() && set_part_info(cr.stdout,"SD card 1",sd1name,sd1total,sd1used,sd1free,sd1bar,lsd1)){
+            internalsd=cr.stdout;
+        }
+        cr = null;
+        if(!internalsd.equals("")){
+            cr=new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v \"asec|android_secure|"+internalsd+"\" | busybox egrep -i \"(external_sd|sdcard1|sd-ext)\" | busybox awk '{print $3}'`" );
+        }
+        else{
+            cr=new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v \"asec|android_secure"+internalsd+"\" | busybox egrep -i \"(external_sd|sdcard1|sd-ext)\" | busybox awk '{print $3}'`" );
+        }
+        Log.d(TAG, "detected: "+cr.stdout);
+        Log.d(TAG, "error detected: "+cr.stderr);
+
+        if(cr.success()&&set_part_info(cr.stdout,"SD card 2",sd2name,sd2total,sd2used,sd2free,sd2bar,lsd2)){
+            externalsd=cr.stdout;
+        }
 
         return view;
 
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.disk_info_menu, menu);
@@ -143,7 +239,6 @@ public class DiskInfo extends Fragment implements Constants {
         return true;
     }
 
-
     public static long Freebytes(File f) {
         StatFs stat = new StatFs(f.getPath());
         long bytesAvailable = (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
@@ -155,72 +250,30 @@ public class DiskInfo extends Fragment implements Constants {
         return bytesAvailable;
     }
 
-    public void get_disk_info(){
-        if(new File("/system").exists()){
-            final long v1=Totalbytes(new File("/system"));
-            sysname.setText("System");
-            systotal.setText(Helpers.ReadableByteCount(v1));
-            final long v2=Freebytes(new File("/system"));
-            sysused.setText(getString(R.string.used,Helpers.ReadableByteCount(v1-v2)));
-            sysfree.setText(getString(R.string.free,Helpers.ReadableByteCount(v2)));
-            sysbar.setProgress(Math.round(((v1-v2)*100)/v1));
-            lsys.setVisibility(RelativeLayout.VISIBLE);
+    public Boolean set_part_info(String part,String titlu,TextView t1,TextView t2,TextView t3,TextView t4,ProgressBar b,RelativeLayout l){
+        if(new File(part).exists()){
+            final long v1=Totalbytes(new File(part));
+            t1.setText(titlu);
+            t2.setText(Helpers.ReadableByteCount(v1));
+            final long v2=Freebytes(new File(part));
+            t3.setText(getString(R.string.used,Helpers.ReadableByteCount(v1-v2)));
+            t4.setText(getString(R.string.free,Helpers.ReadableByteCount(v2)));
+            b.setProgress(Math.round(((v1-v2)*100)/v1));
+            l.setVisibility(RelativeLayout.VISIBLE);
+            return true;
         }
         else{
-            lsys.setVisibility(RelativeLayout.GONE);
-        }
-        if(new File("/data").exists()){
-            final long v1=Totalbytes(new File("/data"));
-            dataname.setText("Data");
-            datatotal.setText(Helpers.ReadableByteCount(v1));
-            final long v2=Freebytes(new File("/data"));
-            dataused.setText(getString(R.string.used,Helpers.ReadableByteCount(v1-v2)));
-            datafree.setText(getString(R.string.free,Helpers.ReadableByteCount(v2)));
-            databar.setProgress(Math.round(((v1-v2)*100)/v1));
-            ldata.setVisibility(RelativeLayout.VISIBLE);
-        }
-        else{
-            ldata.setVisibility(RelativeLayout.GONE);
-        }
-        if(new File("/cache").exists()){
-            final long v1=Totalbytes(new File("/cache"));
-            cachename.setText("Cache");
-            cachetotal.setText(Helpers.ReadableByteCount(v1));
-            final long v2=Freebytes(new File("/cache"));
-            cacheused.setText(getString(R.string.used,Helpers.ReadableByteCount(v1-v2)));
-            cachefree.setText(getString(R.string.free,Helpers.ReadableByteCount(v2)));
-            cachebar.setProgress(Math.round(((v1-v2)*100)/v1));
-            lcache.setVisibility(RelativeLayout.VISIBLE);
-        }
-        else{
-            lcache.setVisibility(RelativeLayout.GONE);
-        }
-        if(new File(Environment.getExternalStorageDirectory().getAbsolutePath()).exists()){
-            final long v1=Totalbytes(new File(Environment.getExternalStorageDirectory().getAbsolutePath()));
-            sd1name.setText("SD card 1");
-            sd1total.setText(Helpers.ReadableByteCount(v1));
-            final long v2=Freebytes(new File(Environment.getExternalStorageDirectory().getAbsolutePath()));
-            sd1used.setText(getString(R.string.used,Helpers.ReadableByteCount(v1-v2)));
-            sd1free.setText(getString(R.string.free,Helpers.ReadableByteCount(v2)));
-            sd1bar.setProgress(Math.round(((v1-v2)*100)/v1));
-            lsd1.setVisibility(RelativeLayout.VISIBLE);
-        }
-        else{
-            lsd1.setVisibility(RelativeLayout.GONE);
-        }
-        if(Helpers.ExtsdExists()){
-            final long v1=Totalbytes(new File(Helpers.getExtSD()));
-            sd2name.setText("SD card 2");
-            sd2total.setText(Helpers.ReadableByteCount(v1));
-            final long v2=Freebytes(new File(Helpers.getExtSD()));
-            sd2used.setText(getString(R.string.used,Helpers.ReadableByteCount(v1-v2)));
-            sd2free.setText(getString(R.string.free,Helpers.ReadableByteCount(v2)));
-            sd2bar.setProgress(Math.round(((v1-v2)*100)/v1));
-            lsd2.setVisibility(RelativeLayout.VISIBLE);
-        }
-        else{
-            lsd2.setVisibility(RelativeLayout.GONE);
+            l.setVisibility(RelativeLayout.GONE);
+            return false;
         }
     }
-
+    public void set_ex_info(String part,TextView t2,TextView t3,TextView t4){
+        CMDProcessor.CommandResult cr=null;
+        cr=new CMDProcessor().sh.runWaitFor("busybox echo `mount | busybox grep "+part+" | busybox awk '{print $1,$3,$4}'`" );
+        if(cr.success()){
+            t2.setText(cr.stdout.split(" ")[2].split(",")[0].toUpperCase());
+            t3.setText(cr.stdout.split(" ")[0]);
+            t4.setText(cr.stdout.split(" ")[1].toUpperCase());
+        }
+    }
 }

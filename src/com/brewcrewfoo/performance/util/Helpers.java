@@ -34,7 +34,6 @@ import java.io.*;
 public class Helpers implements Constants {
 
     private static String mVoltagePath;
-    private static String mSDextPath;
 
     /**
      * Checks device for SuperUser permission
@@ -415,9 +414,9 @@ public class Helpers implements Constants {
 			new CMDProcessor().su.runWaitFor("busybox echo \""+s.toString()+"\" > " + SH_PATH );
             CMDProcessor.CommandResult cr = null;
 			cr=new CMDProcessor().su.runWaitFor(SH_PATH);
-			Log.d(TAG, "execute: "+s.toString());
+			//Log.d(TAG, "execute: "+s.toString());
             if(cr.success()){return cr.stdout;}
-            else{return "";}
+            else{Log.d(TAG, "execute: "+cr.stderr);return "";}
 		}
 		else{
 			Log.d(TAG, "missing file: "+SH_PATH);
@@ -462,24 +461,4 @@ public class Helpers implements Constants {
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
-    public static boolean ExtsdExists() {
-        if (new File("/external_sd").exists()) {
-            setExtSD("/external_sd");
-            return true;
-        } else if (new File("/storage/sdcard1").exists()) {
-            setExtSD("/storage/sdcard1");
-            return true;
-        } else if (new File("/sd-ext").exists()) {
-            setExtSD("/sd-ext");
-            return true;
-        }
-        return false;
-    }
-    public static void setExtSD(String vFile) {
-        Log.d(TAG, vFile + " is external sd");
-        mSDextPath= vFile;
-    }
-    public static String getExtSD() {
-        return mSDextPath;
-    }
 }
