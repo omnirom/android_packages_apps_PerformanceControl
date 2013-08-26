@@ -52,28 +52,26 @@ public class PCWidget extends AppWidgetProvider implements Constants {
     }
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager,
-                         int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager,int[] appWidgetIds) {
         for (int awi : appWidgetIds) {
-            String max = Helpers.readOneLine(MAX_FREQ_PATH);
-            String min = Helpers.readOneLine(MIN_FREQ_PATH);
+            String max = Helpers.toMHz(Helpers.readOneLine(MAX_FREQ_PATH));
+            String min = Helpers.toMHz(Helpers.readOneLine(MIN_FREQ_PATH));
             String gov = Helpers.readOneLine(GOVERNOR_PATH);
             String io = Helpers.getIOScheduler();
             onUpdateWidget(context, appWidgetManager, awi, max, min, gov, io);
         }
     }
 
-    public void onUpdateWidget(Context context,
-                               AppWidgetManager appWidgetManager, int appWidgetId, String max,
-                               String min, String gov, String io) {
+    public void onUpdateWidget(Context context,AppWidgetManager appWidgetManager, int appWidgetId, String max,String min, String gov, String io) {
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        RemoteViews views = new RemoteViews(context.getPackageName(),
-                R.layout.widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.widget);
         int bgColor = mPreferences.getInt(PREF_WIDGET_BG_COLOR, 0xff000000);
         int textColor = mPreferences.getInt(PREF_WIDGET_TEXT_COLOR, 0xff808080);
         views.setImageViewBitmap(R.id.widget_bg, Helpers.getBackground(bgColor));
-        views.setTextViewText(R.id.max, Helpers.toMHz(max));
-        views.setTextViewText(R.id.min, Helpers.toMHz(min));
+        //views.setTextViewText(R.id.max, Helpers.toMHz(max));
+        //views.setTextViewText(R.id.min, Helpers.toMHz(min));
+        views.setTextViewText(R.id.max, max);
+        views.setTextViewText(R.id.min, min);
         views.setTextViewText(R.id.gov, gov);
         views.setTextViewText(R.id.io, io);
         views.setTextColor(R.id.max, textColor);
@@ -82,10 +80,8 @@ public class PCWidget extends AppWidgetProvider implements Constants {
         views.setTextColor(R.id.gov, textColor);
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
-                | Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.widget_bg, pendingIntent);
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
