@@ -1,3 +1,4 @@
+#
 r="";
 for d in $DIRS; do
 if [ -d $d ]; then
@@ -11,4 +12,4 @@ else
 r="$r:$i";
 fi;
 done;
-echo $r;
+echo "$r";

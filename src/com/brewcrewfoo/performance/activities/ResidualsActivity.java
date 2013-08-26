@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
@@ -174,20 +175,21 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
             CMDProcessor.CommandResult cr = null;
             cr=new CMDProcessor().su.runWaitFor(SH_PATH);
             if(cr.success()){return cr.stdout;}
-            else{ return null;}
+            else{Log.d(TAG,"residual files err: "+cr.stderr); return null; }
         }
 
         @Override
         protected void onPostExecute(String result) {
             final List<Item> dir = new ArrayList<Item>();
             final String[] rinfos = res.getStringArray(R.array.residual_info);
+            Log.d(TAG,"residual files: "+result);
             if(result!=null){
                 final String fls[]=result.split(":");
 
-                for(int i=0;i< residualfiles.length;i++){
-                        if(!fls[i].equals("0")){
-                            dir.add(new Item(residualfiles[i],rinfos[i],fls[i]+" "+getString(R.string.filesstr),"","dir"));
-                        }
+                for(int i=0;i<fls.length;i++){
+                    if(!fls[i].equals("0")){
+                        dir.add(new Item(residualfiles[i],rinfos[i],fls[i]+" "+getString(R.string.filesstr),"","dir"));
+                    }
                 }
             }
             linlaHeaderProgress.setVisibility(View.GONE);
