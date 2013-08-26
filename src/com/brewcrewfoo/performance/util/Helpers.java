@@ -317,7 +317,7 @@ public class Helpers implements Constants {
      * @param voltageFile
      */
     public static void setVoltagePath(String voltageFile) {
-        Log.d(TAG, voltageFile + " is being set as the uv table path");
+        Log.d(TAG, "UV table path detected: "+voltageFile);
         mVoltagePath = voltageFile;
     }
 

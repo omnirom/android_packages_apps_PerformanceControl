@@ -115,7 +115,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
         try {
             if (new File(fn).exists()){
                 f = new BufferedInputStream(new FileInputStream(fn));
-                Log.i(TAG,"open /PerformanceControl/devices.xml");
+                Log.i(TAG,"external /PerformanceControl/devices.xml in use");
             }
             else{
                 f = getResources().openRawResource(R.raw.devices);
@@ -136,7 +136,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
                         }
                     }
                     if(gasit) {
-                        Log.i(TAG,tip+" partition = "+part);
+                        Log.d(TAG,tip+" partition detected: "+part);
                         break;
                     }
                 }
