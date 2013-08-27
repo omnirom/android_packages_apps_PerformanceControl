@@ -239,6 +239,9 @@ Translation by Laurentiu1996
 
     <string name="free">liber %s</string>
     <string name="used">folosit %s</string>
+    <!-- 2.1.0 -->
+    <string name="verify">Se verifică…</string>
+    <string name="bad_zip">%s nu există în arhiva zip !</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Utilizaţi o temă deschisă</string>

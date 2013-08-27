@@ -18,11 +18,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -34,6 +36,7 @@ import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.FileArrayAdapter;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.util.Item;
+import com.brewcrewfoo.performance.util.UnzipUtility;
 
 public class FileChooser extends ListActivity implements Constants, ActivityThemeChangeInterface {
     final Context context = this;
@@ -41,14 +44,13 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
     SharedPreferences mPreferences;
     private boolean mIsLightTheme;
     private FileArrayAdapter adapter;
-
     private ProgressDialog progressDialog;
-
-
     private String tip;
     private String part;
     private String nFile;
     private int nbk=1;
+    private boolean iszip=false;
+    private String dtitlu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,8 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         Intent intent1=getIntent();
         tip=intent1.getStringExtra("mod");
         part=intent1.getStringExtra("part");
-
+        if(tip.equalsIgnoreCase("kernel")){ dtitlu=getString(R.string.kernel_img_title);}
+        else{ dtitlu=getString(R.string.recovery_img_title);}
         currentDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
         fill(currentDir);
     }
@@ -97,7 +100,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                     dir.add(new Item(ff.getName(),getString(R.string.dir),date_modify,ff.getAbsolutePath(),"dir"));
                 }
                 else{
-                    if((tip.equalsIgnoreCase("kernel") && ff.getName().equalsIgnoreCase("boot.img"))||(tip.equalsIgnoreCase("recovery") && ff.getName().equalsIgnoreCase("recovery.img")))
+                    if((tip.equalsIgnoreCase("kernel") && ff.getName().equalsIgnoreCase("boot.img"))||(tip.equalsIgnoreCase("recovery") && ff.getName().equalsIgnoreCase("recovery.img")) || ff.getName().toLowerCase().endsWith(".zip"))
                         fls.add(new Item(ff.getName(),Helpers.ReadableByteCount(ff.length()), date_modify, ff.getAbsolutePath(),"file"));
                 }
             }
@@ -116,7 +119,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
 
     @Override
     public void onBackPressed(){
-
         if(adapter.getItem(0).getName().equalsIgnoreCase("..")){
             currentDir=currentDir.getParentFile();
             fill(currentDir);
@@ -126,10 +128,9 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
             if(nbk==2){finish();}
             else{
                 nbk++;
-                Toast.makeText(getApplicationContext(), R.string.bkexit, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),getString(R.string.bkexit), Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     @Override
@@ -141,12 +142,64 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         }
         else{
             nFile=currentDir+"/"+o.getName();
-            String dtitlu;
-            if(tip.equalsIgnoreCase("kernel")){
-                dtitlu=getString(R.string.kernel_img_title);
+            iszip=o.getName().toLowerCase().endsWith(".zip");
+            if(iszip){
+                new TestZipOperation().execute();
             }
             else{
-                dtitlu=getString(R.string.recovery_img_title);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(dtitlu)
+                        .setMessage(nFile + " " + getString(R.string.flash_info, part) + " " + tip.toUpperCase() + "\n\n" + getString(R.string.wipe_cache_msg))
+                        .setNegativeButton(getString(R.string.cancel),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                        //finish();
+                                    }
+                                })
+                        .setPositiveButton(getString(R.string.yes),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                ;
+                AlertDialog alertDialog = builder.create();
+
+                alertDialog.show();
+                //alertDialog.setCancelable(false);
+                Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                theButton.setOnClickListener(new CustomListener(alertDialog));
+            }
+        }
+    }
+
+    private class TestZipOperation extends AsyncTask<String, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... params) {
+            final UnzipUtility unzipper = new UnzipUtility();
+            try{
+                return unzipper.testZip(nFile,tip);
+            }
+            catch (Exception e) {
+                Log.d(TAG,"ZIP error: "+nFile);
+                e.printStackTrace();
+                return false;
+            }
+        }
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+            if(!result){
+                if(tip.equalsIgnoreCase("kernel")){
+                    Toast.makeText(context, getString(R.string.bad_zip,"boot.img"), Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(context, getString(R.string.bad_zip,"recovery.img"), Toast.LENGTH_SHORT).show();
+                }
+                return;
             }
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(dtitlu)
@@ -166,13 +219,94 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                             });
             ;
             AlertDialog alertDialog = builder.create();
-
             alertDialog.show();
             //alertDialog.setCancelable(false);
             Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            theButton.setOnClickListener(new CustomListener(alertDialog));
+            if (theButton != null) {
+                theButton.setOnClickListener(new CustomListener(alertDialog));
+            }
+        }
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(FileChooser.this,"", getString(R.string.verify));
+        }
+        @Override
+        protected void onProgressUpdate(Void... values) {
         }
     }
+
+    private class FlashOperation extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+
+            final StringBuilder sb = new StringBuilder();
+            final String dn=Environment.getExternalStorageDirectory().getAbsolutePath()+"/PerformanceControl/tmp";
+
+            if(tip.equalsIgnoreCase("kernel")){
+                if(iszip){
+                    try{
+                        new UnzipUtility().unzip(nFile,dn);
+                    }
+                    catch (Exception e) {
+                        Log.d(TAG,"unzip error: "+nFile);
+                        e.printStackTrace();
+                        return null;
+                    }
+                    nFile=dn+"/boot.img";
+                    sb.append("dd if="+nFile+" of="+part+"\n");
+                    sb.append("busybox rm -rf "+dn+"/*\n");
+                }
+                else{
+                    sb.append("dd if="+nFile+" of="+part+"\n");
+                }
+                sb.append("busybox rm -rf /data/dalvik-cache/*\n");
+                sb.append("busybox rm -rf /cache/*\n");
+                sb.append("reboot\n");
+                //Log.d(TAG,sb.toString());
+
+            }
+            else{
+                if(iszip){
+                    try{
+                        new UnzipUtility().unzip(nFile,dn);
+                    }
+                    catch (Exception e) {
+                        Log.d(TAG,"unzip error: "+nFile);
+                        e.printStackTrace();
+                        return null;
+                    }
+                    nFile=dn+"/recovery.img";
+                    sb.append("dd if="+nFile+" of="+part+"\n");
+                    sb.append("busybox rm -rf "+dn+"/*\n");
+                }
+                else{
+                    sb.append("dd if="+nFile+" of="+part+"\n");
+                }
+
+                sb.append("reboot recovery\n");
+                //Log.d(TAG,sb.toString());
+            }
+            Helpers.shExec(sb);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = ProgressDialog.show(FileChooser.this, dtitlu, getString(R.string.wait));
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
 
     class CustomListener implements View.OnClickListener {
         private final Dialog dialog;
@@ -181,35 +315,8 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         }
         @Override
         public void onClick(View v) {
-
             dialog.cancel();
-            String dtitlu;
-            if(tip.equalsIgnoreCase("kernel")){
-                dtitlu=getString(R.string.kernel_img_title);
-            }
-            else{
-                dtitlu=getString(R.string.recovery_img_title);
-            }
-            progressDialog = ProgressDialog.show(FileChooser.this, dtitlu, getString(R.string.wait));
-            final StringBuilder sb = new StringBuilder();
-            sb.append("dd if="+nFile+" of="+part+"\n");
-            if(tip.equalsIgnoreCase("kernel")){
-                sb.append("busybox rm -rf /data/dalvik-cache/*\n");
-                sb.append("busybox rm -rf /cache/*\n");
-                sb.append("reboot\n");
-            }
-            else{
-                sb.append("reboot recovery\n");
-            }
-
-            final Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    Helpers.shExec(sb);
-                }
-            };
-            new Thread(runnable).start();
-
+            new FlashOperation().execute();
         }
     }
 

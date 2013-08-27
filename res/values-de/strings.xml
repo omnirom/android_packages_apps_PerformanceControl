@@ -253,6 +253,9 @@ Translation by Rhonin86
 
     <string name="free">frei %s</string>
     <string name="used">genutzt %s</string>
+    <!-- 2.1.0 -->
+    <string name="verify">Überprüfung…</string>
+    <string name="bad_zip">%s nicht in Zip-Datei gefunden !</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Benutze das helle Theme</string>
