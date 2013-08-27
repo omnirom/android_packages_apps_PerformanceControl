@@ -24,13 +24,15 @@ public class UnzipUtility implements Constants {
         ZipEntry entry = zipIn.getNextEntry();
         while (entry != null) {
             if (entry.isDirectory()) {
-                createDir( new File(destDirectory,entry.getName()));
+                //createDir( new File(destDirectory,entry.getName()));
+                //continue;
             }
-            File outputFile = new File(destDirectory, entry.getName());
-            if (!outputFile.getParentFile().exists()) {
-                createDir(outputFile.getParentFile());
+            else{
+                File dir=new File(destDirectory,entry.getName());
+                if(!dir.getParentFile().exists())
+                    dir.getParentFile().mkdirs();
+                extractFile(zipIn, destDirectory+"/"+entry.getName());
             }
-            extractFile(zipIn, destDirectory+"/"+entry.getName());
 
             zipIn.closeEntry();
             entry = zipIn.getNextEntry();
