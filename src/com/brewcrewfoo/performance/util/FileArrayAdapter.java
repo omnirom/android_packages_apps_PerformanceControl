@@ -53,11 +53,24 @@ public class FileArrayAdapter extends ArrayAdapter<Item>{
                 else{t1.setTypeface(null, Typeface.NORMAL);}
                 t1.setText(o.getName());
             }
-            if(t2!=null)
-                t2.setText(o.getData());
-            if(t3!=null)
-                t3.setText(o.getDate());
-
+            if(t2!=null){
+                if(o.getData()==null){
+                    t2.setVisibility(View.GONE);
+                }
+                else{
+                    t2.setText(o.getData());
+                    t2.setVisibility(View.VISIBLE);
+                }
+            }
+            if(t3!=null){
+                if(o.getDate()==null){
+                    t3.setVisibility(View.GONE);
+                }
+                else{
+                    t3.setText(o.getDate());
+                    t3.setVisibility(View.VISIBLE);
+                }
+            }
         }
         return v;
     }
