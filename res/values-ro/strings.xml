@@ -242,6 +242,7 @@ Translation by Laurentiu1996
     <!-- 2.1.0 -->
     <string name="verify">Se verifică…</string>
     <string name="bad_zip">%s nu există în arhiva zip !</string>
+    <string name="closebtn">Închide</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Utilizaţi o temă deschisă</string>

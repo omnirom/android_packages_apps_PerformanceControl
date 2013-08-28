@@ -25,6 +25,9 @@ import android.content.Intent;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -65,6 +68,21 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         currentDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
         fill(currentDir);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.filechooser_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.close) {
+            finish();
+        }
+        return true;
+    }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -147,29 +165,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                 new TestZipOperation().execute();
             }
             else{
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle(dtitlu)
-                        .setMessage(nFile + " " + getString(R.string.flash_info, part) + " " + tip.toUpperCase() + "\n\n" + getString(R.string.wipe_cache_msg))
-                        .setNegativeButton(getString(R.string.cancel),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                        //finish();
-                                    }
-                                })
-                        .setPositiveButton(getString(R.string.yes),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-                ;
-                AlertDialog alertDialog = builder.create();
-
-                alertDialog.show();
-                //alertDialog.setCancelable(false);
-                Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                theButton.setOnClickListener(new CustomListener(alertDialog));
+                makedialog();
             }
         }
     }
@@ -201,34 +197,11 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                 }
                 return;
             }
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle(dtitlu)
-                    .setMessage(nFile+" "+getString(R.string.flash_info,part)+" "+tip.toUpperCase()+"\n\n"+getString(R.string.wipe_cache_msg))
-                    .setNegativeButton(getString(R.string.cancel),
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,int id) {
-                                    dialog.cancel();
-                                    //finish();
-                                }
-                            })
-                    .setPositiveButton(getString(R.string.yes),
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-            ;
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-            //alertDialog.setCancelable(false);
-            Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            if (theButton != null) {
-                theButton.setOnClickListener(new CustomListener(alertDialog));
-            }
+            makedialog();
         }
         @Override
         protected void onPreExecute() {
-            progressDialog = ProgressDialog.show(FileChooser.this,"", getString(R.string.verify));
+            progressDialog = ProgressDialog.show(FileChooser.this, null, getString(R.string.verify));
         }
         @Override
         protected void onProgressUpdate(Void... values) {
@@ -263,7 +236,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                 sb.append("busybox rm -rf /cache/*\n");
                 sb.append("reboot\n");
                 //Log.d(TAG,sb.toString());
-
             }
             else{
                 if(iszip){
@@ -320,6 +292,31 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         }
     }
 
-
+    private void makedialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(dtitlu)
+                .setMessage(nFile+" "+getString(R.string.flash_info,part)+" "+tip.toUpperCase()+"\n\n"+getString(R.string.wipe_cache_msg))
+                .setNegativeButton(getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                                //finish();
+                            }
+                        })
+                .setPositiveButton(getString(R.string.yes),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        ;
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        //alertDialog.setCancelable(false);
+        Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        if (theButton != null) {
+            theButton.setOnClickListener(new CustomListener(alertDialog));
+        }
+    }
 
 }

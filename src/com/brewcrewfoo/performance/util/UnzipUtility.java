@@ -1,7 +1,5 @@
 package com.brewcrewfoo.performance.util;
 
-import android.util.Log;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,11 +21,7 @@ public class UnzipUtility implements Constants {
         ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFilePath));
         ZipEntry entry = zipIn.getNextEntry();
         while (entry != null) {
-            if (entry.isDirectory()) {
-                //createDir( new File(destDirectory,entry.getName()));
-                //continue;
-            }
-            else{
+            if (!entry.isDirectory()) {
                 File dir=new File(destDirectory,entry.getName());
                 if(!dir.getParentFile().exists())
                     dir.getParentFile().mkdirs();
@@ -39,13 +33,7 @@ public class UnzipUtility implements Constants {
         }
         zipIn.close();
     }
-    private void createDir(File dir) {
-        if (dir.exists()) { return; }
-        //Log.d(TAG, "Creating dir " + dir.getName());
-        if (!dir.mkdirs()) {
-            throw new RuntimeException("Cannot create dir " + dir);
-        }
-    }
+
     private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
         byte[] bytesIn = new byte[BUFFER_SIZE];

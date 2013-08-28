@@ -256,6 +256,7 @@ Translation by Rhonin86
     <!-- 2.1.0 -->
     <string name="verify">Überprüfung…</string>
     <string name="bad_zip">%s nicht in Zip-Datei gefunden !</string>
+    <string name="closebtn">schließen</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Benutze das helle Theme</string>
