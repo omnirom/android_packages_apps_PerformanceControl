@@ -61,8 +61,7 @@ public class TimeInState extends Fragment implements Constants {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences = PreferenceManager
-                .getDefaultSharedPreferences(getActivity());
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         loadOffsets();
 
@@ -74,21 +73,16 @@ public class TimeInState extends Fragment implements Constants {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup root,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup root, Bundle savedInstanceState) {
         super.onCreateView(inflater, root, savedInstanceState);
 
         View view = inflater.inflate(R.layout.time_in_state, root, false);
         mStatesView = (LinearLayout) view.findViewById(R.id.ui_states_view);
-        mAdditionalStates = (TextView) view
-                .findViewById(R.id.ui_additional_states);
-        mHeaderAdditionalStates = (TextView) view
-                .findViewById(R.id.ui_header_additional_states);
-        mHeaderTotalStateTime = (TextView) view
-                .findViewById(R.id.ui_header_total_state_time);
+        mAdditionalStates = (TextView) view.findViewById(R.id.ui_additional_states);
+        mHeaderAdditionalStates = (TextView) view.findViewById(R.id.ui_header_additional_states);
+        mHeaderTotalStateTime = (TextView) view.findViewById(R.id.ui_header_total_state_time);
         mStatesWarning = (TextView) view.findViewById(R.id.ui_states_warning);
-        mTotalStateTime = (TextView) view
-                .findViewById(R.id.ui_total_state_time);
+        mTotalStateTime = (TextView) view.findViewById(R.id.ui_total_state_time);
 
         return view;
     }
@@ -214,8 +208,7 @@ public class TimeInState extends Fragment implements Constants {
 
     private View generateStateRow(CpuState state, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from((Context) getActivity());
-        LinearLayout view = (LinearLayout) inflater.inflate(R.layout.state_row,
-                parent, false);
+        LinearLayout view = (LinearLayout) inflater.inflate(R.layout.state_row, parent, false);
 
         float per = (float) state.duration * 100 / monitor.getTotalStateTime();
         String sPer = (int) per + "%";
