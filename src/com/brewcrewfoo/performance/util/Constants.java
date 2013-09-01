@@ -166,7 +166,7 @@ public interface Constants {
     public static final String FLASH_KERNEL = "pref_kernel_img";
     public static final String FLASH_RECOVERY = "pref_recovery_img";
     public static final String RESIDUAL_FILES="pref_residual_files";
-    public static final String residualfiles[]={"/data/log","/data/tombstones","/data/system/dropbox","/data/system/usagestats","/data/anr"};//add coresponding info in strings
+    public static final String residualfiles[]={"/data/log","/data/tombstones","/data/system/dropbox","/data/system/usagestats","/data/anr","/data/local/tmp"};//add coresponding info in strings
     public static final String PREF_FIX_PERMS = "pref_fix_perms";
     public static final String PREF_LOG = "pref_log";
     public static final String PREF_OPTIM_DB = "pref_optim_db";

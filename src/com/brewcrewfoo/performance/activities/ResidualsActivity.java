@@ -66,7 +66,7 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                 final StringBuilder sb = new StringBuilder();
                 for(int i=0;i<adapter.getCount();i++){
                     final Item o = adapter.getItem(i);
-                    sb.append("busybox rm -f "+o.getName()+"/*;\n");
+                    sb.append("busybox rm -f ").append(o.getName()).append("/*;\n");
                 }
                 adapter.clear();
                 linlaHeaderProgress.setVisibility(View.VISIBLE);
@@ -88,8 +88,8 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
         packList.setAdapter(adapter);
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -112,7 +112,6 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,long row) {
         curItem = adapter.getItem(position);
-
         try{
             Intent intent2 = new Intent(ResidualsActivity.this, iResidualsActivity.class);
             intent2.putExtra("dir",curItem.getName());
@@ -127,15 +126,23 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK){
-                if(data.getStringExtra("result").equals("ok")){
-                    adapter.remove(curItem);
-                    adapter.notifyDataSetChanged();
-                    if(adapter.isEmpty()){
-                        nofiles.setVisibility(View.VISIBLE);
-                        tools.setVisibility(View.GONE);
+                    int n= data.getIntExtra("result",0);
+                    if(n>0){
+                        String r[]=curItem.getDate().split(" ");
+                        n=Integer.parseInt(r[0])-n;
+                        if(n<=0){
+                            adapter.remove(curItem);
+                            adapter.notifyDataSetChanged();
+                            if(adapter.isEmpty()){
+                                nofiles.setVisibility(View.VISIBLE);
+                                tools.setVisibility(View.GONE);
+                            }
+                        }
+                        else{
+                            adapter.setItem(curItem,n+" "+r[1]);
+                        }
+                        mPreferences.edit().putLong(RESIDUAL_FILES,System.currentTimeMillis()).commit();
                     }
-                    mPreferences.edit().putLong(RESIDUAL_FILES,System.currentTimeMillis()).commit();
-                }
             }
             if (resultCode == RESULT_CANCELED) {
                 //
@@ -185,9 +192,10 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
             linlaHeaderProgress.setVisibility(View.VISIBLE);
             nofiles.setVisibility(View.GONE);
             tools.setVisibility(View.GONE);
-            final StringBuffer t=new StringBuffer();
-            for(int i=0;i<residualfiles.length;i++){
-                t.append(residualfiles[i]);
+
+            final StringBuilder t = new StringBuilder();
+            for (String residualfile : residualfiles) {
+                t.append(residualfile);
                 t.append(" ");
             }
             Helpers.get_assetsFile("count_files",context,"DIRS=\""+t.toString()+"\";");

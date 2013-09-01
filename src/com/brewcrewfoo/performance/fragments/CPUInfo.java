@@ -53,7 +53,10 @@ public class CPUInfo extends Fragment implements Constants {
         updateData();
         return view;
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
     public void updateData() {
         mKernelInfo.setText("");
         mCPUInfo.setText("");

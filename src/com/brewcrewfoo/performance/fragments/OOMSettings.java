@@ -19,7 +19,6 @@
 package com.brewcrewfoo.performance.fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,18 +26,15 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.*;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
@@ -49,7 +45,7 @@ import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
 
-public class OOMSettings extends PreferenceFragment implements OnSharedPreferenceChangeListener, OnPreferenceChangeListener, Constants {
+public class OOMSettings extends PreferenceFragment implements OnSharedPreferenceChangeListener,Constants {
 
     private static final int NEW_MENU_ID=Menu.FIRST+1;
 
@@ -97,30 +93,30 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 	
         values = Helpers.readOneLine(MINFREE_PATH).split(",");
 
-        mForegroundApp=(Preference) findPreference(OOM_FOREGROUND_APP);
-        mVisibleApp=(Preference) findPreference(OOM_VISIBLE_APP);
-        mSecondaryServer=(Preference) findPreference(OOM_SECONDARY_SERVER);
-        mHiddenApp=(Preference) findPreference(OOM_HIDDEN_APP);
-        mContentProviders=(Preference) findPreference(OOM_CONTENT_PROVIDERS);
-        mEmptyApp=(Preference) findPreference(OOM_EMPTY_APP);
+        mForegroundApp= findPreference(OOM_FOREGROUND_APP);
+        mVisibleApp= findPreference(OOM_VISIBLE_APP);
+        mSecondaryServer= findPreference(OOM_SECONDARY_SERVER);
+        mHiddenApp= findPreference(OOM_HIDDEN_APP);
+        mContentProviders= findPreference(OOM_CONTENT_PROVIDERS);
+        mEmptyApp= findPreference(OOM_EMPTY_APP);
 
-        mVerylight=(Preference) findPreference("oom_verylight");
+        mVerylight= findPreference("oom_verylight");
         mVerylight.setSummary(Verylight);
-        mLight=(Preference) findPreference("oom_light");
+        mLight= findPreference("oom_light");
         mLight.setSummary( Light);
-        mMedium=(Preference) findPreference("oom_medium");
+        mMedium= findPreference("oom_medium");
         mMedium.setSummary(Medium);
-        mAggressive=(Preference) findPreference("oom_aggressive");
+        mAggressive= findPreference("oom_aggressive");
         mAggressive.setSummary(Aggressive);
-        mVeryaggressive=(Preference) findPreference("oom_veryaggressive");
+        mVeryaggressive= findPreference("oom_veryaggressive");
         mVeryaggressive.setSummary(Veryaggressive);
 
         updateOOM(values);
 
         mUserON=(CheckBoxPreference) findPreference(PREF_USER_PROC);
         mSysON=(CheckBoxPreference) findPreference(PREF_SYS_PROC);
-        mUserNames=(Preference) findPreference(PREF_USER_NAMES);
-        mSysNames=(Preference) findPreference(PREF_SYS_NAMES);
+        mUserNames= findPreference(PREF_USER_NAMES);
+        mSysNames= findPreference(PREF_SYS_NAMES);
         if (!new File(USER_PROC_PATH).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("notkill_user_proc");
             getPreferenceScreen().removePreference(hideCat);
@@ -328,12 +324,6 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 		}
 		return output;
 	}
-
-	
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        return false;
-    }
-
 
     public void ProcEditDialog(final String key,String title,String msg,String path,Boolean type) {
         Resources res = getActivity().getResources();

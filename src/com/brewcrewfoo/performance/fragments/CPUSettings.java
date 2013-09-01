@@ -39,8 +39,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class CPUSettings extends Fragment implements
-        SeekBar.OnSeekBarChangeListener, Constants {
+public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeListener, Constants {
 
     private SeekBar mMaxSlider;
     private SeekBar mMinSlider;
@@ -73,10 +72,7 @@ public class CPUSettings extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-
         setHasOptionsMenu(true);
     }
 
@@ -143,8 +139,8 @@ public class CPUSettings extends Fragment implements
                 getActivity(), android.R.layout.simple_spinner_item);
         governorAdapter
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        for (int i = 0; i < mAvailableGovernors.length; i++) {
-            governorAdapter.add(mAvailableGovernors[i]);
+        for (String mAvailableGovernor : mAvailableGovernors) {
+            governorAdapter.add(mAvailableGovernor);
         }
         mGovernor.setAdapter(governorAdapter);
         mGovernor.setSelection(Arrays.asList(mAvailableGovernors).indexOf(
@@ -160,8 +156,8 @@ public class CPUSettings extends Fragment implements
                 getActivity(), android.R.layout.simple_spinner_item);
         ioAdapter
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        for (int i = 0; i < mAvailableIo.length; i++) {
-            ioAdapter.add(mAvailableIo[i]);
+        for (String aMAvailableIo : mAvailableIo) {
+            ioAdapter.add(aMAvailableIo);
         }
         mIo.setAdapter(ioAdapter);
         mIo.setSelection(Arrays.asList(mAvailableIo).indexOf(mCurrentIo));
@@ -358,12 +354,11 @@ public class CPUSettings extends Fragment implements
                     mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,curFreq));
                 }
             } catch (InterruptedException e) {
-                return;
+                //return;
             }
         }
     }
 
-    ;
 
     protected Handler mCurCPUHandler = new Handler() {
         public void handleMessage(Message msg) {

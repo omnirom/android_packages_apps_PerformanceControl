@@ -26,7 +26,6 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.*;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -44,8 +43,7 @@ import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
 
-public class Advanced extends PreferenceFragment implements
-        OnSharedPreferenceChangeListener, OnPreferenceChangeListener, Constants {
+public class Advanced extends PreferenceFragment implements OnSharedPreferenceChangeListener, Constants {
 
     private static final int NEW_MENU_ID=Menu.FIRST+1;
 	private Preference mDirtyRatio;
@@ -95,28 +93,28 @@ public class Advanced extends PreferenceFragment implements
 	    sreadahead=getResources().getString(R.string.ps_read_ahead,"");
 
         mReadAhead = (ListPreference) findPreference(PREF_READ_AHEAD);
-        mBltimeout=(Preference) findPreference(PREF_BLTIMEOUT);
+        mBltimeout= findPreference(PREF_BLTIMEOUT);
         mBltouch=(CheckBoxPreference) findPreference(PREF_BLTOUCH);
         mBln=(CheckBoxPreference) findPreference(PREF_BLN);
         mDsync=(CheckBoxPreference) findPreference(PREF_DSYNC);
         mHomeOn=(CheckBoxPreference) findPreference(PFK_HOME_ON);
-        mHomeAllowedIrqs = (Preference) findPreference(PREF_HOME_ALLOWED_IRQ);
-        mHomeReportWait = (Preference) findPreference(PREF_HOME_REPORT_WAIT);
+        mHomeAllowedIrqs = findPreference(PREF_HOME_ALLOWED_IRQ);
+        mHomeReportWait = findPreference(PREF_HOME_REPORT_WAIT);
         mMenuBackOn= (CheckBoxPreference) findPreference(PFK_MENUBACK_ON);
-        mMenuBackIrqChecks=(Preference) findPreference(PREF_MENUBACK_INTERRUPT_CHECKS);
-        mMenuBackFirstErrWait=(Preference) findPreference(PREF_MENUBACK_FIRST_ERR_WAIT);
-        mMenuBackLastErrWait=(Preference) findPreference(PREF_MENUBACK_LAST_ERR_WAIT);
-        mDirtyRatio = (Preference) findPreference(PREF_DIRTY_RATIO);
-        mDirtyBackground = (Preference) findPreference(PREF_DIRTY_BACKGROUND);
-        mDirtyExpireCentisecs = (Preference) findPreference(PREF_DIRTY_EXPIRE);
-        mDirtyWriteback = (Preference) findPreference(PREF_DIRTY_WRITEBACK);
-        mMinFreeK = (Preference) findPreference(PREF_MIN_FREE_KB);
-        mOvercommit = (Preference) findPreference(PREF_OVERCOMMIT);
-        mSwappiness = (Preference) findPreference(PREF_SWAPPINESS);
-        mVfs = (Preference) findPreference(PREF_VFS);
+        mMenuBackIrqChecks= findPreference(PREF_MENUBACK_INTERRUPT_CHECKS);
+        mMenuBackFirstErrWait= findPreference(PREF_MENUBACK_FIRST_ERR_WAIT);
+        mMenuBackLastErrWait= findPreference(PREF_MENUBACK_LAST_ERR_WAIT);
+        mDirtyRatio = findPreference(PREF_DIRTY_RATIO);
+        mDirtyBackground = findPreference(PREF_DIRTY_BACKGROUND);
+        mDirtyExpireCentisecs = findPreference(PREF_DIRTY_EXPIRE);
+        mDirtyWriteback = findPreference(PREF_DIRTY_WRITEBACK);
+        mMinFreeK =  findPreference(PREF_MIN_FREE_KB);
+        mOvercommit = findPreference(PREF_OVERCOMMIT);
+        mSwappiness =  findPreference(PREF_SWAPPINESS);
+        mVfs = findPreference(PREF_VFS);
         mDynamicWriteBackOn = (CheckBoxPreference) findPreference(PREF_DYNAMIC_DIRTY_WRITEBACK);
-        mDynamicWriteBackActive = (Preference) findPreference(PREF_DIRTY_WRITEBACK_ACTIVE);
-        mDynamicWriteBackSuspend = (Preference) findPreference(PREF_DIRTY_WRITEBACK_SUSPEND);        
+        mDynamicWriteBackActive = findPreference(PREF_DIRTY_WRITEBACK_ACTIVE);
+        mDynamicWriteBackSuspend = findPreference(PREF_DIRTY_WRITEBACK_SUSPEND);
 		
 
         if (!new File(DSYNC_PATH).exists()) {
@@ -501,12 +499,8 @@ public class Advanced extends PreferenceFragment implements
     			}
 		}		
     }
-	
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        return false;
-    }
-    public void openDialog(int currentProgress, String title, final int min, final int max,
-                           final Preference pref, final String path, final String key) {
+
+    public void openDialog(int currentProgress, String title, final int min, final int max,final Preference pref, final String path, final String key) {
         Resources res = getActivity().getResources();
         String cancel = res.getString(R.string.cancel);
         String ok = res.getString(R.string.ok);
@@ -515,8 +509,8 @@ public class Advanced extends PreferenceFragment implements
 
         final SeekBar seekbar = (SeekBar) alphaDialog.findViewById(R.id.seek_bar);
 
-	seekbar.setMax(max);
-	seekbar.setProgress(currentProgress);
+        seekbar.setMax(max);
+        seekbar.setProgress(currentProgress);
         
         settingText = (EditText) alphaDialog.findViewById(R.id.setting_text);
         settingText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -530,7 +524,7 @@ public class Advanced extends PreferenceFragment implements
 			return false;
 		}
 		});
-	settingText.setText(Integer.toString(currentProgress));
+        settingText.setText(Integer.toString(currentProgress));
         settingText.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,int count) {

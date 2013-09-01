@@ -245,6 +245,7 @@ Translation by Rhonin86
         <item>Beinhaltet ständig erzeugte Log Dateien</item>
         <item>Beinhaltet Statistiken Deiner gestarteten Apps</item>
         <item>Beinhaltet Traces von \'Anwendung reagiert nicht\' Ereignissen</item>
+        <item>Beinhaltet temporäre Dateien</item>
     </string-array>
     <string name="prefcat_fix_perms">Repariere Berechtigungen</string>
     <string name="fix_perms_title">Repariere Berechtigungen</string>
@@ -257,6 +258,8 @@ Translation by Rhonin86
     <string name="verify">Überprüfung…</string>
     <string name="bad_zip">%s nicht in Zip-Datei gefunden !</string>
     <string name="closebtn">schließen</string>
+    <string name="delallbtn">löschen Sie alle</string>
+    <string name="del_file_msg">%s wird gelöscht. Weiter machen?</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Benutze das helle Theme</string>

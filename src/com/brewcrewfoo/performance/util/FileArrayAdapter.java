@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
@@ -33,10 +32,14 @@ public class FileArrayAdapter extends ArrayAdapter<Item>{
     public Item getItem(int i){
         return items.get(i);
     }
+    public void setItem(Item o,String d){
+        o.setDate(d);
+        notifyDataSetChanged();
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
-        LinearLayout linlaHeaderProgress;
+
         if (v == null) {
             LayoutInflater vi = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(id, null);

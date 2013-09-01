@@ -260,6 +260,7 @@ Copyright (C) 2012  James Roberts
         <item>Contains constantly generated log files</item>
         <item>Contains statistics about what apps you started</item>
         <item>Contains traces from \'application not responding\' events</item>
+        <item>Contains temporary files</item>
     </string-array>
     <string name="prefcat_fix_perms">FIX PERMISSIONS</string>
     <string name="fix_perms_title">Fix permissions</string>
@@ -273,6 +274,8 @@ Copyright (C) 2012  James Roberts
     <string name="verify">Verifying…</string>
     <string name="bad_zip">%s not found in zip file !</string>
     <string name="closebtn">Close</string>
+    <string name="delallbtn">Delete all</string>
+    <string name="del_file_msg">%s will be deleted. Continue?</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>

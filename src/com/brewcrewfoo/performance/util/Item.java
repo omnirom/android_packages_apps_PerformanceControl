@@ -22,20 +22,26 @@ public class Item implements Comparable<Item>{
     public String getName(){
         return name;
     }
+    public void setName(String d){
+        this.name=d;
+    }
     public String getData(){
         return data;
     }
+    public void setData(String d){
+        this.data=d;
+    }
     public String getDate(){
         return date;
+    }
+    public void setDate(String d){
+        this.date=d;
     }
     public String getPath(){
         return path;
     }
     public String getImage() {
         return image;
-    }
-    public void setDate(String d){
-        date=d;
     }
     public int compareTo(Item o) {
         if(this.name != null)

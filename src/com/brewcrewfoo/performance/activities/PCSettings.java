@@ -28,8 +28,7 @@ import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
-public class PCSettings extends PreferenceActivity implements Constants,
-        ActivityThemeChangeInterface, OnPreferenceChangeListener {
+public class PCSettings extends PreferenceActivity implements Constants, ActivityThemeChangeInterface, OnPreferenceChangeListener {
 
     SharedPreferences mPreferences;
     private CheckBoxPreference mLightThemePref;
@@ -51,7 +50,7 @@ public class PCSettings extends PreferenceActivity implements Constants,
         mWidgetTextColorPref = (ColorPickerPreference) findPreference("widget_text_color");
         mWidgetTextColorPref.setOnPreferenceChangeListener(this);
 
-        mVersion = (Preference) findPreference("version_info");
+        mVersion = findPreference("version_info");
         mVersion.setTitle(getString(R.string.pt_ver) + VERSION_NUM);
 
         setTheme();

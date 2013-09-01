@@ -231,6 +231,7 @@ Translation by Laurentiu1996
         <item>Conține fișiere jurnal generate permanent</item>
         <item>Conţine statistici despre ce aplicaţii au fost deschise deschise</item>
         <item>Conţine urme de la \'aplicaţia nu răspunde\'</item>
+        <item>Conţine fișiere temporare</item>
     </string-array>
     <string name="prefcat_fix_perms">CORECTARE PERMISIUNI</string>
     <string name="fix_perms_title">Corectarea permisiunilor</string>
@@ -243,6 +244,8 @@ Translation by Laurentiu1996
     <string name="verify">Se verifică…</string>
     <string name="bad_zip">%s nu există în arhiva zip !</string>
     <string name="closebtn">Închide</string>
+    <string name="delallbtn">Şterge tot</string>
+    <string name="del_file_msg">%s va fi şters. Continuaţi?</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Utilizaţi o temă deschisă</string>

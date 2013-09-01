@@ -58,8 +58,7 @@ public class ColorPickerPreference extends Preference implements
         init(context, attrs);
     }
 
-    public ColorPickerPreference(Context context, AttributeSet attrs,
-                                 int defStyle) {
+    public ColorPickerPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);
     }
@@ -129,8 +128,7 @@ public class ColorPickerPreference extends Preference implements
         }
         widgetFrameView.addView(iView);
         widgetFrameView.setMinimumWidth(0);
-        iView.setBackgroundDrawable(new AlphaPatternDrawable(
-                (int) (5 * mDensity)));
+        iView.setBackgroundDrawable(new AlphaPatternDrawable((int) (5 * mDensity)));
         iView.setImageBitmap(getPreviewBitmap());
     }
 
