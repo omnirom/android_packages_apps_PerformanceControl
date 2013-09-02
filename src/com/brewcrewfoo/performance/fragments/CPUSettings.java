@@ -61,7 +61,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     private String mCurMinSpeed;
 
     private CurCPUThread mCurCPUThread;
-    private SharedPreferences mPreferences;
+    SharedPreferences mPreferences;
 
     private boolean mIsTegra3 = false;
     private int mFrequenciesNum;

@@ -49,7 +49,7 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 
     private static final int NEW_MENU_ID=Menu.FIRST+1;
 
-    private SharedPreferences mPreferences;
+    SharedPreferences mPreferences;
 	
 	private int mSeekbarProgress;
 	private EditText settingText;

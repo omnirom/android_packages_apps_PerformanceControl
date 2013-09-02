@@ -56,7 +56,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
 
     private static final int NEW_MENU_ID=Menu.FIRST+1;
     private byte tip;
-    private SharedPreferences mPreferences;
+    SharedPreferences mPreferences;
     private EditText settingText;
     private Boolean isrun=false;
     private ProgressDialog progressDialog;

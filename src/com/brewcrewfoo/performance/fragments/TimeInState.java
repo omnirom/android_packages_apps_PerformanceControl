@@ -56,7 +56,7 @@ public class TimeInState extends Fragment implements Constants {
     private boolean mUpdatingData = false;
 
     private CPUStateMonitor monitor = new CPUStateMonitor();
-    private static SharedPreferences preferences;
+    SharedPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

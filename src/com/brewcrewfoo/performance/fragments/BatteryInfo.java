@@ -49,7 +49,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     private TextView mBlxVal;
     private Switch mSetOnBoot;
     private Switch mFastchargeOnBoot;
-    private SharedPreferences mPreferences;
+    SharedPreferences mPreferences;
     private LinearLayout mhide;
     private LinearLayout mpart;
 

@@ -77,7 +77,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 	private Preference mDynamicWriteBackSuspend;
 
 	private ListPreference mReadAhead;
-	private SharedPreferences mPreferences;
+	SharedPreferences mPreferences;
 	
 	private int mSeekbarProgress;
 	private EditText settingText;

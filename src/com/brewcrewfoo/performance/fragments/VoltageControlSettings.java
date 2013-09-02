@@ -53,7 +53,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
     public static final int DIALOG_EDIT_VOLT = 0;
     private List<Voltage> mVoltages;
     private ListAdapter mAdapter;
-    private static SharedPreferences mPreferences;
+    SharedPreferences mPreferences;
     private Voltage mVoltage;
 
     @Override
