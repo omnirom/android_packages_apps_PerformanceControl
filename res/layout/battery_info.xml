@@ -25,12 +25,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="22sp"
                 android:layout_marginTop="10dp"/>
-        <TextView
-                android:id="@+id/batt_aux"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:layout_marginTop="10dp"/>
+
     <LinearLayout
             android:id="@+id/wlayout"
             android:layout_width="fill_parent"
@@ -40,8 +35,7 @@
             android:gravity="center_horizontal"
             android:visibility="gone">
 
-  <LinearLayout
-android:id="@+id/blx_layout"
+  <LinearLayout android:id="@+id/blx_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".3"
@@ -65,7 +59,7 @@ android:id="@+id/blx_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"/>
-  </LinearLayout>
+        </LinearLayout>
         <SeekBar
                 android:id="@+id/blx_slider"
                 style="?android:attr/progressBarStyleHorizontal"

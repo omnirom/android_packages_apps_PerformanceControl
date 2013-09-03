@@ -25,13 +25,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="22sp"
                 android:layout_marginTop="10dp"/>
-        <TextView
-                android:id="@+id/batt_aux"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="60dp"/>
+
     <LinearLayout
             android:id="@+id/wlayout"
             android:layout_width="fill_parent"
@@ -42,8 +36,7 @@
             android:layout_weight="0.2"
             android:layout_marginTop="80dp">
 
-  <LinearLayout
-android:id="@+id/blx_layout"
+  <LinearLayout android:id="@+id/blx_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".3"

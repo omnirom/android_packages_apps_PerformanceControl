@@ -166,9 +166,8 @@ public class VoltageControlSettings extends Fragment implements Constants {
         inflater.inflate(R.menu.voltage_control_menu, menu);
         final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
         final ViewPager mViewPager = (ViewPager) getView().getParent();
-        final int cur=mViewPager.getCurrentItem();
         for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(i!=cur)
+            if(i!=mViewPager.getCurrentItem())
             smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
         }
     }
@@ -330,11 +329,9 @@ public class VoltageControlSettings extends Fragment implements Constants {
                 voltageSeek
                         .setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
                             @Override
-                            public void onProgressChanged(SeekBar sb, int progress,
-                                                          boolean fromUser) {
+                            public void onProgressChanged(SeekBar sb, int progress,boolean fromUser) {
                                 if (fromUser) {
-                                    final String volt = Integer
-                                            .toString(STEPS[progress]);
+                                    final String volt = Integer.toString(STEPS[progress]);
                                     voltageMeter.setText(volt + " mV");
                                     voltageEdit.setText(volt);
                                 }
@@ -448,14 +445,12 @@ public class VoltageControlSettings extends Fragment implements Constants {
 
             public void setCurrentMV(final String currentMv) {
                 mCurrentMV.setText(getResources().getString(
-                        R.string.ps_volt_current_voltage)
-                        + currentMv + " mV");
+                        R.string.ps_volt_current_voltage) + currentMv + " mV");
             }
 
             public void setSavedMV(final String savedMv) {
                 mSavedMV.setText(getResources().getString(
-                        R.string.ps_volt_setting_to_apply)
-                        + savedMv + " mV");
+                        R.string.ps_volt_setting_to_apply) + savedMv + " mV");
             }
         }
     }

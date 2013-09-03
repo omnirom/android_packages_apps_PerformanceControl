@@ -146,9 +146,8 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
         inflater.inflate(R.menu.oom_menu, menu);
         final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
         final ViewPager mViewPager = (ViewPager) getView().getParent();
-        final int cur=mViewPager.getCurrentItem();
         for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(i!=cur)
+            if(i!=mViewPager.getCurrentItem())
             smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
         }
     }

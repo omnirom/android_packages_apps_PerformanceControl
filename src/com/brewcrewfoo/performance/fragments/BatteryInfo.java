@@ -43,15 +43,10 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     private CurBattThread mCurBattThread;
     private TextView mbattery_percent;
     private TextView mbattery_volt;
-    private TextView mbattery_aux;
     private TextView mbattery_status;
-    private SeekBar mBlxSlider;
     private TextView mBlxVal;
-    private Switch mSetOnBoot;
     private Switch mFastchargeOnBoot;
     SharedPreferences mPreferences;
-    private LinearLayout mhide;
-    private LinearLayout mpart;
 
 
     @Override
@@ -67,9 +62,8 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
         inflater.inflate(R.menu.battery_menu, menu);
         final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
         final ViewPager mViewPager = (ViewPager) getView().getParent();
-        final int cur=mViewPager.getCurrentItem();
         for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(i!=cur)
+            if(i!=mViewPager.getCurrentItem())
             smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
         }
     }
@@ -106,11 +100,10 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
             }
         });
 
-        mbattery_aux = (TextView) view.findViewById(R.id.batt_aux);
         mbattery_status = (TextView) view.findViewById(R.id.batt_status);
-        mhide= (LinearLayout) view.findViewById(R.id.wlayout);
+        LinearLayout mhide = (LinearLayout) view.findViewById(R.id.wlayout);
 
-        mBlxSlider = (SeekBar) view.findViewById(R.id.blx_slider);
+        SeekBar mBlxSlider = (SeekBar) view.findViewById(R.id.blx_slider);
         if (new File(BLX_PATH).exists()) {
             mhide.setVisibility(LinearLayout.VISIBLE);
 
@@ -121,22 +114,22 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
 
             mBlxSlider.setProgress(Integer.parseInt(Helpers.readOneLine(BLX_PATH)));
             mBlxSlider.setOnSeekBarChangeListener(this);
-            mSetOnBoot = (Switch) view.findViewById(R.id.blx_sob);
+            Switch mSetOnBoot = (Switch) view.findViewById(R.id.blx_sob);
             mSetOnBoot.setChecked(mPreferences.getBoolean(BLX_SOB, false));
             mSetOnBoot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton v,boolean checked) {
-                       final SharedPreferences.Editor editor = mPreferences.edit();
-                       editor.putBoolean(BLX_SOB, checked);
-                       if(checked){
-                           editor.putInt(PREF_BLX, Integer.parseInt(Helpers.readOneLine(BLX_PATH)));
-                       }
-                       editor.commit();
+                @Override
+                public void onCheckedChanged(CompoundButton v, boolean checked) {
+                    final SharedPreferences.Editor editor = mPreferences.edit();
+                    editor.putBoolean(BLX_SOB, checked);
+                    if (checked) {
+                        editor.putInt(PREF_BLX, Integer.parseInt(Helpers.readOneLine(BLX_PATH)));
+                    }
+                    editor.commit();
                 }
-                });
+            });
         }
         else{
-            mpart= (LinearLayout) view.findViewById(R.id.blx_layout);
+            LinearLayout mpart = (LinearLayout) view.findViewById(R.id.blx_layout);
             mpart.setVisibility(LinearLayout.GONE);
         }
 
@@ -181,7 +174,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
             });
         }
          else{
-            mpart= (LinearLayout) view.findViewById(R.id.fastcharge_layout);
+            LinearLayout mpart = (LinearLayout) view.findViewById(R.id.fastcharge_layout);
             mpart.setVisibility(LinearLayout.GONE);
          }
         return view;
@@ -230,7 +223,8 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                 mCurBattThread.interrupt();
                 try {
                     mCurBattThread.join();
-                } catch (InterruptedException e) {
+                }
+                catch (InterruptedException e) {
                 }
             }
         }
@@ -254,12 +248,12 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                     sb.append(Helpers.readOneLine(BAT_PERCENT_PATH)+";");
                     sb.append(Helpers.readOneLine(BAT_VOLT_PATH)+";");
                     sb.append(Helpers.readOneLine(BAT_STAT_PATH)+";");
-                    sb.append(Helpers.readOneLine(BAT_TECH_PATH)+";");
                     sb.append(Helpers.readOneLine(BAT_TEMP_PATH)+";");
                     mCurBattHandler.sendMessage(mCurBattHandler.obtainMessage(0,sb.toString()));
                 }
-            } catch (InterruptedException e) {
-                return;
+            }
+            catch (InterruptedException e) {
+
             }
         }
         protected Handler mCurBattHandler = new Handler() {
@@ -268,7 +262,12 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
 	        final String[] rr = r.split(";");
             mbattery_percent.setText(rr[0]+"%");
             mbattery_volt.setText(rr[1]+" mV");
-            mbattery_status.setText((Integer.parseInt(rr[4])/10)+"°C  "+rr[2]);
+            if(rr[3] == null){
+                mbattery_status.setText(rr[2]);
+            }
+            else{
+                mbattery_status.setText((Integer.parseInt(rr[3])/10)+"°C  "+rr[2]);
+            }
             }
         };
 
