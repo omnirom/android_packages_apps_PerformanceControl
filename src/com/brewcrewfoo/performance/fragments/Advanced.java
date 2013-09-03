@@ -198,9 +198,8 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
         inflater.inflate(R.menu.advanced_menu, menu);
         final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
         final ViewPager mViewPager = (ViewPager) getView().getParent();
-        final int cur=mViewPager.getCurrentItem();
         for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(i!=cur)
+            if(i!=mViewPager.getCurrentItem())
             smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
         }
     }
@@ -407,7 +406,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 		else if (key.equals(PREF_MENUBACK_LAST_ERR_WAIT)){
 			mMenuBackLastErrWait.setSummary(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)+" ms");
 		}
-    		else if (key.equals(BLX_SOB)) {
+    	else if (key.equals(BLX_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
 				editor.putInt(PREF_BLX, Integer.parseInt(Helpers.readOneLine(BLX_PATH))).apply();
     			}
@@ -415,7 +414,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
     				editor.remove(PREF_BLX).apply();
     			}
 		}
-    		else if (key.equals(BLTIMEOUT_SOB)) {
+    	else if (key.equals(BLTIMEOUT_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
 				editor.putInt(PREF_BLTIMEOUT, Integer.parseInt(Helpers.readOneLine(BL_TIMEOUT_PATH))).apply();
     			}
@@ -423,7 +422,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
     				editor.remove(PREF_BLTIMEOUT).apply();
     			}
 		}
-    		else if (key.equals(PFK_SOB)) {
+    	else if (key.equals(PFK_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
 				if(Helpers.readOneLine(PFK_HOME_ENABLED).equals("1")){
 					editor.putBoolean(PFK_HOME_ON, true);
@@ -455,7 +454,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 				.apply();
     			}
 		}
-    		else if (key.equals(DYNAMIC_DIRTY_WRITEBACK_SOB)) {
+    	else if (key.equals(DYNAMIC_DIRTY_WRITEBACK_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
 				if(Helpers.readOneLine(DYNAMIC_DIRTY_WRITEBACK_PATH).equals("1")){
 					editor.putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,true);
@@ -474,7 +473,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 				.apply();
     			}
 		}
-    		else if (key.equals(VM_SOB)) {
+    	else if (key.equals(VM_SOB)) {
     			if(sharedPreferences.getBoolean(key,false)){
 				editor.putInt(PREF_DIRTY_RATIO, Integer.parseInt(Helpers.readOneLine(DIRTY_RATIO_PATH)))
 				.putInt(PREF_DIRTY_BACKGROUND, Integer.parseInt(Helpers.readOneLine(DIRTY_BACKGROUND_PATH)))
@@ -537,12 +536,12 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
             @Override
             public void afterTextChanged(Editable s) {
                 try {
-			int val = Integer.parseInt(s.toString());
-			if (val > max) {
-				s.replace(0, s.length(), Integer.toString(max));
-				val=max;
-			}
-			seekbar.setProgress(val);
+                    int val = Integer.parseInt(s.toString());
+                    if (val > max) {
+                        s.replace(0, s.length(), Integer.toString(max));
+                        val=max;
+                    }
+                    seekbar.setProgress(val);
                 } catch (NumberFormatException ex) {
                 }
             }
