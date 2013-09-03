@@ -4,14 +4,15 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:baselineAligned="false">
+              android:baselineAligned="false"
+    android:weightSum="100">
     <LinearLayout
             android:id="@+id/device"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:layout_weight="0.7">
+            android:layout_weight="55">
         <TextView
                 android:id="@+id/model"
                 android:layout_width="wrap_content"
@@ -37,7 +38,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:layout_weight="0.6">
+            android:layout_weight="45">
     <TextView
             android:id="@+id/flashinfo"
             android:layout_width="match_parent"

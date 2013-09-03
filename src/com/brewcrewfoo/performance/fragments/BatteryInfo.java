@@ -110,7 +110,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
             mBlxSlider.setMax(100);
 
             mBlxVal = (TextView) view.findViewById(R.id.blx_val);
-            mBlxVal.setText(" "+Helpers.readOneLine(BLX_PATH)+"%");
+            mBlxVal.setText(getString(R.string.blx_title)+" " + Helpers.readOneLine(BLX_PATH)+"%");
 
             mBlxSlider.setProgress(Integer.parseInt(Helpers.readOneLine(BLX_PATH)));
             mBlxSlider.setOnSeekBarChangeListener(this);
@@ -183,7 +183,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
    @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
-            mBlxVal.setText(" " + progress + "%");
+            mBlxVal.setText(getString(R.string.blx_title)+" " + progress + "%");
         }
     }
 
@@ -199,8 +199,6 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
         editor.putInt(PREF_BLX, seekBar.getProgress()).commit();
     }
 
-//-----------------
-
     @Override
     public void onResume() {
         super.onResume();
@@ -212,7 +210,6 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     @Override
     public void onPause() {
         super.onPause();
-        //Helpers.updateAppWidget(getActivity());
     }
 
     @Override
