@@ -383,7 +383,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		if (key.equals(PREF_READ_AHEAD)) {
 			String evalues = Helpers.readOneLine(READ_AHEAD_PATH[0]);
-			String values = sharedPreferences.getString(key,evalues);//mPreferences.getString(key,evalues);
+			String values = sharedPreferences.getString(key,evalues);
 			if (!values.equals(evalues)){
 				final StringBuilder sb = new StringBuilder();
 				for(int i=0; i<READ_AHEAD_PATH.length; i++){
@@ -516,7 +516,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 		@Override
 		public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 			if (actionId == EditorInfo.IME_ACTION_DONE) {
-				int val = Integer.valueOf(settingText.getText().toString());
+				int val = Integer.parseInt(settingText.getText().toString());
 				seekbar.setProgress(val);
 				return true;
 			}
@@ -578,7 +578,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 			.setPositiveButton(ok, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					int val = Integer.valueOf(settingText.getText().toString());
+					int val = Integer.parseInt(settingText.getText().toString());
 					if(val<min){val=min;}
 					seekbar.setProgress(val);
 					int newProgress = seekbar.getProgress();

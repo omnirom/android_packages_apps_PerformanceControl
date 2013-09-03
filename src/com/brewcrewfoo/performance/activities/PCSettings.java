@@ -70,7 +70,7 @@ public class PCSettings extends PreferenceActivity implements Constants, Activit
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mWidgetBgColorPref) {
-            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
+            String hex = ColorPickerPreference.convertToARGB(Integer.parseInt(String.valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             final SharedPreferences.Editor editor = mPreferences.edit();
@@ -79,7 +79,7 @@ public class PCSettings extends PreferenceActivity implements Constants, Activit
             Helpers.updateAppWidget(this);
             return true;
         } else if (preference == mWidgetTextColorPref) {
-            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
+            String hex = ColorPickerPreference.convertToARGB(Integer.parseInt(String.valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             final SharedPreferences.Editor editor = mPreferences.edit();

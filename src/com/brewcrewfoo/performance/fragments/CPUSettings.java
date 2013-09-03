@@ -91,8 +91,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             Arrays.sort(mAvailableFrequencies, new Comparator<String>() {
                 @Override
                 public int compare(String object1, String object2) {
-                    return Integer.valueOf(object1).compareTo(
-                            Integer.valueOf(object2));
+                    return Integer.valueOf(object1).compareTo(Integer.valueOf(object2));
                 }
             });
         }

@@ -335,7 +335,7 @@ public class Helpers implements Constants {
      * @return tagged and converted String
      */
     public static String toMHz(String mhzString) {
-        return new StringBuilder().append(Integer.valueOf(mhzString) / 1000).append(" MHz").toString();
+        return new StringBuilder().append(Integer.parseInt(mhzString) / 1000).append(" MHz").toString();
     }
 
     /**

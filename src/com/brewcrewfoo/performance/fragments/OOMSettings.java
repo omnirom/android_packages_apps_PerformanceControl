@@ -398,7 +398,7 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 		@Override
 		public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 			if (actionId == EditorInfo.IME_ACTION_DONE) {
-				int val = Integer.valueOf(settingText.getText().toString());
+				int val = Integer.parseInt(settingText.getText().toString());
 				seekbar.setProgress(val);
 				return true;
 			}
@@ -458,7 +458,7 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 			.setPositiveButton(ok, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					int val = Integer.valueOf(settingText.getText().toString());
+					int val = Integer.parseInt(settingText.getText().toString());
 					if(val<min){val=min;}
 					seekbar.setProgress(val);
 					int newProgress = seekbar.getProgress();
