@@ -101,12 +101,9 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
         });
 
         mbattery_status = (TextView) view.findViewById(R.id.batt_status);
-        LinearLayout mhide = (LinearLayout) view.findViewById(R.id.wlayout);
 
         SeekBar mBlxSlider = (SeekBar) view.findViewById(R.id.blx_slider);
         if (new File(BLX_PATH).exists()) {
-            mhide.setVisibility(LinearLayout.VISIBLE);
-
             mBlxSlider.setMax(100);
 
             mBlxVal = (TextView) view.findViewById(R.id.blx_val);
@@ -134,7 +131,6 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
         }
 
         if (new File(FASTCHARGE_PATH).exists()) {
-            mhide.setVisibility(LinearLayout.VISIBLE);
 
             mFastchargeOnBoot = (Switch) view.findViewById(R.id.fastcharge_sob);
             mFastchargeOnBoot.setChecked(mPreferences.getBoolean(PREF_FASTCHARGE, false));
