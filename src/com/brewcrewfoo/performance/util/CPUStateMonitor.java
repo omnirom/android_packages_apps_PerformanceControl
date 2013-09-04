@@ -19,13 +19,12 @@
 
 package com.brewcrewfoo.performance.util;
 
-import android.annotation.SuppressLint;
 import android.os.SystemClock;
 
 import java.io.*;
 import java.util.*;
 
-@SuppressLint("UseSparseArrays")
+//@SuppressLint("UseSparseArrays")
 public class CPUStateMonitor implements Constants {
 
     private List<CpuState> mStates = new ArrayList<CpuState>();
@@ -38,7 +37,7 @@ public class CPUStateMonitor implements Constants {
         }
     }
 
-    @SuppressLint({"UseValueOf", "UseValueOf"})
+    //@SuppressLint({"UseValueOf", "UseValueOf"})
     public class CpuState implements Comparable<CpuState> {
         public CpuState(int a, long b) {
             freq = a;
@@ -122,8 +121,7 @@ public class CPUStateMonitor implements Constants {
                     "Problem opening time-in-states file");
         }
 
-        long sleepTime = (SystemClock.elapsedRealtime() - SystemClock
-                .uptimeMillis()) / 10;
+        long sleepTime = (SystemClock.elapsedRealtime() - SystemClock.uptimeMillis()) / 10;
         mStates.add(new CpuState(0, sleepTime));
 
         Collections.sort(mStates, Collections.reverseOrder());
@@ -137,8 +135,7 @@ public class CPUStateMonitor implements Constants {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] nums = line.split(" ");
-                mStates.add(new CpuState(Integer.parseInt(nums[0]), Long
-                        .parseLong(nums[1])));
+                mStates.add(new CpuState(Integer.parseInt(nums[0]), Long.parseLong(nums[1])));
             }
         } catch (IOException e) {
             throw new CPUStateMonitorException(

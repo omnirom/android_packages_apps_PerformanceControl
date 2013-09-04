@@ -55,6 +55,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
   	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        setRetainInstance(true);
         setHasOptionsMenu(true);
 
     }
@@ -200,13 +201,13 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     }
     @Override
     public void onStop() {
-        getActivity().unregisterReceiver(this.batteryInfoReceiver);
         super.onStop();
+        getActivity().unregisterReceiver(this.batteryInfoReceiver);
     }
     @Override
     public void onResume() {
-        getActivity().registerReceiver(this.batteryInfoReceiver,new IntentFilter(Intent.ACTION_BATTERY_CHANGED) );
         super.onResume();
+        getActivity().registerReceiver(this.batteryInfoReceiver,new IntentFilter(Intent.ACTION_BATTERY_CHANGED) );
     }
     private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
         private int voltage;
