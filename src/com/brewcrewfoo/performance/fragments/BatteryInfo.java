@@ -227,14 +227,14 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
             mbattery_percent.setText(level+"%");
             int voltage;
 
-            if(rawvoltage<10){
+            if(String.valueOf(rawvoltage).length()<=2){
                 voltage=rawvoltage*1000;
             }
-            else if(rawvoltage>5000){
-                voltage=Math.round(rawvoltage/1000);
+            else if(String.valueOf(rawvoltage).length()<=4){
+                voltage=rawvoltage;
             }
             else{
-                voltage=rawvoltage;
+                voltage=Math.round(rawvoltage/1000);
             }
             if (new File(BAT_VOLT_PATH).exists()){
                 voltage=Integer.parseInt(Helpers.readOneLine(BAT_VOLT_PATH));
