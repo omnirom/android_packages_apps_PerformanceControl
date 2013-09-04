@@ -260,6 +260,14 @@ Translation by Rhonin86
     <string name="closebtn">schließen</string>
     <string name="delallbtn">löschen Sie alle</string>
     <string name="del_file_msg">%s wird gelöscht. Weiter machen?</string>
+    <string-array name="batt_status">
+        <item>Unbekannte</item>
+        <item>Unbekannte</item>
+        <item>Charging</item>
+        <item>Discharging</item>
+        <item>Full</item>
+        <item>Not Charging</item>
+    </string-array>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Benutze das helle Theme</string>

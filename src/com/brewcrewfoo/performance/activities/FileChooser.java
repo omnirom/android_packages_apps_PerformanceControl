@@ -218,7 +218,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
             if(tip.equalsIgnoreCase("kernel")){
                 if(iszip){
                     try{
-                        new UnzipUtility().unzip(nFile,dn);
+                        new UnzipUtility().unzipfile(nFile,dn,"boot.img");
                     }
                     catch (Exception e) {
                         Log.d(TAG,"unzip error: "+nFile);
@@ -240,7 +240,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
             else{
                 if(iszip){
                     try{
-                        new UnzipUtility().unzip(nFile,dn);
+                        new UnzipUtility().unzipfile(nFile,dn,"recovery.img");
                     }
                     catch (Exception e) {
                         Log.d(TAG,"unzip error: "+nFile);

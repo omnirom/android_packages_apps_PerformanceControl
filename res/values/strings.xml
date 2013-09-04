@@ -276,6 +276,14 @@ Copyright (C) 2012  James Roberts
     <string name="closebtn">Close</string>
     <string name="delallbtn">Delete all</string>
     <string name="del_file_msg">%s will be deleted. Continue?</string>
+    <string-array name="batt_status">
+        <item>Unknown</item>
+        <item>Unknown</item>
+        <item>Charging</item>
+        <item>Discharging</item>
+        <item>Full</item>
+        <item>Not charging</item>
+    </string-array>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>

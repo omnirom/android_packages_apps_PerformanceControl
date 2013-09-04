@@ -20,8 +20,10 @@ package com.brewcrewfoo.performance.fragments;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,12 +37,13 @@ import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
+import android.os.BatteryManager;
+import android.content.BroadcastReceiver;
 
 import java.io.File;
 
 public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeListener, Constants {
     private static final int NEW_MENU_ID=Menu.FIRST+1;
-    private CurBattThread mCurBattThread;
     private TextView mbattery_percent;
     private TextView mbattery_volt;
     private TextView mbattery_status;
@@ -53,8 +56,9 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
   	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
         setHasOptionsMenu(true);
+        getActivity().registerReceiver(this.batteryInfoReceiver,	new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
     }
 
     @Override
@@ -173,6 +177,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
             LinearLayout mpart = (LinearLayout) view.findViewById(R.id.fastcharge_layout);
             mpart.setVisibility(LinearLayout.GONE);
          }
+
         return view;
     }
 
@@ -198,10 +203,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     @Override
     public void onResume() {
         super.onResume();
-        if (mCurBattThread == null) {
-            mCurBattThread = new CurBattThread();
-            mCurBattThread.start();
-        }
+        getActivity().registerReceiver(this.batteryInfoReceiver,new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
     @Override
     public void onPause() {
@@ -211,60 +213,41 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mCurBattThread != null) {
-            if (mCurBattThread.isAlive()) {
-                mCurBattThread.interrupt();
-                try {
-                    mCurBattThread.join();
-                }
-                catch (InterruptedException e) {
-                }
-            }
-        }
     }
 
 
-    protected class CurBattThread extends Thread {
-        private boolean mInterrupt = false;
-
-        public void interrupt() {
-            mInterrupt = true;
-        }
-
+    private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
+        private int voltage;
         @Override
-        public void run() {
-            try {
-                while (!mInterrupt) {
-                    sleep(500);
+        public void onReceive(Context context, Intent intent) {
 
-                    final StringBuilder sb = new StringBuilder();
-                    sb.append(Helpers.readOneLine(BAT_PERCENT_PATH)+";");
-                    sb.append(Helpers.readOneLine(BAT_VOLT_PATH)+";");
-                    sb.append(Helpers.readOneLine(BAT_STAT_PATH)+";");
-                    sb.append(Helpers.readOneLine(BAT_TEMP_PATH)+";");
-                    mCurBattHandler.sendMessage(mCurBattHandler.obtainMessage(0,sb.toString()));
-                }
+            int  health= intent.getIntExtra(BatteryManager.EXTRA_HEALTH,0);
+            int  level= intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
+            int  plugged= intent.getIntExtra(BatteryManager.EXTRA_PLUGGED,0);
+            boolean  present= intent.getExtras().getBoolean(BatteryManager.EXTRA_PRESENT);
+            int  scale= intent.getIntExtra(BatteryManager.EXTRA_SCALE,0);
+            int  status= intent.getIntExtra(BatteryManager.EXTRA_STATUS,0);
+            String  technology= intent.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
+            int  temperature= intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0);
+            int  rawvoltage= intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE,0);
+            if(rawvoltage<10){
+                voltage=rawvoltage*1000;
             }
-            catch (InterruptedException e) {
-
-            }
-        }
-        protected Handler mCurBattHandler = new Handler() {
-            public void handleMessage(Message msg) {
-	        final String r=(String) msg.obj;
-	        final String[] rr = r.split(";");
-            mbattery_percent.setText(rr[0]+"%");
-            mbattery_volt.setText(rr[1]+" mV");
-            if(rr[3] == null){
-                mbattery_status.setText(rr[2]);
+            else if(rawvoltage>5000){
+                voltage=Math.round(rawvoltage/1000);
             }
             else{
-                mbattery_status.setText((Integer.parseInt(rr[3])/10)+"°C  "+rr[2]);
+                voltage=rawvoltage;
             }
+            if (new File(BAT_VOLT_PATH).exists()){
+                voltage=Integer.parseInt(Helpers.readOneLine(BAT_VOLT_PATH));
             }
-        };
+            mbattery_percent.setText(level+"%");
+            mbattery_volt.setText(voltage+" mV");
+            mbattery_status.setText((temperature/10)+"°C  "+getResources().getStringArray(R.array.batt_status)[status]);
 
-    }
+        }
+    };
 
 
 }

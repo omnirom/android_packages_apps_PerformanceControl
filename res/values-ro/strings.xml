@@ -158,7 +158,7 @@ Translation by Laurentiu1996
     <string name="saved">mV salvat</string>
     <string name="not_supported">Kernel-ul folosit nu suportă controlul tensiunii</string>
     <!-- VM settings -->
-    <string name="ps_vm_set_on_boot">Dacă este selectat, se vor restaura toate setărilen vm la repornire</string>
+    <string name="ps_vm_set_on_boot">Dacă este selectat, se vor restaura toate setările VM la repornire</string>
     <string name="dirty_ratio_title">Dirty ratio</string>
     <string name="dirty_background_title">Dirty background ratio</string>
     <string name="dirty_expire_title">Dirty expire centisecs</string>
@@ -246,6 +246,14 @@ Translation by Laurentiu1996
     <string name="closebtn">Închide</string>
     <string name="delallbtn">Şterge tot</string>
     <string name="del_file_msg">%s va fi şters. Continuaţi?</string>
+    <string-array name="batt_status">
+        <item>Necunoscut</item>
+        <item>Necunoscut</item>
+        <item>Se încarcă</item>
+        <item>Se descarcă</item>
+        <item>Complet</item>
+        <item>Nu se încarcă</item>
+    </string-array>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Utilizaţi o temă deschisă</string>

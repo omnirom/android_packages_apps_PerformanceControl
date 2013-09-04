@@ -14,7 +14,7 @@ import java.util.zip.ZipInputStream;
 public class UnzipUtility implements Constants {
     private static final int BUFFER_SIZE = 4096;
 
-    public void unzip(String zipFilePath, String destDirectory) throws IOException {
+    public void unzipall(String zipFilePath, String destDirectory) throws IOException {
         File destDir = new File(destDirectory);
         if (!destDir.exists()) {destDir.mkdir();}
 
@@ -33,7 +33,25 @@ public class UnzipUtility implements Constants {
         }
         zipIn.close();
     }
+    public void unzipfile(String zipFilePath, String destDirectory,String f) throws IOException {
+        File destDir = new File(destDirectory);
+        if (!destDir.exists()) {destDir.mkdir();}
 
+        ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFilePath));
+        ZipEntry entry = zipIn.getNextEntry();
+        while (entry != null) {
+            if (!entry.isDirectory() && entry.getName().contains(f)) {
+                File dir=new File(destDirectory,entry.getName());
+                if(!dir.getParentFile().exists())
+                    dir.getParentFile().mkdirs();
+                extractFile(zipIn, destDirectory+"/"+entry.getName());
+            }
+
+            zipIn.closeEntry();
+            entry = zipIn.getNextEntry();
+        }
+        zipIn.close();
+    }
     private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
         byte[] bytesIn = new byte[BUFFER_SIZE];
