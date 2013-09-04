@@ -21,10 +21,13 @@ package com.brewcrewfoo.performance.fragments;
 import android.app.AlertDialog;
 import android.app.Fragment;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
@@ -52,7 +55,6 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
   	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
         setHasOptionsMenu(true);
 
     }
@@ -196,23 +198,34 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putInt(PREF_BLX, seekBar.getProgress()).commit();
     }
-
+    @Override
+    public void onStop() {
+        getActivity().unregisterReceiver(this.batteryInfoReceiver);
+        super.onStop();
+    }
     @Override
     public void onResume() {
+        getActivity().registerReceiver(this.batteryInfoReceiver,new IntentFilter(Intent.ACTION_BATTERY_CHANGED) );
         super.onResume();
     }
+    private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
+        private int voltage;
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //int  health= intent.getIntExtra(BatteryManager.EXTRA_HEALTH,0);
+            //String  technology= intent.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
+            //int  plugged= intent.getIntExtra(BatteryManager.EXTRA_PLUGGED,0);
+            //boolean  present= intent.getExtras().getBoolean(BatteryManager.EXTRA_PRESENT);
+            int  scale= intent.getIntExtra(BatteryManager.EXTRA_SCALE,0);
+            int  level= intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
+            int  status= intent.getIntExtra(BatteryManager.EXTRA_STATUS,0);
+            int  temperature= intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0);
+            int  rawvoltage= intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE,0);
 
-/*
-    @Override
-    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
-
-        if (key.equals("battery_level")||key.equals("battery_status")||key.equals("battery_temp")||key.equals("battery_volt")) {
-            int level=sharedPreferences.getInt("battery_level",0);
-            int scale=sharedPreferences.getInt("battery_scale",0);
             level=level*scale/100;
             mbattery_percent.setText(level+"%");
             int voltage;
-            int rawvoltage=mPreferences.getInt("battery_volt",0);
+
             if(rawvoltage<10){
                 voltage=rawvoltage*1000;
             }
@@ -227,12 +240,9 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
             }
             mbattery_volt.setText(voltage+" mV");
 
-            int status=mPreferences.getInt("battery_status",0);
-            int temperature=mPreferences.getInt("battery_temp",0);
             mbattery_status.setText((temperature/10)+"°C  "+getResources().getStringArray(R.array.batt_status)[status]);
-        }
-    }
 
-*/
+        }
+    };
 
 }

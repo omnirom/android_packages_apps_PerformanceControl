@@ -22,14 +22,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.BatteryManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -73,40 +68,14 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
 
         checkForSu();
 	    Helpers.shCreate();
-        this.registerReceiver(this.batteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
-    private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
-        private int voltage;
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //int  health= intent.getIntExtra(BatteryManager.EXTRA_HEALTH,0);
-            //String  technology= intent.getExtras().getString(BatteryManager.EXTRA_TECHNOLOGY);
-            //int  plugged= intent.getIntExtra(BatteryManager.EXTRA_PLUGGED,0);
-            //boolean  present= intent.getExtras().getBoolean(BatteryManager.EXTRA_PRESENT);
-            int  scale= intent.getIntExtra(BatteryManager.EXTRA_SCALE,0);
-            int  level= intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
-            int  status= intent.getIntExtra(BatteryManager.EXTRA_STATUS,0);
-            int  temperature= intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0);
-            int  rawvoltage= intent.getIntExtra(BatteryManager.EXTRA_VOLTAGE,0);
-            mPreferences.edit()
-                    .putInt("battery_level",level)
-                    .putInt("battery_status",status)
-                    .putInt("battery_scale",scale)
-                    .putInt("battery_temp",temperature)
-                    .putInt("battery_volt",rawvoltage)
-                    .commit();
-        }
-    };
     class TitleAdapter extends FragmentPagerAdapter {
         String titles[] = getTitles();
         private Fragment frags[] = new Fragment[titles.length];
 
         public TitleAdapter(FragmentManager fm) {
             super(fm);
-            // Display the Voltage Control fragment only
-            // if a table is found.
-            // Display the Battery fragment only if fastcharge and battery life extender exists
             if (mVoltageExists) {
             	if(Helpers.showBattery()){
 	                frags[0] = new CPUSettings();
