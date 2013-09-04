@@ -21,7 +21,7 @@ package com.brewcrewfoo.performance.util;
 public interface Constants {
 
     public static final String TAG = "PerformanceControl";
-
+    public static final String VERSION_NUM = "2.1.1";
     public static final String ISTORAGE="/data/data/com.brewcrewfoo.performance/files/";
 
     // CPU settings
@@ -172,7 +172,7 @@ public interface Constants {
     public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
     public static final String PREF_WIDGET_BG_COLOR = "widget_bg_color";
     public static final String PREF_WIDGET_TEXT_COLOR = "widget_text_color";
-    public static final String VERSION_NUM = "2.1.0";
+
 }
 
 

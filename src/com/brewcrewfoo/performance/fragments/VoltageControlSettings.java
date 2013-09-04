@@ -61,9 +61,9 @@ public class VoltageControlSettings extends Fragment implements Constants {
         super.onCreate(savedInstanceState);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-        mAdapter = new ListAdapter(getActivity());
         mVoltages = getVolts(mPreferences);
+        mAdapter = new ListAdapter(getActivity());
+
         setHasOptionsMenu(true);
     }
 
@@ -73,6 +73,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
 
         final ListView listView = (ListView) view.findViewById(R.id.ListView);
         final Switch setOnBoot = (Switch) view.findViewById(R.id.applyAtBoot);
+
 
         if (mVoltages.isEmpty()) {
             ((TextView) view.findViewById(R.id.emptyList)).setVisibility(View.VISIBLE);
@@ -137,7 +138,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
 				}
 			}
 			Helpers.shExec(sb);
-			
+
 			final List<Voltage> volts = getVolts(mPreferences);
 			mVoltages.clear();
 			mVoltages.addAll(volts);
