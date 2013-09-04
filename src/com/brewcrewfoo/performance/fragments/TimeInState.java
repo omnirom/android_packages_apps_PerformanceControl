@@ -95,8 +95,9 @@ public class TimeInState extends Fragment implements Constants {
 
     @Override
     public void onResume() {
-        super.onResume();
         refreshData();
+        super.onResume();
+
     }
 
     @Override

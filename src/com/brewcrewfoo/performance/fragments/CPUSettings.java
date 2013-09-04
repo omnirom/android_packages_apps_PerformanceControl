@@ -281,22 +281,24 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     @Override
     public void onResume() {
-        super.onResume();
+
         if (mCurCPUThread == null) {
             mCurCPUThread = new CurCPUThread();
             mCurCPUThread.start();
         }
+        super.onResume();
     }
 
     @Override
     public void onPause() {
-        super.onPause();
+
         Helpers.updateAppWidget(getActivity());
+        super.onPause();
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+
         if (mCurCPUThread != null) {
             if (mCurCPUThread.isAlive()) {
                 mCurCPUThread.interrupt();
@@ -306,6 +308,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 }
             }
         }
+        super.onDestroy();
     }
 
     public void setMaxSpeed(SeekBar seekBar, int progress) {
