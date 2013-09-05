@@ -64,24 +64,16 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.battery_menu, menu);
-        final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
-        final ViewPager mViewPager = (ViewPager) getView().getParent();
-        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(i!=mViewPager.getCurrentItem())
-            smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
-        }
+        Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.app_settings) {
-            Intent intent = new Intent(getActivity(), PCSettings.class);
-            startActivity(intent);
-        }
-        final ViewPager mViewPager = (ViewPager) getView().getParent();
-        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(item.getItemId() == NEW_MENU_ID+i+1) {
-                mViewPager.setCurrentItem(i);
-            }
+        Helpers.removeCurItem(item,NEW_MENU_ID,(ViewPager) getView().getParent());
+        switch(item.getItemId()){
+                case R.id.app_settings:
+                Intent intent = new Intent(getActivity(), PCSettings.class);
+                startActivity(intent);
+            break;
         }
         return true;
     }
@@ -93,19 +85,17 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
         mbattery_percent = (TextView) view.findViewById(R.id.batt_percent);
         mbattery_volt = (TextView) view.findViewById(R.id.batt_volt);
         mbattery_status = (TextView) view.findViewById(R.id.batt_status);
-
         mBattIcon=(ImageView) view.findViewById(R.id.batt_icon);
-        mBattIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (new File(BAT_VOLT_PATH).exists()){
-                    int volt=Integer.parseInt(Helpers.readOneLine(BAT_VOLT_PATH));
-                    if(volt>5000) volt = (int) Math.round(volt / 1000.0);
-                    mbattery_volt.setText(volt+" mV");
-                    mBattIcon.setVisibility(ImageView.GONE);
-                    mbattery_volt.setVisibility(TextView.VISIBLE);
-                }
-                else{
+
+        if (new File(BAT_VOLT_PATH).exists()){
+            int volt=Integer.parseInt(Helpers.readOneLine(BAT_VOLT_PATH));
+            if(volt>5000) volt = (int) Math.round(volt / 1000.0);
+            mbattery_volt.setText(volt+" mV");
+            mBattIcon.setVisibility(ImageView.GONE);
+            mbattery_volt.setVisibility(TextView.VISIBLE);
+            mbattery_volt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                     try{
                         Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
                         startActivity(powerUsageIntent);
@@ -113,19 +103,23 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                     catch(Exception e){
                     }
                 }
-            }
-        });
-        mbattery_volt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
-                    startActivity(powerUsageIntent);
+            });
+        }
+        else{
+            mBattIcon.setVisibility(ImageView.VISIBLE);
+            mbattery_volt.setVisibility(TextView.GONE);
+            mBattIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try{
+                        Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+                        startActivity(powerUsageIntent);
+                    }
+                    catch(Exception e){
+                    }
                 }
-                catch(Exception e){
-                }
-            }
-        });
+            });
+        }
 
         SeekBar mBlxSlider = (SeekBar) view.findViewById(R.id.blx_slider);
         if (new File(BLX_PATH).exists()) {

@@ -165,34 +165,26 @@ public class VoltageControlSettings extends Fragment implements Constants {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.voltage_control_menu, menu);
-        final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
-        final ViewPager mViewPager = (ViewPager) getView().getParent();
-        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(i!=mViewPager.getCurrentItem())
-            smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
-        }
+        Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.app_settings) {
+        Helpers.removeCurItem(item,Menu.FIRST+1,(ViewPager) getView().getParent());
+        switch (item.getItemId()){
+        case R.id.app_settings:
             Intent intent = new Intent(getActivity(), PCSettings.class);
             startActivity(intent);
-        }
-        else if(item.getItemId() == R.id.volt_increase){
-		IncreasebyStep(25);
-        }
-        else if(item.getItemId() == R.id.volt_decrease){
+            break;
+        case R.id.volt_increase:
+            IncreasebyStep(25);
+            break;
+        case R.id.volt_decrease:
             IncreasebyStep(-25);
-        }
-        else if(item.getItemId() == R.id.reset){
+            break;
+        case R.id.reset:
             ResetVolt();
-        }
-        final ViewPager mViewPager = (ViewPager) getView().getParent();
-        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(item.getItemId() == NEW_MENU_ID+i+1) {
-                mViewPager.setCurrentItem(i);
-            }
+            break;
         }
         return true;
     }

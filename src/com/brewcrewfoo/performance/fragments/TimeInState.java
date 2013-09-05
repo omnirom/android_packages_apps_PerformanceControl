@@ -37,6 +37,7 @@ import com.brewcrewfoo.performance.util.CPUStateMonitor;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CPUStateMonitorException;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CpuState;
 import com.brewcrewfoo.performance.util.Constants;
+import com.brewcrewfoo.performance.util.Helpers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -101,41 +102,37 @@ public class TimeInState extends Fragment implements Constants {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.time_in_state_menu, menu);
-        final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
-        final ViewPager mViewPager = (ViewPager) getView().getParent();
-        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(i!=mViewPager.getCurrentItem())
-            smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
-        }
+        Helpers.addItems2Menu(menu, NEW_MENU_ID, getString(R.string.menu_tab), (ViewPager) getView().getParent());
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.refresh) {
-            refreshData();
-        } else if (item.getItemId() == R.id.reset) {
-            try {
-                monitor.setOffsets();
-            }
-            catch (Exception e) {
-                // not good
-            }
-            saveOffsets();
-            updateView();
-        } else if (item.getItemId() == R.id.restore) {
-            monitor.removeOffsets();
-            saveOffsets();
-            updateView();
-        } else if (item.getItemId() == R.id.app_settings) {
-            Intent intent = new Intent(getActivity(), PCSettings.class);
-            startActivity(intent);
+        Helpers.removeCurItem(item,Menu.FIRST+1,(ViewPager) getView().getParent());
+        switch (item.getItemId()){
+            case R.id.refresh:
+                refreshData();
+                break;
+            case R.id.reset:
+                try {
+                    monitor.setOffsets();
+                }
+                catch (Exception e) {
+                    // not good
+                }
+                saveOffsets();
+                updateView();
+                break;
+            case R.id.restore:
+                monitor.removeOffsets();
+                saveOffsets();
+                updateView();
+                break;
+            case R.id.app_settings:
+                Intent intent = new Intent(getActivity(), PCSettings.class);
+                startActivity(intent);
+                break;
         }
-        final ViewPager mViewPager = (ViewPager) getView().getParent();
-        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(item.getItemId() == NEW_MENU_ID+i+1) {
-                mViewPager.setCurrentItem(i);
-            }
-        }
+
         return true;
     }
 

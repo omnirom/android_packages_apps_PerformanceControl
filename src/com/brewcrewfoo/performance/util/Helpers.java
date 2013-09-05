@@ -26,7 +26,13 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
+
+import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.widget.PCWidget;
 
 import java.io.*;
@@ -458,5 +464,18 @@ public class Helpers implements Constants {
         String pre = String.valueOf("KMGTPE".charAt(exp-1));
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
-
+    public static void removeCurItem(MenuItem item,int idx,ViewPager vp){
+        for(int i=0;i< vp.getAdapter().getCount();i++){
+            if(item.getItemId() == idx+i+1) {
+                vp.setCurrentItem(i);
+            }
+        }
+    }
+    public static void addItems2Menu(Menu menu,int idx,String nume,ViewPager vp){
+        final SubMenu smenu = menu.addSubMenu(0, idx, 0,nume);
+        for(int i=0;i< vp.getAdapter().getCount();i++){
+            if(i!=vp.getCurrentItem())
+                smenu.add(0,idx +i+1, 0, vp.getAdapter().getPageTitle(i));
+        }
+    }
 }

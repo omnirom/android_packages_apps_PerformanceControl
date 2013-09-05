@@ -81,7 +81,6 @@ public class DiskInfo extends Fragment implements Constants {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup root,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.disk_info, root, false);
-        CMDProcessor.CommandResult cr;
 
         lsys=(RelativeLayout) view.findViewById(R.id.system);
         lsys.setOnClickListener(new View.OnClickListener(){
@@ -180,30 +179,7 @@ public class DiskInfo extends Fragment implements Constants {
         sd2free = (TextView) view.findViewById(R.id.sd2free);
         sd2bar= (ProgressBar) view.findViewById(R.id.sd2Bar);
 
-        set_part_info("/system","System",sysname,systotal,sysused,sysfree,sysbar,lsys);
-        set_part_info("/data","Data",dataname,datatotal,dataused,datafree,databar,ldata);
-        set_part_info("/cache","Cache",cachename,cachetotal,cacheused,cachefree,cachebar,lcache);
-        cr = null;
-        cr=new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v \"asec|android_secure|sdcard1|external_sd|sd-ext\" | busybox egrep -i \"(sdcard|sdcard0)\" | busybox awk '{print $3}'`" );
-        Log.d(TAG, "SDcard1 detected: "+cr.stdout);
-        Log.d(TAG, "error detected: "+cr.stderr);
-
-        if(cr.success() && set_part_info(cr.stdout,"SD card 1",sd1name,sd1total,sd1used,sd1free,sd1bar,lsd1)){
-            internalsd=cr.stdout;
-        }
-        cr = null;
-        if(!internalsd.equals("")){
-            cr=new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v \"asec|android_secure|"+internalsd+"\" | busybox egrep -i \"(external_sd|sdcard1|sd-ext)\" | busybox awk '{print $3}'`" );
-        }
-        else{
-            cr=new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v \"asec|android_secure"+internalsd+"\" | busybox egrep -i \"(external_sd|sdcard1|sd-ext)\" | busybox awk '{print $3}'`" );
-        }
-        Log.d(TAG, "SDcard2 detected: "+cr.stdout);
-        Log.d(TAG, "error detected: "+cr.stderr);
-
-        if(cr.success()&&set_part_info(cr.stdout,"SD card 2",sd2name,sd2total,sd2used,sd2free,sd2bar,lsd2)){
-            externalsd=cr.stdout;
-        }
+        loadData();
 
         return view;
 
@@ -215,26 +191,20 @@ public class DiskInfo extends Fragment implements Constants {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.disk_info_menu, menu);
-        final SubMenu smenu = menu.addSubMenu(0, NEW_MENU_ID, 0,getString(R.string.menu_tab));
-        final ViewPager mViewPager = (ViewPager) getView().getParent();
-        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(i!=mViewPager.getCurrentItem())
-            smenu.add(0, NEW_MENU_ID +i+1, 0, mViewPager.getAdapter().getPageTitle(i));
-        }
+        Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.app_settings) {
-            Intent intent = new Intent(getActivity(), PCSettings.class);
-            startActivity(intent);
+        Helpers.removeCurItem(item,NEW_MENU_ID,(ViewPager) getView().getParent());
+        switch (item.getItemId()){
+            case R.id.refresh:
+                loadData();
+                break;
+            case R.id.app_settings:
+                Intent intent = new Intent(getActivity(), PCSettings.class);
+                startActivity(intent);
+                break;
         }
-        final ViewPager mViewPager = (ViewPager) getView().getParent();
-        for(int i=0;i< mViewPager.getAdapter().getCount();i++){
-            if(item.getItemId() == NEW_MENU_ID+i+1) {
-                mViewPager.setCurrentItem(i);
-            }
-        }
-
         return true;
     }
 
@@ -274,5 +244,33 @@ public class DiskInfo extends Fragment implements Constants {
             t3.setText(cr.stdout.split(" ")[0]);
             t4.setText(cr.stdout.split(" ")[1].toUpperCase());
         }
+    }
+    public void loadData(){
+        CMDProcessor.CommandResult cr=null;
+        set_part_info("/system","System",sysname,systotal,sysused,sysfree,sysbar,lsys);
+        set_part_info("/data","Data",dataname,datatotal,dataused,datafree,databar,ldata);
+        set_part_info("/cache","Cache",cachename,cachetotal,cacheused,cachefree,cachebar,lcache);
+        cr = null;
+        cr=new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v \"asec|android_secure|sdcard1|external_sd|sd-ext\" | busybox egrep -i \"(sdcard|sdcard0)\" | busybox awk '{print $3}'`" );
+        Log.d(TAG, "SDcard1 detected: "+cr.stdout);
+        Log.d(TAG, "error detected: "+cr.stderr);
+
+        if(cr.success() && set_part_info(cr.stdout,"SD card 1",sd1name,sd1total,sd1used,sd1free,sd1bar,lsd1)){
+            internalsd=cr.stdout;
+        }
+        cr = null;
+        if(!internalsd.equals("")){
+            cr=new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v \"asec|android_secure|"+internalsd+"\" | busybox egrep -i \"(external_sd|sdcard1|sd-ext)\" | busybox awk '{print $3}'`" );
+        }
+        else{
+            cr=new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v \"asec|android_secure"+internalsd+"\" | busybox egrep -i \"(external_sd|sdcard1|sd-ext)\" | busybox awk '{print $3}'`" );
+        }
+        Log.d(TAG, "SDcard2 detected: "+cr.stdout);
+        Log.d(TAG, "error detected: "+cr.stderr);
+
+        if(cr.success()&&set_part_info(cr.stdout,"SD card 2",sd2name,sd2total,sd2used,sd2free,sd2bar,lsd2)){
+            externalsd=cr.stdout;
+        }
+
     }
 }
