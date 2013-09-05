@@ -23,6 +23,14 @@ public interface Constants {
     public static final String TAG = "PerformanceControl";
     public static final String VERSION_NUM = "2.1.1";
     public static final String ISTORAGE="/data/data/com.brewcrewfoo.performance/files/";
+    //GPU settings
+    public static final String GPU_GOVERNOR_PATH = "/sys/devices/platform/kgsl/msm_kgsl/kgsl-3d0/scaling_governor";
+    public static final String GPU_IOFRACTION_PATH = "/sys/devices/platform/kgsl/msm_kgsl/kgsl-3d0/io_fraction";
+    /*
+    public String[] govs = {
+            "ondemand", "performance"
+    };
+    */
 
     // CPU settings
     public static final String CUR_CPU_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";

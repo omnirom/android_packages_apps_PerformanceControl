@@ -120,9 +120,7 @@ public class Helpers implements Constants {
             final String device = mounts[0];
             final String path = mounts[1];
             final String point = mounts[2];
-            if (cmd.su.runWaitFor(
-                    "mount -o " + mount + ",remount -t " + point + " " + device
-                            + " " + path).success()) {
+            if (cmd.su.runWaitFor("mount -o " + mount + ",remount -t " + point + " " + device+ " " + path).success()) {
                 return true;
             }
         }
