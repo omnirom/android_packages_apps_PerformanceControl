@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Производительность</string>
+    <!-- Main tabs -->
+    <string name="tab_cpu_settings">Настройки Процессора</string>
+    <string name="tab_cpu_profiles">Профили Процессора</string>
+    <string name="tab_battery_info">Аккумулятор</string>
+    <string name="tab_oom_settings">Настройки Памяти</string>
+    <string name="tab_time_in_state">Время в Действии</string>
+    <string name="tab_voltage_settings">Настройки Напряжения</string>
+    <string name="tab_cpu_info">О Процессоре</string>
+    <string name="tab_disk_info">О Диске</string>
+    <string name="tab_tools">Инструменты</string>
+    <!-- Titles -->
+    <string name="t_cpu_settings">НАСТРОЙКИ ПРОЦЕССОРА</string>
+    <string name="t_battery_info">АККУМУЛЯТОР</string>
+    <string name="t_oom_settings">НАСТРОЙКИ ПАМЯТИ</string>
+    <string name="t_volt_settings">НАСТРОЙКИ НАПРЯЖЕНИЯ</string>
+    <string name="t_adv_settings">"РАСШИРЕННЫЕ НАСТРОЙКИ"</string>
+    <string name="t_time_in_state">"ВРЕМЯ В ДЕЙСТВИИ"</string>
+    <string name="t_cpu_info">О ПРОЦЕССОРЕ</string>
+    <string name="t_disk_info">О ДИСКЕ</string>
+    <string name="t_tools">ИНСТРУМЕНТЫ</string>
+    <string name="menu_tab">Вкладки</string>
+    <!-- Menu -->
+    <string name="mt_refresh">Обновить</string>
+    <string name="mt_app_settings">"Настройки Приложения"</string>
+    <string name="mt_reset">Сбросить</string>
+    <string name="mt_restore">Восстановить</string>
+    <string name="mt_plus25">Увеличить на 25 mV</string>
+    <string name="mt_minus25">Уменьшить на 25 mV</string>
+    <!-- CPU settings -->
+    <string name="current_speed">Текущая Частота</string>
+    <string name="current_max">Максимум:</string>
+    <string name="current_min">Минимум:</string>
+    <string name="governor">Говернор</string>
+    <string name="io">Планировщик IO</string>
+    <string name="sob">Автозагрузка</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Отменить</string>
+    <!-- Other settings -->
+    <string name="prefcat_free_memory">СВОБОДНАЯ ПАМЯТЬ</string>
+    <string name="prefcat_tweaks">БЫСТРАЯ ЗАРЯДКА</string>
+    <string name="prefcat_misc_short">MISC</string>
+    <string name="prefcat_read_ahead">Упреждающее Чтение</string>
+    <string name="prefcat_vm_settings">НАСТРОЙКИ VM</string>
+    <string name="dt_free_memory">Менеджер задач Minfree</string>
+    <string name="dt_read_ahead">Упреждающее Чтение</string>
+    <string name="pt_free_memory">Свободная Память</string>
+    <string name="ps_free_memory">Уровень удерживаемой оперативной памяти |
+        Текущий: %s
+    </string>
+    <string name="ps_free_memory_boot">Применить этот уровень в автозагрузку</string>
+    <string name="pt_read_ahead">Упреждающее Чтение</string>
+    <string name="ps_read_ahead">Уровень использования упреждающего чтения на SDCard |
+        Текущий: %s
+    </string>
+    <string name="ps_fast_charge_boot">Быстрая Зарядка</string>
+    <string name="fast_charge_warning">Вы не сможете подключаться к ПК после каждой перезагрузки пока режим "Быстрой зарядки" включён. В этом режиме Вы можете только заряжать телефон!
+    </string>
+    <string name="fast_charge_notification_title">Быстрая Зарядка Включена!</string>
+    <string name="fast_charge_notification_message">Телефон в режиме "Быстрая зарядка"! </string>
+    <!-- minfree -->
+    <string name="prefcat_oom">МЕНЕДЖЕР ЗАДАЧ MINFREE</string>
+    <string name="title_foreground_app">Активные Приложения</string>
+    <string name="title_visible_app">Видимые Приложения</string>
+    <string name="title_secondary_server">Вторичные Приложения</string>
+    <string name="title_hidden_app">Невидимые Приложения</string>
+    <string name="title_content_providers">Контент Провайдеры</string>
+    <string name="title_empty_app">Пустые Приложения</string>
+    <string name="prefcat_oom_predefines">Предустановленные</string>
+    <string name="pt_oom">Пресеты Minfree</string>
+    <string name="pt_verylight">Очень Легкий</string>
+    <string name="pt_light">Легкий</string>
+    <string name="pt_medium">Средний</string>
+    <string name="pt_aggressive">Аггресивный</string>
+    <string name="pt_veryaggressive">Очень Аггресивный</string>
+    <!-- do not kill proc -->
+    <string name="prefcat_user_proc">НЕ УБИВАЕМЫЕ ПРОЦЕССЫ</string>
+    <string name="prefcat_sys_proc">НЕУБИВАЕМЫЕ СИСТЕМНЫЕ ПРОЦЕССЫ</string>
+    <string name="pt_user_proc">Активировать "Неубиваемые процессоры"</string>
+    <string name="pt_sys_proc">Активировать "Неубиваемые Системные Процессы"</string>
+    <string name="pt_user_names_proc">Белый список пользовательских процессов</string>
+    <string name="pt_sys_names_proc">Белый список системных процессов</string>
+    <string name="ps_restore_boot">Применить эти параметры в загрузку</string>
+    <string name="ps_user_proc">Список своих процессов (разделять запятой)</string>
+    <string name="ps_sys_proc">Список системных процессов (разделять запятой)</string>
+    <string name="no_proc">Нет пакетов</string>
+    <!-- bln -->
+    <string name="prefcat_bln">УВЕДОМЛЕНИЕ ПОДСВЕТКОЙ</string>
+    <string name="pt_bln">Уведомление подсветкой</string>
+    <!-- blx -->
+    <string name="blx_info">Battery Life eXtender\nАвтор Ezekeel</string>
+    <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
+    <string name="pt_blx_boot">В загрузку</string>
+    <string name="ps_blx_boot">Установить эти параметры в загрузку</string>
+    <string name="blx_title">Лимит заряда:</string>
+    <!-- dsync -->
+    <string name="dsync_info">Динамическая синхронизация файлов\nАвтор Paul Reioux (faux123)</string>
+    <string name="prefcat_dsync">ДИНАМИЧЕСКАЯ СИНХР.ФАЙЛОВ</string>
+    <string name="ps_dsync">Настройки будут возобновлены при перезагрузке</string>
+    <string name="pt_dsync">Динамическая синхронизация файлов</string>
+    <!-- bl_timeout -->
+    <string name="prefcat_bltimeout">Тайм-аут подсветки </string>
+    <string name="ps_bltimeout">%s мс</string>
+    <string name="bltimeout_title">Тайм-аут подсветки</string>
+    <!-- bl_touch -->
+    <string name="prefcat_bltouch">Подсветка Дисплеем</string>
+    <string name="pt_bltouch">Подсветка Дисплеем</string>
+    <!-- pfk -->
+    <string name="pfk_info">Фильтр Случайных Нажатий Кнопок ver. %s\nАвтор Cristoforo Cataldo (Christopher83)</string>
+    <string name="prefcat_pfk">ФИЛЬТР СЛУЧАЙНЫХ НАЖАТИЙ КНОПОК</string>
+    <string name="pt_home_enabled">Фильтр кнопки "Домой"</string>
+    <string name="ps_home_enabled">Игнорировать нажатие кнопки: %s</string>
+    <string name="home_allowed_irq_title">Максимально разрешённые прерывания</string>
+    <string name="home_report_wait_title">Уведомить о времени ожидания</string>
+    <string name="pt_menuback_enabled">Фильтр кнопок Меню/Назад</string>
+    <string name="ps_menuback_enabled">Игнорировать нажатие кнопки: %s</string>
+    <string name="menuback_interrupt_checks_title">Проверка прерываний</string>
+    <string name="menuback_first_err_wait_title">Время ожидания первой ошибки</string>
+    <string name="menuback_last_err_wait_title">Время ожидания последней ошибки</string>
+    <string name="ps_pfk_set_on_boot">Все ФСНК настройки будут восстановлены при перезагрузке, если этот параметр активирован</string>
+    <!-- dynamic write back -->
+    <string name="dynamic_writeback_info">Динамическое управление\nАвтор Cristoforo Cataldo (Christopher83)</string>
+    <string name="dynamic_write_back_title">ДИНАМИЧЕСКОЕ УПРАВЛЕНИЕ</string>
+    <string name="pt_dynamic_write_back">Динамическая Обратная Запись</string>
+    <string name="dynamic_writeback_active_title">Активная Обратная Динамическая Запись  centisecs</string>
+    <string name="dynamic_writeback_suspend_title">Приостановленная Обратная Динамическая Запись centisecs</string>
+    <!--  -->
+    <string name="size_25_mb">25мб</string>
+    <string name="size_50_mb">50мб</string>
+    <string name="size_75_mb">75мб</string>
+    <string name="size_80_mb">80мб</string>
+    <string name="size_100_mb">100мб</string>
+    <string name="size_128_kb">128кб</string>
+    <string name="size_256_kb">256кб</string>
+    <string name="size_512_kb">512кб</string>
+    <string name="size_1024_kb">1024кб</string>
+    <string name="size_2048_kb">2048кб</string>
+    <string name="size_4096_kb">4096кб</string>
+    <!-- Voltage control -->
+    <string name="volt_info">ВНИМАНИЕ! Перед тем как применять параметры
+        в автозагрузку, убедитесь, что выбранные
+        значения не превышают лимитов, иначе
+        телефон может не загрузиться</string>
+    <string name="ps_volt_mhz_voltage">" Hz"</string>
+    <string name="ps_volt_save">"Сохранить"</string>
+    <string name="ps_volt_current_voltage">"Текущий вольтаж:"</string>
+    <string name="ps_volt_setting_to_apply">"Параметры для применения:"</string>
+    <string name="pt_volt_control">Контроль Питания</string>
+    <string name="ps_volt_control">Установите вольтаж для каждой частоты</string>
+    <string name="apply_values">Применить Значение</string>
+    <string name="freq">Частота</string>
+    <string name="current">mV текущий</string>
+    <string name="saved">mV сохранённый</string>
+    <string name="not_supported">В вашем ядре нет поддержки
+        Контроля Питания</string>
+    <!-- VM settings -->
+    <string name="ps_vm_set_on_boot">Если этот параметр активирован,
+        все настройки вольтажа будут
+        восстановлены при перезагрузке</string>
+    <string name="dirty_ratio_title">Грязный Буфер</string>
+    <string name="dirty_background_title">Грязный Фоновый Буфер</string>
+    <string name="dirty_expire_title">Законченная запись centisecs</string>
+    <string name="dirty_writeback_title">Обратная Запись centisecs</string>
+    <string name="min_free_title">Minfree килобайт</string>
+    <string name="overcommit_title">Буфер Overcommit</string>
+    <string name="swappiness_title">Буфер Swappiness</string>
+    <string name="vfs_title">Кэш VFS</string>
+    <!-- Time in state -->
+    <string name="time_in_state">ВРЕМЯ ДЕЙСТВИЙ ЧАСТОТ</string>
+    <string name="unused_cpu_states">НЕИСПОЛЬЗУЕМЫЕ ЧАСТОТЫ CPU</string>
+    <string name="total_state_time">ОБЩЕЕ ВРЕМЯ ЧАСТОТ</string>
+    <string name="no_states_file_found">Файл состояний не найден. Вы уверены, что Ваш
+        телефон поддерживается? Если Вы используете
+        кастомную прошивку или ядро,
+        сообщите разработчику о недоступном
+        файле состояний.
+    </string>
+    <string name="deep_sleep">"Сон"</string>
+    <!-- CPU info -->
+    <string name="kernel_info">ИНФОРМАЦИЯ О ЯДРЕ</string>
+    <string name="cpu_info">ИНФОРМАЦИЯ О ПРОЦЕССОРЕ</string>
+    <string name="mem_info">ИНФОРМАЦИЯ О ПАМЯТИ</string>
+    <string name="first_run_title">Сначала проверьте права root</string>
+    <string name="su_success_title">Выполнено!</string>
+    <string name="su_failed_title">Ой!</string>
+    <string name="first_run_message">Приложение проверит права ROOT и наличие
+        Busybox. Нажмите OK чтобы продолжить
+        или Отменить, если Вы
+        не хотите давать ROOT доступ.
+    </string>
+    <string name="su_success_message">Приложению удалось получить root доступ
+        и найти Busybox. Поехали!
+    </string>
+    <string name="su_cancel_message">Вы выбрали не проверять ROOT доступ
+        и Busybox. Большинство функций
+        не доступны без этого!
+    </string>
+    <string name="su_failed_su_or_busybox">Нет доступа Root или не установлен Busybox.
+        Большинство функций недоступны
+    </string>
+    <!-- Tools -->
+    <string name="prefcat_sh">КАСТОМНАЯ КОММАНДНАЯ СТРОКА</string>
+    <string name="sh_title">Редактировать команду</string>
+    <string name="ps_sh">Команда будет выполнена при перезагрузке</string>
+    <string name="sh_msg">Оставьте пустым чтобы ничего не выполнять</string>
+    <string name="clear">Очистить</string>
+    <string name="yes">Да</string>
+    <string name="wait">Пожалуйста, подождите...</string>
+    <string name="prefcat_wipe_cache">КЭШ и DALVIK КЭШ</string>
+    <string name="wipe_cache_title">Очистить кэш и dalvik кэш</string>
+    <string name="ps_wipe_cache">Раздел Кэш: %s</string>
+    <string name="wipe_cache_msg">По окончанию, система перезагрузится. Продолжить?</string>
+    <string name="prefcat_flash_img">ПРОШИТЬ ФАЙЛ IMG</string>
+    <string name="kernel_img_title">Прошить ЯДРО</string>
+    <string name="ps_kernel_img">Прошить файл boot.img как ядро, используя бинарник \'dd\'</string>
+    <string name="recovery_img_title">Прошить RECOVERY</string>
+    <string name="ps_recovery_img">Прошить файл recovery.img как Рекавери, используя бинарник \'dd\'</string>
+    <string name="btn_choose">Выберите %s</string>
+    <string name="unsupported_info">Устройство не поддерживается</string>
+    <string name="flash_info">будет прошит в раздел\n%s\n как</string>
+    <string name="dir_parent">Parent DIR</string>
+    <string name="dir">DIR</string>
+    <string name="bkexit">Нажмите опять чтобы выйти</string>
+    <string name="prefcat_residual_files">ОЧИСТИТЬ ОСТАВШИЕСЯ ФАЙЛЫ</string>
+    <string name="residual_files_title">Очистить оставшиеся файлы</string>
+    <string name="btncleanall">Очистить все</string>
+    <string name="clean_files_msg">Оставшиеся файлы %s будут удалены. Продолжить?</string>
+    <string name="filesstr">файл(ы)</string>
+    <string name="no_residuals">Нет оставшихся файлов</string>
+    <string name="prefcat_optim_db">ОПТИМИЗАЦИЯ БД</string>
+    <string name="optim_db_title">Оптимизировать Базу Данных</string>
+    <string name="ps_optim_db">База Данных будет оптимизирована SQL командой VACUUM.</string>
+    <string-array name="residual_info">
+        <item>Содержит системные логфайлы</item>
+        <item>Содержит логфайлы битых приложений</item>
+        <item>Содержит часто генерируемые логфайлы</item>
+        <item>Содержит статистику о запущенных приложениях</item>
+        <item>Содержит список \'приложение не отвечает\'</item>
+        <item>Содержит временные файлы</item>
+    </string-array>
+    <string name="prefcat_fix_perms">ИСПРАВИТЬ РАЗРЕШЕНИЯ</string>
+    <string name="fix_perms_title">Исправить разрешения</string>
+    <string name="fix_perms_msg">Операция может занять несколько минут. Продолжить?</string>
+    <string name="preflogg_fix_perms">Включить логи</string>
+    <string name="free">свободно %s</string>
+    <string name="used">занято %s</string>
+    <!-- 2.1.0 -->
+    <string name="verify">Проверка…</string>
+    <string name="bad_zip">%s не найден в архиве!</string>
+    <string name="closebtn">Закрыть</string>
+    <string name="delallbtn">Удалить все</string>
+    <string name="del_file_msg">%s будет удалено. Продолжить?</string>
+    <string-array name="batt_status">
+        <item>статус не указан</item>
+        <item>статус не указан</item>
+        <item>зарядка</item>
+        <item>разрядка</item>
+        <item>полный</item>
+        <item>не заряжается</item>
+    </string-array>
+    <!-- PC Settings -->
+    <string name="pt_use_light_theme">Использовать светлую тему</string>
+    <string name="ps_use_light_theme">Если выбрать, приложение будет использовать светлую тему Holo</string>
+    <string name="pt_widget_bg_color">Цвет фона виджета</string>
+    <string name="pt_widget_text_color">Цвет текста виджета</string>
+    <string name="pt_ver">"Версия - "</string>
+    <!-- Color picker -->
+    <string name="dialog_color_picker">Выбор цвета</string>
+    <string name="press_color_to_apply">Нажмите на цвет чтобы выбрать</string>
+    <string name="arrow_right">→</string>
+    <string name="arrow_down">↓</string>
+    <string name="hex">Hex:</string>
+    <string name="hex_hint">#FF000000</string>
+    <string name="set">Установить</string>
+    <string name="ics_color">Holo</string>
+</resources>

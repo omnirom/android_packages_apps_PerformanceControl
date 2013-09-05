@@ -99,7 +99,9 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
             @Override
             public void onClick(View view) {
                 if (new File(BAT_VOLT_PATH).exists()){
-                    mbattery_volt.setText(Helpers.readOneLine(BAT_VOLT_PATH)+" mV");
+                    int volt=Integer.parseInt(Helpers.readOneLine(BAT_VOLT_PATH));
+                    if(volt>5000) volt = (int) Math.round(volt / 1000.0);
+                    mbattery_volt.setText(volt+" mV");
                     mBattIcon.setVisibility(ImageView.GONE);
                     mbattery_volt.setVisibility(TextView.VISIBLE);
                 }
@@ -246,7 +248,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
             level=level*scale/100;
             mbattery_percent.setText(level+"%");
 
-            switch (level/20){
+            switch ((int) Math.ceil(level / 20.0)){
                 case 0:
                     mBattIcon.setImageResource(R.drawable.battery_0);
                     break;
