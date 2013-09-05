@@ -104,6 +104,14 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                     }
                 }
             });
+            mbattery_volt.setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View view) {
+                    mBattIcon.setVisibility(ImageView.VISIBLE);
+                    mbattery_volt.setVisibility(TextView.GONE);
+                    return true;
+                }
+            });
         }
         else{
             mBattIcon.setVisibility(ImageView.VISIBLE);
