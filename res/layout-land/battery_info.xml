@@ -96,16 +96,14 @@ Copyright (C) 2012  James Roberts
                 <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                    android:layout_marginTop="10dip">
+                        android:orientation="vertical"
+                    android:gravity="center_horizontal">
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dip"
-                            android:text="@string/sob"
-                            android:textSize="14sp"/>
+                        android:text="@string/sob"
+                            android:textSize="14sp" />
 
                     <Switch
                             android:id="@+id/blx_sob"
@@ -118,15 +116,14 @@ Copyright (C) 2012  James Roberts
                     android:id="@+id/fastcharge_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                android:layout_marginTop="40dip">
+                    android:orientation="vertical"
+                android:layout_marginTop="20dip"
+                android:gravity="center_horizontal">
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dip"
-                        android:text="@string/ps_fast_charge_boot"
+                    android:text="@string/ps_fast_charge_boot"
                         android:textSize="14sp"/>
 
                 <Switch

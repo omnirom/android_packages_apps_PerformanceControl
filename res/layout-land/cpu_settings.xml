@@ -120,8 +120,7 @@ Copyright (C) 2012  James Roberts
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginTop="25dip"
+                android:layout_marginTop="25dip"
                     android:orientation="horizontal">
 
                 <TextView
@@ -134,7 +133,7 @@ Copyright (C) 2012  James Roberts
 
                 <Spinner
                         android:id="@+id/pref_governor"
-                        android:layout_width="142dp"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -155,7 +154,7 @@ Copyright (C) 2012  James Roberts
 
                 <Spinner
                         android:id="@+id/pref_io"
-                        android:layout_width="142dp"
+                        android:layout_width="120dip"
                         android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -163,8 +162,9 @@ Copyright (C) 2012  James Roberts
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="35dip"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="20dip"
+                    android:orientation="vertical"
+                android:gravity="center_horizontal">
 
                 <TextView
                         android:id="@+id/set_on_boot_label"
