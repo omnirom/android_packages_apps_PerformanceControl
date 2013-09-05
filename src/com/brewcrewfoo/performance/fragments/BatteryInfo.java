@@ -90,20 +90,29 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     public View onCreateView(LayoutInflater inflater, ViewGroup root,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.battery_info, root, false);
 
+        mbattery_percent = (TextView) view.findViewById(R.id.batt_percent);
+        mbattery_volt = (TextView) view.findViewById(R.id.batt_volt);
+        mbattery_status = (TextView) view.findViewById(R.id.batt_status);
+
         mBattIcon=(ImageView) view.findViewById(R.id.batt_icon);
         mBattIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
-                    Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
-                    startActivity(powerUsageIntent);
+                if (new File(BAT_VOLT_PATH).exists()){
+                    mbattery_volt.setText(Helpers.readOneLine(BAT_VOLT_PATH)+" mV");
+                    mBattIcon.setVisibility(ImageView.GONE);
+                    mbattery_volt.setVisibility(TextView.VISIBLE);
                 }
-                catch(Exception e){
+                else{
+                    try{
+                        Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+                        startActivity(powerUsageIntent);
+                    }
+                    catch(Exception e){
+                    }
                 }
             }
         });
-        mbattery_percent = (TextView) view.findViewById(R.id.batt_percent);
-        mbattery_volt = (TextView) view.findViewById(R.id.batt_volt);
         mbattery_volt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,8 +124,6 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                 }
             }
         });
-
-        mbattery_status = (TextView) view.findViewById(R.id.batt_status);
 
         SeekBar mBlxSlider = (SeekBar) view.findViewById(R.id.blx_slider);
         if (new File(BLX_PATH).exists()) {
