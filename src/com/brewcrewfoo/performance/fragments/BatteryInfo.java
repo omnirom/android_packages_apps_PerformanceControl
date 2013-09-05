@@ -48,6 +48,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     TextView mbattery_volt;
     TextView mbattery_status;
     TextView mBlxVal;
+    ImageView mBattIcon;
     Switch mFastchargeOnBoot;
     SharedPreferences mPreferences;
 
@@ -89,6 +90,18 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     public View onCreateView(LayoutInflater inflater, ViewGroup root,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.battery_info, root, false);
 
+        mBattIcon=(ImageView) view.findViewById(R.id.batt_icon);
+        mBattIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+                    startActivity(powerUsageIntent);
+                }
+                catch(Exception e){
+                }
+            }
+        });
         mbattery_percent = (TextView) view.findViewById(R.id.batt_percent);
         mbattery_volt = (TextView) view.findViewById(R.id.batt_volt);
         mbattery_volt.setOnClickListener(new View.OnClickListener() {
@@ -225,6 +238,28 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
 
             level=level*scale/100;
             mbattery_percent.setText(level+"%");
+
+            switch (level/20){
+                case 0:
+                    mBattIcon.setImageResource(R.drawable.battery_0);
+                    break;
+                case 1:
+                    mBattIcon.setImageResource(R.drawable.battery_1);
+                    break;
+                case 2:
+                    mBattIcon.setImageResource(R.drawable.battery_2);
+                    break;
+                case 3:
+                    mBattIcon.setImageResource(R.drawable.battery_3);
+                    break;
+                case 4:
+                    mBattIcon.setImageResource(R.drawable.battery_4);
+                    break;
+                case 5:
+                    mBattIcon.setImageResource(R.drawable.battery_5);
+                    break;
+            }
+            /*
             int voltage;
 
             if(String.valueOf(rawvoltage).length()<=2){
@@ -240,7 +275,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                 voltage=Integer.parseInt(Helpers.readOneLine(BAT_VOLT_PATH));
             }
             mbattery_volt.setText(voltage+" mV");
-
+*/
             mbattery_status.setText((temperature/10)+"°C  "+getResources().getStringArray(R.array.batt_status)[status]);
 
         }

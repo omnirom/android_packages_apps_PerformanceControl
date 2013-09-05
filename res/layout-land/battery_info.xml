@@ -28,17 +28,27 @@ Copyright (C) 2012  James Roberts
     android:baselineAligned="false">
 
         <LinearLayout
+            android:id="@+id/batt_val"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_weight="55">
+            android:layout_weight="55"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/batt_icon"
+                android:src="@drawable/battery_1" />
+
             <TextView
                     android:id="@+id/batt_volt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="60sp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                android:visibility="gone" />
             <TextView
                     android:id="@+id/batt_percent"
                     android:layout_width="wrap_content"
@@ -59,7 +69,6 @@ Copyright (C) 2012  James Roberts
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="visible"
             android:gravity="center_vertical|center_horizontal"
             android:measureWithLargestChild="false"
             android:layout_weight="45"

@@ -15,16 +15,26 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="40dp"
         android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/battery_1" />
+
         <TextView
                 android:id="@+id/batt_volt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="60sp"/>
+                android:textSize="60sp"
+            android:visibility="gone" />
         <TextView
                 android:id="@+id/batt_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="40sp" />
+                android:textSize="40sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
         <TextView
                 android:id="@+id/batt_status"
                 android:layout_width="wrap_content"
@@ -36,7 +46,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible"
         android:gravity="center_horizontal"
         android:layout_below="@+id/batt_val"
         android:paddingTop="20dip">
