@@ -263,10 +263,10 @@ Translation by Rhonin86
     <string-array name="batt_status">
         <item>Unbekannte</item>
         <item>Unbekannte</item>
-        <item>Charging</item>
-        <item>Discharging</item>
-        <item>Full</item>
-        <item>Not Charging</item>
+        <item>Aufladen</item>
+        <item>Entladen</item>
+        <item>Voll</item>
+        <item>Lädt nicht</item>
     </string-array>
 
     <!-- PC Settings -->
