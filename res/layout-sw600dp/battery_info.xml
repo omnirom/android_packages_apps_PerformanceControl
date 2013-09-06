@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView"
-            android:src="@drawable/battery_1" />
+            android:src="@drawable/battery_1"
+            android:layout_marginBottom="6dp" />
 
         <TextView
                 android:id="@+id/batt_volt"
