@@ -2,9 +2,7 @@
 <!--
 Translation by Rhonin86
 -->
-
 <resources>
-
     <string name="app_name">Performance Control</string>
     <!-- Main tabs -->
     <string name="tab_cpu_settings">CPU Einstellungen</string>
