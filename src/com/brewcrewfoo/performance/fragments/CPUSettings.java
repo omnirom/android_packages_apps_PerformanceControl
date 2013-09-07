@@ -260,6 +260,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             String selected = parent.getItemAtPosition(pos).toString();
 			final StringBuilder sb = new StringBuilder();
 			for(int i=0; i<IO_SCHEDULER_PATH.length; i++){
+                if (new File(IO_SCHEDULER_PATH[i]).exists())
 				sb.append("busybox echo "+selected+" > " + IO_SCHEDULER_PATH[i] + "\n");
 			}
 			Helpers.shExec(sb);

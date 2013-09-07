@@ -23,14 +23,6 @@ public interface Constants {
     public static final String TAG = "PerformanceControl";
     public static final String VERSION_NUM = "2.1.1";
     public static final String ISTORAGE="/data/data/com.brewcrewfoo.performance/files/";
-    //GPU settings
-    public static final String GPU_GOVERNOR_PATH = "/sys/devices/platform/kgsl/msm_kgsl/kgsl-3d0/scaling_governor";
-    public static final String GPU_IOFRACTION_PATH = "/sys/devices/platform/kgsl/msm_kgsl/kgsl-3d0/io_fraction";
-    /*
-    public String[] govs = {
-            "ondemand", "performance"
-    };
-    */
 
     // CPU settings
     public static final String CUR_CPU_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
@@ -67,7 +59,7 @@ public interface Constants {
     public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
     //"/sys/devices/virtual/bdi/default/read_ahead_kb"
     
-    public static final String FASTCHARGE_PATH = "/sys/kernel/fast_charge/force_fast_charge";
+    //public static final String FASTCHARGE_PATH = "/sys/kernel/fast_charge/force_fast_charge";
     public static final String INTENT_ACTION_FASTCHARGE = "com.aokp.romcontrol.FCHARGE_CHANGED";
     public static final String PREF_MINFREE = "pref_minfree";
     public static final String PREF_MINFREE_BOOT = "pref_minfree_boot";
@@ -107,7 +99,7 @@ public interface Constants {
     public static final String BL_TIMEOUT_PATH="/sys/class/misc/notification/bl_timeout";
     public static final String BL_TOUCH_ON_PATH="/sys/class/misc/notification/touchlight_enabled";
     //-------BLN---------
-    public static final String BLN_PATH="/sys/class/misc/backlightnotification/enabled";
+    //public static final String BLN_PATH="/sys/class/misc/backlightnotification/enabled";
     public static final String PREF_BLN= "pref_bln";
     //-------PFK---------
     public static final String PFK_VER = "/sys/class/misc/phantom_kp_filter/version";

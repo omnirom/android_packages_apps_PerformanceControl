@@ -65,6 +65,8 @@ public class BootService extends Service implements Constants {
 
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
 		final StringBuilder sb = new StringBuilder();
+        final String FASTCHARGE_PATH=Helpers.fastcharge_path();
+        final String BLN_PATH=Helpers.bln_path();
 		
 		if (preferences.getBoolean(CPU_SOB, false)) {
 			final String max = preferences.getString(PREF_MAX_CPU, Helpers.readOneLine(MAX_FREQ_PATH));
@@ -83,7 +85,8 @@ public class BootService extends Service implements Constants {
 				sb.append("busybox echo " + max + " > " + TEGRA_MAX_FREQ_PATH + " \n");
 			}
 			for(int i=0;i<IO_SCHEDULER_PATH.length; i++){
-				sb.append("busybox echo "+io+" > " + IO_SCHEDULER_PATH[i] + "\n");
+                if (new File(IO_SCHEDULER_PATH[i]).exists())
+                    sb.append("busybox echo "+io+" > " + IO_SCHEDULER_PATH[i] + "\n");
 
 			}
 		}
@@ -120,11 +123,12 @@ public class BootService extends Service implements Constants {
         if (preferences.getBoolean(PREF_READ_AHEAD_BOOT, false)) {
             final String values = preferences.getString(PREF_READ_AHEAD,Helpers.readOneLine(READ_AHEAD_PATH[0]));
             for(int i=0; i<READ_AHEAD_PATH.length; i++){
+                if (new File(READ_AHEAD_PATH[i]).exists())
                 sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
             }
         }
 
-		if (new File(FASTCHARGE_PATH).exists()) {
+		if (FASTCHARGE_PATH!=null) {
 			if(preferences.getBoolean(PREF_FASTCHARGE, false)){
 				sb.append("busybox echo 1 > " + FASTCHARGE_PATH + " \n");
 				Intent i = new Intent();
@@ -173,7 +177,7 @@ public class BootService extends Service implements Constants {
 				sb.append("busybox echo 0 > " + BL_TOUCH_ON_PATH + " \n");
 			}
 		}
-        if (new File(BLN_PATH).exists()) {
+        if (BLN_PATH!=null) {
             if (preferences.getBoolean(PREF_BLN, false)) {
                 sb.append("busybox echo 1 > " + BLN_PATH + " \n");
             }

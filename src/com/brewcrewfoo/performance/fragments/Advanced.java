@@ -82,6 +82,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 	private int mSeekbarProgress;
 	private EditText settingText;
 	private String sreadahead;
+    private final String BLN_PATH=Helpers.bln_path();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -154,7 +155,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
         else{
             mBltouch.setChecked(Helpers.readOneLine(BL_TOUCH_ON_PATH).equals("1"));
         }
-        if (!new File(BLN_PATH).exists()) {
+        if (BLN_PATH==null) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("bln");
             getPreferenceScreen().removePreference(hideCat);
         }

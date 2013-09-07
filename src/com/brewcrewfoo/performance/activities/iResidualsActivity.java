@@ -26,6 +26,7 @@ import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.FileArrayAdapter;
 import com.brewcrewfoo.performance.util.Item;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -203,7 +204,7 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
         @Override
         protected String doInBackground(String... params) {
             CMDProcessor.CommandResult cr = null;
-            cr=new CMDProcessor().su.runWaitFor("busybox echo `busybox ls "+rpath+"`");
+            cr=new CMDProcessor().su.runWaitFor("busybox echo `busybox find "+rpath+" -type f -name \"*\"`");
             if(cr.success()){ return cr.stdout;}
             else{Log.d(TAG,"residual files err: "+cr.stderr); return null; }
         }
@@ -214,9 +215,8 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
             if(result!=null){
                 final String fls[]=result.split(" ");
                 for (String fl : fls) {
-                    if (!fl.equals("0")) {
-                        dir.add(new Item(fl, rpath, null, null, "file"));
-                    }
+                        final File f=new File(fl);
+                        dir.add(new Item(f.getName(), f.getParent(),null, null, "file"));
                 }
             }
             linlaHeaderProgress.setVisibility(View.GONE);

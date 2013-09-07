@@ -51,6 +51,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     ImageView mBattIcon;
     Switch mFastchargeOnBoot;
     SharedPreferences mPreferences;
+    private final String FASTCHARGE_PATH=Helpers.fastcharge_path();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -157,7 +158,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
             mpart.setVisibility(LinearLayout.GONE);
         }
 
-        if (new File(FASTCHARGE_PATH).exists()) {
+        if (FASTCHARGE_PATH!=null) {
 
             mFastchargeOnBoot = (Switch) view.findViewById(R.id.fastcharge_sob);
             mFastchargeOnBoot.setChecked(mPreferences.getBoolean(PREF_FASTCHARGE, false));

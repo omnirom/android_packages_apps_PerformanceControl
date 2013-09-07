@@ -402,7 +402,7 @@ public class Helpers implements Constants {
     }
 
     public static boolean showBattery() {
-	return ((new File(BLX_PATH).exists()) || (new File(FASTCHARGE_PATH).exists()));
+	    return ((new File(BLX_PATH).exists()) || (fastcharge_path()!=null));
     }
 
 	public static void shCreate(){
@@ -428,7 +428,7 @@ public class Helpers implements Constants {
 		}
 	}
 
-    public static void get_assetsFile(String fn,Context c,String aux){
+    public static void get_assetsFile(String fn,Context c,String prefix,String postfix){
         byte[] buffer;
         final AssetManager assetManager = c.getAssets();
         try {
@@ -438,7 +438,8 @@ public class Helpers implements Constants {
             f.close();
             final String s = new String(buffer);
             final StringBuffer sb = new StringBuffer(s);
-            if(!aux.equals("")){ sb.insert(0,aux+"\n"); }
+            if(!postfix.equals("")){ sb.append("\n\n"+postfix); }
+            if(!prefix.equals("")){ sb.insert(0,prefix+"\n"); }
             sb.insert(0,"#!"+Helpers.binExist("sh")+"\n\n");
             try {
                 FileOutputStream fos;
@@ -476,6 +477,42 @@ public class Helpers implements Constants {
         for(int i=0;i< vp.getAdapter().getCount();i++){
             if(i!=vp.getCurrentItem())
                 smenu.add(0,idx +i+1, 0, vp.getAdapter().getPageTitle(i));
+        }
+    }
+    public static String bln_path() {
+        if (new File("/sys/class/misc/backlightnotification/enabled").exists()) {
+            return "/sys/class/misc/backlightnotification/enabled";
+        }
+        else if (new File("/sys/class/leds/button-backlight/blink_buttons").exists()) {
+            return "/sys/class/leds/button-backlight/blink_buttons";
+        }
+        else{
+            return null;
+        }
+    }
+    public static String fastcharge_path() {
+        if (new File("/sys/kernel/fast_charge/force_fast_charge").exists()) {
+            return "/sys/kernel/fast_charge/force_fast_charge";
+        }
+        else if (new File("/sys/module/msm_otg/parameters/fast_charge").exists()) {
+            return "/sys/module/msm_otg/parameters/fast_charge";
+        }
+        else if (new File("/sys/devices/platform/htc_battery/fast_charge").exists()) {
+            return "/sys/devices/platform/htc_battery/fast_charge";
+        }
+        else{
+            return null;
+        }
+    }
+    public static String fsync_path() {
+        if (new File("/sys/class/misc/fsynccontrol/fsync_enabled").exists()) {
+            return "/sys/class/misc/fsynccontrol/fsync_enabled";
+        }
+        else if (new File("/sys/module/sync/parameters/fsync_enabled").exists()) {
+            return "/sys/module/sync/parameters/fsync_enabled";
+        }
+        else{
+            return null;
         }
     }
 }
