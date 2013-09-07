@@ -1,18 +1,24 @@
 #
-
+####### made by h0rn3t #######
+#
 count_files(){
+if [ "X$2" == "X" ]; then
+    ext="*";
+else
+    ext="$2";
+fi;
 r="";
-for d in $@; do
-if [ -d $d ]; then
-i=$( busybox ls $d | busybox wc -l );
-else
-i=0;
-fi;
-if [ "$r" == "" ]; then
-r="$i";
-else
-r="$r:$i";
-fi;
+for d in $1; do
+    if [ -d $d ]; then
+        i=$( busybox find $d -type f -name "$ext" | busybox wc -l );
+    else
+        i=0;
+    fi;
+    if [ "X$r" == "X" ]; then
+        r="$i";
+    else
+        r="$r:$i";
+    fi;
 done;
 echo "$r";
 }

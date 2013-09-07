@@ -24,6 +24,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -295,7 +296,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             isrun=true;
             tip=1;
             progressDialog = ProgressDialog.show(getActivity(), getString(R.string.fix_perms_title),getString(R.string.wait));
-            new CMDProcessor().su.runWaitFor("busybox cat "+ISTORAGE+"fix_permissions > " + SH_PATH );
+            new CMDProcessor().su.runWaitFor("busybox cat "+getActivity().getFilesDir()+"/fix_permissions > " + SH_PATH );
         }
 
         @Override
@@ -378,7 +379,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             tip=2;
             progressDialog = ProgressDialog.show(getActivity(), getString(R.string.optim_db_title),getString(R.string.wait));
             mPreferences.edit().putLong(PREF_OPTIM_DB,System.currentTimeMillis()).commit();
-            new CMDProcessor().su.runWaitFor("busybox cat "+ISTORAGE+"sql_optimize > " + SH_PATH );
+            new CMDProcessor().su.runWaitFor("busybox cat "+getActivity().getFilesDir()+"/sql_optimize > " + SH_PATH );
         }
 
         @Override

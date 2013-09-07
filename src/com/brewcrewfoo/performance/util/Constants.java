@@ -22,7 +22,6 @@ public interface Constants {
 
     public static final String TAG = "PerformanceControl";
     public static final String VERSION_NUM = "2.1.1";
-    public static final String ISTORAGE="/data/data/com.brewcrewfoo.performance/files/";
 
     // CPU settings
     public static final String CUR_CPU_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";

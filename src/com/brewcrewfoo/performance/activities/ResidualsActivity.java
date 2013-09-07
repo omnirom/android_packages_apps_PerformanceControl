@@ -198,8 +198,8 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                 t.append(residualfile);
                 t.append(" ");
             }
-            Helpers.get_assetsFile("count_files",context,"DIRS=\""+t.toString()+"\";","count_files $DIRS;\n");
-            new CMDProcessor().su.runWaitFor("busybox cat "+ISTORAGE+"count_files > " + SH_PATH );
+            Helpers.get_assetsFile("count_files",context,"DIRS=\""+t.toString()+"\";","count_files \"$DIRS\";\n");
+            new CMDProcessor().su.runWaitFor("busybox cat "+getFilesDir()+"/count_files > " + SH_PATH );
         }
 
         @Override
