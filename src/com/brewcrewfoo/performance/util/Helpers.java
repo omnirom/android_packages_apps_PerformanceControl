@@ -51,7 +51,6 @@ public class Helpers implements Constants {
             Log.e(TAG, "su does not exist!!!");
             return false; // tell caller to bail...
         }
-
         try {
             if ((new CMDProcessor().su.runWaitFor("ls /data/app-private")).success()) {
                 Log.i(TAG, " SU exists and we have permission");
@@ -60,8 +59,9 @@ public class Helpers implements Constants {
                 Log.i(TAG, " SU exists but we dont have permission");
                 return false;
             }
-        } catch (final NullPointerException e) {
-            Log.e(TAG, e.getLocalizedMessage().toString());
+        }
+        catch (final NullPointerException e) {
+            Log.e(TAG, e.getMessage());
             return false;
         }
     }
@@ -76,14 +76,14 @@ public class Helpers implements Constants {
             Log.e(TAG, "Busybox not in xbin or bin!");
             return false;
         }
-
         try {
             if (!new CMDProcessor().su.runWaitFor("busybox mount").success()) {
                 Log.e(TAG, " Busybox is there but it is borked! ");
                 return false;
             }
-        } catch (final NullPointerException e) {
-            Log.e(TAG, e.getLocalizedMessage().toString());
+        }
+        catch (final NullPointerException e) {
+            Log.e(TAG, e.getMessage());
             return false;
         }
         return true;
