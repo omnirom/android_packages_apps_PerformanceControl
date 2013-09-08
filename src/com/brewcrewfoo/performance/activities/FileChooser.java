@@ -226,7 +226,12 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                         return null;
                     }
                     nFile=dn+"/boot.img";
-                    sb.append("dd if="+nFile+" of="+part+"\n");
+                    if(part.contains("/dev/block/bml") && !Helpers.binExist("flash_image").equals(NOT_FOUND)){
+                        sb.append("flash_image "+part+" "+nFile+"\n");
+                    }
+                    else{
+                        sb.append("dd if="+nFile+" of="+part+"\n");
+                    }
                     sb.append("busybox rm -rf "+dn+"/*\n");
                 }
                 else{
@@ -248,7 +253,12 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                         return null;
                     }
                     nFile=dn+"/recovery.img";
-                    sb.append("dd if="+nFile+" of="+part+"\n");
+                    if(part.contains("/dev/block/bml") && !Helpers.binExist("flash_image").equals(NOT_FOUND)){
+                        sb.append("flash_image "+part+" "+nFile+"\n");
+                    }
+                    else{
+                        sb.append("dd if="+nFile+" of="+part+"\n");
+                    }
                     sb.append("busybox rm -rf "+dn+"/*\n");
                 }
                 else{
