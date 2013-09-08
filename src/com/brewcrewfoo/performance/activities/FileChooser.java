@@ -211,7 +211,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
     private class FlashOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-
             final StringBuilder sb = new StringBuilder();
             final String dn=Environment.getExternalStorageDirectory().getAbsolutePath()+"/PerformanceControl/tmp";
 
@@ -288,7 +287,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         protected void onProgressUpdate(Void... values) {
         }
     }
-
 
     class CustomListener implements View.OnClickListener {
         private final Dialog dialog;
