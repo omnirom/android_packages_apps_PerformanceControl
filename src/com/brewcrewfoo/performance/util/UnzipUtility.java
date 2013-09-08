@@ -45,9 +45,9 @@ public class UnzipUtility implements Constants {
                 if(!dir.getParentFile().exists())
                     dir.getParentFile().mkdirs();
                 extractFile(zipIn, destDirectory+"/"+entry.getName());
+                zipIn.closeEntry();
                 break;
             }
-
             zipIn.closeEntry();
             entry = zipIn.getNextEntry();
         }
