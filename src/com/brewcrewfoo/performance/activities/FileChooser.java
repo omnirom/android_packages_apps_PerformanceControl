@@ -228,9 +228,11 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                     nFile=dn+"/boot.img";
                     if(part.contains("/dev/block/bml") && !Helpers.binExist("flash_image").equals(NOT_FOUND)){
                         sb.append("flash_image boot "+nFile+"\n");
+                        Log.d(TAG,"flash boot using flash_image binary");
                     }
                     else{
                         sb.append("dd if="+nFile+" of="+part+"\n");
+                        Log.d(TAG,"flash boot using dd binary");
                     }
                     sb.append("busybox rm -rf "+dn+"/*\n");
                 }
@@ -255,9 +257,11 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                     nFile=dn+"/recovery.img";
                     if(part.contains("/dev/block/bml") && !Helpers.binExist("flash_image").equals(NOT_FOUND)){
                         sb.append("flash_image recovery "+nFile+"\n");
+                        Log.d(TAG,"f;ash recovery using flash_image binary");
                     }
                     else{
                         sb.append("dd if="+nFile+" of="+part+"\n");
+                        Log.d(TAG,"flash recovery using dd binary");
                     }
                     sb.append("busybox rm -rf "+dn+"/*\n");
                 }
