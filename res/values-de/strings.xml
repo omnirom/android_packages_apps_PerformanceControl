@@ -216,9 +216,9 @@ Translation by Rhonin86
 
     <string name="prefcat_flash_img">Flash *.img Datei (Direkt oder aus CWM-Zip)</string>
     <string name="kernel_img_title">Flash Kernel</string>
-    <string name="ps_kernel_img">Flash boot.img als Kernel und benutze \'dd\' binary (CWM-Zip auch nutzbar)</string>
+    <string name="ps_kernel_img">Flash boot.img Dateien als Kernel. Möglich sind boot.img Dateien oder zip Dateien, die ein Bootimage enthalten</string>
     <string name="recovery_img_title">Flash Recovery</string>
-    <string name="ps_recovery_img">Flash recovery.img als Recovery und benutze \'dd\' binary (CWM-Zip auch nutzbar)</string>
+    <string name="ps_recovery_img">Flash recovery.img Dateien als Recovery. Möglich sind recovery.img Dateien oder Zip-Dateien, die ein Recoveryimage enthalten</string>
     <string name="btn_choose">Wähle %s</string>
     <string name="unsupported_info">Dein Gerät wird nicht unterstützt</string>
     <string name="flash_info">wird geflasht auf die Partition \n%s\n als</string>

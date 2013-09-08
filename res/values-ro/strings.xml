@@ -204,12 +204,12 @@ Translation by Laurentiu1996
 
     <string name="prefcat_flash_img">FLASH FIŞIER IMG</string>
     <string name="kernel_img_title">Flash KERNEL</string>
-    <string name="ps_kernel_img">Flash fişier boot.img ca şi kernel folosind \'dd\' binar</string>
+    <string name="ps_kernel_img">Flash fişier boot.img ca şi kernel. Se poate selecta un fişier individual sau orice fişier zip ce conţine boot.img</string>
     <string name="recovery_img_title">Flash RECOVERY</string>
-    <string name="ps_recovery_img">Flash fişier recovery.img ca şi recovery folosind \'dd\' binar</string>
+    <string name="ps_recovery_img">Flash fişier recovery.img ca şi recovery.  Se poate selecta un fişier individual sau orice fişier zip ce conţine recovery.img</string>
     <string name="btn_choose">Alege %s</string>
     <string name="unsupported_info">Telefonul dumneavoastră nu este suportat.</string>
-    <string name="flash_info">va fi flash-uit pe partitia\n%s\n ca şi</string>
+    <string name="flash_info">va fi flash-uit pe partiţia\n%s\n ca şi</string>
     <string name="dir_parent">&lt;DIR părinte&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
     <string name="bkexit">Apăsaţi din nou pentru ieşire</string>

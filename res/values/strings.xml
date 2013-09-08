@@ -233,9 +233,9 @@ Copyright (C) 2012  James Roberts
 
     <string name="prefcat_flash_img">FLASH IMG FILE</string>
     <string name="kernel_img_title">Flash KERNEL</string>
-    <string name="ps_kernel_img">Flash boot.img files as kernel using \'dd\' binary</string>
+    <string name="ps_kernel_img">Flash boot.img files as kernel. Can choose individual boot.img file or any zip file that contains boot.img</string>
     <string name="recovery_img_title">Flash RECOVERY</string>
-    <string name="ps_recovery_img">Flash recovery.img files as recovery using \'dd\' binary</string>
+    <string name="ps_recovery_img">Flash recovery.img files as recovery. Can choose individual recovery.img file or any zip file that contains recovery.img</string>
     <string name="btn_choose">Choose %s</string>
     <string name="unsupported_info">Your device is not supported.</string>
     <string name="flash_info">will be flashed on partition\n%s\n as</string>
