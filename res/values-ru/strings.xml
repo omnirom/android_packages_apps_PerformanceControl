@@ -215,9 +215,9 @@
     <string name="wipe_cache_msg">По окончанию, система перезагрузится. Продолжить?</string>
     <string name="prefcat_flash_img">ПРОШИТЬ ФАЙЛ IMG</string>
     <string name="kernel_img_title">Прошить ЯДРО</string>
-    <string name="ps_kernel_img">Прошить файл boot.img как ядро</string>
+    <string name="ps_kernel_img">Прошить файл boot.img или любой архив содержащий boot.img как ядро</string>
     <string name="recovery_img_title">Прошить RECOVERY</string>
-    <string name="ps_recovery_img">Прошить файл recovery.img как Рекавери</string>
+    <string name="ps_recovery_img">Прошить файл recovery.img или любой архив содержащий recovery.img как Рекавери</string>
     <string name="btn_choose">Выберите %s</string>
     <string name="unsupported_info">Устройство не поддерживается</string>
     <string name="flash_info">будет прошит в раздел\n%s\n как</string>
