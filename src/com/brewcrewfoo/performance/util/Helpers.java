@@ -428,7 +428,7 @@ public class Helpers implements Constants {
 		}
 	}
 
-    public static void get_assetsFile(String fn,Context c,String prefix,String postfix){
+    public static void get_assetsScript(String fn,Context c,String prefix,String postfix){
         byte[] buffer;
         final AssetManager assetManager = c.getAssets();
         try {

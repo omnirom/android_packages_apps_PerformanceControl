@@ -207,7 +207,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             startActivity(intent);
         }
         else if(key.equals(PREF_FIX_PERMS)) {
-            Helpers.get_assetsFile("fix_permissions",getActivity(),"#","");
+            Helpers.get_assetsScript("fix_permissions",getActivity(),"#","");
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getString(R.string.fix_perms_title))
                     .setMessage(getString(R.string.fix_perms_msg))
@@ -234,7 +234,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
 
         }
         else if(key.equals(PREF_OPTIM_DB)) {
-            Helpers.get_assetsFile("sql_optimize",getActivity(),"#","");
+            Helpers.get_assetsScript("sql_optimize",getActivity(),"#","");
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getString(R.string.optim_db_title))
                     .setMessage(getString(R.string.ps_optim_db)+"\n\n"+getString(R.string.fix_perms_msg))
