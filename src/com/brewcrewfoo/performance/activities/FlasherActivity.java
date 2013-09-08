@@ -50,6 +50,7 @@ public class FlasherActivity extends Activity implements Constants, ActivityThem
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme();
         setContentView(R.layout.flasher);

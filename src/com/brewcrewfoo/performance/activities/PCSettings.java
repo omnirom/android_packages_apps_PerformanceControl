@@ -39,6 +39,7 @@ public class PCSettings extends PreferenceActivity implements Constants, Activit
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         addPreferencesFromResource(R.xml.pc_settings);
 
