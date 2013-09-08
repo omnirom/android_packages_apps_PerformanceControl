@@ -23,7 +23,7 @@ File contain partitions layout for flashing kernel & recovery
         <cache>/dev/block/mmcblk0p16</cache>
     </device>
     <device>
-        <model>GT-I9100</model> <!-- GALAXY S II -->
+        <model>GT-I9100,GT-I9100G</model> <!-- GALAXY S II -->
         <kernel>/dev/block/mmcblk0p5</kernel>
         <recovery>/dev/block/mmcblk0p6</recovery>
         <cache>/dev/block/mmcblk0p7</cache>
