@@ -35,12 +35,6 @@ File contain partitions layout for flashing kernel & recovery
         <cache>/dev/block/mmcblk0p8</cache>
     </device>
     <device>
-        <model>GT-I8190</model> <!-- GALAXY S III mini -->
-        <kernel>/dev/block/mmcblk0p20</kernel>
-        <recovery>/dev/block/mmcblk0p21</recovery>
-        <cache>/dev/block/mmcblk0p23</cache>
-    </device>
-    <device>
         <model>GT-I9505</model> <!-- GALAXY S IV -->
         <kernel>/dev/block/platform/msm_sdcc.1/by-name/boot</kernel>
         <recovery>/dev/block/platform/msm_sdcc.1/by-name/recovery</recovery>
@@ -69,5 +63,24 @@ File contain partitions layout for flashing kernel & recovery
         <kernel>/dev/block/platform/msm_sdcc.1/by-name/boot</kernel>
         <recovery>/dev/block/platform/msm_sdcc.1/by-name/recovery</recovery>
         <cache>/dev/block/platform/msm_sdcc.1/by-name/cache</cache>
+    </device>
+    <!-- new added 1-->
+    <device>
+        <model>GT-I8190</model> <!-- GALAXY S III mini -->
+        <kernel>/dev/block/mmcblk0p20</kernel>
+        <recovery>/dev/block/mmcblk0p21</recovery>
+        <cache>/dev/block/mmcblk0p23</cache>
+    </device>
+    <device>
+        <model>GT-P6800</model> <!-- Samsung Galaxy Tab 7.7 (3G) GT-P6800 -->
+        <kernel>/dev/block/mmcblk0p5</kernel>
+        <recovery>/dev/block/mmcblk0p6</recovery>
+        <cache>/dev/block/mmcblk0p7</cache>
+    </device>
+    <device>
+        <model>GT-I9305</model> <!-- Samsung Galaxy S III LTE GT-I9305 -->
+        <kernel>/dev/block/mmcblk0p8</kernel>
+        <recovery>/dev/block/mmcblk0p9</recovery>
+        <cache>/dev/block/mmcblk0p12</cache>
     </device>
 </devices>
