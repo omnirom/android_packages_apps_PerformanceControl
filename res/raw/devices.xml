@@ -82,4 +82,10 @@ File contain partitions layout for flashing kernel & recovery
         <recovery>/dev/block/mmcblk0p9</recovery>
         <cache>/dev/block/mmcblk0p12</cache>
     </device>
+    <device>
+        <model>T1000</model> <!-- xolo_us9230e1 ??????? -->
+        <kernel>/dev/block/platform/sdhci-tegra.3/by-name/LNX</kernel>
+        <recovery>/dev/block/platform/sdhci-tegra.3/by-name/SOS</recovery>
+        <cache>/dev/block/platform/sdhci-tegra.3/by-name/CAC</cache>
+    </device>
 </devices>
