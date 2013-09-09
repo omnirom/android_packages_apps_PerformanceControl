@@ -1,6 +1,10 @@
 package com.brewcrewfoo.performance.util;
-
+/**
+ * Created by h0rn3t on 09.09.2013.
+ */
 import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import org.w3c.dom.Document;
@@ -14,14 +18,17 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import com.brewcrewfoo.performance.R;
 
-/**
- * Created by h0rn3t on 09.09.2013.
- */
 public class ReadParts extends Activity implements Constants {
     private static String _part = null;
     private static String _model = null;
     private static String _tip = null;
     final private static String extfpath="/PerformanceControl/devices.xml";
+    Context c;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        c=getApplicationContext();
+    }
 
     public static void set_model(String m){
         _model=m;
@@ -48,7 +55,7 @@ public class ReadParts extends Activity implements Constants {
                 Log.i(TAG,"external /PerformanceControl/devices.xml in use");
             }
             else{
-                f = getApplicationContext().getResources().openRawResource(R.raw.devices);
+                f = c.getResources().openRawResource(R.raw.devices);
             }
             DocumentBuilder builder= DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc=builder.parse(f, null);
