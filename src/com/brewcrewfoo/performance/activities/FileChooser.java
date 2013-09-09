@@ -226,26 +226,16 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                         return null;
                     }
                     nFile=dn+"/boot.img";
-                    if(part.contains("/dev/block/bml") && !Helpers.binExist("flash_image").equals(NOT_FOUND)){
-                        sb.append("flash_image boot "+nFile+"\n");
-                    }
-                    else{
-                        sb.append("dd if="+nFile+" of="+part+"\n");
-                    }
+                    sb.append("dd if="+nFile+" of="+part+"\n");
                     sb.append("busybox rm -rf "+dn+"/*\n");
                 }
                 else{
-                    if(part.contains("/dev/block/bml") && !Helpers.binExist("flash_image").equals(NOT_FOUND)){
-                        sb.append("flash_image boot "+nFile+"\n");
-                    }
-                    else{
-                        sb.append("dd if="+nFile+" of="+part+"\n");
-                    }
+                    sb.append("dd if="+nFile+" of="+part+"\n");
                 }
                 sb.append("busybox rm -rf /data/dalvik-cache/*\n");
                 sb.append("busybox rm -rf /cache/*\n");
                 sb.append("reboot\n");
-                Log.d(TAG,sb.toString());
+                //Log.d(TAG,sb.toString());
             }
             else{
                 if(iszip){
@@ -258,27 +248,17 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                         return null;
                     }
                     nFile=dn+"/recovery.img";
-                    if(part.contains("/dev/block/bml") && !Helpers.binExist("flash_image").equals(NOT_FOUND)){
-                        sb.append("flash_image recovery "+nFile+"\n");
-                    }
-                    else{
-                        sb.append("dd if="+nFile+" of="+part+"\n");
-                    }
+                    sb.append("dd if="+nFile+" of="+part+"\n");
                     sb.append("busybox rm -rf "+dn+"/*\n");
                 }
                 else{
-                    if(part.contains("/dev/block/bml") && !Helpers.binExist("flash_image").equals(NOT_FOUND)){
-                        sb.append("flash_image recovery "+nFile+"\n");
-                    }
-                    else{
-                        sb.append("dd if="+nFile+" of="+part+"\n");
-                    }
+                    sb.append("dd if="+nFile+" of="+part+"\n");
                 }
 
                 sb.append("reboot recovery\n");
-                Log.d(TAG,sb.toString());
+                //Log.d(TAG,sb.toString());
             }
-            //Helpers.shExec(sb);
+            Helpers.shExec(sb);
             return null;
         }
 
