@@ -53,7 +53,6 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         res = getResources();
         setTheme();

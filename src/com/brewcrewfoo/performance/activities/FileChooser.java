@@ -58,7 +58,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+        //overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme();
         Intent intent1=getIntent();

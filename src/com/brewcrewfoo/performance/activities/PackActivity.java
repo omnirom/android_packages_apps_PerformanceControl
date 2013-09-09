@@ -52,7 +52,7 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme();
         setContentView(R.layout.pack_list);
