@@ -90,4 +90,10 @@ File contain partitions layout for flashing kernel & recovery
         <cache>/dev/block/platform/sdhci-tegra.3/by-name/CAC</cache>
     </device>
      -->
+    <device>
+        <model>LG-P970</model> <!-- LG OPTIMUS BLACK P970 -->
+        <kernel>/dev/block/mmcblk0p3</kernel>
+        <recovery>/dev/block/mmcblk0p4</recovery>
+        <cache>/dev/block/mmcblk0p10</cache>
+    </device>
 </devices>
