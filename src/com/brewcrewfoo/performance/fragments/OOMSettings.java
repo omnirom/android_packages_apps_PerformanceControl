@@ -37,6 +37,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
+import com.brewcrewfoo.performance.activities.KSMActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.activities.PackActivity;
 import com.brewcrewfoo.performance.util.CMDProcessor;
@@ -79,6 +80,8 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
     private CheckBoxPreference mSysON;
     private Preference mUserNames;
     private Preference mSysNames;
+    private CheckBoxPreference mKSM;
+    private Preference mKSMsettings;
 
     private Boolean ispm;
 	
@@ -117,6 +120,10 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
         mSysON=(CheckBoxPreference) findPreference(PREF_SYS_PROC);
         mUserNames= findPreference(PREF_USER_NAMES);
         mSysNames= findPreference(PREF_SYS_NAMES);
+
+        mKSM=(CheckBoxPreference) findPreference(PREF_RUN_KSM);
+        mKSMsettings= findPreference("ksm_settings");
+
         if (!new File(USER_PROC_PATH).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("notkill_user_proc");
             getPreferenceScreen().removePreference(hideCat);
@@ -132,6 +139,13 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
         else{
             mSysON.setChecked(Helpers.readOneLine(SYS_PROC_PATH).equals("1"));
             mPreferences.edit().putString(PREF_SYS_NAMES, Helpers.readOneLine(USER_SYS_NAMES_PATH)).apply();
+        }
+        if (!new File(KSM_RUN_PATH).exists()) {
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("prefcat_ksmc");
+            getPreferenceScreen().removePreference(hideCat);
+        }
+        else{
+            mKSM.setChecked(Helpers.readOneLine(KSM_RUN_PATH).equals("1"));
         }
         ispm=(!Helpers.binExist("pm").equals(NOT_FOUND));
     }
@@ -270,6 +284,18 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
             else{
                 ProcEditDialog(key,getString(R.string.pt_sys_names_proc),"",USER_SYS_NAMES_PATH,true);
             }
+        }
+        else if (preference.equals(mKSM)){
+            if (Integer.parseInt(Helpers.readOneLine(KSM_RUN_PATH))==0){
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + KSM_RUN_PATH);
+            }
+            else{
+                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + KSM_RUN_PATH);
+            }
+            return true;
+        }
+        else if (preference.equals(mKSMsettings)){
+            startActivity(new Intent(getActivity(), KSMActivity.class));
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
