@@ -274,7 +274,6 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     @Override
     public void onResume() {
-
         if (mCurCPUThread == null) {
             mCurCPUThread = new CurCPUThread();
             mCurCPUThread.start();
@@ -284,7 +283,6 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     @Override
     public void onPause() {
-
         Helpers.updateAppWidget(getActivity());
         super.onPause();
     }
@@ -362,8 +360,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     private void updateSharedPrefs(String var, String value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putString(var, value);
-        editor.commit();
+        editor.putString(var, value).commit();
     }
 }
 
