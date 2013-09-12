@@ -1,6 +1,7 @@
 package com.brewcrewfoo.performance.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,6 +38,7 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
     private Boolean ist4=false;
     private Boolean ist5=false;
     private int mpages[]={0,2,4,8,16,32,64,128,256,512,1024,2048};
+    private String v=null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,6 +131,7 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 
     @Override
@@ -151,6 +154,9 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
                 }
             }
         }
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result",v);
+        setResult(RESULT_OK,returnIntent);
         super.onDestroy();
     }
     @Override
