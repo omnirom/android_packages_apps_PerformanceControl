@@ -294,8 +294,8 @@ Copyright (C) 2012  James Roberts
     <string name="ksm_pagsharing">Pages Sharing:</string>
     <string name="ksm_pagunshared">Pages Unshared:</string>
     <string name="ksm_pagvolatile">Pages Volatile:</string>
-    <string name="ksm_pagtoscan">Pages to Scan: %s</string>
-    <string name="ksm_sleep">Sleep: %s ms</string>
+    <string name="ksm_pagtoscan">Pages to Scan:</string>
+    <string name="ksm_sleep">Sleep (ms):</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>

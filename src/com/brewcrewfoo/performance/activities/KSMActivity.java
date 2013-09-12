@@ -1,18 +1,23 @@
 package com.brewcrewfoo.performance.activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
+import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
@@ -29,16 +34,16 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
     private TextView t3;
     private TextView t4;
     private TextView t5;
-    private TextView tval1;
-    private TextView tval2;
     private CurThread mCurThread;
     private Boolean ist1=false;
     private Boolean ist2=false;
     private Boolean ist3=false;
     private Boolean ist4=false;
     private Boolean ist5=false;
-    private int mpages[]={0,2,4,8,16,32,64,128,256,512,1024,2048};
-    private String v=null;
+    private EditText edit1;
+    private EditText edit2;
+    private SeekBar mPage2Scan;
+    private SeekBar mSleep;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,31 +101,102 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
         final int v1=Integer.parseInt(Helpers.readOneLine(KSM_PAGESTOSCAN_PATH));
         final int v2=Integer.parseInt(Helpers.readOneLine(KSM_SLEEP_PATH));
 
-        tval1=(TextView)findViewById(R.id.tval1);
-        tval1.setText(getString(R.string.ksm_pagtoscan,v1));
+        TextView tval1 = (TextView) findViewById(R.id.tval1);
+        tval1.setText(getString(R.string.ksm_pagtoscan));
 
-        tval2=(TextView)findViewById(R.id.tval2);
-        tval2.setText(getString(R.string.ksm_sleep,v2));
+        TextView tval2 = (TextView) findViewById(R.id.tval2);
+        tval2.setText(getString(R.string.ksm_sleep));
 
-        SeekBar mPage2Scan = (SeekBar) findViewById(R.id.val1);
+        mPage2Scan = (SeekBar) findViewById(R.id.val1);
+        edit1=(EditText) findViewById(R.id.edit1);
         mPage2Scan.setOnSeekBarChangeListener(this);
-        mPage2Scan.setMax(12);
+        mPage2Scan.setMax(2048);
         mPage2Scan.setProgress(v1);
+        edit1.setText(String.valueOf(v1));
+        edit1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable arg0) {
+            }
 
-        SeekBar mSleep = (SeekBar) findViewById(R.id.val2);
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
+                final String text = edit1.getText().toString();
+                int value = 0;
+                try {
+                    value = Integer.parseInt(text);
+                    if(value>2048){
+                        value=2048;
+                        edit1.setText("2048");
+                    }
+
+                    mPage2Scan.setProgress(value);
+                }
+                catch (NumberFormatException nfe) {
+                    return;
+                }
+            }
+
+        });
+
+        mSleep = (SeekBar) findViewById(R.id.val2);
+        edit2=(EditText) findViewById(R.id.edit2);
         mSleep.setOnSeekBarChangeListener(this);
-        mSleep.setMax(30);
-        mSleep.setProgress(v2 / 100);
+        mSleep.setMax(5000);
+        mSleep.setProgress(v2);
+        edit2.setText(String.valueOf(v2));
+        edit2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable arg0) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
+                final String text = edit2.getText().toString();
+                int value = 0;
+                try {
+                    value = Integer.parseInt(text);
+                    if(value>5000){
+                        value=5000;
+                        edit2.setText("5000");
+                    }
+                    mSleep.setProgress(value);
+                }
+                catch (NumberFormatException nfe) {
+                    return;
+                }
+
+            }
+
+        });
+        ((Button) findViewById(R.id.apply)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                new CMDProcessor().su.runWaitFor("busybox echo " + edit1.getText().toString() + " > " + KSM_PAGESTOSCAN_PATH);
+                new CMDProcessor().su.runWaitFor("busybox echo " + edit2.getText().toString() + " > " + KSM_SLEEP_PATH);
+                mPreferences.edit()
+                        .putString("pref_ksm_pagetoscan",edit1.getText().toString() )
+                        .putString("pref_ksm_sleep",edit2.getText().toString() )
+                        .commit();
+            }
+        });
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
             if (seekBar.getId() == R.id.val1) {
-                tval1.setText(getString(R.string.ksm_pagtoscan,mpages[progress]));
+                edit1.setText(String.valueOf(progress));
             }
             else if (seekBar.getId() == R.id.val2) {
-                tval2.setText(getString(R.string.ksm_sleep,progress*100));
+                edit2.setText(String.valueOf(progress));
             }
         }
     }
@@ -154,9 +230,6 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
                 }
             }
         }
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",v);
-        setResult(RESULT_OK,returnIntent);
         super.onDestroy();
     }
     @Override

@@ -146,7 +146,6 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
         }
         else{
             mKSM.setChecked(Helpers.readOneLine(KSM_RUN_PATH).equals("1"));
-            mKSMsettings.setSummary(getString(R.string.ksm_pagtoscan)+Helpers.readOneLine(KSM_PAGESTOSCAN_PATH)+" | "+getString(R.string.ksm_sleep)+Helpers.readOneLine(KSM_SLEEP_PATH)+" ms");
         }
         ispm=(!Helpers.binExist("pm").equals(NOT_FOUND));
     }
@@ -296,7 +295,7 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
             return true;
         }
         else if (preference.equals(mKSMsettings)){
-            startActivityForResult(new Intent(getActivity(), KSMActivity.class), 1);
+            startActivity(new Intent(getActivity(), KSMActivity.class));
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -314,12 +313,7 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 	    }
 
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-                String v= data.getStringExtra("result");
-        }
-    }
+
 	private void updateOOM(String[] v) {
 		mForegroundApp.setSummary(oomConv(values[0])+"mb "+"[ "+v[0]+" ]");
 		mVisibleApp.setSummary(oomConv(values[1])+"mb "+"[ "+v[1]+" ]");

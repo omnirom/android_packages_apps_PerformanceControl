@@ -254,7 +254,18 @@ Translation by Laurentiu1996
         <item>Complet</item>
         <item>Nu se încarcă</item>
     </string-array>
-
+    <!-- 2.1.2 -->
+    <!-- ksm -->
+    <string name="prefcat_ksm">KERNEL SAMEPAGE MERGING</string>
+    <string name="pt_run_ksm">Enable KSM</string>
+    <string name="ksm_adv_title">Advanced settings</string>
+    <string name="ksm_fullscans">Full Scans:</string>
+    <string name="ksm_pagshared">Pages Shared:</string>
+    <string name="ksm_pagsharing">Pages Sharing:</string>
+    <string name="ksm_pagunshared">Pages Unshared:</string>
+    <string name="ksm_pagvolatile">Pages Volatile:</string>
+    <string name="ksm_pagtoscan">Pages to Scan:</string>
+    <string name="ksm_sleep">Sleep (ms):</string>
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Utilizaţi o temă deschisă</string>
     <string name="ps_use_light_theme">Dacă este bifată, aplicaţia va folosi o temă deschisă Holo</string>
