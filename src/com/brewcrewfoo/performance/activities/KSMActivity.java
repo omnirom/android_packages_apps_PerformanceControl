@@ -123,8 +123,8 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
     }
+
     @Override
     public void onResume() {
         if (mCurThread == null) {
