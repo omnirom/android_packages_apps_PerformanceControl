@@ -1,6 +1,7 @@
 package com.brewcrewfoo.performance.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -182,9 +183,13 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
                 new CMDProcessor().su.runWaitFor("busybox echo " + edit1.getText().toString() + " > " + KSM_PAGESTOSCAN_PATH);
                 new CMDProcessor().su.runWaitFor("busybox echo " + edit2.getText().toString() + " > " + KSM_SLEEP_PATH);
                 mPreferences.edit()
-                        .putString("pref_ksm_pagetoscan",edit1.getText().toString() )
-                        .putString("pref_ksm_sleep",edit2.getText().toString() )
+                        .putString("pref_ksm_pagetoscan", edit1.getText().toString())
+                        .putString("pref_ksm_sleep", edit2.getText().toString())
                         .commit();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",edit1.getText().toString()+" "+edit2.getText().toString());
+                setResult(RESULT_OK,returnIntent);
+                finish();
             }
         });
     }

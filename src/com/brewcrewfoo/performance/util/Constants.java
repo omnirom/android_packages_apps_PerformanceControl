@@ -82,6 +82,7 @@ public interface Constants {
     public static final String KSM_PAGESVOLATILE_PATH = "/sys/kernel/mm/ksm/pages_volatile";
     public static final String KSM_SLEEP_PATH = "/sys/kernel/mm/ksm/sleep_millisecs";
     public static final String PREF_RUN_KSM = "pref_run_ksm";
+    public static final String KSM_SOB = "ksm_boot";
 
     //------ DoNotKillProc
     public static final String USER_PROC_PATH = "/sys/module/lowmemorykiller/parameters/donotkill_proc";

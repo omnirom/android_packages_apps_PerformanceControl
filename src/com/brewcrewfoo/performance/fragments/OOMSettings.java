@@ -146,6 +146,7 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
         }
         else{
             mKSM.setChecked(Helpers.readOneLine(KSM_RUN_PATH).equals("1"));
+            mKSMsettings.setSummary(getString(R.string.ksm_pagtoscan)+" "+Helpers.readOneLine(KSM_PAGESTOSCAN_PATH)+" | "+getString(R.string.ksm_sleep)+" "+Helpers.readOneLine(KSM_SLEEP_PATH));
         }
         ispm=(!Helpers.binExist("pm").equals(NOT_FOUND));
     }
@@ -295,7 +296,7 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
             return true;
         }
         else if (preference.equals(mKSMsettings)){
-            startActivity(new Intent(getActivity(), KSMActivity.class));
+            startActivityForResult(new Intent(getActivity(), KSMActivity.class), 1);
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -313,7 +314,18 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 	    }
 
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if(resultCode == getActivity().RESULT_OK){
+                String s[]= data.getStringExtra("result").split(" ");
+                mKSMsettings.setSummary(getString(R.string.ksm_pagtoscan)+" "+s[0]+" | "+getString(R.string.ksm_sleep)+" "+s[1]);
+            }
+            if (resultCode == getActivity().RESULT_CANCELED) {
+                //
+            }
+        }
+    }
 	private void updateOOM(String[] v) {
 		mForegroundApp.setSummary(oomConv(values[0])+"mb "+"[ "+v[0]+" ]");
 		mVisibleApp.setSummary(oomConv(values[1])+"mb "+"[ "+v[1]+" ]");

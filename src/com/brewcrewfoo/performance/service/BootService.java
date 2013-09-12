@@ -273,6 +273,18 @@ public class BootService extends Service implements Constants {
                     sb.append("busybox echo " + preferences.getString(PREF_SYS_NAMES, Helpers.readOneLine(USER_SYS_NAMES_PATH)) + " > " + USER_SYS_NAMES_PATH + " \n");
                 }
         }
+        if (new File(KSM_RUN_PATH).exists()) {
+            if (preferences.getBoolean(KSM_SOB, false)) {
+                if (preferences.getBoolean(PREF_RUN_KSM, false)) {
+                    sb.append("busybox echo 1 > " + KSM_RUN_PATH + " \n");
+                }
+                else{
+                    sb.append("busybox echo 0 > " + KSM_RUN_PATH + " \n");
+                }
+                sb.append("busybox echo " + preferences.getString("pref_ksm_pagetoscan", Helpers.readOneLine(KSM_PAGESTOSCAN_PATH)) + " > " + KSM_PAGESTOSCAN_PATH + " \n");
+                sb.append("busybox echo " + preferences.getString("pref_ksm_sleep", Helpers.readOneLine(KSM_SLEEP_PATH)) + " > " + KSM_SLEEP_PATH + " \n");
+            }
+        }
         sb.append(preferences.getString(PREF_SH,"# no custom shell command")+"\n");
 
 		Helpers.shExec(sb);
