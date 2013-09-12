@@ -45,26 +45,18 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     private SeekBar mMinSlider;
     private Spinner mGovernor;
     private Spinner mIo;
-    private Switch mSetOnBoot;
     private TextView mCurFreq;
     private TextView mMaxSpeedText;
     private TextView mMinSpeedText;
     private String[] mAvailableFrequencies;
-    private String[] mAvailableGovernors;
-    private String[] mAvailableIo;
 
     private String mMaxFreqSetting;
     private String mMinFreqSetting;
-    private String mCurrentGovernor;
-    private String mCurrentIo;
-    private String mCurMaxSpeed;
-    private String mCurMinSpeed;
 
     private CurCPUThread mCurCPUThread;
     SharedPreferences mPreferences;
 
     private boolean mIsTegra3 = false;
-    private int mFrequenciesNum;
 
     private static final int NEW_MENU_ID=Menu.FIRST+1;
 
@@ -96,14 +88,14 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             });
         }
 
-        mFrequenciesNum = mAvailableFrequencies.length - 1;
-        mAvailableGovernors = Helpers.readOneLine(GOVERNORS_LIST_PATH).split(" ");
-        mAvailableIo = Helpers.getAvailableIOSchedulers();
+        int mFrequenciesNum = mAvailableFrequencies.length - 1;
+        String[] mAvailableGovernors = Helpers.readOneLine(GOVERNORS_LIST_PATH).split(" ");
+        String[] mAvailableIo = Helpers.getAvailableIOSchedulers();
 
-        mCurrentGovernor = Helpers.readOneLine(GOVERNOR_PATH);
-        mCurrentIo = Helpers.getIOScheduler();
-        mCurMaxSpeed = Helpers.readOneLine(MAX_FREQ_PATH);
-        mCurMinSpeed = Helpers.readOneLine(MIN_FREQ_PATH);
+        String mCurrentGovernor = Helpers.readOneLine(GOVERNOR_PATH);
+        String mCurrentIo = Helpers.getIOScheduler();
+        String mCurMaxSpeed = Helpers.readOneLine(MAX_FREQ_PATH);
+        String mCurMinSpeed = Helpers.readOneLine(MIN_FREQ_PATH);
 
         if (mIsTegra3) {
             String curTegraMaxSpeed = Helpers.readOneLine(TEGRA_MAX_FREQ_PATH);
@@ -166,20 +158,20 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             }
         });
 
-        mSetOnBoot = (Switch) view.findViewById(R.id.cpu_sob);
+        Switch mSetOnBoot = (Switch) view.findViewById(R.id.cpu_sob);
         mSetOnBoot.setChecked(mPreferences.getBoolean(CPU_SOB, false));
         mSetOnBoot
                 .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton v,boolean checked) {
+                    public void onCheckedChanged(CompoundButton v, boolean checked) {
                         final SharedPreferences.Editor editor = mPreferences.edit();
                         editor.putBoolean(CPU_SOB, checked);
-			if(checked){
-				editor.putString(PREF_MIN_CPU, Helpers.readOneLine(MIN_FREQ_PATH));
-				editor.putString(PREF_MAX_CPU, Helpers.readOneLine(MAX_FREQ_PATH));
-				editor.putString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
-				editor.putString(PREF_IO, Helpers.getIOScheduler());
-			}                        
+                        if (checked) {
+                            editor.putString(PREF_MIN_CPU, Helpers.readOneLine(MIN_FREQ_PATH));
+                            editor.putString(PREF_MAX_CPU, Helpers.readOneLine(MAX_FREQ_PATH));
+                            editor.putString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
+                            editor.putString(PREF_IO, Helpers.getIOScheduler());
+                        }
                         editor.commit();
                     }
                 });
