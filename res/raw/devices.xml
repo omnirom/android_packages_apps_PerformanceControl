@@ -22,7 +22,7 @@ File contain partitions layout for flashing kernel & recovery
         <cache>/dev/block/mmcblk0p16</cache>
     </device>
     <device>
-        <model>GT-I9100,GT-I9100G</model> <!-- GALAXY S II -->
+        <model>GT-I9100,GT-I9100G,SGH-I777</model> <!-- GALAXY S II -->
         <kernel>/dev/block/mmcblk0p5</kernel>
         <recovery>/dev/block/mmcblk0p6</recovery>
         <cache>/dev/block/mmcblk0p7</cache>
@@ -71,7 +71,7 @@ File contain partitions layout for flashing kernel & recovery
         <cache>/dev/block/mmcblk0p23</cache>
     </device>
     <device>
-        <model>GT-P6800</model> <!-- Samsung Galaxy Tab 7.7 (3G) GT-P6800 -->
+        <model>GT-P6800,GT-P6810</model> <!-- Samsung Galaxy Tab 7.7 (3G) GT-P6800, GT-P6810 -->
         <kernel>/dev/block/mmcblk0p5</kernel>
         <recovery>/dev/block/mmcblk0p6</recovery>
         <cache>/dev/block/mmcblk0p7</cache>
@@ -82,6 +82,19 @@ File contain partitions layout for flashing kernel & recovery
         <recovery>/dev/block/mmcblk0p9</recovery>
         <cache>/dev/block/mmcblk0p12</cache>
     </device>
+    <device>
+        <model>SGH-T999,SGH-I747,SGH-I747,SGH-I747M,SPH-L710,SCH-I535</model> <!-- Samsung Galaxy S III SGH-T999,SGH-I747 -->
+        <kernel>/dev/block/mmcblk0p7</kernel>
+        <recovery>/dev/block/mmcblk0p18</recovery>
+        <cache>/dev/block/mmcblk0p17</cache>
+    </device>
+    <device>
+        <model>GT-P7500,SCH-I905,GT-P7510,GT-P7100,GT-P7511</model> <!-- Samsung Galaxy Tab 10.1 -->
+        <kernel>/dev/block/mmcblk0p3</kernel>
+        <recovery>/dev/block/mmcblk0p2</recovery>
+        <cache>/dev/block/mmcblk0p5</cache>
+    </device>
+
     <!-- xolo_us9230e1 ???????
     <device>
         <model>T1000</model>
