@@ -306,7 +306,8 @@ public class VoltageControlSettings extends Fragment implements Constants {
                         int value = 0;
                         try {
                             value = Integer.parseInt(text);
-                        } catch (NumberFormatException nfe) {
+                        }
+                        catch (NumberFormatException nfe) {
                             return;
                         }
                         voltageMeter.setText(text + " mV");
