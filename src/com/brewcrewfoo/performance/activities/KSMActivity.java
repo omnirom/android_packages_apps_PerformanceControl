@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -54,35 +55,40 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
             ist1=true;
         }
         else{
-            t1.setVisibility(TextView.GONE);
+            RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout1);
+            relativeLayout.setVisibility(RelativeLayout.GONE);
         }
         if (new File(KSM_PAGESSHARED_PATH).exists()) {
             t2.setText(Helpers.readOneLine(KSM_PAGESUNSHERED_PATH));
             ist2=true;
         }
         else{
-            t2.setVisibility(TextView.GONE);
+            RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout2);
+            relativeLayout.setVisibility(RelativeLayout.GONE);
         }
         if (new File(KSM_PAGESSHARING_PATH).exists()) {
             t3.setText(Helpers.readOneLine(KSM_PAGESSHARING_PATH));
             ist3=true;
         }
         else{
-            t3.setVisibility(TextView.GONE);
+            RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout3);
+            relativeLayout.setVisibility(RelativeLayout.GONE);
         }
         if (new File(KSM_PAGESVOLATILE_PATH).exists()) {
             t4.setText(Helpers.readOneLine(KSM_PAGESVOLATILE_PATH));
             ist4=true;
         }
         else{
-            t4.setVisibility(TextView.GONE);
+            RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout4);
+            relativeLayout.setVisibility(RelativeLayout.GONE);
         }
         if (new File(KSM_FULLSCANS_PATH).exists()) {
             t5.setText(Helpers.readOneLine(KSM_FULLSCANS_PATH));
             ist5=true;
         }
         else{
-            t5.setVisibility(TextView.GONE);
+            RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout5);
+            relativeLayout.setVisibility(RelativeLayout.GONE);
         }
 
         final int v1=Integer.parseInt(Helpers.readOneLine(KSM_PAGESTOSCAN_PATH));
