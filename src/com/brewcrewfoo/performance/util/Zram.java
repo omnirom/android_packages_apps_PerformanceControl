@@ -30,7 +30,7 @@ public class Zram implements Constants {
    }
 
    private int _getDiskSize() throws Exception {
-       String sizeInString = Helpers.readOneLine(ZRAM_SIZE_PATH);
+       final String sizeInString = Helpers.readOneLine(ZRAM_SIZE_PATH);
         return Integer.parseInt(sizeInString);
    }
 
@@ -42,7 +42,7 @@ public class Zram implements Constants {
    }
 
    private int _getCompressedDataSize() throws Exception {
-       String sizeInString = Helpers.readOneLine(ZRAM_COMPR_PATH);
+       final String sizeInString = Helpers.readOneLine(ZRAM_COMPR_PATH);
         return Integer.parseInt(sizeInString);
    }
 
@@ -54,7 +54,7 @@ public class Zram implements Constants {
    }
 
    private int _getOriginalDataSize() throws Exception {
-       String sizeInString = Helpers.readOneLine(ZRAM_ORIG_PATH);
+       final String sizeInString = Helpers.readOneLine(ZRAM_ORIG_PATH);
         return Integer.parseInt(sizeInString);
    }
 
@@ -66,7 +66,7 @@ public class Zram implements Constants {
    }
 
    private int _getMemUsedTotal() throws Exception {
-       String sizeInString = Helpers.readOneLine(ZRAM_MEMTOT_PATH);
+       final String sizeInString = Helpers.readOneLine(ZRAM_MEMTOT_PATH);
         return Integer.parseInt(sizeInString);
    }
 
