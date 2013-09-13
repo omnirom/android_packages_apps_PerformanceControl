@@ -115,9 +115,9 @@ public class VoltageControlSettings extends Fragment implements Constants {
 			@Override
 			public void onClick(View arg0) {
 			final StringBuilder sb = new StringBuilder();
-    		if (Helpers.getVoltagePath() == VDD_PATH) {		
+    		if (Helpers.getVoltagePath().equals(VDD_PATH)) {
 				for (final Voltage volt : mVoltages) {
-					if(volt.getSavedMV() != volt.getCurrentMv()){
+					if(!volt.getSavedMV().equals(volt.getCurrentMv())){
 						for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
 							sb.append("busybox echo "
 								+ volt.getFreq()+" "+volt.getSavedMV() + " > "
@@ -129,7 +129,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
 			else{
 				final StringBuilder b = new StringBuilder();
 				for (final Voltage volt : mVoltages) {
-					b.append(volt.getSavedMV() + " ");
+					b.append(volt.getSavedMV()).append(" ");
 				}
 				for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
 					sb.append("busybox echo "
@@ -217,10 +217,10 @@ public class VoltageControlSettings extends Fragment implements Constants {
         try {
 		BufferedReader br = new BufferedReader(new FileReader(Helpers.getVoltagePath()), 256);
 		String line = "";
-		if (Helpers.getVoltagePath() == VDD_PATH) {
+		if (Helpers.getVoltagePath().equals(VDD_PATH)) {
 			while ((line = br.readLine()) != null) {
 				line = line.replaceAll("\\s","");
-				if (line != "") {
+				if (!line.equals("")) {
 					final String[] values = line.split(":");
 					final String freq = values[0];
 					final String currentMv = values[1];
@@ -267,12 +267,9 @@ public class VoltageControlSettings extends Fragment implements Constants {
 
     private static int getNearestStepIndex(final int value) {
         int index = 0;
-        for (int i = 0; i < STEPS.length; i++) {
-            if (value > STEPS[i]) {
-                index++;
-            } else {
-                break;
-            }
+        for (int STEP : STEPS) {
+            if (value > STEP) index++;
+            else break;
         }
         return index;
     }
