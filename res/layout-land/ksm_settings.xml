@@ -11,9 +11,11 @@
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:padding="20dp"
         android:id="@+id/left"
-        android:layout_weight="50">
+        android:layout_weight="50"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -156,6 +158,20 @@
                 android:gravity="right"/>
         </RelativeLayout>
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:id="@+id/linearLayout4">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/clear"
+                android:id="@+id/rst" />
+        </LinearLayout>
+
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -256,7 +272,7 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:gravity="bottom"
-            android:id="@+id/linearLayout"
+            android:id="@+id/linearLayout3"
             android:paddingLeft="17dp"
             android:paddingRight="17dp">
 

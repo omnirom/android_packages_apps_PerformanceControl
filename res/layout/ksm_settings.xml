@@ -252,16 +252,22 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="bottom">
-
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/clear"
+            android:id="@+id/rst"
+            android:layout_weight="0.5" />
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/apply_values"
-            android:id="@+id/apply" />
+            android:id="@+id/apply"
+            android:layout_weight="0.5" />
     </LinearLayout>
 
 </LinearLayout>
