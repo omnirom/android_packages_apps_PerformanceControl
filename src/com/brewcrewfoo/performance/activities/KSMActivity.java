@@ -194,9 +194,9 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
                         final String vlast=Helpers.readOneLine(KSM_RUN_PATH);
                         final StringBuilder sb = new StringBuilder();
                         sb.append("busybox echo 0 > " + KSM_RUN_PATH+";\n");
-                        sb.append("sleep 1;\n");
+                        sb.append("sleep 0.5;\n");
                         sb.append("busybox echo 2 > " + KSM_RUN_PATH+";\n");
-                        sb.append("sleep 1;\n");
+                        sb.append("sleep 0.5;\n");
                         sb.append("busybox echo "+vlast+" > " + KSM_RUN_PATH+";\n");
                         Helpers.shExec(sb);
 
