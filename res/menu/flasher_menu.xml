@@ -4,10 +4,10 @@
     <item
         android:id="@+id/flash_kernel"
         android:showAsAction="never"
-        android:title="@string/kernel_img_title"/>
+        android:title="@string/kernel_img_title" />
     <item
         android:id="@+id/flash_recovery"
         android:showAsAction="never"
-        android:title="@string/recovery_img_title"/>
+        android:title="@string/recovery_img_title" />
 
 </menu>

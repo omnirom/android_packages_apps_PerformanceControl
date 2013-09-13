@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
 Performance Control - An Android CPU Control application
 Copyright (C) 2012  James Roberts
 
@@ -83,22 +82,22 @@ Copyright (C) 2012  James Roberts
     <string name="fast_charge_notification_title">Fast Charge is ON!</string>
     <string name="fast_charge_notification_message">Phone is in charge-only mode!</string>
 
-<!-- minfree -->
-   <string name="prefcat_oom">MINFREE TASKKILLER</string>
-   <string name="title_foreground_app">Foreground Applications</string>
-   <string name="title_visible_app">Visible Applications</string>
-   <string name="title_secondary_server">Secondary Server</string>
-   <string name="title_hidden_app">Hidden Applications</string>
-   <string name="title_content_providers">Content Providers</string>
-   <string name="title_empty_app">Empty Applications</string>
-   <string name="prefcat_oom_predefines">PRESETS</string>
-   <string name="pt_oom">Minfree Taskkiller Presets</string>
+    <!-- minfree -->
+    <string name="prefcat_oom">MINFREE TASKKILLER</string>
+    <string name="title_foreground_app">Foreground Applications</string>
+    <string name="title_visible_app">Visible Applications</string>
+    <string name="title_secondary_server">Secondary Server</string>
+    <string name="title_hidden_app">Hidden Applications</string>
+    <string name="title_content_providers">Content Providers</string>
+    <string name="title_empty_app">Empty Applications</string>
+    <string name="prefcat_oom_predefines">PRESETS</string>
+    <string name="pt_oom">Minfree Taskkiller Presets</string>
 
-   <string name="pt_verylight">Very Light</string>
-   <string name="pt_light">Light</string>
-   <string name="pt_medium">Medium</string>
-   <string name="pt_aggressive">Aggressive</string>
-   <string name="pt_veryaggressive">Very Aggressive</string>
+    <string name="pt_verylight">Very Light</string>
+    <string name="pt_light">Light</string>
+    <string name="pt_medium">Medium</string>
+    <string name="pt_aggressive">Aggressive</string>
+    <string name="pt_veryaggressive">Very Aggressive</string>
 
     <!-- do not kill proc -->
     <string name="prefcat_user_proc">NOT KILLABLE USER PROCESSES</string>
@@ -115,43 +114,43 @@ Copyright (C) 2012  James Roberts
     <string name="prefcat_bln">BACKLIGHT NOTIFICATION</string>
     <string name="pt_bln">Backlight Notification</string>
     <!-- blx -->
-   <string name="blx_info">Battery Life eXtender feature\nAuthor Ezekeel</string>
-   <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
-   <string name="pt_blx_boot">Set on boot</string>
-   <string name="ps_blx_boot">Apply the amount above at boot</string>
-   <string name="blx_title">Charge limit:</string>
+    <string name="blx_info">Battery Life eXtender feature\nAuthor Ezekeel</string>
+    <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
+    <string name="pt_blx_boot">Set on boot</string>
+    <string name="ps_blx_boot">Apply the amount above at boot</string>
+    <string name="blx_title">Charge limit:</string>
     <!-- dsync -->
-   <string name="dsync_info">Dynamic FSync feature\nAuthor Paul Reioux (faux123)</string>
-   <string name="prefcat_dsync">DYNAMIC FSYNC</string>
-   <string name="ps_dsync">Setting will be restored on reboot</string>
-   <string name="pt_dsync">Dynamic Fsync</string>
+    <string name="dsync_info">Dynamic FSync feature\nAuthor Paul Reioux (faux123)</string>
+    <string name="prefcat_dsync">DYNAMIC FSYNC</string>
+    <string name="ps_dsync">Setting will be restored on reboot</string>
+    <string name="pt_dsync">Dynamic Fsync</string>
     <!-- bl_timeout -->
-   <string name="prefcat_bltimeout">BACKLIGHT TIMEOUT</string>
-   <string name="ps_bltimeout">%s ms</string>
-   <string name="bltimeout_title">Backlight timeout</string>
+    <string name="prefcat_bltimeout">BACKLIGHT TIMEOUT</string>
+    <string name="ps_bltimeout">%s ms</string>
+    <string name="bltimeout_title">Backlight timeout</string>
     <!-- bl_touch -->
-   <string name="prefcat_bltouch">BACKLIGHT ON TOUCHSCREEN</string>
-   <string name="pt_bltouch">Backlight on touchscreen</string>	
+    <string name="prefcat_bltouch">BACKLIGHT ON TOUCHSCREEN</string>
+    <string name="pt_bltouch">Backlight on touchscreen</string>
     <!-- pfk -->
-   <string name="pfk_info">Phantom Key Presses Filter module ver. %s\nAuthor Cristoforo Cataldo (Christopher83)</string>
-   <string name="prefcat_pfk">PHANTOM KEY PRESSES FILTER</string>
-   <string name="pt_home_enabled">Home key filter</string>
-   <string name="ps_home_enabled">Ignored key pressed: %s</string>
-   <string name="home_allowed_irq_title">Max allowed interrupts</string>
-   <string name="home_report_wait_title">Report wait time</string>
-	
-   <string name="pt_menuback_enabled">Menu/Back keys filter</string>
-   <string name="ps_menuback_enabled">Ignored key pressed: %s</string>
-   <string name="menuback_interrupt_checks_title">Interrupts checks</string>
-   <string name="menuback_first_err_wait_title">First error wait time</string>
-   <string name="menuback_last_err_wait_title">Last error wait time</string>
-   <string name="ps_pfk_set_on_boot">If enabled will restore all pkf settings on reboot</string>
+    <string name="pfk_info">Phantom Key Presses Filter module ver. %s\nAuthor Cristoforo Cataldo (Christopher83)</string>
+    <string name="prefcat_pfk">PHANTOM KEY PRESSES FILTER</string>
+    <string name="pt_home_enabled">Home key filter</string>
+    <string name="ps_home_enabled">Ignored key pressed: %s</string>
+    <string name="home_allowed_irq_title">Max allowed interrupts</string>
+    <string name="home_report_wait_title">Report wait time</string>
+
+    <string name="pt_menuback_enabled">Menu/Back keys filter</string>
+    <string name="ps_menuback_enabled">Ignored key pressed: %s</string>
+    <string name="menuback_interrupt_checks_title">Interrupts checks</string>
+    <string name="menuback_first_err_wait_title">First error wait time</string>
+    <string name="menuback_last_err_wait_title">Last error wait time</string>
+    <string name="ps_pfk_set_on_boot">If enabled will restore all pkf settings on reboot</string>
     <!-- dynamic write back -->
-   <string name="dynamic_writeback_info">Dynamic Dirty Page Writebacks feature\nAuthor Cristoforo Cataldo (Christopher83)</string>
-   <string name="dynamic_write_back_title">DYNAMIC DIRTY PAGE WRITEBACKS</string>
-   <string name="pt_dynamic_write_back">Dynamic Dirty Writeback</string>
-   <string name="dynamic_writeback_active_title">Dirty Writeback Active centisecs</string>
-   <string name="dynamic_writeback_suspend_title">Dirty Writeback Suspend centisecs</string>
+    <string name="dynamic_writeback_info">Dynamic Dirty Page Writebacks feature\nAuthor Cristoforo Cataldo (Christopher83)</string>
+    <string name="dynamic_write_back_title">DYNAMIC DIRTY PAGE WRITEBACKS</string>
+    <string name="pt_dynamic_write_back">Dynamic Dirty Writeback</string>
+    <string name="dynamic_writeback_active_title">Dirty Writeback Active centisecs</string>
+    <string name="dynamic_writeback_suspend_title">Dirty Writeback Suspend centisecs</string>
     <!--  -->
     <string name="size_25_mb">25mb</string>
     <string name="size_50_mb">50mb</string>
@@ -217,7 +216,7 @@ Copyright (C) 2012  James Roberts
     <string name="su_failed_su_or_busybox">Root access failed or busybox was not found. Most
         options will not work without root access. Sorry!
     </string>
-    
+
     <!-- Tools -->
     <string name="prefcat_sh">CUSTOM SHELL COMMAND</string>
     <string name="sh_title">Edit shell command</string>

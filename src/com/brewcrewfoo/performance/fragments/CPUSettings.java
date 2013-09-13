@@ -26,9 +26,21 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
+
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
@@ -58,7 +70,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     private boolean mIsTegra3 = false;
 
-    private static final int NEW_MENU_ID=Menu.FIRST+1;
+    private static final int NEW_MENU_ID = Menu.FIRST + 1;
 
 
     @Override
@@ -182,13 +194,13 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.cpu_settings_menu, menu);
-        Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
+        Helpers.addItems2Menu(menu, NEW_MENU_ID, getString(R.string.menu_tab), (ViewPager) getView().getParent());
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Helpers.removeCurItem(item,NEW_MENU_ID,(ViewPager) getView().getParent());
-        switch(item.getItemId()){
+        Helpers.removeCurItem(item, NEW_MENU_ID, (ViewPager) getView().getParent());
+        switch (item.getItemId()) {
             case R.id.app_settings:
                 Intent intent = new Intent(getActivity(), PCSettings.class);
                 startActivity(intent);
@@ -248,14 +260,14 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     }
 
     public class IOListener implements OnItemSelectedListener {
-        public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-			final StringBuilder sb = new StringBuilder();
-			for(int i=0; i<IO_SCHEDULER_PATH.length; i++){
-                if (new File(IO_SCHEDULER_PATH[i]).exists())
-				sb.append("busybox echo "+selected+" > " + IO_SCHEDULER_PATH[i] + "\n");
-			}
-			Helpers.shExec(sb);
+            final StringBuilder sb = new StringBuilder();
+            for (String aIO_SCHEDULER_PATH : IO_SCHEDULER_PATH) {
+                if (new File(aIO_SCHEDULER_PATH).exists())
+                    sb.append("busybox echo ").append(selected).append(" > ").append(aIO_SCHEDULER_PATH).append("\n");
+            }
+            Helpers.shExec(sb);
             updateSharedPrefs(PREF_IO, selected);
         }
 
@@ -335,7 +347,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 while (!mInterrupt) {
                     sleep(500);
                     final String curFreq = Helpers.readOneLine(CUR_CPU_PATH);
-                    mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0,curFreq));
+                    mCurCPUHandler.sendMessage(mCurCPUHandler.obtainMessage(0, curFreq));
                 }
             } catch (InterruptedException e) {
                 //return;

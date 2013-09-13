@@ -38,7 +38,7 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
     private boolean mIsLightTheme;
     private FileArrayAdapter adapter;
     private String rpath;
-    private int ndel=0;
+    private int ndel = 0;
 
     Resources res;
     Context context;
@@ -58,22 +58,22 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
         setTheme();
         setContentView(R.layout.residual_list);
 
-        Intent intent1=getIntent();
-        rpath=intent1.getStringExtra("dir");
+        Intent intent1 = getIntent();
+        rpath = intent1.getStringExtra("dir");
 
         packList = (ListView) findViewById(R.id.applist);
         packList.setOnItemClickListener(this);
         linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
         nofiles = (LinearLayout) findViewById(R.id.nofiles);
         tools = (LinearLayout) findViewById(R.id.tools);
-        applyBtn=(Button) findViewById(R.id.applyBtn);
+        applyBtn = (Button) findViewById(R.id.applyBtn);
         applyBtn.setText(getString(R.string.delallbtn));
         applyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(getString(R.string.residual_files_title))
-                        .setMessage(getString(R.string.clean_files_msg,rpath))
+                        .setMessage(getString(R.string.clean_files_msg, rpath))
                         .setNegativeButton(getString(R.string.cancel),
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
@@ -116,18 +116,19 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
         mIsLightTheme = is_light_theme;
         setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
+
     @Override
     public void onResume() {
         super.onResume();
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,long row) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long row) {
         final Item o = adapter.getItem(position);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(getString(R.string.residual_files_title))
-                .setMessage(getString(R.string.del_file_msg,o.getName()))
+                .setMessage(getString(R.string.del_file_msg, o.getName()))
                 .setNegativeButton(getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -145,29 +146,31 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
         alertDialog.show();
         //alertDialog.setCancelable(false);
         Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-        theButton.setOnClickListener(new DelFileListener(alertDialog,o));
+        theButton.setOnClickListener(new DelFileListener(alertDialog, o));
 
     }
 
     class CleanAllListener implements View.OnClickListener {
         private final Dialog dialog;
+
         public CleanAllListener(Dialog dialog) {
             this.dialog = dialog;
         }
+
         @Override
         public void onClick(View v) {
-            ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
-            ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
-            new CMDProcessor().su.runWaitFor("busybox rm -f "+rpath+"/*");
-            final int n=adapter.getCount();
+            ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+            ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
+            new CMDProcessor().su.runWaitFor("busybox rm -f " + rpath + "/*");
+            final int n = adapter.getCount();
             adapter.clear();
             linlaHeaderProgress.setVisibility(View.VISIBLE);
             tools.setVisibility(View.GONE);
             dialog.cancel();
 
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("result",n);
-            setResult(RESULT_OK,returnIntent);
+            returnIntent.putExtra("result", n);
+            setResult(RESULT_OK, returnIntent);
             finish();
         }
     }
@@ -175,25 +178,27 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
     class DelFileListener implements View.OnClickListener {
         private final Dialog dialog;
         private final Item o;
-        public DelFileListener(Dialog dialog,Item o) {
+
+        public DelFileListener(Dialog dialog, Item o) {
             this.dialog = dialog;
-            this.o=o;
+            this.o = o;
         }
+
         @Override
         public void onClick(View v) {
-            ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
-            ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
+            ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+            ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
 
-            new CMDProcessor().su.runWaitFor("busybox rm -f "+rpath+"/"+o.getName());
+            new CMDProcessor().su.runWaitFor("busybox rm -f " + rpath + "/" + o.getName());
 
             adapter.remove(o);
             adapter.notifyDataSetChanged();
 
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("result",++ndel);
-            setResult(RESULT_OK,returnIntent);
+            returnIntent.putExtra("result", ++ndel);
+            setResult(RESULT_OK, returnIntent);
             dialog.dismiss();
-            if(adapter.isEmpty())
+            if (adapter.isEmpty())
                 finish();
 
         }
@@ -204,30 +209,33 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
         @Override
         protected String doInBackground(String... params) {
             CMDProcessor.CommandResult cr = null;
-            cr=new CMDProcessor().su.runWaitFor("busybox echo `busybox find "+rpath+" -type f -name \"*\"`");
-            if(cr.success()){ return cr.stdout;}
-            else{Log.d(TAG,"residual files err: "+cr.stderr); return null; }
+            cr = new CMDProcessor().su.runWaitFor("busybox echo `busybox find " + rpath + " -type f -name \"*\"`");
+            if (cr.success()) {
+                return cr.stdout;
+            } else {
+                Log.d(TAG, "residual files err: " + cr.stderr);
+                return null;
+            }
         }
 
         @Override
         protected void onPostExecute(String result) {
             final List<Item> dir = new ArrayList<Item>();
-            if(result!=null){
-                final String fls[]=result.split(" ");
+            if (result != null) {
+                final String fls[] = result.split(" ");
                 for (String fl : fls) {
-                        final File f=new File(fl);
-                        dir.add(new Item(f.getName(), f.getParent(),null, null, "file"));
+                    final File f = new File(fl);
+                    dir.add(new Item(f.getName(), f.getParent(), null, null, "file"));
                 }
             }
             linlaHeaderProgress.setVisibility(View.GONE);
-            if(dir.isEmpty()){
+            if (dir.isEmpty()) {
                 nofiles.setVisibility(View.VISIBLE);
                 tools.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 nofiles.setVisibility(View.GONE);
                 tools.setVisibility(View.VISIBLE);
-                adapter = new FileArrayAdapter(iResidualsActivity.this,R.layout.file_view, dir);
+                adapter = new FileArrayAdapter(iResidualsActivity.this, R.layout.file_view, dir);
                 packList.setAdapter(adapter);
             }
 

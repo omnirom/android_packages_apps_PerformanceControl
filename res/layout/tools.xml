@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 Performance Control - An Android CPU Control application
 Copyright (C) 2012  James Roberts
 
@@ -18,61 +17,72 @@ Copyright (C) 2012  James Roberts
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <PreferenceCategory
-            android:key="category_sh"
-            android:title="@string/prefcat_sh">
-    <Preference
-                android:key="pref_sh"
-                android:summary="@string/ps_sh"
-                android:title="@string/sh_title"/>
+        android:key="category_sh"
+        android:title="@string/prefcat_sh">
 
-    </PreferenceCategory>
-    <PreferenceCategory
-            android:key="category_wipe_cache"
-            android:title="@string/prefcat_wipe_cache">
         <Preference
-                android:key="pref_wipe_cache"
-                android:title="@string/wipe_cache_title"/>
-
-    </PreferenceCategory>
-    <PreferenceCategory
-            android:key="category_fix_perms"
-            android:title="@string/prefcat_fix_perms">
-        <Preference
-                android:key="pref_fix_perms"
-                android:title="@string/fix_perms_title"/>
-
-    </PreferenceCategory>
-    <PreferenceCategory
-            android:key="category_flash_img"
-            android:title="@string/prefcat_flash_img">
-        <Preference
-                android:key="pref_kernel_img"
-                android:summary="@string/ps_kernel_img"
-                android:title="@string/kernel_img_title"/>
-        <Preference
-                android:key="pref_recovery_img"
-                android:summary="@string/ps_recovery_img"
-                android:title="@string/recovery_img_title"/>
+            android:key="pref_sh"
+            android:summary="@string/ps_sh"
+            android:title="@string/sh_title" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-            android:key="category_residual_files"
-            android:title="@string/prefcat_residual_files">
+        android:key="category_wipe_cache"
+        android:title="@string/prefcat_wipe_cache">
+
         <Preference
-                android:key="pref_residual_files"
-                android:title="@string/residual_files_title"/>
+            android:key="pref_wipe_cache"
+            android:title="@string/wipe_cache_title" />
 
     </PreferenceCategory>
+
     <PreferenceCategory
-            android:key="category_optim_db"
-            android:title="@string/prefcat_optim_db">
+        android:key="category_fix_perms"
+        android:title="@string/prefcat_fix_perms">
+
         <Preference
-                android:key="pref_optim_db"
-                android:title="@string/optim_db_title"/>
+            android:key="pref_fix_perms"
+            android:title="@string/fix_perms_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="category_flash_img"
+        android:title="@string/prefcat_flash_img">
+
+        <Preference
+            android:key="pref_kernel_img"
+            android:summary="@string/ps_kernel_img"
+            android:title="@string/kernel_img_title" />
+
+        <Preference
+            android:key="pref_recovery_img"
+            android:summary="@string/ps_recovery_img"
+            android:title="@string/recovery_img_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="category_residual_files"
+        android:title="@string/prefcat_residual_files">
+
+        <Preference
+            android:key="pref_residual_files"
+            android:title="@string/residual_files_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="category_optim_db"
+        android:title="@string/prefcat_optim_db">
+
+        <Preference
+            android:key="pref_optim_db"
+            android:title="@string/optim_db_title" />
     </PreferenceCategory>
 </PreferenceScreen>

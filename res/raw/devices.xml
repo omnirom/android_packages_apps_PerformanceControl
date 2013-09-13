@@ -1,34 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 File contain partitions layout for flashing kernel & recovery
 -->
 <devices>
     <device>
-        <model>GT-I9001,Galaxy S Plus</model> <!-- GALAXY S PLUS -->
+        <model>GT-I9001,Galaxy S Plus</model>
+        <!-- GALAXY S PLUS -->
         <kernel>/dev/block/mmcblk0p8</kernel>
         <recovery>/dev/block/mmcblk0p13</recovery>
         <cache>/dev/block/mmcblk0p16</cache>
     </device>
     <device>
-        <model>GT-I8150</model> <!-- GALAXY W -->
+        <model>GT-I8150</model>
+        <!-- GALAXY W -->
         <kernel>/dev/block/mmcblk0p8</kernel>
         <recovery>/dev/block/mmcblk0p13</recovery>
         <cache>/dev/block/mmcblk0p16</cache>
     </device>
     <device>
-        <model>SGH-T679</model> <!-- Galaxy Exhibit -->
+        <model>SGH-T679</model>
+        <!-- Galaxy Exhibit -->
         <kernel>/dev/block/mmcblk0p8</kernel>
         <recovery>/dev/block/mmcblk0p13</recovery>
         <cache>/dev/block/mmcblk0p16</cache>
     </device>
     <device>
-        <model>GT-I9100,GT-I9100G,SGH-I777</model> <!-- GALAXY S II -->
+        <model>GT-I9100,GT-I9100G,SGH-I777</model>
+        <!-- GALAXY S II -->
         <kernel>/dev/block/mmcblk0p5</kernel>
         <recovery>/dev/block/mmcblk0p6</recovery>
         <cache>/dev/block/mmcblk0p7</cache>
     </device>
     <device>
-        <model>GT-I9300</model> <!-- GALAXY S III -->
+        <model>GT-I9300</model>
+        <!-- GALAXY S III -->
         <kernel>/dev/block/mmcblk0p5</kernel>
         <recovery>/dev/block/mmcblk0p6</recovery>
         <cache>/dev/block/mmcblk0p8</cache>
@@ -41,20 +45,23 @@ File contain partitions layout for flashing kernel & recovery
         <cache>/dev/block/platform/msm_sdcc.1/by-name/cache</cache>
     </device>
     <device>
-        <model>Galaxy Nexus,GT-I9250</model> <!-- GALAXY NEXUS -->
+        <model>Galaxy Nexus,GT-I9250</model>
+        <!-- GALAXY NEXUS -->
         <kernel>/dev/block/platform/omap/omap_hsmmc.0/by-name/boot</kernel>
         <recovery>/dev/block/platform/omap/omap_hsmmc.0/by-name/recovery</recovery>
         <cache>/dev/block/platform/omap/omap_hsmmc.0/by-name/cache</cache>
     </device>
     <device>
-        <model>HTC One X,S720e</model> <!-- HTC ONE X -->
+        <model>HTC One X,S720e</model>
+        <!-- HTC ONE X -->
         <kernel>/dev/block/mmcblk0p4</kernel>
         <recovery>/dev/block/mmcblk0p5</recovery>
         <cache>/dev/block/mmcblk0p13</cache>
     </device>
     <!-- new added 1-->
     <device>
-        <model>GT-I8190</model> <!-- GALAXY S III mini -->
+        <model>GT-I8190</model>
+        <!-- GALAXY S III mini -->
         <kernel>/dev/block/mmcblk0p20</kernel>
         <recovery>/dev/block/mmcblk0p21</recovery>
         <cache>/dev/block/mmcblk0p23</cache>
@@ -88,20 +95,23 @@ File contain partitions layout for flashing kernel & recovery
         <cache>/dev/block/mmcblk0p5</cache>
     </device>
     <device>
-        <model>LG-P970</model> <!-- LG OPTIMUS BLACK P970 -->
+        <model>LG-P970</model>
+        <!-- LG OPTIMUS BLACK P970 -->
         <kernel>/dev/block/mmcblk0p3</kernel>
         <recovery>/dev/block/mmcblk0p4</recovery>
         <cache>/dev/block/mmcblk0p10</cache>
     </device>
     <!-- New devices added by rodero95 -->
     <device>
-        <model>GT-I9003,GT-I9003L,galaxysl</model> <!-- Samsung Galaxy SL i9003 and i9003L -->
+        <model>GT-I9003,GT-I9003L,galaxysl</model>
+        <!-- Samsung Galaxy SL i9003 and i9003L -->
         <kernel>/dev/block/mtdblock0</kernel>
         <recovery>/dev/block/mtdblock1</recovery>
         <cache>/dev/block/mmcblk0p2</cache>
     </device>
     <device>
-        <model>u8815</model> <!-- Huawei Ascend G300 -->
+        <model>u8815</model>
+        <!-- Huawei Ascend G300 -->
         <kernel>/dev/block/mmcblk0p15</kernel>
         <recovery>/dev/block/mmcblk0p16</recovery>
         <cache>/dev/block/mmcblk0p6</cache>

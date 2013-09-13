@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 Performance Control - An Android CPU Control application
 Copyright (C) 2012 Jared Rummler
 Copyright (C) 2012  James Roberts
@@ -19,66 +18,65 @@ Copyright (C) 2012  James Roberts
 -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <ListView
-            android:id="@+id/ListView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/BottomBar"
-            android:cacheColorHint="#00000000"
-            >
-    </ListView>
+        android:id="@+id/ListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/BottomBar"
+        android:cacheColorHint="#00000000" />
 
     <TextView
-            android:id="@+id/emptyList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/not_supported"
-            android:visibility="gone"/>
+        android:id="@+id/emptyList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/not_supported"
+        android:visibility="gone" />
 
 
     <RelativeLayout
-            android:id="@+id/BottomBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical"
-            android:padding="14dip">
+        android:id="@+id/BottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="14dip">
 
         <TextView
-                android:id="@+id/set_on_boot_voltage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/sob"
-                android:textSize="14sp"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false"
-                android:paddingBottom="4dip"
-                android:paddingLeft="4dip"/>
+            android:id="@+id/set_on_boot_voltage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:gravity="center_vertical"
+            android:paddingBottom="4dip"
+            android:paddingLeft="4dip"
+            android:text="@string/sob"
+            android:textSize="14sp" />
 
         <Switch
-                android:id="@+id/applyAtBoot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false"
-                android:layout_below="@+id/set_on_boot_voltage"/>
+            android:id="@+id/applyAtBoot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_below="@+id/set_on_boot_voltage" />
 
         <Button
-                android:id="@+id/applyBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="@string/apply_values"
-                android:textSize="14sp"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false"
-                android:layout_alignParentRight="true"/>
+            android:id="@+id/applyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="false"
+            android:layout_gravity="right"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/apply_values"
+            android:textSize="14sp" />
 
     </RelativeLayout>
 

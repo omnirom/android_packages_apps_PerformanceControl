@@ -31,8 +31,8 @@ public interface Constants {
     public static final String STEPS_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
     public static final String GOVERNORS_LIST_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
     public static final String GOVERNOR_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-    public static final String[] IO_SCHEDULER_PATH = {"/sys/block/mmcblk0/queue/scheduler","/sys/block/mmcblk1/queue/scheduler"};
-    
+    public static final String[] IO_SCHEDULER_PATH = {"/sys/block/mmcblk0/queue/scheduler", "/sys/block/mmcblk1/queue/scheduler"};
+
     public static final String NUM_OF_CPUS_PATH = "/sys/devices/system/cpu/present";
 
     public static final String PREF_MAX_CPU = "pref_max_cpu";
@@ -55,16 +55,16 @@ public interface Constants {
     // Other settings
     public static final String MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
     public static final String MINFREE_ADJ_PATH = "/sys/module/lowmemorykiller/parameters/adj";
-    public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/default/read_ahead_kb","/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
+    public static final String[] READ_AHEAD_PATH = {"/sys/devices/virtual/bdi/default/read_ahead_kb", "/sys/devices/virtual/bdi/179:0/read_ahead_kb", "/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
     //"/sys/devices/virtual/bdi/default/read_ahead_kb"
-    
+
     public static final String INTENT_ACTION_FASTCHARGE = "com.aokp.romcontrol.FCHARGE_CHANGED";
     public static final String PREF_MINFREE = "pref_minfree";
     public static final String PREF_MINFREE_BOOT = "pref_minfree_boot";
     public static final String PREF_READ_AHEAD = "pref_read_ahead";
     public static final String PREF_READ_AHEAD_BOOT = "pref_read_ahead_boot";
     public static final String PREF_FASTCHARGE = "pref_fast_charge";
-   //------ MinFree ------
+    //------ MinFree ------
     public static final String OOM_FOREGROUND_APP = "oom_foreground_app";
     public static final String OOM_VISIBLE_APP = "oom_visible_app";
     public static final String OOM_SECONDARY_SERVER = "oom_secondary_server";
@@ -101,19 +101,19 @@ public interface Constants {
     public static final String SH_PATH = "/data/PerformanceControl";
     //-------DFsync---------
     public static final String DSYNC_PATH = "/sys/kernel/dyn_fsync/Dyn_fsync_active";
-    public static final String PREF_DSYNC= "pref_dsync";
+    public static final String PREF_DSYNC = "pref_dsync";
     //-------BL----
-    public static final String PREF_BLTIMEOUT= "pref_bltimeout";
-    public static final String BLTIMEOUT_SOB= "bltimeout_sob";
-    public static final String PREF_BLTOUCH= "pref_bltouch";
-    public static final String BL_TIMEOUT_PATH="/sys/class/misc/notification/bl_timeout";
-    public static final String BL_TOUCH_ON_PATH="/sys/class/misc/notification/touchlight_enabled";
+    public static final String PREF_BLTIMEOUT = "pref_bltimeout";
+    public static final String BLTIMEOUT_SOB = "bltimeout_sob";
+    public static final String PREF_BLTOUCH = "pref_bltouch";
+    public static final String BL_TIMEOUT_PATH = "/sys/class/misc/notification/bl_timeout";
+    public static final String BL_TOUCH_ON_PATH = "/sys/class/misc/notification/touchlight_enabled";
     //-------BLN---------
-    public static final String PREF_BLN= "pref_bln";
+    public static final String PREF_BLN = "pref_bln";
     //-------PFK---------
     public static final String PFK_VER = "/sys/class/misc/phantom_kp_filter/version";
     public static final String PFK_HOME_ON = "pfk_home_on";
-    public static final String PREF_HOME_ALLOWED_IRQ= "pref_home_allowed_irq";
+    public static final String PREF_HOME_ALLOWED_IRQ = "pref_home_allowed_irq";
     public static final String PREF_HOME_REPORT_WAIT = "pref_home_report_wait";
     public static final String PFK_MENUBACK_ON = "pfk_menuback_on";
     public static final String PREF_MENUBACK_INTERRUPT_CHECKS = "pref_menuback_interrupt_checks";
@@ -171,8 +171,8 @@ public interface Constants {
     public static final String NOT_FOUND = "not found";
     public static final String FLASH_KERNEL = "pref_kernel_img";
     public static final String FLASH_RECOVERY = "pref_recovery_img";
-    public static final String RESIDUAL_FILES="pref_residual_files";
-    public static final String residualfiles[]={"/data/log","/data/tombstones","/data/system/dropbox","/data/system/usagestats","/data/anr","/data/local/tmp"};//add coresponding info in strings
+    public static final String RESIDUAL_FILES = "pref_residual_files";
+    public static final String residualfiles[] = {"/data/log", "/data/tombstones", "/data/system/dropbox", "/data/system/usagestats", "/data/anr", "/data/local/tmp"};//add coresponding info in strings
     public static final String PREF_FIX_PERMS = "pref_fix_perms";
     public static final String PREF_LOG = "pref_log";
     public static final String PREF_OPTIM_DB = "pref_optim_db";

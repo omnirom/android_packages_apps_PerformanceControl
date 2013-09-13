@@ -60,14 +60,16 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
         linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
         nofiles = (LinearLayout) findViewById(R.id.nofiles);
         tools = (LinearLayout) findViewById(R.id.tools);
-        applyBtn=(Button) findViewById(R.id.applyBtn);
+        applyBtn = (Button) findViewById(R.id.applyBtn);
         applyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 final StringBuilder sb = new StringBuilder();
-                for(int i=0;i<adapter.getCount();i++){
+                for (int i = 0; i < adapter.getCount(); i++) {
                     final Item o = adapter.getItem(i);
-                    sb.append("busybox rm -f ").append(o.getName()).append("/*;\n");
+                    sb.append("busybox rm -f ")
+                            .append(o.getName())
+                            .append("/*;\n");
                 }
                 adapter.clear();
                 linlaHeaderProgress.setVisibility(View.VISIBLE);
@@ -76,7 +78,7 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                     @Override
                     public void run() {
                         Helpers.shExec(sb);
-                        mPreferences.edit().putLong(RESIDUAL_FILES,System.currentTimeMillis()).commit();
+                        mPreferences.edit().putLong(RESIDUAL_FILES, System.currentTimeMillis()).commit();
                         finish();
                     }
                 };
@@ -105,45 +107,44 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
         mIsLightTheme = is_light_theme;
         setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
+
     @Override
     public void onResume() {
         super.onResume();
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,long row) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long row) {
         curItem = adapter.getItem(position);
-        try{
+        try {
             Intent intent2 = new Intent(ResidualsActivity.this, iResidualsActivity.class);
-            intent2.putExtra("dir",curItem.getName());
-            startActivityForResult(intent2,1);
-        }
-        catch(Exception e){
-            Log.e(TAG,"Error launching iResidualActivity activity");
+            intent2.putExtra("dir", curItem.getName());
+            startActivityForResult(intent2, 1);
+        } catch (Exception e) {
+            Log.e(TAG, "Error launching iResidualActivity activity");
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
-            if(resultCode == RESULT_OK){
-                    int n= data.getIntExtra("result",0);
-                    if(n>0){
-                        String r[]=curItem.getDate().split(" ");
-                        n=Integer.parseInt(r[0])-n;
-                        if(n<=0){
-                            adapter.remove(curItem);
-                            adapter.notifyDataSetChanged();
-                            if(adapter.isEmpty()){
-                                nofiles.setVisibility(View.VISIBLE);
-                                tools.setVisibility(View.GONE);
-                            }
+            if (resultCode == RESULT_OK) {
+                int n = data.getIntExtra("result", 0);
+                if (n > 0) {
+                    String r[] = curItem.getDate().split(" ");
+                    n = Integer.parseInt(r[0]) - n;
+                    if (n <= 0) {
+                        adapter.remove(curItem);
+                        adapter.notifyDataSetChanged();
+                        if (adapter.isEmpty()) {
+                            nofiles.setVisibility(View.VISIBLE);
+                            tools.setVisibility(View.GONE);
                         }
-                        else{
-                            adapter.setItem(curItem,n+" "+r[1]);
-                        }
-                        mPreferences.edit().putLong(RESIDUAL_FILES,System.currentTimeMillis()).commit();
+                    } else {
+                        adapter.setItem(curItem, n + " " + r[1]);
                     }
+                    mPreferences.edit().putLong(RESIDUAL_FILES, System.currentTimeMillis()).commit();
+                }
             }
             if (resultCode == RESULT_CANCELED) {
                 //
@@ -155,34 +156,37 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
         @Override
         protected String doInBackground(String... params) {
             CMDProcessor.CommandResult cr = null;
-            cr=new CMDProcessor().su.runWaitFor(SH_PATH);
-            if(cr.success()){return cr.stdout;}
-            else{Log.d(TAG,"residual files err: "+cr.stderr); return null; }
+            cr = new CMDProcessor().su.runWaitFor(SH_PATH);
+            if (cr.success()) {
+                return cr.stdout;
+            } else {
+                Log.d(TAG, "residual files err: " + cr.stderr);
+                return null;
+            }
         }
 
         @Override
         protected void onPostExecute(String result) {
             final List<Item> dir = new ArrayList<Item>();
             final String[] rinfos = res.getStringArray(R.array.residual_info);
-            Log.d(TAG,"residual files: "+result);
-            if(result!=null){
-                final String fls[]=result.split(":");
+            Log.d(TAG, "residual files: " + result);
+            if (result != null) {
+                final String fls[] = result.split(":");
 
-                for(int i=0;i<fls.length;i++){
-                    if(!fls[i].equals("0")){
-                        dir.add(new Item(residualfiles[i],rinfos[i],fls[i]+" "+getString(R.string.filesstr),null,"dir"));
+                for (int i = 0; i < fls.length; i++) {
+                    if (!fls[i].equals("0")) {
+                        dir.add(new Item(residualfiles[i], rinfos[i], fls[i] + " " + getString(R.string.filesstr), null, "dir"));
                     }
                 }
             }
             linlaHeaderProgress.setVisibility(View.GONE);
-            if(dir.isEmpty()){
+            if (dir.isEmpty()) {
                 nofiles.setVisibility(View.VISIBLE);
                 tools.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 nofiles.setVisibility(View.GONE);
                 tools.setVisibility(View.VISIBLE);
-                adapter = new FileArrayAdapter(ResidualsActivity.this,R.layout.file_view, dir);
+                adapter = new FileArrayAdapter(ResidualsActivity.this, R.layout.file_view, dir);
                 packList.setAdapter(adapter);
             }
 
@@ -199,8 +203,8 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                 t.append(residualfile);
                 t.append(" ");
             }
-            Helpers.get_assetsScript("count_files",context,"DIRS=\""+t.toString()+"\";","count_files \"$DIRS\";\n");
-            Helpers.shWrite(getFilesDir()+"/count_files");
+            Helpers.get_assetsScript("count_files", context, "DIRS=\"" + t.toString() + "\";", "count_files \"$DIRS\";\n");
+            Helpers.shWrite(getFilesDir() + "/count_files");
         }
 
         @Override

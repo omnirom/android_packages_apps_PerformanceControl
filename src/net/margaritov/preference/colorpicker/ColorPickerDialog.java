@@ -25,6 +25,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
 import com.brewcrewfoo.performance.R;
 
 public class ColorPickerDialog extends Dialog implements

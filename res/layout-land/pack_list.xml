@@ -1,92 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
         * Created by h0rn3t on 17.07.2013.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <LinearLayout
-            android:id="@+id/linlaHeaderProgress"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone" >
+        android:id="@+id/linlaHeaderProgress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ProgressBar
-                android:id="@+id/pbHeaderProgress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-        </ProgressBar>
+            android:id="@+id/pbHeaderProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
     <LinearLayout
-            android:id="@+id/noproc"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center_horizontal|top"
-            android:paddingTop="50dp"
-            android:visibility="gone"
-            android:layout_toLeftOf="@+id/tools">
+        android:id="@+id/noproc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal|top"
+        android:paddingTop="50dp"
+        android:visibility="gone"
+        android:layout_toLeftOf="@+id/tools">
 
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no_proc"
-                android:id="@+id/textView"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16dp"/>
-    </LinearLayout>
-    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_gravity="top"
-            android:layout_alignParentTop="false"
-            android:layout_marginBottom="4dp"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentEnd="false"
-            android:layout_toLeftOf="@+id/tools">
+            android:text="@string/no_proc"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16dp" />
+    </LinearLayout>
 
-    <ListView
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_gravity="top"
+        android:layout_alignParentTop="false"
+        android:layout_marginBottom="4dp"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentEnd="false"
+        android:layout_toLeftOf="@+id/tools">
+
+        <ListView
             android:id="@+id/applist"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:fastScrollEnabled="false"/>
+            android:fastScrollEnabled="false" />
     </LinearLayout>
 
     <LinearLayout
-                  android:id="@+id/tools"
-                  android:layout_width="wrap_content"
-                  android:orientation="vertical"
-                  android:layout_height="match_parent"
-                  android:layout_gravity="bottom"
-                  android:layout_alignParentBottom="false"
-                  android:layout_alignParentRight="true"
-                  android:gravity="center_vertical"
-                  android:visibility="gone">
+        android:id="@+id/tools"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:visibility="gone">
 
         <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:ems="10"
-                android:id="@+id/procNames"
-                android:lines="8"
-                android:padding="10dp"
-                android:editable="true"
-                android:enabled="true"
-                android:layout_marginTop="4dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/procNames"
+            android:lines="8"
+            android:padding="10dp"
+            android:editable="true"
+            android:enabled="true"
+            android:layout_marginTop="4dp" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ps_volt_save"
-                android:textSize="14dp"
-                android:id="@+id/applyBtn"
-                android:layout_gravity="right|center_vertical"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ps_volt_save"
+            android:textSize="14dp"
+            android:id="@+id/applyBtn"
+            android:layout_gravity="right|center_vertical" />
 
     </LinearLayout>
 

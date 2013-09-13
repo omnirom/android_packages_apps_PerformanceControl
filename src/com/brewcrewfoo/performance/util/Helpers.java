@@ -32,10 +32,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 
-import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.widget.PCWidget;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Helpers implements Constants {
 
@@ -59,8 +65,7 @@ public class Helpers implements Constants {
                 Log.i(TAG, " SU exists but we dont have permission");
                 return false;
             }
-        }
-        catch (final NullPointerException e) {
+        } catch (final NullPointerException e) {
             Log.e(TAG, e.getMessage());
             return false;
         }
@@ -81,8 +86,7 @@ public class Helpers implements Constants {
                 Log.e(TAG, " Busybox is there but it is borked! ");
                 return false;
             }
-        }
-        catch (final NullPointerException e) {
+        } catch (final NullPointerException e) {
             Log.e(TAG, e.getMessage());
             return false;
         }
@@ -126,7 +130,7 @@ public class Helpers implements Constants {
             final String device = mounts[0];
             final String path = mounts[1];
             final String point = mounts[2];
-            if (cmd.su.runWaitFor("mount -o " + mount + ",remount -t " + point + " " + device+ " " + path).success()) {
+            if (cmd.su.runWaitFor("mount -o " + mount + ",remount -t " + point + " " + device + " " + path).success()) {
                 return true;
             }
         }
@@ -142,19 +146,19 @@ public class Helpers implements Constants {
     public static String readOneLine(String fname) {
         String line = null;
         if (new File(fname).exists()) {
-        	BufferedReader br;
-	        try {
-	            br = new BufferedReader(new FileReader(fname), 512);
-	            try {
-	                line = br.readLine();
-	            } finally {
-	                br.close();
-	            }
-	        } catch (Exception e) {
-	            Log.e(TAG, "IO Exception when reading sys file", e);
-	            // attempt to do magic!
-	            return readFileViaShell(fname, true);
-	        }
+            BufferedReader br;
+            try {
+                br = new BufferedReader(new FileReader(fname), 512);
+                try {
+                    line = br.readLine();
+                } finally {
+                    br.close();
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "IO Exception when reading sys file", e);
+                // attempt to do magic!
+                return readFileViaShell(fname, true);
+            }
         }
         return line;
     }
@@ -186,7 +190,9 @@ public class Helpers implements Constants {
      * @return if line was written
      */
     public static boolean writeOneLine(String fname, String value) {
-    	if (!new File(fname).exists()) {return false;}
+        if (!new File(fname).exists()) {
+            return false;
+        }
         try {
             FileWriter fw = new FileWriter(fname);
             try {
@@ -255,20 +261,17 @@ public class Helpers implements Constants {
         }
         return scheduler;
     }
-/*
-     * @return available performance scheduler
-     */
+
+    /*
+         * @return available performance scheduler
+         */
     public static Boolean GovernorExist(String gov) {
-		if(readOneLine(GOVERNORS_LIST_PATH).indexOf(gov)>-1){
-			return true;
-		}
-		else{
-			return false;
-		}
+        return readOneLine(GOVERNORS_LIST_PATH).contains(gov);
     }
 
     /**
      * Get total number of cpus
+     *
      * @return total number of cpus
      */
     public static int getNumOfCpus() {
@@ -317,16 +320,8 @@ public class Helpers implements Constants {
     }
 
     /**
-     * Sets the voltage file to be used by the rest of the app elsewhere.
-     * @param voltageFile
-     */
-    public static void setVoltagePath(String voltageFile) {
-        Log.d(TAG, "UV table path detected: "+voltageFile);
-        mVoltagePath = voltageFile;
-    }
-
-    /**
      * Gets the currently set voltage path
+     *
      * @return voltage path
      */
     public static String getVoltagePath() {
@@ -334,7 +329,18 @@ public class Helpers implements Constants {
     }
 
     /**
+     * Sets the voltage file to be used by the rest of the app elsewhere.
+     *
+     * @param voltageFile
+     */
+    public static void setVoltagePath(String voltageFile) {
+        Log.d(TAG, "UV table path detected: " + voltageFile);
+        mVoltagePath = voltageFile;
+    }
+
+    /**
      * Convert to MHz and append a tag
+     *
      * @param mhzString
      * @return tagged and converted String
      */
@@ -344,6 +350,7 @@ public class Helpers implements Constants {
 
     /**
      * Restart the activity smoothly
+     *
      * @param activity
      */
     public static void restartPC(final Activity activity) {
@@ -359,6 +366,7 @@ public class Helpers implements Constants {
 
     /**
      * Helper to update the app widget
+     *
      * @param context
      */
     public static void updateAppWidget(Context context) {
@@ -373,6 +381,7 @@ public class Helpers implements Constants {
 
     /**
      * Helper to create a bitmap to set as imageview or bg
+     *
      * @param bgcolor
      * @return bitmap
      */
@@ -387,58 +396,72 @@ public class Helpers implements Constants {
             return null;
         }
     }
+
     public static String binExist(String b) {
         CMDProcessor.CommandResult cr = null;
         cr = new CMDProcessor().sh.runWaitFor("busybox which " + b);
-        if (cr.success()){ return  cr.stdout; }
-        else{ return NOT_FOUND;}
+        if (cr.success()) {
+            return cr.stdout;
+        } else {
+            return NOT_FOUND;
+        }
     }
 
     public static String getCachePartition() {
         CMDProcessor.CommandResult cr = null;
         cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox grep cache | busybox cut -d' ' -f1`");
-        if(cr.success()&& !cr.stdout.equals("") ){return cr.stdout;}
-        else{return NOT_FOUND;}
+        if (cr.success() && !cr.stdout.equals("")) {
+            return cr.stdout;
+        } else {
+            return NOT_FOUND;
+        }
     }
 
     public static boolean showBattery() {
-	    return ((new File(BLX_PATH).exists()) || (fastcharge_path()!=null));
+        return ((new File(BLX_PATH).exists()) || (fastcharge_path() != null));
     }
 
-    public static void shWrite(String f){
-        new CMDProcessor().su.runWaitFor("busybox cat "+f+" > " + SH_PATH );
-        new CMDProcessor().su.runWaitFor("busybox chmod 755 "+SH_PATH );
+    public static void shWrite(String f) {
+        new CMDProcessor().su.runWaitFor("busybox cat " + f + " > " + SH_PATH);
+        new CMDProcessor().su.runWaitFor("busybox chmod 755 " + SH_PATH);
     }
 
-	public static String shExec(StringBuilder s){
-		if (new File(SH_PATH).exists()) {
-			s.insert(0,"#!"+binExist("sh")+"\n\n");
-			new CMDProcessor().su.runWaitFor("busybox echo \""+s.toString()+"\" > " + SH_PATH );
-            new CMDProcessor().su.runWaitFor("busybox chmod 755 "+SH_PATH );
+    public static String shExec(StringBuilder s) {
+        if (new File(SH_PATH).exists()) {
+            s.insert(0, "#!" + binExist("sh") + "\n\n");
+            new CMDProcessor().su.runWaitFor("busybox echo \"" + s.toString() + "\" > " + SH_PATH);
+            new CMDProcessor().su.runWaitFor("busybox chmod 755 " + SH_PATH);
             CMDProcessor.CommandResult cr = null;
-			cr=new CMDProcessor().su.runWaitFor(SH_PATH);
-            if(cr.success()){return cr.stdout;}
-            else{Log.d(TAG, "execute: "+cr.stderr);return "";}
-		}
-		else{
-			Log.d(TAG, "missing file: "+SH_PATH);
+            cr = new CMDProcessor().su.runWaitFor(SH_PATH);
+            if (cr.success()) {
+                return cr.stdout;
+            } else {
+                Log.d(TAG, "execute: " + cr.stderr);
+                return "";
+            }
+        } else {
+            Log.d(TAG, "missing file: " + SH_PATH);
             return "";
-		}
-	}
+        }
+    }
 
-    public static void get_assetsScript(String fn,Context c,String prefix,String postfix){
+    public static void get_assetsScript(String fn, Context c, String prefix, String postfix) {
         byte[] buffer;
         final AssetManager assetManager = c.getAssets();
         try {
-            InputStream f =assetManager.open(fn);
+            InputStream f = assetManager.open(fn);
             buffer = new byte[f.available()];
             f.read(buffer);
             f.close();
             final String s = new String(buffer);
-            final StringBuffer sb = new StringBuffer(s);
-            if(!postfix.equals("")){ sb.append("\n\n"+postfix); }
-            if(!prefix.equals("")){ sb.insert(0,prefix+"\n"); }
-            sb.insert(0,"#!"+Helpers.binExist("sh")+"\n\n");
+            final StringBuilder sb = new StringBuilder(s);
+            if (!postfix.equals("")) {
+                sb.append("\n\n").append(postfix);
+            }
+            if (!prefix.equals("")) {
+                sb.insert(0, prefix + "\n");
+            }
+            sb.insert(0, "#!" + Helpers.binExist("sh") + "\n\n");
             try {
                 FileOutputStream fos;
                 fos = c.openFileOutput(fn, Context.MODE_PRIVATE);
@@ -446,70 +469,68 @@ public class Helpers implements Constants {
                 fos.close();
 
             } catch (IOException e) {
-                Log.d(TAG, "error write "+fn+" file");
+                Log.d(TAG, "error write " + fn + " file");
                 e.printStackTrace();
             }
 
-        }
-        catch (IOException e) {
-            Log.d(TAG, "error read "+fn+" file");
+        } catch (IOException e) {
+            Log.d(TAG, "error read " + fn + " file");
             e.printStackTrace();
         }
     }
+
     public static String ReadableByteCount(long bytes) {
         int unit = 1024;
         if (bytes < unit) return bytes + " B";
         int exp = (int) (Math.log(bytes) / Math.log(unit));
-        String pre = String.valueOf("KMGTPE".charAt(exp-1));
+        String pre = String.valueOf("KMGTPE".charAt(exp - 1));
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
-    public static void removeCurItem(MenuItem item,int idx,ViewPager vp){
-        for(int i=0;i< vp.getAdapter().getCount();i++){
-            if(item.getItemId() == idx+i+1) {
+
+    public static void removeCurItem(MenuItem item, int idx, ViewPager vp) {
+        for (int i = 0; i < vp.getAdapter().getCount(); i++) {
+            if (item.getItemId() == idx + i + 1) {
                 vp.setCurrentItem(i);
             }
         }
     }
-    public static void addItems2Menu(Menu menu,int idx,String nume,ViewPager vp){
-        final SubMenu smenu = menu.addSubMenu(0, idx, 0,nume);
-        for(int i=0;i< vp.getAdapter().getCount();i++){
-            if(i!=vp.getCurrentItem())
-                smenu.add(0,idx +i+1, 0, vp.getAdapter().getPageTitle(i));
+
+    public static void addItems2Menu(Menu menu, int idx, String nume, ViewPager vp) {
+        final SubMenu smenu = menu.addSubMenu(0, idx, 0, nume);
+        for (int i = 0; i < vp.getAdapter().getCount(); i++) {
+            if (i != vp.getCurrentItem())
+                smenu.add(0, idx + i + 1, 0, vp.getAdapter().getPageTitle(i));
         }
     }
+
     public static String bln_path() {
         if (new File("/sys/class/misc/backlightnotification/enabled").exists()) {
             return "/sys/class/misc/backlightnotification/enabled";
-        }
-        else if (new File("/sys/class/leds/button-backlight/blink_buttons").exists()) {
+        } else if (new File("/sys/class/leds/button-backlight/blink_buttons").exists()) {
             return "/sys/class/leds/button-backlight/blink_buttons";
-        }
-        else{
+        } else {
             return null;
         }
     }
+
     public static String fastcharge_path() {
         if (new File("/sys/kernel/fast_charge/force_fast_charge").exists()) {
             return "/sys/kernel/fast_charge/force_fast_charge";
-        }
-        else if (new File("/sys/module/msm_otg/parameters/fast_charge").exists()) {
+        } else if (new File("/sys/module/msm_otg/parameters/fast_charge").exists()) {
             return "/sys/module/msm_otg/parameters/fast_charge";
-        }
-        else if (new File("/sys/devices/platform/htc_battery/fast_charge").exists()) {
+        } else if (new File("/sys/devices/platform/htc_battery/fast_charge").exists()) {
             return "/sys/devices/platform/htc_battery/fast_charge";
-        }
-        else{
+        } else {
             return null;
         }
     }
+
     public static String fsync_path() {
         if (new File("/sys/class/misc/fsynccontrol/fsync_enabled").exists()) {
             return "/sys/class/misc/fsynccontrol/fsync_enabled";
-        }
-        else if (new File("/sys/module/sync/parameters/fsync_enabled").exists()) {
+        } else if (new File("/sys/module/sync/parameters/fsync_enabled").exists()) {
             return "/sys/module/sync/parameters/fsync_enabled";
-        }
-        else{
+        } else {
             return null;
         }
     }

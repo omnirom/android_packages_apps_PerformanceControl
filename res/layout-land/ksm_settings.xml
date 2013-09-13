@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false">
-
 
 
     <LinearLayout
@@ -42,7 +42,7 @@
                 android:textSize="18dip"
                 android:textStyle="bold"
                 android:layout_alignParentEnd="true"
-                android:gravity="right"/>
+                android:gravity="right" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -103,7 +103,7 @@
                 android:textSize="18dip"
                 android:textStyle="bold"
                 android:layout_alignParentEnd="true"
-                android:gravity="right"/>
+                android:gravity="right" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -133,7 +133,7 @@
                 android:textSize="18dip"
                 android:textStyle="bold"
                 android:layout_alignParentEnd="true"
-                android:gravity="right"/>
+                android:gravity="right" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -163,7 +163,7 @@
                 android:textSize="18dip"
                 android:textStyle="bold"
                 android:layout_alignParentEnd="true"
-                android:gravity="right"/>
+                android:gravity="right" />
         </RelativeLayout>
 
         <LinearLayout
@@ -182,6 +182,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
@@ -210,7 +211,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent" >
+                android:layout_height="fill_parent">
 
                 <SeekBar
                     android:layout_width="wrap_content"
@@ -256,7 +257,7 @@
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
+                android:layout_height="fill_parent">
 
                 <SeekBar
                     android:layout_width="wrap_content"

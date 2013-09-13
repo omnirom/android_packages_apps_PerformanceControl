@@ -20,12 +20,18 @@ package com.brewcrewfoo.performance.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.*;
+import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
+
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
+
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class PCSettings extends PreferenceActivity implements Constants, ActivityThemeChangeInterface, OnPreferenceChangeListener {
