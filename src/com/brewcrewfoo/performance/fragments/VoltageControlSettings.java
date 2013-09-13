@@ -302,10 +302,14 @@ public class VoltageControlSettings extends Fragment implements Constants {
 
                     @Override
                     public void onTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
-                        final String text = voltageEdit.getText().toString();
+                        String text = voltageEdit.getText().toString();
                         int value = 0;
                         try {
                             value = Integer.parseInt(text);
+                            if(value>STEPS[STEPS.length-1]){
+                                value=STEPS[STEPS.length-1];
+                                text=String.valueOf(value);
+                            }
                         }
                         catch (NumberFormatException nfe) {
                             return;
