@@ -213,7 +213,8 @@
                 android:layout_alignParentEnd="true"
                 android:inputType="number"
                 android:layout_alignParentStart="false"
-                android:gravity="right" />
+                android:gravity="right"
+                android:singleLine="true" />
 
         </RelativeLayout>
     </LinearLayout>
@@ -258,7 +259,8 @@
                 android:layout_alignParentEnd="true"
                 android:inputType="number"
                 android:layout_alignParentStart="false"
-                android:gravity="right" />
+                android:gravity="right"
+                android:singleLine="true" />
 
         </RelativeLayout>
 
