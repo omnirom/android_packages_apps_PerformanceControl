@@ -309,6 +309,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
                             if(value>STEPS[STEPS.length-1]){
                                 value=STEPS[STEPS.length-1];
                                 text=String.valueOf(value);
+                                voltageEdit.setText(text);
                             }
                         }
                         catch (NumberFormatException nfe) {
