@@ -11,7 +11,7 @@ Translation by Rhonin86
     <string name="tab_oom_settings">Speicher Einstellungen</string>
     <string name="tab_time_in_state">Frequenzverteilung</string>
     <string name="tab_voltage_settings">Spannungseinstellung</string>
-    <string name="tab_cpu_info">CPU Info</string>
+    <string name="tab_cpu_info">Allgemeine Info</string>
     <string name="tab_disk_info">Disk Info</string>
     <string name="tab_tools">Tools</string>
     <!-- Titles -->
@@ -21,7 +21,7 @@ Translation by Rhonin86
     <string name="t_volt_settings">Spannungseinstellung</string>
     <string name="t_adv_settings">"Erweiterte Einstellungen"</string>
     <string name="t_time_in_state">"Frequenzverteilung"</string>
-    <string name="t_cpu_info">CPU INFO</string>
+    <string name="t_cpu_info">Allgemeine INFO</string>
     <string name="t_disk_info">DISK INFO</string>
     <string name="t_tools">TOOLS</string>
 
@@ -270,7 +270,7 @@ Translation by Rhonin86
     <!-- ksm -->
     <string name="prefcat_ksm">KERNEL SAMEPAGE MERGING</string>
     <string name="pt_run_ksm">Aktiviere KSM</string>
-    <string name="ksm_adv_title">Fortgeschrittene Einstellungen</string>
+    <string name="ksm_adv_title">Einstellungen</string>
     <string name="ksm_fullscans">Komplette Scans:</string>
     <string name="ksm_pagshared">Geteilte Seiten:</string>
     <string name="ksm_pagsharing">Zu teilende Seiten:</string>
