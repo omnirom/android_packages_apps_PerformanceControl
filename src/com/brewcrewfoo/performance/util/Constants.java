@@ -55,10 +55,9 @@ public interface Constants {
     // Other settings
     public static final String MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
     public static final String MINFREE_ADJ_PATH = "/sys/module/lowmemorykiller/parameters/adj";
-    public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
+    public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/default/read_ahead_kb","/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
     //"/sys/devices/virtual/bdi/default/read_ahead_kb"
     
-    //public static final String FASTCHARGE_PATH = "/sys/kernel/fast_charge/force_fast_charge";
     public static final String INTENT_ACTION_FASTCHARGE = "com.aokp.romcontrol.FCHARGE_CHANGED";
     public static final String PREF_MINFREE = "pref_minfree";
     public static final String PREF_MINFREE_BOOT = "pref_minfree_boot";
@@ -110,7 +109,6 @@ public interface Constants {
     public static final String BL_TIMEOUT_PATH="/sys/class/misc/notification/bl_timeout";
     public static final String BL_TOUCH_ON_PATH="/sys/class/misc/notification/touchlight_enabled";
     //-------BLN---------
-    //public static final String BLN_PATH="/sys/class/misc/backlightnotification/enabled";
     public static final String PREF_BLN= "pref_bln";
     //-------PFK---------
     public static final String PFK_VER = "/sys/class/misc/phantom_kp_filter/version";
