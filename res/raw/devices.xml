@@ -93,6 +93,20 @@ File contain partitions layout for flashing kernel & recovery
         <recovery>/dev/block/mmcblk0p4</recovery>
         <cache>/dev/block/mmcblk0p10</cache>
     </device>
+    <!-- New devices added by rodero95 -->
+    <device>
+        <model>GT-I9003,GT-I9003L,galaxysl</model> <!-- Samsung Galaxy SL i9003 and i9003L -->
+        <kernel>/dev/block/mtdblock0</kernel>
+        <recovery>/dev/block/mtdblock1</recovery>
+        <cache>/dev/block/mmcblk0p2</cache>
+    </device>
+    <device>
+        <model>u8815</model> <!-- Huawei Ascend G300 -->
+        <kernel>/dev/block/mmcblk0p15</kernel>
+        <recovery>/dev/block/mmcblk0p16</recovery>
+        <cache>/dev/block/mmcblk0p6</cache>
+    </device>
+    <!-- New devices added by rodero95 -->
     <!-- xolo_us9230e1 ???????-->
     <device>
         <model>T1000</model>
