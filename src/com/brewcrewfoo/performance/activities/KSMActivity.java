@@ -45,6 +45,8 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
     private EditText edit2;
     private SeekBar mPage2Scan;
     private SeekBar mSleep;
+    final private int maxPages2Scan=2048;
+    final private int maxSleep=5000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,17 +113,15 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
         mPage2Scan = (SeekBar) findViewById(R.id.val1);
         edit1=(EditText) findViewById(R.id.edit1);
         mPage2Scan.setOnSeekBarChangeListener(this);
-        mPage2Scan.setMax(2048);
+        mPage2Scan.setMax(maxPages2Scan);
         mPage2Scan.setProgress(v1);
         edit1.setText(String.valueOf(v1));
         edit1.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable arg0) {
-            }
+            public void afterTextChanged(Editable arg0) { }
 
             @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
-            }
+            public void beforeTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {}
 
             @Override
             public void onTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
@@ -129,34 +129,30 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
                 int value = 0;
                 try {
                     value = Integer.parseInt(text);
-                    if(value>2048){
-                        value=2048;
-                        edit1.setText("2048");
+                    if(value>maxPages2Scan){
+                        value=maxPages2Scan;
+                        edit1.setText(String.valueOf(maxPages2Scan));
                     }
-
                     mPage2Scan.setProgress(value);
                 }
                 catch (NumberFormatException nfe) {
                     return;
                 }
             }
-
         });
 
         mSleep = (SeekBar) findViewById(R.id.val2);
         edit2=(EditText) findViewById(R.id.edit2);
         mSleep.setOnSeekBarChangeListener(this);
-        mSleep.setMax(5000);
+        mSleep.setMax(maxSleep);
         mSleep.setProgress(v2);
         edit2.setText(String.valueOf(v2));
         edit2.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable arg0) {
-            }
+            public void afterTextChanged(Editable arg0) {}
 
             @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
-            }
+            public void beforeTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {}
 
             @Override
             public void onTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
@@ -164,18 +160,16 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
                 int value = 0;
                 try {
                     value = Integer.parseInt(text);
-                    if(value>5000){
-                        value=5000;
-                        edit2.setText("5000");
+                    if(value>maxSleep){
+                        value=maxSleep;
+                        edit2.setText(String.valueOf(maxSleep));
                     }
                     mSleep.setProgress(value);
                 }
                 catch (NumberFormatException nfe) {
                     return;
                 }
-
             }
-
         });
         ((Button) findViewById(R.id.apply)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,13 +201,10 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-    }
+    public void onStartTrackingTouch(SeekBar seekBar) {}
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
-    }
+    public void onStopTrackingTouch(SeekBar seekBar) {}
 
     @Override
     public void onResume() {
@@ -264,7 +255,8 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
                     sleep(800);
                     mCurHandler.sendMessage(mCurHandler.obtainMessage(0,null));
                 }
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
                 //return;
             }
         }
