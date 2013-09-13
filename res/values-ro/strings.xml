@@ -216,7 +216,7 @@ Translation by Laurentiu1996
 
     <string name="prefcat_residual_files">ŞTERGERE FIŞIERE REZIDUALE</string>
     <string name="residual_files_title">Ştergerea fişierelor reziduale</string>
-    <string name="btncleanall">Ştergeţi tot</string>
+    <string name="btncleanall">Curăţă tot</string>
     <string name="clean_files_msg">Fişierele reziduale din %s vor fi şterse. Continuaţi?</string>
     <string name="filesstr">fişier(e)</string>
     <string name="no_residuals">Niciun fişier rezidual</string>
