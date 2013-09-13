@@ -179,6 +179,13 @@ public interface Constants {
     public static final String PREF_LOG = "pref_log";
     public static final String PREF_OPTIM_DB = "pref_optim_db";
 
+    //zRam
+    public static final String ZRAM_SIZE_PATH = "/sys/block/zram0/disksize";
+    public static final String ZRAM_RESET_PATH = "/sys/block/zram0/reset";
+    public static final String ZRAM_COMPR_PATH = "/sys/block/zram0/compr_data_size";
+    public static final String ZRAM_ORIG_PATH = "/sys/block/zram0/orig_data_size";
+    public static final String ZRAM_MEMTOT_PATH = "/sys/block/zram0/mem_used_total";
+
     // PC Settings
     public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
     public static final String PREF_WIDGET_BG_COLOR = "widget_bg_color";
