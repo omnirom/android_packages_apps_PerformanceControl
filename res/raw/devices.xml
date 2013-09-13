@@ -4,7 +4,7 @@ File contain partitions layout for flashing kernel & recovery
 -->
 <devices>
     <device>
-        <model>GT-I9001</model> <!-- GALAXY S PLUS -->
+        <model>GT-I9001,Galaxy S Plus</model> <!-- GALAXY S PLUS -->
         <kernel>/dev/block/mmcblk0p8</kernel>
         <recovery>/dev/block/mmcblk0p13</recovery>
         <cache>/dev/block/mmcblk0p16</cache>
