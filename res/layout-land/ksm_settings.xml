@@ -176,7 +176,7 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/clear"
+                android:text="@string/mt_reset"
                 android:id="@+id/rst"
                 android:textSize="14dp" />
         </LinearLayout>

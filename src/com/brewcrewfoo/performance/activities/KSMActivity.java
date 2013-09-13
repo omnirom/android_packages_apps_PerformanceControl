@@ -189,14 +189,20 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
         ((Button) findViewById(R.id.rst)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                final String vlast=Helpers.readOneLine(KSM_RUN_PATH);
-                final StringBuilder sb = new StringBuilder();
-                sb.append("busybox echo 0 > " + KSM_RUN_PATH+";\n");
-                //sb.append("sleep 1;\n");
-                sb.append("busybox echo 2 > " + KSM_RUN_PATH+";\n");
-                //sb.append("sleep 1;\n");
-                sb.append("busybox echo "+vlast+" > " + KSM_RUN_PATH+";\n");
-                Helpers.shExec(sb);
+                Runnable runnable = new Runnable() {
+                    public void run() {
+                        final String vlast=Helpers.readOneLine(KSM_RUN_PATH);
+                        final StringBuilder sb = new StringBuilder();
+                        sb.append("busybox echo 0 > " + KSM_RUN_PATH+";\n");
+                        sb.append("sleep 1;\n");
+                        sb.append("busybox echo 2 > " + KSM_RUN_PATH+";\n");
+                        sb.append("sleep 1;\n");
+                        sb.append("busybox echo "+vlast+" > " + KSM_RUN_PATH+";\n");
+                        Helpers.shExec(sb);
+
+                    }
+                };
+                new Thread(runnable).start();
             }
         });
     }
@@ -283,4 +289,6 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
             if (ist5) t5.setText(Helpers.readOneLine(KSM_FULLSCANS_PATH));
         }
     };
+
+
 }
