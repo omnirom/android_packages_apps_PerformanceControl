@@ -13,8 +13,6 @@
         android:layout_height="match_parent"
         android:id="@+id/left"
         android:layout_weight="50"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:paddingTop="20dp">
 
         <RelativeLayout
@@ -22,7 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="10dp"
-            android:id="@+id/relativeLayout3" >
+            android:id="@+id/relativeLayout3"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -49,7 +49,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:id="@+id/relativeLayout1" >
+            android:id="@+id/relativeLayout1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -79,7 +81,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="10dp"
-            android:id="@+id/relativeLayout2" >
+            android:id="@+id/relativeLayout2"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,7 +111,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="10dp"
-            android:id="@+id/relativeLayout4" >
+            android:id="@+id/relativeLayout4"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -135,7 +141,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="10dp"
-            android:id="@+id/relativeLayout5" >
+            android:id="@+id/relativeLayout5"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -169,7 +177,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/clear"
-                android:id="@+id/rst" />
+                android:id="@+id/rst"
+                android:textSize="14dp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -178,7 +187,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="50"
-        android:id="@+id/right">
+        android:id="@+id/right"
+        android:paddingTop="10dp">
 
         <LinearLayout
             android:orientation="vertical"
@@ -186,10 +196,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:paddingLeft="17dp"
-            android:paddingRight="17dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/linearLayout1">
+            android:id="@+id/linearLayout1"
+            android:paddingLeft="10dp"
+            android:paddingRight="4dp">
 
             <TextView
                 android:layout_width="fill_parent"
@@ -202,24 +212,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent" >
 
-                <EditText
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/edit1"
-                    android:layout_alignParentEnd="false"
-                    android:inputType="number"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true" />
-
                 <SeekBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/val1"
-                    android:layout_alignParentStart="false"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_alignParentBottom="false"
+                    android:layout_alignParentEnd="false"
+                    android:layout_toLeftOf="@+id/edit1" />
+
+                <EditText
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit1"
                     android:layout_alignParentEnd="true"
-                    android:layout_toRightOf="@+id/edit1" />
+                    android:inputType="number"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="false"
+                    android:gravity="right" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -230,10 +241,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:paddingRight="17dp"
-            android:paddingLeft="17dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/linearLayout2">
+            android:id="@+id/linearLayout2"
+            android:paddingLeft="10dp"
+            android:paddingRight="4dp">
 
             <TextView
                 android:layout_width="fill_parent"
@@ -246,23 +257,24 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" >
 
-                <EditText
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/edit2"
-                    android:layout_alignParentEnd="false"
-                    android:inputType="number"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true" />
-
                 <SeekBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/val2"
-                    android:layout_alignParentStart="false"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="false"
+                    android:layout_toLeftOf="@+id/edit2" />
+
+                <EditText
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit2"
                     android:layout_alignParentEnd="true"
-                    android:layout_toRightOf="@+id/edit2" />
+                    android:inputType="number"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="false"
+                    android:gravity="right" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -272,15 +284,14 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:gravity="bottom"
-            android:id="@+id/linearLayout3"
-            android:paddingLeft="17dp"
-            android:paddingRight="17dp">
+            android:id="@+id/linearLayout3">
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/apply_values"
-                android:id="@+id/apply" />
+                android:id="@+id/apply"
+                android:textSize="14dp" />
         </LinearLayout>
     </LinearLayout>
 
