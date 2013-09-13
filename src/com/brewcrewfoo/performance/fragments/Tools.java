@@ -296,7 +296,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             isrun=true;
             tip=1;
             progressDialog = ProgressDialog.show(getActivity(), getString(R.string.fix_perms_title),getString(R.string.wait));
-            new CMDProcessor().su.runWaitFor("busybox cat "+getActivity().getFilesDir()+"/fix_permissions > " + SH_PATH );
+            Helpers.shWrite(getActivity().getFilesDir()+"/fix_permissions");
         }
 
         @Override
@@ -379,7 +379,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             tip=2;
             progressDialog = ProgressDialog.show(getActivity(), getString(R.string.optim_db_title),getString(R.string.wait));
             mPreferences.edit().putLong(PREF_OPTIM_DB,System.currentTimeMillis()).commit();
-            new CMDProcessor().su.runWaitFor("busybox cat "+getActivity().getFilesDir()+"/sql_optimize > " + SH_PATH );
+            Helpers.shWrite(getActivity().getFilesDir()+"/sql_optimize");
         }
 
         @Override

@@ -67,7 +67,6 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
         mPagerTabStrip.setDrawFullUnderline(true);
 
         checkForSu();
-	    Helpers.shCreate();
     }
 
     class TitleAdapter extends FragmentPagerAdapter {
@@ -173,7 +172,6 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
             e.commit();
             if (rcInstalled) {
                 Helpers.checkSu();
-                Helpers.shCreate();
             }
             else {
                 launchFirstRunDialog();

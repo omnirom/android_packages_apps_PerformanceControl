@@ -9,7 +9,7 @@
     <string name="tab_oom_settings">Настройки Памяти</string>
     <string name="tab_time_in_state">Время в Действии</string>
     <string name="tab_voltage_settings">Настройки Напряжения</string>
-    <string name="tab_cpu_info">О Процессоре</string>
+    <string name="tab_cpu_info">Общая информация</string>
     <string name="tab_disk_info">О Диске</string>
     <string name="tab_tools">Инструменты</string>
     <!-- Titles -->
@@ -19,7 +19,7 @@
     <string name="t_volt_settings">НАСТРОЙКИ НАПРЯЖЕНИЯ</string>
     <string name="t_adv_settings">"РАСШИРЕННЫЕ НАСТРОЙКИ"</string>
     <string name="t_time_in_state">"ВРЕМЯ В ДЕЙСТВИИ"</string>
-    <string name="t_cpu_info">О ПРОЦЕССОРЕ</string>
+    <string name="t_cpu_info">Общая информация</string>
     <string name="t_disk_info">О ДИСКЕ</string>
     <string name="t_tools">ИНСТРУМЕНТЫ</string>
     <string name="menu_tab">Вкладки</string>
@@ -261,6 +261,19 @@
         <item>полный</item>
         <item>не заряжается</item>
     </string-array>
+    <!-- 2.1.2 -->
+    <!-- ksm -->
+    <string name="prefcat_ksm">ОБЪЕДИНЁННАЯ ПАМЯТЬ (KSM)</string>
+    <string name="pt_run_ksm">Включить KSM</string>
+    <string name="ksm_adv_title">настройки</string>
+    <string name="ksm_fullscans">Полное сканирование:</string>
+    <string name="ksm_pagshared">Объединённые:</string>
+    <string name="ksm_pagsharing">Объединяемые:</string>
+    <string name="ksm_pagunshared">Необъединённые:</string>
+    <string name="ksm_pagvolatile">Изменчивые:</string>
+    <string name="ksm_pagtoscan">Будут отсканированы:</string>
+    <string name="ksm_sleep">Сон (ms):</string>
+
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Использовать светлую тему</string>
     <string name="ps_use_light_theme">Если выбрать, приложение будет использовать светлую тему Holo</string>

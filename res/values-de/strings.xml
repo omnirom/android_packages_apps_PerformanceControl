@@ -11,7 +11,7 @@ Translation by Rhonin86
     <string name="tab_oom_settings">Speicher Einstellungen</string>
     <string name="tab_time_in_state">Frequenzverteilung</string>
     <string name="tab_voltage_settings">Spannungseinstellung</string>
-    <string name="tab_cpu_info">CPU Info</string>
+    <string name="tab_cpu_info">Allgemeine Info</string>
     <string name="tab_disk_info">Disk Info</string>
     <string name="tab_tools">Tools</string>
     <!-- Titles -->
@@ -21,7 +21,7 @@ Translation by Rhonin86
     <string name="t_volt_settings">Spannungseinstellung</string>
     <string name="t_adv_settings">"Erweiterte Einstellungen"</string>
     <string name="t_time_in_state">"Frequenzverteilung"</string>
-    <string name="t_cpu_info">CPU INFO</string>
+    <string name="t_cpu_info">Allgemeine INFO</string>
     <string name="t_disk_info">DISK INFO</string>
     <string name="t_tools">TOOLS</string>
 
@@ -91,7 +91,7 @@ Translation by Rhonin86
     <string name="pt_sys_proc">Aktiviere Speicherresistente Systemprozesse</string>
     <string name="pt_user_names_proc">Liste der Benutzerprozesse</string>
     <string name="pt_sys_names_proc">Liste der Systemprozesse</string>
-    <string name="ps_restore_boot">Stelle die obeen gemachten Einstellungen wieder her</string>
+    <string name="ps_restore_boot">Benutzereinstellungen werden beim Neustart übernommen</string>
     <string name="ps_user_proc">Liste der Namen der Benutzerprozesse durch Komma getrennt</string>
     <string name="ps_sys_proc">Liste der Namen der Systemprozesse durch Komma getrennt</string>
     <string name="no_proc">Keine Pakete</string>
@@ -266,6 +266,18 @@ Translation by Rhonin86
         <item>Voll</item>
         <item>Lädt nicht</item>
     </string-array>
+    <!-- 2.1.2 -->
+    <!-- ksm -->
+    <string name="prefcat_ksm">KERNEL SAMEPAGE MERGING</string>
+    <string name="pt_run_ksm">Aktiviere KSM</string>
+    <string name="ksm_adv_title">Einstellungen</string>
+    <string name="ksm_fullscans">Komplette Scans:</string>
+    <string name="ksm_pagshared">Geteilte Seiten:</string>
+    <string name="ksm_pagsharing">Zu teilende Seiten:</string>
+    <string name="ksm_pagunshared">Ungeteilte Seiten:</string>
+    <string name="ksm_pagvolatile">Bewegliche Seiten:</string>
+    <string name="ksm_pagtoscan">Zu sannende Seiten:</string>
+    <string name="ksm_sleep">Schlaf (ms):</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Benutze das helle Theme</string>

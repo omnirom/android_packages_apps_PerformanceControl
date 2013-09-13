@@ -13,7 +13,7 @@ Translation by Laurentiu1996
     <string name="tab_oom_settings">Setări memorie</string>
     <string name="tab_time_in_state">Timp de lucru</string>
     <string name="tab_voltage_settings">Setări Tensiune</string>
-    <string name="tab_cpu_info">Informaţii CPU</string>
+    <string name="tab_cpu_info">Informaţii Generale</string>
     <string name="tab_disk_info">Informatii Disk</string>
     <string name="tab_tools">Unelte</string>
     <!-- Titles -->
@@ -23,7 +23,7 @@ Translation by Laurentiu1996
     <string name="t_volt_settings">SETĂRI TENSIUNE</string>
     <string name="t_adv_settings">"SETĂRI AVANSATE"</string>
     <string name="t_time_in_state">"TIMP DE LUCRU"</string>
-    <string name="t_cpu_info">INFORMAŢII CPU</string>
+    <string name="t_cpu_info">INFORMAŢII GENERALE</string>
     <string name="t_disk_info">INFORMAŢII DISK</string>
     <string name="t_tools">UNELTE</string>
 
@@ -216,7 +216,7 @@ Translation by Laurentiu1996
 
     <string name="prefcat_residual_files">ŞTERGERE FIŞIERE REZIDUALE</string>
     <string name="residual_files_title">Ştergerea fişierelor reziduale</string>
-    <string name="btncleanall">Ştergeţi tot</string>
+    <string name="btncleanall">Curăţă tot</string>
     <string name="clean_files_msg">Fişierele reziduale din %s vor fi şterse. Continuaţi?</string>
     <string name="filesstr">fişier(e)</string>
     <string name="no_residuals">Niciun fişier rezidual</string>
@@ -254,7 +254,18 @@ Translation by Laurentiu1996
         <item>Complet</item>
         <item>Nu se încarcă</item>
     </string-array>
-
+    <!-- 2.1.2 -->
+    <!-- ksm -->
+    <string name="prefcat_ksm">KERNEL SAMEPAGE MERGING</string>
+    <string name="pt_run_ksm">Activaţi KSM</string>
+    <string name="ksm_adv_title">Setări</string>
+    <string name="ksm_fullscans">Scanări complete:</string>
+    <string name="ksm_pagshared">Pagini partajate:</string>
+    <string name="ksm_pagsharing">Pagini partajabile:</string>
+    <string name="ksm_pagunshared">Pagini nepartajate:</string>
+    <string name="ksm_pagvolatile">Pagini volatile:</string>
+    <string name="ksm_pagtoscan">Pagini de scanat:</string>
+    <string name="ksm_sleep">Pauză (ms):</string>
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Utilizaţi o temă deschisă</string>
     <string name="ps_use_light_theme">Dacă este bifată, aplicaţia va folosi o temă deschisă Holo</string>

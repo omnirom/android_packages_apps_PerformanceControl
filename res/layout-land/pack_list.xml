@@ -84,6 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/ps_volt_save"
+                android:textSize="14dp"
                 android:id="@+id/applyBtn"
                 android:layout_gravity="right|center_vertical"/>
 

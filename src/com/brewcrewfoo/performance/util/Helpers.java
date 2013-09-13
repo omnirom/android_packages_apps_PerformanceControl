@@ -405,20 +405,18 @@ public class Helpers implements Constants {
 	    return ((new File(BLX_PATH).exists()) || (fastcharge_path()!=null));
     }
 
-	public static void shCreate(){
-		if (! new File(SH_PATH).exists()) {
-			new CMDProcessor().su.runWaitFor("busybox touch "+SH_PATH );	
-			new CMDProcessor().su.runWaitFor("busybox chmod 755 "+SH_PATH );
-			Log.d(TAG, "create: "+SH_PATH);
-		}
-	}
+    public static void shWrite(String f){
+        new CMDProcessor().su.runWaitFor("busybox cat "+f+" > " + SH_PATH );
+        new CMDProcessor().su.runWaitFor("busybox chmod 755 "+SH_PATH );
+    }
+
 	public static String shExec(StringBuilder s){
 		if (new File(SH_PATH).exists()) {
 			s.insert(0,"#!"+binExist("sh")+"\n\n");
 			new CMDProcessor().su.runWaitFor("busybox echo \""+s.toString()+"\" > " + SH_PATH );
+            new CMDProcessor().su.runWaitFor("busybox chmod 755 "+SH_PATH );
             CMDProcessor.CommandResult cr = null;
 			cr=new CMDProcessor().su.runWaitFor(SH_PATH);
-			//Log.d(TAG, "execute: "+s.toString());
             if(cr.success()){return cr.stdout;}
             else{Log.d(TAG, "execute: "+cr.stderr);return "";}
 		}

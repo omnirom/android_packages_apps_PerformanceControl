@@ -37,6 +37,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
+import com.brewcrewfoo.performance.activities.KSMActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.activities.PackActivity;
 import com.brewcrewfoo.performance.util.CMDProcessor;
@@ -79,6 +80,8 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
     private CheckBoxPreference mSysON;
     private Preference mUserNames;
     private Preference mSysNames;
+    private CheckBoxPreference mKSM;
+    private Preference mKSMsettings;
 
     private Boolean ispm;
 	
@@ -117,6 +120,10 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
         mSysON=(CheckBoxPreference) findPreference(PREF_SYS_PROC);
         mUserNames= findPreference(PREF_USER_NAMES);
         mSysNames= findPreference(PREF_SYS_NAMES);
+
+        mKSM=(CheckBoxPreference) findPreference(PREF_RUN_KSM);
+        mKSMsettings= findPreference("ksm_settings");
+
         if (!new File(USER_PROC_PATH).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("notkill_user_proc");
             getPreferenceScreen().removePreference(hideCat);
@@ -132,6 +139,14 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
         else{
             mSysON.setChecked(Helpers.readOneLine(SYS_PROC_PATH).equals("1"));
             mPreferences.edit().putString(PREF_SYS_NAMES, Helpers.readOneLine(USER_SYS_NAMES_PATH)).apply();
+        }
+        if (!new File(KSM_RUN_PATH).exists()) {
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("prefcat_ksmc");
+            getPreferenceScreen().removePreference(hideCat);
+        }
+        else{
+            mKSM.setChecked(Helpers.readOneLine(KSM_RUN_PATH).equals("1"));
+            mKSMsettings.setSummary(getString(R.string.ksm_pagtoscan)+" "+Helpers.readOneLine(KSM_PAGESTOSCAN_PATH)+" | "+getString(R.string.ksm_sleep)+" "+Helpers.readOneLine(KSM_SLEEP_PATH));
         }
         ispm=(!Helpers.binExist("pm").equals(NOT_FOUND));
     }
@@ -271,6 +286,18 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
                 ProcEditDialog(key,getString(R.string.pt_sys_names_proc),"",USER_SYS_NAMES_PATH,true);
             }
         }
+        else if (preference.equals(mKSM)){
+            if (Integer.parseInt(Helpers.readOneLine(KSM_RUN_PATH))==0){
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + KSM_RUN_PATH);
+            }
+            else{
+                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + KSM_RUN_PATH);
+            }
+            return true;
+        }
+        else if (preference.equals(mKSMsettings)){
+            startActivityForResult(new Intent(getActivity(), KSMActivity.class), 1);
+        }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -287,7 +314,18 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 	    }
 
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if(resultCode == getActivity().RESULT_OK){
+                String s[]= data.getStringExtra("result").split(" ");
+                mKSMsettings.setSummary(getString(R.string.ksm_pagtoscan)+" "+s[0]+" | "+getString(R.string.ksm_sleep)+" "+s[1]);
+            }
+            if (resultCode == getActivity().RESULT_CANCELED) {
+                //
+            }
+        }
+    }
 	private void updateOOM(String[] v) {
 		mForegroundApp.setSummary(oomConv(values[0])+"mb "+"[ "+v[0]+" ]");
 		mVisibleApp.setSummary(oomConv(values[1])+"mb "+"[ "+v[1]+" ]");

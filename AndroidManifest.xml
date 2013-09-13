@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.brewcrewfoo.performance"
           android:versionCode="4"
-          android:versionName="2.1.1">
+          android:versionName="2.1.2">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -34,6 +34,7 @@
                   android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name="com.brewcrewfoo.performance.activities.iResidualsActivity"
                   android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.brewcrewfoo.performance.activities.KSMActivity"/>
 
         <receiver android:name=".service.BootReceiver">
             <intent-filter>
