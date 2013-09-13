@@ -10,17 +10,6 @@ public class Zram implements Constants {
     private int originalDataSize = 0;
     private int memUsedTotal = 0;
 
-     public Zram() {
-        super();
-        initData();
-     }
-
-   public void initData() {
-        compressedDataSize = 0;
-        diskSize = 0;
-        memUsedTotal = 0;
-        originalDataSize = 0;
-    }
 
    public int getDiskSize() throws Exception {
         if (diskSize == 0) {
