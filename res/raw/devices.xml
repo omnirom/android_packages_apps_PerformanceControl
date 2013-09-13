@@ -33,8 +33,9 @@ File contain partitions layout for flashing kernel & recovery
         <recovery>/dev/block/mmcblk0p6</recovery>
         <cache>/dev/block/mmcblk0p8</cache>
     </device>
+    <!-- GALAXY S IV,NEXUS 4,XPERIA Z,Samsung Galaxy S4 SGH-M919 -->
     <device>
-        <model>GT-I9505</model> <!-- GALAXY S IV -->
+        <model>GT-I9505,Nexus 4,LG-E960,C6603,SGH-M919</model>
         <kernel>/dev/block/platform/msm_sdcc.1/by-name/boot</kernel>
         <recovery>/dev/block/platform/msm_sdcc.1/by-name/recovery</recovery>
         <cache>/dev/block/platform/msm_sdcc.1/by-name/cache</cache>
@@ -46,22 +47,10 @@ File contain partitions layout for flashing kernel & recovery
         <cache>/dev/block/platform/omap/omap_hsmmc.0/by-name/cache</cache>
     </device>
     <device>
-        <model>Nexus 4,LG-E960</model> <!-- NEXUS 4 -->
-        <kernel>/dev/block/platform/msm_sdcc.1/by-name/boot</kernel>
-        <recovery>/dev/block/platform/msm_sdcc.1/by-name/recovery</recovery>
-        <cache>/dev/block/platform/msm_sdcc.1/by-name/cache</cache>
-    </device>
-    <device>
         <model>HTC One X,S720e</model> <!-- HTC ONE X -->
         <kernel>/dev/block/mmcblk0p4</kernel>
         <recovery>/dev/block/mmcblk0p5</recovery>
         <cache>/dev/block/mmcblk0p13</cache>
-    </device>
-    <device>
-        <model>C6603</model> <!-- XPERIA Z -->
-        <kernel>/dev/block/platform/msm_sdcc.1/by-name/boot</kernel>
-        <recovery>/dev/block/platform/msm_sdcc.1/by-name/recovery</recovery>
-        <cache>/dev/block/platform/msm_sdcc.1/by-name/cache</cache>
     </device>
     <!-- new added 1-->
     <device>
@@ -70,43 +59,45 @@ File contain partitions layout for flashing kernel & recovery
         <recovery>/dev/block/mmcblk0p21</recovery>
         <cache>/dev/block/mmcblk0p23</cache>
     </device>
+    <!-- Samsung Galaxy Tab 7.7 (3G) GT-P6800, GT-P6810 -->
     <device>
-        <model>GT-P6800,GT-P6810</model> <!-- Samsung Galaxy Tab 7.7 (3G) GT-P6800, GT-P6810 -->
+        <model>GT-P6800,GT-P6810</model>
         <kernel>/dev/block/mmcblk0p5</kernel>
         <recovery>/dev/block/mmcblk0p6</recovery>
         <cache>/dev/block/mmcblk0p7</cache>
     </device>
+    <!-- Samsung Galaxy S III LTE GT-I9305 -->
     <device>
-        <model>GT-I9305</model> <!-- Samsung Galaxy S III LTE GT-I9305 -->
+        <model>GT-I9305</model>
         <kernel>/dev/block/mmcblk0p8</kernel>
         <recovery>/dev/block/mmcblk0p9</recovery>
         <cache>/dev/block/mmcblk0p12</cache>
     </device>
+    <!-- Samsung Galaxy S III SGH-T999,SGH-I747 -->
     <device>
-        <model>SGH-T999,SGH-I747,SGH-I747,SGH-I747M,SPH-L710,SCH-I535</model> <!-- Samsung Galaxy S III SGH-T999,SGH-I747 -->
+        <model>SGH-T999,SGH-I747,SGH-I747,SGH-I747M,SPH-L710,SCH-I535</model>
         <kernel>/dev/block/mmcblk0p7</kernel>
         <recovery>/dev/block/mmcblk0p18</recovery>
         <cache>/dev/block/mmcblk0p17</cache>
     </device>
+    <!-- Samsung Galaxy Tab 10.1 -->
     <device>
-        <model>GT-P7500,SCH-I905,GT-P7510,GT-P7100,GT-P7511</model> <!-- Samsung Galaxy Tab 10.1 -->
+        <model>GT-P7500,SCH-I905,GT-P7510,GT-P7100,GT-P7511</model>
         <kernel>/dev/block/mmcblk0p3</kernel>
         <recovery>/dev/block/mmcblk0p2</recovery>
         <cache>/dev/block/mmcblk0p5</cache>
     </device>
-
-    <!-- xolo_us9230e1 ???????
-    <device>
-        <model>T1000</model>
-        <kernel>/dev/block/platform/sdhci-tegra.3/by-name/LNX</kernel>
-        <recovery>/dev/block/platform/sdhci-tegra.3/by-name/SOS</recovery>
-        <cache>/dev/block/platform/sdhci-tegra.3/by-name/CAC</cache>
-    </device>
-     -->
     <device>
         <model>LG-P970</model> <!-- LG OPTIMUS BLACK P970 -->
         <kernel>/dev/block/mmcblk0p3</kernel>
         <recovery>/dev/block/mmcblk0p4</recovery>
         <cache>/dev/block/mmcblk0p10</cache>
+    </device>
+    <!-- xolo_us9230e1 ???????-->
+    <device>
+        <model>T1000</model>
+        <kernel>/dev/block/platform/sdhci-tegra.3/by-name/LNX</kernel>
+        <recovery>/dev/block/platform/sdhci-tegra.3/by-name/SOS</recovery>
+        <cache>/dev/block/platform/sdhci-tegra.3/by-name/CAC</cache>
     </device>
 </devices>
