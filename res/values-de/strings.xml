@@ -7,27 +7,27 @@ Translation by Rhonin86
     <!-- Main tabs -->
     <string name="tab_cpu_settings">CPU Einstellungen</string>
     <string name="tab_cpu_profiles">CPU Profile</string>
-    <string name="tab_battery_info">Akku</string>
+    <string name="tab_battery_info">Akku Informationen</string>
     <string name="tab_oom_settings">Speicher Einstellungen</string>
     <string name="tab_time_in_state">Frequenzverteilung</string>
-    <string name="tab_voltage_settings">Spannungseinstellung</string>
-    <string name="tab_cpu_info">Allgemeine Info</string>
-    <string name="tab_disk_info">Disk Info</string>
+    <string name="tab_voltage_settings">Spannungs Einstellungen</string>
+    <string name="tab_cpu_info">Allgemeine Informationen</string>
+    <string name="tab_disk_info">Disk-Informationen</string>
     <string name="tab_tools">Tools</string>
     <!-- Titles -->
     <string name="t_cpu_settings">CPU Einstellungen</string>
-    <string name="t_battery_info">Akku</string>
+    <string name="t_battery_info">Akku Informationen</string>
     <string name="t_oom_settings">Speicher Einstellungen</string>
-    <string name="t_volt_settings">Spannungseinstellung</string>
+    <string name="t_volt_settings">Spannungs Einstellungen</string>
     <string name="t_adv_settings">"Erweiterte Einstellungen"</string>
     <string name="t_time_in_state">"Frequenzverteilung"</string>
-    <string name="t_cpu_info">Allgemeine INFO</string>
-    <string name="t_disk_info">DISK INFO</string>
-    <string name="t_tools">TOOLS</string>
+    <string name="t_cpu_info">Allgemeine Informationen</string>
+    <string name="t_disk_info">Disk-Informationen</string>
+    <string name="t_tools">Tools</string>
 
     <string name="menu_tab">Tab</string>
     <!-- Menu -->
-    <string name="mt_refresh">Aktualisiere</string>
+    <string name="mt_refresh">Aktualisieren</string>
     <string name="mt_app_settings">"App Einstellungen"</string>
     <string name="mt_reset">Reset</string>
     <string name="mt_restore">Wiederherstellen</string>
@@ -35,11 +35,11 @@ Translation by Rhonin86
     <string name="mt_minus25">Erniedrige um 25 mV</string>
     <!-- CPU settings -->
     <string name="current_speed">Aktuelle Geschwindigkeit</string>
-    <string name="current_max">Aktuelles Max:</string>
-    <string name="current_min">Aktuelles Min:</string>
+    <string name="current_max">Aktuelles Maximum:</string>
+    <string name="current_min">Aktuelles Minimum:</string>
     <string name="governor">Governor</string>
     <string name="io">IO Scheduler</string>
-    <string name="sob">Beim Start setzen</string>
+    <string name="sob">Beim Booten einstellen</string>
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
     <!-- Other settings -->
@@ -51,10 +51,10 @@ Translation by Rhonin86
     <string name="dt_free_memory">Mindestverfügbarer Speicher</string>
     <string name="dt_read_ahead">Vorablesen von SD</string>
     <string name="pt_free_memory">Freier Speicher</string>
-    <string name="ps_free_memory">Die Menge an freien Speicher, die bereitgestellt wird |
+    <string name="ps_free_memory">Die Menge an freiem Speicher, der bereitgestellt wird |
         Aktuell: %s
     </string>
-    <string name="ps_free_memory_boot">Übernehme die o. g. Einstellungen beim Neustart</string>
+    <string name="ps_free_memory_boot">Einstellungen beim Neustart anwenden</string>
     <string name="pt_read_ahead">Vorablesen von SD</string>
     <string name="ps_read_ahead">Vorab einzulesende Datenmenge beim SD-Karten Zugriff in kb |
         Aktuell: %s
@@ -91,9 +91,9 @@ Translation by Rhonin86
     <string name="pt_sys_proc">Aktiviere Speicherresistente Systemprozesse</string>
     <string name="pt_user_names_proc">Liste der Benutzerprozesse</string>
     <string name="pt_sys_names_proc">Liste der Systemprozesse</string>
-    <string name="ps_restore_boot">Benutzereinstellungen werden beim Neustart übernommen</string>
-    <string name="ps_user_proc">Liste der Namen der Benutzerprozesse durch Komma getrennt</string>
-    <string name="ps_sys_proc">Liste der Namen der Systemprozesse durch Komma getrennt</string>
+    <string name="ps_restore_boot">Benutzereinstellungen beim Neustart anwenden</string>
+    <string name="ps_user_proc">Ausgewählte Benutzerprozesse werden nicht beendet</string>
+    <string name="ps_sys_proc">Ausgewählte Systemprozesse werden nicht beendet</string>
     <string name="no_proc">Keine Pakete</string>
     <!-- bln -->
     <string name="prefcat_bln">Backlight Notification</string>
@@ -102,12 +102,12 @@ Translation by Rhonin86
     <string name="blx_info">Batterie Lebensdauer Verlängerungsoption\nAuthor Ezekeel</string>
     <string name="prefcat_blx">Batterie Ledensdauer Verlängerer</string>
     <string name="pt_blx_boot">Beim Neustart anwenden</string>
-    <string name="ps_blx_boot">Den eingestellten Wert nach dem Neustart anwenden</string>
+    <string name="ps_blx_boot">Einstellung beim Neustart anwenden</string>
     <string name="blx_title">Maximale Ladung:</string>
     <!-- dsync -->
     <string name="dsync_info">Dynamisches FSync \nAuthor Paul Reioux (faux123)</string>
     <string name="prefcat_dsync">Dynamisches FSYNC</string>
-    <string name="ps_dsync">Einstellungen werden nach dem Neustart wieder hergestellt</string>
+    <string name="ps_dsync">Einstellung beim Neustart anwenden</string>
     <string name="pt_dsync">Dynamisches Fsync</string>
     <!-- bl_timeout -->
     <string name="prefcat_bltimeout">Backlight Dauer</string>
@@ -149,7 +149,7 @@ Translation by Rhonin86
     <string name="size_2048_kb">2048kb</string>
     <string name="size_4096_kb">4096kb</string>
     <!-- Voltage control -->
-    <string name="volt_info">Achtung!\nBevor nach Neustart anwenden aktiviert wurde sicherstellen, dass die eingegebenen Werte keine Grenzen verletzten.</string>
+    <string name="volt_info">Achtung!\nBevor nach Neustart anwenden aktiviert wurde, stelle bitte sicher, dass die eingegebenen Werte keine Grenzen verletzten.</string>
     <string name="ps_volt_mhz_voltage">" Hz"</string>
     <string name="ps_volt_save">"Speichern"</string>
     <string name="ps_volt_current_voltage">"Aktuelle Spannung: "</string>
@@ -160,9 +160,9 @@ Translation by Rhonin86
     <string name="freq">Frequenz</string>
     <string name="current">mV aktuell</string>
     <string name="saved">mV gespeichert</string>
-    <string name="not_supported">Dein Kernel unterstützt keine Spannungsanpassung</string>
+    <string name="not_supported">Dein Kernel unterstützt keine Spannungsanpassungen</string>
     <!-- VM settings -->
-    <string name="ps_vm_set_on_boot">Wenn aktiviert werden alle VM Einstellungen nach dem Neustart wieder hergestellt</string>
+    <string name="ps_vm_set_on_boot">Wenn aktiviert, werden alle VM Einstellungen nach dem Neustart wieder hergestellt</string>
     <string name="dirty_ratio_title">Dirty ratio</string>
     <string name="dirty_background_title">Dirty background ratio</string>
     <string name="dirty_expire_title">Dirty expire Hundertstel Sek.</string>
@@ -175,7 +175,7 @@ Translation by Rhonin86
     <string name="time_in_state">Frequenzverteilung</string>
     <string name="unused_cpu_states">Ungenutzte CPU Frequenzen</string>
     <string name="total_state_time">Gesamtlaufzeit</string>
-    <string name="no_states_file_found">Keine Status-Datei gefunden. Bist Du sicher, dass Dein Handy kompatibel
+    <string name="no_states_file_found">Keine Status-Datei gefunden. Bist Du sicher, dass dein Handy kompatibel
         ist?\n\nWenn Du eine Custom ROM oder einen Custom Kernel nutzt, informiere den
         Entwickler, dass keine lesbare Status-Datei erzeugt wird
     </string>
@@ -188,23 +188,23 @@ Translation by Rhonin86
     <string name="su_success_title">Erfolgreich!</string>
     <string name="su_failed_title">Ups!</string>
     <string name="first_run_message">Die Anwendung überprüft den Rootzugriff und
-        BusyBox. Drücke OK um weiter zu machen. Abbrechen, wenn der Anwendung kein Root Zugang
+        BusyBox.\n\nDrücke OK um weiter zu machen. \nbbrechen, wenn der Anwendung kein Root Zugang
         gewährt werden soll.
     </string>
     <string name="su_success_message">"Performance Control hat Root Zugang und hat BusyBox
         gefunden. Los geht's !"
     </string>
     <string name="su_cancel_message">Du hast Dich entschieden der Anwendung keinen Rootzugang zu gewähren.
-        Die meisten Funktionen benötigen aber Root Zugang. Tut mir leid!
+        Die meisten Funktionen benötigen aber Root Zugang.\n\nTut mir leid!
     </string>
     <string name="su_failed_su_or_busybox">Kein Root Zugang oder BusyBox nicht gefunden. Die meisten
-        Funktionen benötigen aber Root Zugang. Tut mir leid!
+        Funktionen benötigen aber Root Zugang.\n\nTut mir leid!
     </string>
 
     <!-- Tools -->
     <string name="prefcat_sh">Individueller Shell Befehl</string>
     <string name="sh_title">Editiere Shell Befehl</string>
-    <string name="ps_sh">Der Befehl wird nach dem Neustart ausgeführt</string>
+    <string name="ps_sh">Befehl, welcher nach dem Neustart ausgeführt wird</string>
     <string name="sh_msg">Leer lassen für keine Aktion</string>
     <string name="clear">Lösche</string>
     <string name="yes">Ja</string>
@@ -212,7 +212,7 @@ Translation by Rhonin86
     <string name="prefcat_wipe_cache">Cache und Dalvik Cache</string>
     <string name="wipe_cache_title">Lösche Cache und Dalvik Cache</string>
     <string name="ps_wipe_cache">Cache Partition: %s</string>
-    <string name="wipe_cache_msg">Am Ende wird das System neu gestartet. Weiter machen?</string>
+    <string name="wipe_cache_msg">Am Ende wird das System neu gestartet.\nWeiter machen?</string>
 
     <string name="prefcat_flash_img">Flash *.img Datei (Direkt oder aus CWM-Zip)</string>
     <string name="kernel_img_title">Flash Kernel</string>
@@ -239,10 +239,10 @@ Translation by Rhonin86
 
     <string-array name="residual_info">
         <item>Beinhaltet Android System Log Dateien</item>
-        <item>Beinhaltet Log Dateine von abgestürzten Apps</item>
+        <item>Beinhaltet Log Dateien von abgestürzten Apps</item>
         <item>Beinhaltet ständig erzeugte Log Dateien</item>
-        <item>Beinhaltet Statistiken Deiner gestarteten Apps</item>
-        <item>Beinhaltet Traces von \'Anwendung reagiert nicht\' Ereignissen</item>
+        <item>Beinhaltet Statistiken deiner gestarteten Apps</item>
+        <item>Beinhaltet Aufzeichnungen von \'Anwendung reagiert nicht\' Ereignissen</item>
         <item>Beinhaltet temporäre Dateien</item>
     </string-array>
     <string name="prefcat_fix_perms">Repariere Berechtigungen</string>
@@ -276,12 +276,12 @@ Translation by Rhonin86
     <string name="ksm_pagsharing">Zu teilende Seiten:</string>
     <string name="ksm_pagunshared">Ungeteilte Seiten:</string>
     <string name="ksm_pagvolatile">Bewegliche Seiten:</string>
-    <string name="ksm_pagtoscan">Zu sannende Seiten:</string>
+    <string name="ksm_pagtoscan">Zu scannende Seiten:</string>
     <string name="ksm_sleep">Schlaf (ms):</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Benutze das helle Theme</string>
-    <string name="ps_use_light_theme">Wenn angewählt wird das helle HOLO-Theme verwendet</string>
+    <string name="ps_use_light_theme">Verwende das helle HOLO-Theme</string>
     <string name="pt_widget_bg_color">Widget Hintergrundfarbe</string>
     <string name="pt_widget_text_color">Widget Textfarbe</string>
     <string name="pt_ver">"Version - "</string>
