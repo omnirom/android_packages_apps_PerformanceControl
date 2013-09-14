@@ -22,6 +22,10 @@ public interface Constants {
 
     public static final String TAG = "PerformanceControl";
     public static final String VERSION_NUM = "2.1.2.1";
+    //hide flashing kernel/recovery options
+    // NO_FLASH=true > hide flash options
+    // NO_FLASH=false > show flash options
+    public static final Boolean NO_FLASH = false;
 
     // CPU settings
     public static final String CUR_CPU_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";

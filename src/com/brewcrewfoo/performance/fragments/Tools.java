@@ -85,7 +85,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
         if (mStartTime>0)
             mOptimDB.setSummary(DateUtils.getRelativeTimeSpanString(mStartTime));
 
-        if(Helpers.binExist("dd").equals(NOT_FOUND)){
+        if(Helpers.binExist("dd").equals(NOT_FOUND) || NO_FLASH){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_flash_img");
             getPreferenceScreen().removePreference(hideCat);
         }
