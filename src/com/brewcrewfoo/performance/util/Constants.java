@@ -21,7 +21,11 @@ package com.brewcrewfoo.performance.util;
 public interface Constants {
 
     public static final String TAG = "PerformanceControl";
-    public static final String VERSION_NUM = "2.1.2";
+    public static final String VERSION_NUM = "2.1.2.1";
+    //hide flashing kernel/recovery options
+    // NO_FLASH=true > hide flash options
+    // NO_FLASH=false > show flash options
+    public static final Boolean NO_FLASH = false;
 
     // CPU settings
     public static final String CUR_CPU_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
@@ -55,7 +59,7 @@ public interface Constants {
     // Other settings
     public static final String MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
     public static final String MINFREE_ADJ_PATH = "/sys/module/lowmemorykiller/parameters/adj";
-    public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/default/read_ahead_kb","/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
+    public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
     //"/sys/devices/virtual/bdi/default/read_ahead_kb"
     
     public static final String INTENT_ACTION_FASTCHARGE = "com.aokp.romcontrol.FCHARGE_CHANGED";
