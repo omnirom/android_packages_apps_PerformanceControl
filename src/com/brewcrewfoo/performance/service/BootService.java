@@ -27,12 +27,12 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.fragments.VoltageControlSettings;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.util.Voltage;
+
 
 import java.io.File;
 import java.util.List;
@@ -40,7 +40,6 @@ import java.util.List;
 
 public class BootService extends Service implements Constants {
     public static boolean servicesStarted = false;
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) {
@@ -55,354 +54,253 @@ public class BootService extends Service implements Constants {
         return null;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
     class BootWorker extends AsyncTask<Void, Void, Void> {
         Context c;
-
         public BootWorker(Context c) {
             this.c = c;
         }
-
         @SuppressWarnings("deprecation")
         @Override
         protected Void doInBackground(Void... args) {
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-            final StringBuilder sb = new StringBuilder();
-            final String FASTCHARGE_PATH = Helpers.fastcharge_path();
-            final String BLN_PATH = Helpers.bln_path();
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
+		final StringBuilder sb = new StringBuilder();
+        final String FASTCHARGE_PATH=Helpers.fastcharge_path();
+        final String BLN_PATH=Helpers.bln_path();
+		
+		if (preferences.getBoolean(CPU_SOB, false)) {
+			final String max = preferences.getString(PREF_MAX_CPU, Helpers.readOneLine(MAX_FREQ_PATH));
+			final String min = preferences.getString(PREF_MIN_CPU, Helpers.readOneLine(MIN_FREQ_PATH));
+			final String gov = preferences.getString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
+			final String io = preferences.getString(PREF_IO, Helpers.getIOScheduler());
 
-            if (preferences.getBoolean(CPU_SOB, false)) {
-                final String max = preferences.getString(PREF_MAX_CPU, Helpers.readOneLine(MAX_FREQ_PATH));
-                final String min = preferences.getString(PREF_MIN_CPU, Helpers.readOneLine(MIN_FREQ_PATH));
-                final String gov = preferences.getString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
-                final String io = preferences.getString(PREF_IO, Helpers.getIOScheduler());
+			boolean mIsTegra3 = new File(TEGRA_MAX_FREQ_PATH).exists();
 
-                boolean mIsTegra3 = new File(TEGRA_MAX_FREQ_PATH).exists();
+			for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+				sb.append("busybox echo " + max + " > " + MAX_FREQ_PATH.replace("cpu0", "cpu" + i) + " \n");
+				sb.append("busybox echo " + min + " > " + MIN_FREQ_PATH.replace("cpu0", "cpu" + i) + " \n");
+				sb.append("busybox echo " + gov + " > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i) + " \n");
+			}
+			if (mIsTegra3) {
+				sb.append("busybox echo " + max + " > " + TEGRA_MAX_FREQ_PATH + " \n");
+			}
+			for(int i=0;i<IO_SCHEDULER_PATH.length; i++){
+                if (new File(IO_SCHEDULER_PATH[i]).exists())
+                    sb.append("busybox echo "+io+" > " + IO_SCHEDULER_PATH[i] + "\n");
 
-                for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                    sb.append("busybox echo ")
-                            .append(max)
-                            .append(" > ")
-                            .append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i))
-                            .append(" \n");
-                    sb.append("busybox echo ")
-                            .append(min)
-                            .append(" > ")
-                            .append(MIN_FREQ_PATH.replace("cpu0", "cpu" + i))
-                            .append(" \n");
-                    sb.append("busybox echo ")
-                            .append(gov)
-                            .append(" > ")
-                            .append(GOVERNOR_PATH.replace("cpu0", "cpu" + i))
-                            .append(" \n");
-                }
-                if (mIsTegra3) {
-                    sb.append("busybox echo ")
-                            .append(max)
-                            .append(" > ")
-                            .append(TEGRA_MAX_FREQ_PATH)
-                            .append(" \n");
-                }
-                for (String aIO_SCHEDULER_PATH : IO_SCHEDULER_PATH) {
-                    if (new File(aIO_SCHEDULER_PATH).exists()) {
-                        sb.append("busybox echo ")
-                                .append(io)
-                                .append(" > ")
-                                .append(aIO_SCHEDULER_PATH)
-                                .append("\n");
-                    }
-                }
-            }
+			}
+		}
 
-            if (preferences.getBoolean(VOLTAGE_SOB, false)) {
-                if (Helpers.voltageFileExists()) {
-                    final List<Voltage> volts = VoltageControlSettings.getVolts(preferences);
-                    if (Helpers.getVoltagePath().equals(VDD_PATH)) {
-                        for (final Voltage volt : volts) {
-                            if (!volt.getSavedMV().equals(volt.getCurrentMv())) {
-                                for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                                    sb.append("busybox echo ")
-                                            .append(volt.getFreq())
-                                            .append(" ")
-                                            .append(volt.getSavedMV())
-                                            .append(" > ")
-                                            .append(Helpers.getVoltagePath().replace("cpu0", "cpu" + i))
-                                            .append(" \n");
-                                }
-                            }
-                        }
-                    } else {
-                        //other formats
-                        final StringBuilder b = new StringBuilder();
-                        for (final Voltage volt : volts) {
-                            b.append(volt.getSavedMV()).append(" ");
-                        }
-                        for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                            sb.append("busybox echo ")
-                                    .append(b.toString())
-                                    .append(" > ")
-                                    .append(Helpers.getVoltagePath().replace("cpu0", "cpu" + i))
-                                    .append(" \n");
-                        }
-                    }
-                }
-            }
+		if (preferences.getBoolean(VOLTAGE_SOB, false)) {
+			if(Helpers.voltageFileExists()){
+				final List<Voltage> volts = VoltageControlSettings.getVolts(preferences);
+				if (Helpers.getVoltagePath() == VDD_PATH) {
+					for (final Voltage volt : volts) {
+						if(volt.getSavedMV() != volt.getCurrentMv()){
+							for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+								sb.append("busybox echo "
+								+ volt.getFreq()+" "+volt.getSavedMV() + " > "
+								+ Helpers.getVoltagePath().replace("cpu0","cpu" + i) + " \n");
+							}
+						}
+					}
+				}
+				else{
+					//other formats
+					final StringBuilder b = new StringBuilder();
+					for (final Voltage volt : volts) {
+						b.append(volt.getSavedMV() + " ");
+					}
+					for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+						sb.append("busybox echo "
+						+ b.toString() + " > "
+						+ Helpers.getVoltagePath().replace("cpu0","cpu" + i) + " \n");				
+					}
+				}
+			}
+		}
 
-            if (preferences.getBoolean(PREF_READ_AHEAD_BOOT, false)) {
-                final String values = preferences.getString(PREF_READ_AHEAD, Helpers.readOneLine(READ_AHEAD_PATH[0]));
-                for (String aREAD_AHEAD_PATH : READ_AHEAD_PATH) {
-                    if (new File(aREAD_AHEAD_PATH).exists())
-                        sb.append("busybox echo ")
-                                .append(values)
-                                .append(" > ")
-                                .append(aREAD_AHEAD_PATH)
-                                .append("\n");
-                }
+        if (preferences.getBoolean(PREF_READ_AHEAD_BOOT, false)) {
+            final String values = preferences.getString(PREF_READ_AHEAD,Helpers.readOneLine(READ_AHEAD_PATH[0]));
+            for(int i=0; i<READ_AHEAD_PATH.length; i++){
+                if (new File(READ_AHEAD_PATH[i]).exists())
+                sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
             }
+        }
 
-            if (FASTCHARGE_PATH != null) {
-                if (preferences.getBoolean(PREF_FASTCHARGE, false)) {
-                    sb.append("busybox echo 1 > ")
-                            .append(FASTCHARGE_PATH)
-                            .append(" \n");
-                    Intent i = new Intent();
-                    i.setAction(INTENT_ACTION_FASTCHARGE);
-                    c.sendBroadcast(i);
-                    // add notification to warn user they can only charge
-                    CharSequence contentTitle = c.getText(R.string.fast_charge_notification_title);
-                    CharSequence contentText = c.getText(R.string.fast_charge_notification_message);
+		if (FASTCHARGE_PATH!=null) {
+			if(preferences.getBoolean(PREF_FASTCHARGE, false)){
+				sb.append("busybox echo 1 > " + FASTCHARGE_PATH + " \n");
+				Intent i = new Intent();
+				i.setAction(INTENT_ACTION_FASTCHARGE);
+				c.sendBroadcast(i);
+				// add notification to warn user they can only charge
+				CharSequence contentTitle = c.getText(R.string.fast_charge_notification_title);
+				CharSequence contentText = c.getText(R.string.fast_charge_notification_message);
 
-                    Notification n = new Notification.Builder(c)
-                            .setAutoCancel(true).setContentTitle(contentTitle)
-                            .setContentText(contentText)
-                            .setSmallIcon(R.drawable.ic_launcher)
-                            .setWhen(System.currentTimeMillis()).getNotification();
+				Notification n = new Notification.Builder(c)
+					.setAutoCancel(true).setContentTitle(contentTitle)
+					.setContentText(contentText)
+					.setSmallIcon(R.drawable.ic_launcher)
+					.setWhen(System.currentTimeMillis()).getNotification();
 
-                    NotificationManager nm = (NotificationManager) getApplicationContext()
-                            .getSystemService(Context.NOTIFICATION_SERVICE);
-                    nm.notify(1337, n);
-                }
+				NotificationManager nm = (NotificationManager) getApplicationContext()
+					.getSystemService(Context.NOTIFICATION_SERVICE);
+				nm.notify(1337, n);
+			}
+		}
+		if (new File(BLX_PATH).exists()) {
+			if (preferences.getBoolean(BLX_SOB, false)) {
+				sb.append("busybox echo " + preferences.getInt(PREF_BLX, Integer.parseInt(Helpers.readOneLine(BLX_PATH)))
+				+ " > " + BLX_PATH + " \n");
+			}
+		}
+		if (new File(DSYNC_PATH).exists()) {
+			if (preferences.getBoolean(PREF_DSYNC, false)) {
+				sb.append("busybox echo 1 > " + DSYNC_PATH + " \n");
+			}
+			else{
+				sb.append("busybox echo 0 > " + DSYNC_PATH + " \n");
+			}
+		}
+		if (new File(BL_TIMEOUT_PATH).exists()) {
+			if (preferences.getBoolean(BLTIMEOUT_SOB, false)) {
+				sb.append("busybox echo " + preferences.getInt(PREF_BLTIMEOUT,  Integer.parseInt(Helpers.readOneLine(BL_TIMEOUT_PATH)))
+				+ " > " + BL_TIMEOUT_PATH + " \n");
+			}
+		}
+		if (new File(BL_TOUCH_ON_PATH).exists()) {
+			if (preferences.getBoolean(PREF_BLTOUCH, false)) {
+				sb.append("busybox echo 1 > " + BL_TOUCH_ON_PATH + " \n");
+			}
+			else{
+				sb.append("busybox echo 0 > " + BL_TOUCH_ON_PATH + " \n");
+			}
+		}
+        if (BLN_PATH!=null) {
+            if (preferences.getBoolean(PREF_BLN, false)) {
+                sb.append("busybox echo 1 > " + BLN_PATH + " \n");
             }
-            if (new File(BLX_PATH).exists()) {
-                if (preferences.getBoolean(BLX_SOB, false)) {
-                    sb.append("busybox echo ")
-                            .append(preferences.getInt(PREF_BLX, Integer.parseInt(Helpers.readOneLine(BLX_PATH))))
-                            .append(" > ")
-                            .append(BLX_PATH)
-                            .append(" \n");
-                }
+            else{
+                sb.append("busybox echo 0 > " + BLN_PATH + " \n");
             }
-            if (new File(DSYNC_PATH).exists()) {
-                if (preferences.getBoolean(PREF_DSYNC, false)) {
-                    sb.append("busybox echo 1 > " + DSYNC_PATH + " \n");
-                } else {
-                    sb.append("busybox echo 0 > " + DSYNC_PATH + " \n");
-                }
-            }
-            if (new File(BL_TIMEOUT_PATH).exists()) {
-                if (preferences.getBoolean(BLTIMEOUT_SOB, false)) {
-                    sb.append("busybox echo ")
-                            .append(preferences.getInt(PREF_BLTIMEOUT, Integer.parseInt(Helpers.readOneLine(BL_TIMEOUT_PATH))))
-                            .append(" > ")
-                            .append(BL_TIMEOUT_PATH)
-                            .append(" \n");
-                }
-            }
-            if (new File(BL_TOUCH_ON_PATH).exists()) {
-                if (preferences.getBoolean(PREF_BLTOUCH, false)) {
-                    sb.append("busybox echo 1 > " + BL_TOUCH_ON_PATH + " \n");
-                } else {
-                    sb.append("busybox echo 0 > " + BL_TOUCH_ON_PATH + " \n");
-                }
-            }
-            if (BLN_PATH != null) {
-                if (preferences.getBoolean(PREF_BLN, false)) {
-                    sb.append("busybox echo 1 > ")
-                            .append(BLN_PATH)
-                            .append(" \n");
-                } else {
-                    sb.append("busybox echo 0 > ")
-                            .append(BLN_PATH)
-                            .append(" \n");
-                }
-            }
-            if (new File(PFK_HOME_ENABLED).exists() && new File(PFK_MENUBACK_ENABLED).exists()) {
-                if (preferences.getBoolean(PFK_SOB, false)) {
-                    sb.append("busybox echo ")
-                            .append(preferences.getInt(PREF_HOME_ALLOWED_IRQ, Integer.parseInt(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ))))
-                            .append(" > ")
-                            .append(PFK_HOME_ALLOWED_IRQ)
-                            .append(" \n");
-                    sb.append("busybox echo ")
-                            .append(preferences.getInt(PREF_HOME_REPORT_WAIT, Integer.parseInt(Helpers.readOneLine(PFK_HOME_REPORT_WAIT))))
-                            .append(" > ")
-                            .append(PFK_HOME_REPORT_WAIT)
-                            .append(" \n");
-                    sb.append("busybox echo ")
-                            .append(preferences.getInt(PREF_MENUBACK_INTERRUPT_CHECKS, Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS))))
-                            .append(" > ")
-                            .append(PFK_MENUBACK_INTERRUPT_CHECKS)
-                            .append(" \n");
-                    sb.append("busybox echo ")
-                            .append(preferences.getInt(PREF_MENUBACK_FIRST_ERR_WAIT, Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT))))
-                            .append(" > ")
-                            .append(PFK_MENUBACK_FIRST_ERR_WAIT)
-                            .append(" \n");
-                    sb.append("busybox echo ")
-                            .append(preferences.getInt(PREF_MENUBACK_LAST_ERR_WAIT, Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT))))
-                            .append(" > ")
-                            .append(PFK_MENUBACK_LAST_ERR_WAIT)
-                            .append(" \n");
-                    if (preferences.getBoolean(PFK_HOME_ON, false)) {
-                        sb.append("busybox echo 1 > " + PFK_HOME_ENABLED + " \n");
-                    } else {
-                        sb.append("busybox echo 0 > " + PFK_HOME_ENABLED + " \n");
-                    }
-                    if (preferences.getBoolean(PFK_MENUBACK_ON, false)) {
-                        sb.append("busybox echo 1 > " + PFK_MENUBACK_ENABLED + " \n");
-                    } else {
-                        sb.append("busybox echo 0 > " + PFK_MENUBACK_ENABLED + " \n");
-                    }
-                }
-            }
-            boolean isdynamic = false;
-            if (new File(DYNAMIC_DIRTY_WRITEBACK_PATH).exists()) {
-                if (preferences.getBoolean(DYNAMIC_DIRTY_WRITEBACK_SOB, false)) {
-                    if (preferences.getBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK, false)) {
-                        sb.append("busybox echo 1 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
-                        isdynamic = true;
-                    } else {
-                        sb.append("busybox echo 0 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
-                    }
-                    sb.append("busybox echo ")
-                            .append(preferences.getInt(PREF_DIRTY_WRITEBACK_ACTIVE, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH))))
-                            .append(" > ")
-                            .append(DIRTY_WRITEBACK_ACTIVE_PATH)
-                            .append(" \n");
-                    sb.append("busybox echo ")
-                            .append(preferences.getInt(PREF_DIRTY_WRITEBACK_SUSPEND, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH))))
-                            .append(" > ")
-                            .append(DIRTY_WRITEBACK_SUSPEND_PATH)
-                            .append(" \n");
-                }
-            }
-
-            if (preferences.getBoolean(VM_SOB, false)) {
-                sb.append("busybox echo ")
-                        .append(preferences.getInt(PREF_DIRTY_RATIO, Integer.parseInt(Helpers.readOneLine(DIRTY_RATIO_PATH))))
-                        .append(" > ")
-                        .append(DIRTY_RATIO_PATH)
-                        .append(" \n");
-                sb.append("busybox echo ")
-                        .append(preferences.getInt(PREF_DIRTY_BACKGROUND, Integer.parseInt(Helpers.readOneLine(DIRTY_BACKGROUND_PATH))))
-                        .append(" > ")
-                        .append(DIRTY_BACKGROUND_PATH)
-                        .append(" \n");
-                sb.append("busybox echo ")
-                        .append(preferences.getInt(PREF_DIRTY_EXPIRE, Integer.parseInt(Helpers.readOneLine(DIRTY_EXPIRE_PATH))))
-                        .append(" > ")
-                        .append(DIRTY_EXPIRE_PATH)
-                        .append(" \n");
-                if (!isdynamic) {
-                    sb.append("busybox echo ")
-                            .append(preferences.getInt(PREF_DIRTY_WRITEBACK, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_PATH))))
-                            .append(" > ")
-                            .append(DIRTY_WRITEBACK_PATH)
-                            .append(" \n");
-                }
-                sb.append("busybox echo ")
-                        .append(preferences.getInt(PREF_MIN_FREE_KB, Integer.parseInt(Helpers.readOneLine(MIN_FREE_PATH))))
-                        .append(" > ")
-                        .append(MIN_FREE_PATH)
-                        .append(" \n");
-                sb.append("busybox echo ")
-                        .append(preferences.getInt(PREF_OVERCOMMIT, Integer.parseInt(Helpers.readOneLine(OVERCOMMIT_PATH))))
-                        .append(" > ")
-                        .append(OVERCOMMIT_PATH)
-                        .append(" \n");
-                sb.append("busybox echo ")
-                        .append(preferences.getInt(PREF_SWAPPINESS, Integer.parseInt(Helpers.readOneLine(SWAPPINESS_PATH))))
-                        .append(" > ")
-                        .append(SWAPPINESS_PATH)
-                        .append(" \n");
-                sb.append("busybox echo ")
-                        .append(preferences.getInt(PREF_VFS, Integer.parseInt(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH))))
-                        .append(" > ")
-                        .append(VFS_CACHE_PRESSURE_PATH)
-                        .append(" \n");
-            }
-            if (preferences.getBoolean(PREF_MINFREE_BOOT, false)) {
-                sb.append("busybox echo ")
-                        .append(preferences.getString(PREF_MINFREE, Helpers.readOneLine(MINFREE_PATH)))
-                        .append(" > ")
-                        .append(MINFREE_PATH)
-                        .append(" \n");
-            }
-            if (new File(USER_PROC_PATH).exists()) {
+        }
+		if (new File(PFK_HOME_ENABLED).exists() && new File(PFK_MENUBACK_ENABLED).exists()) {
+			if (preferences.getBoolean(PFK_SOB, false)) {
+				sb.append("busybox echo " + preferences.getInt(PREF_HOME_ALLOWED_IRQ, Integer.parseInt(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ)))
+				+ " > " + PFK_HOME_ALLOWED_IRQ + " \n");
+				sb.append("busybox echo " + preferences.getInt(PREF_HOME_REPORT_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_HOME_REPORT_WAIT)))
+				+ " > " + PFK_HOME_REPORT_WAIT + " \n");
+				sb.append("busybox echo " + preferences.getInt(PREF_MENUBACK_INTERRUPT_CHECKS,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_INTERRUPT_CHECKS)))
+				+ " > " + PFK_MENUBACK_INTERRUPT_CHECKS + " \n");
+				sb.append("busybox echo " + preferences.getInt(PREF_MENUBACK_FIRST_ERR_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_FIRST_ERR_WAIT)))
+				+ " > " + PFK_MENUBACK_FIRST_ERR_WAIT + " \n");
+				sb.append("busybox echo " + preferences.getInt(PREF_MENUBACK_LAST_ERR_WAIT,Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_LAST_ERR_WAIT)))
+				+ " > " + PFK_MENUBACK_LAST_ERR_WAIT + " \n");
+				if (preferences.getBoolean(PFK_HOME_ON, false)) {
+					sb.append("busybox echo 1 > " + PFK_HOME_ENABLED + " \n");
+				}
+				else{
+					sb.append("busybox echo 0 > " + PFK_HOME_ENABLED + " \n");
+				}
+				if (preferences.getBoolean(PFK_MENUBACK_ON, false)) {
+					sb.append("busybox echo 1 > " + PFK_MENUBACK_ENABLED + " \n");
+				}
+				else{
+					sb.append("busybox echo 0 > " + PFK_MENUBACK_ENABLED + " \n");
+				}
+			}
+		}
+		boolean isdynamic=false;
+		if (new File(DYNAMIC_DIRTY_WRITEBACK_PATH).exists()) {
+			if (preferences.getBoolean(DYNAMIC_DIRTY_WRITEBACK_SOB, false)) {
+				if (preferences.getBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK, false)) {
+					sb.append("busybox echo 1 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
+					isdynamic=true;
+				}
+				else{
+					sb.append("busybox echo 0 > " + DYNAMIC_DIRTY_WRITEBACK_PATH + " \n");
+				}
+				sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_WRITEBACK_ACTIVE,Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH)))
+				+ " > " + DIRTY_WRITEBACK_ACTIVE_PATH + " \n");
+				sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_WRITEBACK_SUSPEND,Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH)))
+				+ " > " + DIRTY_WRITEBACK_SUSPEND_PATH + " \n");
+			}
+		}			
+		
+		if (preferences.getBoolean(VM_SOB, false)) {
+			sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_RATIO,Integer.parseInt(Helpers.readOneLine(DIRTY_RATIO_PATH)))
+				+ " > " + DIRTY_RATIO_PATH + " \n");
+			sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_BACKGROUND, Integer.parseInt(Helpers.readOneLine(DIRTY_BACKGROUND_PATH)))
+				+ " > " + DIRTY_BACKGROUND_PATH + " \n");
+			sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_EXPIRE, Integer.parseInt(Helpers.readOneLine(DIRTY_EXPIRE_PATH)))
+				+ " > " + DIRTY_EXPIRE_PATH + " \n");
+			if(!isdynamic){
+			sb.append("busybox echo " + preferences.getInt(PREF_DIRTY_WRITEBACK, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_PATH)))
+				+ " > " + DIRTY_WRITEBACK_PATH + " \n");
+			}
+			sb.append("busybox echo " + preferences.getInt(PREF_MIN_FREE_KB, Integer.parseInt(Helpers.readOneLine(MIN_FREE_PATH)))
+				+ " > " + MIN_FREE_PATH + " \n");
+			sb.append("busybox echo " + preferences.getInt(PREF_OVERCOMMIT, Integer.parseInt(Helpers.readOneLine(OVERCOMMIT_PATH)))
+				+ " > " + OVERCOMMIT_PATH + " \n");
+			sb.append("busybox echo " + preferences.getInt(PREF_SWAPPINESS, Integer.parseInt(Helpers.readOneLine(SWAPPINESS_PATH)))
+				+ " > " + SWAPPINESS_PATH + " \n");
+			sb.append("busybox echo " + preferences.getInt(PREF_VFS, Integer.parseInt(Helpers.readOneLine(VFS_CACHE_PRESSURE_PATH)))
+				+ " > " + VFS_CACHE_PRESSURE_PATH + " \n");
+		}
+        if (preferences.getBoolean(PREF_MINFREE_BOOT, false)) {
+                sb.append("busybox echo " + preferences.getString(PREF_MINFREE, Helpers.readOneLine(MINFREE_PATH)) + " > " + MINFREE_PATH + " \n");
+        }
+        if (new File(USER_PROC_PATH).exists()) {
                 if (preferences.getBoolean(USER_PROC_SOB, false)) {
                     if (preferences.getBoolean(PREF_USER_PROC, false)) {
                         sb.append("busybox echo 1 > " + USER_PROC_PATH + " \n");
-                    } else {
+                    }
+                    else{
                         sb.append("busybox echo 0 > " + USER_PROC_PATH + " \n");
                     }
-                    sb.append("busybox echo ")
-                            .append(preferences.getString(PREF_USER_NAMES, Helpers.readOneLine(USER_PROC_NAMES_PATH)))
-                            .append(" > ")
-                            .append(USER_PROC_NAMES_PATH)
-                            .append(" \n");
+                    sb.append("busybox echo " + preferences.getString(PREF_USER_NAMES, Helpers.readOneLine(USER_PROC_NAMES_PATH)) + " > " + USER_PROC_NAMES_PATH + " \n");
                 }
-            }
-            if (new File(SYS_PROC_PATH).exists()) {
+        }
+        if (new File(SYS_PROC_PATH).exists()) {
                 if (preferences.getBoolean(SYS_PROC_SOB, false)) {
                     if (preferences.getBoolean(PREF_SYS_PROC, false)) {
                         sb.append("busybox echo 1 > " + SYS_PROC_PATH + " \n");
-                    } else {
+                    }
+                    else{
                         sb.append("busybox echo 0 > " + SYS_PROC_PATH + " \n");
                     }
-                    sb.append("busybox echo ")
-                            .append(preferences.getString(PREF_SYS_NAMES, Helpers.readOneLine(USER_SYS_NAMES_PATH)))
-                            .append(" > ")
-                            .append(USER_SYS_NAMES_PATH)
-                            .append(" \n");
+                    sb.append("busybox echo " + preferences.getString(PREF_SYS_NAMES, Helpers.readOneLine(USER_SYS_NAMES_PATH)) + " > " + USER_SYS_NAMES_PATH + " \n");
                 }
-            }
-            if (new File(KSM_RUN_PATH).exists()) {
-                if (preferences.getBoolean(KSM_SOB, false)) {
-                    if (preferences.getBoolean(PREF_RUN_KSM, false)) {
-                        sb.append("busybox echo 1 > " + KSM_RUN_PATH + " \n");
-                    } else {
-                        sb.append("busybox echo 0 > " + KSM_RUN_PATH + " \n");
-                    }
-                    sb.append("busybox echo ")
-                            .append(preferences.getString("pref_ksm_pagetoscan", Helpers.readOneLine(KSM_PAGESTOSCAN_PATH)))
-                            .append(" > ")
-                            .append(KSM_PAGESTOSCAN_PATH)
-                            .append(" \n");
-                    sb.append("busybox echo ")
-                            .append(preferences.getString("pref_ksm_sleep", Helpers.readOneLine(KSM_SLEEP_PATH)))
-                            .append(" > ")
-                            .append(KSM_SLEEP_PATH)
-                            .append(" \n");
-                }
-            }
-            sb.append(preferences.getString(PREF_SH, "# no custom shell command"))
-                    .append("\n");
-
-            Helpers.shExec(sb);
-            return null;
         }
+        if (new File(KSM_RUN_PATH).exists()) {
+            if (preferences.getBoolean(KSM_SOB, false)) {
+                if (preferences.getBoolean(PREF_RUN_KSM, false)) {
+                    sb.append("busybox echo 1 > " + KSM_RUN_PATH + " \n");
+                }
+                else{
+                    sb.append("busybox echo 0 > " + KSM_RUN_PATH + " \n");
+                }
+                sb.append("busybox echo " + preferences.getString("pref_ksm_pagetoscan", Helpers.readOneLine(KSM_PAGESTOSCAN_PATH)) + " > " + KSM_PAGESTOSCAN_PATH + " \n");
+                sb.append("busybox echo " + preferences.getString("pref_ksm_sleep", Helpers.readOneLine(KSM_SLEEP_PATH)) + " > " + KSM_SLEEP_PATH + " \n");
+            }
+        }
+        sb.append(preferences.getString(PREF_SH,"# no custom shell command")+"\n");
 
-        @Override
-        protected void onPostExecute(Void result) {
+		Helpers.shExec(sb);
+		return null;
+        }
+    	@Override
+    	protected void onPostExecute(Void result) {
             Helpers.updateAppWidget(c);
             super.onPostExecute(result);
             servicesStarted = true;
             stopSelf();
         }
+	}
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

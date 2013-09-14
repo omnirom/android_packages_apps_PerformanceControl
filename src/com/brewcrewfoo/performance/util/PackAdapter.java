@@ -3,6 +3,7 @@ package com.brewcrewfoo.performance.util;
 /**
  * Created by h0rn3t on 17.07.2013.
  */
+import java.util.List;
 
 import android.app.Activity;
 import android.content.pm.PackageInfo;
@@ -23,11 +24,11 @@ public class PackAdapter extends BaseAdapter {
     String pList[];
 
 
-    public PackAdapter(Activity context, String pmList[], PackageManager packageManager) {
+    public PackAdapter(Activity context,String pmList[], PackageManager packageManager) {
         super();
         this.context = context;
         this.packageManager = packageManager;
-        this.pList = pmList;
+        this.pList=pmList;
     }
 
     private class ViewHolder {
@@ -62,7 +63,8 @@ public class PackAdapter extends BaseAdapter {
             holder.imageView = (ImageView) convertView.findViewById(R.id.icon);
 
             convertView.setTag(holder);
-        } else {
+        }
+        else {
             holder = (ViewHolder) convertView.getTag();
         }
 

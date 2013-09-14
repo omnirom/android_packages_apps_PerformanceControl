@@ -20,22 +20,17 @@
 package com.brewcrewfoo.performance.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CPUStateMonitor;
@@ -51,7 +46,7 @@ import java.util.Map;
 
 public class TimeInState extends Fragment implements Constants {
 
-    private static final int NEW_MENU_ID = Menu.FIRST + 1;
+    private static final int NEW_MENU_ID=Menu.FIRST+1;
     private LinearLayout mStatesView;
     private TextView mAdditionalStates;
     private TextView mTotalStateTime;
@@ -112,15 +107,16 @@ public class TimeInState extends Fragment implements Constants {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Helpers.removeCurItem(item, Menu.FIRST + 1, (ViewPager) getView().getParent());
-        switch (item.getItemId()) {
+        Helpers.removeCurItem(item,Menu.FIRST+1,(ViewPager) getView().getParent());
+        switch (item.getItemId()){
             case R.id.refresh:
                 refreshData();
                 break;
             case R.id.reset:
                 try {
                     monitor.setOffsets();
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     // not good
                 }
                 saveOffsets();
@@ -178,7 +174,8 @@ public class TimeInState extends Fragment implements Constants {
             mAdditionalStates.setVisibility(View.VISIBLE);
             mHeaderAdditionalStates.setVisibility(View.VISIBLE);
             mAdditionalStates.setText(str);
-        } else {
+        }
+        else {
             mAdditionalStates.setVisibility(View.GONE);
             mHeaderAdditionalStates.setVisibility(View.GONE);
         }
@@ -208,7 +205,7 @@ public class TimeInState extends Fragment implements Constants {
 
     private View generateStateRow(CpuState state, ViewGroup parent) {
 
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        LayoutInflater inflater = LayoutInflater.from((Context) getActivity());
         LinearLayout view = (LinearLayout) inflater.inflate(R.layout.state_row, parent, false);
 
         float per = (float) state.duration * 100 / monitor.getTotalStateTime();
@@ -217,7 +214,8 @@ public class TimeInState extends Fragment implements Constants {
         String sFreq;
         if (state.freq == 0) {
             sFreq = getString(R.string.deep_sleep);
-        } else {
+        }
+        else {
             sFreq = state.freq / 1000 + " MHz";
         }
 
@@ -243,7 +241,8 @@ public class TimeInState extends Fragment implements Constants {
         protected Void doInBackground(Void... v) {
             try {
                 monitor.updateStates();
-            } catch (CPUStateMonitorException e) {
+            }
+            catch (CPUStateMonitorException e) {
             }
             return null;
         }

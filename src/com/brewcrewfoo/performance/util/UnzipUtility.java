@@ -16,18 +16,16 @@ public class UnzipUtility implements Constants {
 
     public void unzipall(String zipFilePath, String destDirectory) throws IOException {
         File destDir = new File(destDirectory);
-        if (!destDir.exists()) {
-            destDir.mkdir();
-        }
+        if (!destDir.exists()) {destDir.mkdir();}
 
         ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFilePath));
         ZipEntry entry = zipIn.getNextEntry();
         while (entry != null) {
             if (!entry.isDirectory()) {
-                File dir = new File(destDirectory, entry.getName());
-                if (!dir.getParentFile().exists())
+                File dir=new File(destDirectory,entry.getName());
+                if(!dir.getParentFile().exists())
                     dir.getParentFile().mkdirs();
-                extractFile(zipIn, destDirectory + "/" + entry.getName());
+                extractFile(zipIn, destDirectory+"/"+entry.getName());
             }
 
             zipIn.closeEntry();
@@ -35,21 +33,18 @@ public class UnzipUtility implements Constants {
         }
         zipIn.close();
     }
-
-    public void unzipfile(String zipFilePath, String destDirectory, String f) throws IOException {
+    public void unzipfile(String zipFilePath, String destDirectory,String f) throws IOException {
         File destDir = new File(destDirectory);
-        if (!destDir.exists()) {
-            destDir.mkdir();
-        }
+        if (!destDir.exists()) {destDir.mkdir();}
 
         ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFilePath));
         ZipEntry entry = zipIn.getNextEntry();
         while (entry != null) {
             if (!entry.isDirectory() && entry.getName().contains(f)) {
-                File dir = new File(destDirectory, entry.getName());
-                if (!dir.getParentFile().exists())
+                File dir=new File(destDirectory,entry.getName());
+                if(!dir.getParentFile().exists())
                     dir.getParentFile().mkdirs();
-                extractFile(zipIn, destDirectory + "/" + entry.getName());
+                extractFile(zipIn, destDirectory+"/"+entry.getName());
                 zipIn.closeEntry();
                 break;
             }
@@ -58,7 +53,6 @@ public class UnzipUtility implements Constants {
         }
         zipIn.close();
     }
-
     private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
         byte[] bytesIn = new byte[BUFFER_SIZE];
@@ -69,20 +63,15 @@ public class UnzipUtility implements Constants {
         bos.close();
     }
 
-    public Boolean testZip(String zipFilePath, String tip) throws IOException {
+    public Boolean testZip(String zipFilePath,String tip) throws IOException {
         ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFilePath));
         ZipEntry entry = zipIn.getNextEntry();
-        String f = "recovery.img";
-        if (tip.equalsIgnoreCase("kernel")) {
-            f = "boot.img";
-        }
-        boolean gasit = false;
+        String f="recovery.img";
+        if(tip.equalsIgnoreCase("kernel")){ f="boot.img";}
+        boolean gasit=false;
         while (entry != null) {
             if (!entry.isDirectory()) {
-                if (entry.getName().contains(f)) {
-                    gasit = true;
-                    break;
-                }
+                if(entry.getName().contains(f)){gasit=true;break;}
             }
             zipIn.closeEntry();
             entry = zipIn.getNextEntry();

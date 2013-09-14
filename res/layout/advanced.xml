@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 Performance Control - An Android CPU Control application
 Copyright (C) 2012  James Roberts
 
@@ -17,185 +18,172 @@ Copyright (C) 2012  James Roberts
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
 
     <PreferenceCategory
-        android:key="category_read_ahead"
-        android:title="@string/prefcat_read_ahead">
+            android:key="category_read_ahead"
+            android:title="@string/prefcat_read_ahead">
 
         <ListPreference
-            android:dialogTitle="@string/dt_read_ahead"
-            android:entries="@array/read_ahead"
-            android:entryValues="@array/read_ahead_values"
-            android:key="pref_read_ahead"
-            android:persistent="true"
-            android:title="@string/pt_read_ahead" />
+                android:dialogTitle="@string/dt_read_ahead"
+                android:entries="@array/read_ahead"
+                android:entryValues="@array/read_ahead_values"
+                android:key="pref_read_ahead"
+                android:persistent="true"
+                android:title="@string/pt_read_ahead"/>
 
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_read_ahead_boot"
-            android:summary="@string/ps_blx_boot"
-            android:title="@string/sob" />
+                android:defaultValue="false"
+                android:key="pref_read_ahead_boot"
+                android:summary="@string/ps_blx_boot"
+                android:title="@string/sob"/>
     </PreferenceCategory>
 
-    <!-- Dynamic Fsync -->
+<!-- Dynamic Fsync -->
     <PreferenceCategory
-        android:key="dsync"
-        android:title="@string/prefcat_dsync">
-
+            android:key="dsync"
+            android:title="@string/prefcat_dsync">
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_dsync"
-            android:summary="@string/ps_dsync"
-            android:title="@string/pt_dsync" />
+                android:defaultValue="false"
+                android:key="pref_dsync"
+                android:summary="@string/ps_dsync"
+                android:title="@string/pt_dsync"/>
     </PreferenceCategory>
-    <!-- BL timeout -->
+<!-- BL timeout -->
     <PreferenceCategory
-        android:key="bltimeout"
-        android:title="@string/prefcat_bltimeout">
-
+            android:key="bltimeout"
+            android:title="@string/prefcat_bltimeout">
         <Preference
-            android:key="pref_bltimeout"
-            android:title="@string/bltimeout_title" />
-
+                android:key="pref_bltimeout"
+                android:title="@string/bltimeout_title"/>
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="bltimeout_sob"
-            android:summary="@string/ps_blx_boot"
-            android:title="@string/sob" />
+                android:defaultValue="false"
+                android:key="bltimeout_sob"
+                android:summary="@string/ps_blx_boot"
+                android:title="@string/sob"/>
     </PreferenceCategory>
-    <!-- BL touch -->
+<!-- BL touch -->
     <PreferenceCategory
-        android:key="bltouch"
-        android:title="@string/prefcat_bltouch">
-
+            android:key="bltouch"
+            android:title="@string/prefcat_bltouch">
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_bltouch"
-            android:summary="@string/ps_dsync"
-            android:title="@string/pt_bltouch" />
-    </PreferenceCategory>
+                android:defaultValue="false"
+                android:key="pref_bltouch"
+                android:summary="@string/ps_dsync"
+                android:title="@string/pt_bltouch"/>
+  </PreferenceCategory>
     <!-- BLN -->
     <PreferenceCategory
-        android:key="bln"
-        android:title="@string/prefcat_bln">
-
+            android:key="bln"
+            android:title="@string/prefcat_bln">
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_bln"
-            android:summary="@string/ps_dsync"
-            android:title="@string/pt_bln" />
+                android:defaultValue="false"
+                android:key="pref_bln"
+                android:summary="@string/ps_dsync"
+                android:title="@string/pt_bln"/>
     </PreferenceCategory>
     <!-- PFK -->
     <PreferenceCategory
-        android:key="pfk"
-        android:title="@string/prefcat_pfk">
+            android:key="pfk"
+            android:title="@string/prefcat_pfk">
 
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pfk_home_on"
-            android:summary="@string/ps_home_enabled"
-            android:title="@string/pt_home_enabled" />
+                android:defaultValue="false"
+                android:key="pfk_home_on"
+                android:summary="@string/ps_home_enabled"
+                android:title="@string/pt_home_enabled"/>
 
         <Preference
-            android:key="pref_home_allowed_irq"
-            android:title="@string/home_allowed_irq_title" />
-
+                android:key="pref_home_allowed_irq"
+                android:title="@string/home_allowed_irq_title"/>
         <Preference
-            android:key="pref_home_report_wait"
-            android:title="@string/home_report_wait_title" />
-
+                android:key="pref_home_report_wait"
+                android:title="@string/home_report_wait_title"/>    
+	
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pfk_menuback_on"
-            android:summary="@string/ps_menuback_enabled"
-            android:title="@string/pt_menuback_enabled" />
-
+                android:defaultValue="false"
+                android:key="pfk_menuback_on"
+                android:summary="@string/ps_menuback_enabled"
+                android:title="@string/pt_menuback_enabled"/>
         <Preference
-            android:key="pref_menuback_interrupt_checks"
-            android:title="@string/menuback_interrupt_checks_title" />
-
+                android:key="pref_menuback_interrupt_checks"
+                android:title="@string/menuback_interrupt_checks_title"/>
         <Preference
-            android:key="pref_menuback_first_err_wait"
-            android:title="@string/menuback_first_err_wait_title" />
-
+                android:key="pref_menuback_first_err_wait"
+                android:title="@string/menuback_first_err_wait_title"/>
         <Preference
-            android:key="pref_menuback_last_err_wait"
-            android:title="@string/menuback_last_err_wait_title" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pfk_sob"
-            android:summary="@string/ps_pfk_set_on_boot"
-            android:title="@string/sob" />
+                android:key="pref_menuback_last_err_wait"
+                android:title="@string/menuback_last_err_wait_title"/>	
+	 <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="pfk_sob"
+                android:summary="@string/ps_pfk_set_on_boot"
+                android:title="@string/sob"/>	
     </PreferenceCategory>
-    <!-- Dynamic write back-->
+<!-- Dynamic write back-->
     <PreferenceCategory
-        android:key="cat_dynamic_write_back"
-        android:title="@string/dynamic_write_back_title">
+            android:key="cat_dynamic_write_back"
+            android:title="@string/dynamic_write_back_title">
 
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_dynamic_dirty_writeback"
-            android:title="@string/pt_dynamic_write_back" />
-
+                android:defaultValue="false"
+                android:key="pref_dynamic_dirty_writeback"
+                android:title="@string/pt_dynamic_write_back"/>
         <Preference
-            android:key="pref_dynamic_writeback_active"
-            android:title="@string/dynamic_writeback_active_title" />
-
+                android:key="pref_dynamic_writeback_active"
+                android:title="@string/dynamic_writeback_active_title"/>
         <Preference
-            android:key="pref_dynamic_writeback_suspend"
-            android:title="@string/dynamic_writeback_suspend_title" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="dynamic_write_back_sob"
-            android:summary="@string/ps_blx_boot"
-            android:title="@string/sob" />
+                android:key="pref_dynamic_writeback_suspend"
+                android:title="@string/dynamic_writeback_suspend_title"/>    
+	 <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="dynamic_write_back_sob"
+                android:summary="@string/ps_blx_boot"
+                android:title="@string/sob"/>	
     </PreferenceCategory>
-    <!-- -->
+<!-- -->
     <PreferenceCategory
-        android:key="vm_settings"
-        android:title="@string/prefcat_vm_settings">
+            android:key="vm_settings"
+            android:title="@string/prefcat_vm_settings">
 
         <Preference
-            android:key="pref_dirty_ratio"
-            android:title="@string/dirty_ratio_title" />
+                android:key="pref_dirty_ratio"
+                android:title="@string/dirty_ratio_title"/>
 
         <Preference
-            android:key="pref_dirty_background"
-            android:title="@string/dirty_background_title" />
+                android:key="pref_dirty_background"
+                android:title="@string/dirty_background_title"/>
 
         <Preference
-            android:key="pref_dirty_expire"
-            android:title="@string/dirty_expire_title" />
+                android:key="pref_dirty_expire"
+                android:title="@string/dirty_expire_title"/>
 
         <Preference
-            android:key="pref_dirty_writeback"
-            android:title="@string/dirty_writeback_title" />
+                android:key="pref_dirty_writeback"
+                android:title="@string/dirty_writeback_title"/>
 
         <Preference
-            android:key="pref_min_free_kb"
-            android:title="@string/min_free_title" />
+                android:key="pref_min_free_kb"
+                android:title="@string/min_free_title"/>
 
         <Preference
-            android:key="pref_overcommit"
-            android:title="@string/overcommit_title" />
+                android:key="pref_overcommit"
+                android:title="@string/overcommit_title"/>
 
         <Preference
-            android:key="pref_swappiness"
-            android:title="@string/swappiness_title" />
+                android:key="pref_swappiness"
+                android:title="@string/swappiness_title"/>
 
         <Preference
-            android:key="pref_vfs"
-            android:title="@string/vfs_title" />
+                android:key="pref_vfs"
+                android:title="@string/vfs_title"/>
 
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="vm_sob"
-            android:summary="@string/ps_vm_set_on_boot"
-            android:title="@string/sob" />
+                android:defaultValue="false"
+                android:key="vm_sob"
+                android:summary="@string/ps_vm_set_on_boot"
+                android:title="@string/sob"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -2,18 +2,19 @@
 
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingRight="10dp"
-    android:paddingLeft="10dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+        >
 
-        <RelativeLayout
+    <RelativeLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -22,7 +23,7 @@
             android:clickable="true"
             android:visibility="gone">
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/systemname"
@@ -31,17 +32,18 @@
                 android:textSize="18dip"
                 android:textStyle="bold"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                />
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/systemtotal"
                 android:layout_gravity="right"
                 android:textStyle="bold"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"/>
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/systemused"
@@ -49,9 +51,9 @@
                 android:layout_below="@+id/systemname"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="false"
-                android:layout_marginTop="6dip" />
+                android:layout_marginTop="6dip"/>
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/systemfree"
@@ -60,9 +62,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
-                android:layout_marginTop="6dip" />
+                android:layout_marginTop="6dip"/>
 
-            <ProgressBar
+        <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -74,10 +76,10 @@
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
                 android:layout_below="@+id/systemfree"
-                android:layout_marginTop="10dip" />
-        </RelativeLayout>
+                android:layout_marginTop="10dip"/>
+    </RelativeLayout>
 
-        <RelativeLayout
+    <RelativeLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -86,7 +88,7 @@
             android:clickable="true"
             android:visibility="gone">
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/dataname"
@@ -95,17 +97,18 @@
                 android:textSize="18dip"
                 android:textStyle="bold"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                />
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/datatotal"
                 android:layout_gravity="right"
                 android:textStyle="bold"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"/>
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/dataused"
@@ -113,9 +116,9 @@
                 android:layout_below="@+id/dataname"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="false"
-                android:layout_marginTop="6dip" />
+                android:layout_marginTop="6dip"/>
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/datafree"
@@ -124,9 +127,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
-                android:layout_marginTop="6dip" />
+                android:layout_marginTop="6dip"/>
 
-            <ProgressBar
+        <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -138,10 +141,9 @@
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
                 android:layout_below="@+id/datafree"
-                android:layout_marginTop="10dip" />
-        </RelativeLayout>
-
-        <RelativeLayout
+                android:layout_marginTop="10dip"/>
+    </RelativeLayout>
+    <RelativeLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -150,7 +152,7 @@
             android:clickable="true"
             android:visibility="gone">
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cachename"
@@ -159,17 +161,18 @@
                 android:textSize="18dip"
                 android:textStyle="bold"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                />
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cachetotal"
                 android:layout_gravity="right"
                 android:textStyle="bold"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"/>
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cacheused"
@@ -177,9 +180,9 @@
                 android:layout_below="@+id/cachename"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="false"
-                android:layout_marginTop="6dip" />
+                android:layout_marginTop="6dip"/>
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cachefree"
@@ -188,9 +191,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
-                android:layout_marginTop="6dip" />
+                android:layout_marginTop="6dip"/>
 
-            <ProgressBar
+        <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -202,10 +205,9 @@
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
                 android:layout_below="@+id/cachefree"
-                android:layout_marginTop="10dip" />
-        </RelativeLayout>
-
-        <RelativeLayout
+                android:layout_marginTop="10dip"/>
+    </RelativeLayout>
+    <RelativeLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -214,7 +216,7 @@
             android:clickable="true"
             android:visibility="gone">
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sd1name"
@@ -223,17 +225,18 @@
                 android:textSize="18dip"
                 android:textStyle="bold"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                />
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sd1total"
                 android:layout_gravity="right"
                 android:textStyle="bold"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"/>
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sd1used"
@@ -241,9 +244,9 @@
                 android:layout_below="@+id/sd1name"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="false"
-                android:layout_marginTop="6dip" />
+                android:layout_marginTop="6dip"/>
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sd1free"
@@ -252,9 +255,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
-                android:layout_marginTop="6dip" />
+                android:layout_marginTop="6dip"/>
 
-            <ProgressBar
+        <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -266,10 +269,9 @@
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
                 android:layout_below="@+id/sd1free"
-                android:layout_marginTop="10dip" />
-        </RelativeLayout>
-
-        <RelativeLayout
+                android:layout_marginTop="10dip"/>
+    </RelativeLayout>
+    <RelativeLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -278,7 +280,7 @@
             android:clickable="true"
             android:visibility="gone">
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sd2name"
@@ -287,17 +289,18 @@
                 android:textSize="18dip"
                 android:textStyle="bold"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                />
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sd2total"
                 android:layout_gravity="right"
                 android:textStyle="bold"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"/>
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sd2used"
@@ -305,9 +308,9 @@
                 android:layout_below="@+id/sd2name"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="false"
-                android:layout_marginTop="6dip" />
+                android:layout_marginTop="6dip"/>
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/sd2free"
@@ -316,9 +319,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
-                android:layout_marginTop="6dip" />
+                android:layout_marginTop="6dip"/>
 
-            <ProgressBar
+        <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -330,7 +333,7 @@
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
                 android:layout_below="@+id/sd2free"
-                android:layout_marginTop="10dip" />
-        </RelativeLayout>
-    </LinearLayout>
+                android:layout_marginTop="10dip"/>
+    </RelativeLayout>
+</LinearLayout>
 </ScrollView>

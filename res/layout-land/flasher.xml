@@ -1,50 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Created by h0rn3t on 21.07.2013.-->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created by h0rn3t on 21.07.2013.-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:baselineAligned="false"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:baselineAligned="false"
     android:weightSum="100">
-
     <LinearLayout
-        android:id="@+id/device"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_weight="55">
-
-        <TextView
-            android:id="@+id/model"
-            android:layout_width="wrap_content"
+            android:id="@+id/device"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="54sp"
-            android:layout_marginTop="20dp" />
-
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_weight="55">
         <TextView
-            android:id="@+id/board"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="40sp"
-            android:layout_marginTop="5dp" />
-
+                android:id="@+id/model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="54sp"
+                android:layout_marginTop="20dp"/>
         <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:layout_marginTop="10dp" />
+                android:id="@+id/board"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="40sp"
+                android:layout_marginTop="5dp"/>
+        <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:layout_marginTop="10dp"/>
     </LinearLayout>
-
     <LinearLayout
-        android:id="@+id/file"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_weight="45">
-
-        <TextView
+            android:id="@+id/file"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_weight="45">
+    <TextView
             android:id="@+id/flashinfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,14 +49,14 @@
             android:layout_marginTop="10dp"
             android:textAlignment="center"
             android:gravity="center_horizontal"
-            android:textSize="16dp" />
+            android:textSize="16dp"/>
 
-        <Button
+    <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_choose"
             android:id="@+id/chooseBtn"
-            android:layout_gravity="center_horizontal|bottom" />
+            android:layout_gravity="center_horizontal|bottom"/>
     </LinearLayout>
 
 </LinearLayout>

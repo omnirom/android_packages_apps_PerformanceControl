@@ -33,27 +33,19 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.fragments.Advanced;
-import com.brewcrewfoo.performance.fragments.BatteryInfo;
-import com.brewcrewfoo.performance.fragments.CPUInfo;
-import com.brewcrewfoo.performance.fragments.CPUSettings;
-import com.brewcrewfoo.performance.fragments.DiskInfo;
-import com.brewcrewfoo.performance.fragments.OOMSettings;
-import com.brewcrewfoo.performance.fragments.TimeInState;
-import com.brewcrewfoo.performance.fragments.Tools;
-import com.brewcrewfoo.performance.fragments.VoltageControlSettings;
+import com.brewcrewfoo.performance.fragments.*;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
-public class MainActivity extends Activity implements Constants, ActivityThemeChangeInterface {
+public class MainActivity extends Activity implements Constants,ActivityThemeChangeInterface {
 
-    private static boolean mVoltageExists;
     SharedPreferences mPreferences;
     PagerTabStrip mPagerTabStrip;
     ViewPager mViewPager;
+
+    private static boolean mVoltageExists;
     private boolean mIsLightTheme;
 
     @Override
@@ -77,6 +69,74 @@ public class MainActivity extends Activity implements Constants, ActivityThemeCh
         checkForSu();
     }
 
+    class TitleAdapter extends FragmentPagerAdapter {
+        String titles[] = getTitles();
+        private Fragment frags[] = new Fragment[titles.length];
+
+        public TitleAdapter(FragmentManager fm) {
+            super(fm);
+            if (mVoltageExists) {
+            	if(Helpers.showBattery()){
+	                frags[0] = new CPUSettings();
+		            frags[1] = new BatteryInfo();
+		            frags[2] = new OOMSettings();
+	                frags[3] = new VoltageControlSettings();
+	                frags[4] = new Advanced();
+	                frags[5] = new TimeInState();
+	                frags[6] = new CPUInfo();
+                    frags[7] = new DiskInfo();
+                    frags[8] = new Tools();
+            	}
+            	else{
+			        frags[0] = new CPUSettings();
+	        	    frags[1] = new OOMSettings();
+                	frags[2] = new VoltageControlSettings();
+                	frags[3] = new Advanced();
+                	frags[4] = new TimeInState();
+                	frags[5] = new CPUInfo();
+                    frags[6] = new DiskInfo();
+                    frags[7] = new Tools();
+            	}
+            } 
+            else {
+                if(Helpers.showBattery()){
+                    frags[0] = new CPUSettings();
+                    frags[1] = new BatteryInfo();
+                    frags[2] = new OOMSettings();
+                    frags[3] = new Advanced();
+                    frags[4] = new TimeInState();
+                    frags[5] = new CPUInfo();
+                    frags[6] = new DiskInfo();
+                    frags[7] = new Tools();
+                }
+                else{
+                    frags[0] = new CPUSettings();
+                    frags[1] = new OOMSettings();
+                    frags[2] = new Advanced();
+                    frags[3] = new TimeInState();
+                    frags[4] = new CPUInfo();
+                    frags[5] = new DiskInfo();
+                    frags[6] = new Tools();
+                }
+            }
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return frags[position];
+        }
+
+        @Override
+        public int getCount() {
+            return frags.length;
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -98,9 +158,10 @@ public class MainActivity extends Activity implements Constants, ActivityThemeCh
         PackageManager pm = getPackageManager();
         boolean rcInstalled = false;
         try {
-            pm.getPackageInfo("com.aokp.romcontrol", PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo("com.aokp.romcontrol",PackageManager.GET_ACTIVITIES);
             rcInstalled = true;
-        } catch (PackageManager.NameNotFoundException e) {
+        }
+        catch (PackageManager.NameNotFoundException e) {
             rcInstalled = false;
         }
 
@@ -111,7 +172,8 @@ public class MainActivity extends Activity implements Constants, ActivityThemeCh
             e.commit();
             if (rcInstalled) {
                 Helpers.checkSu();
-            } else {
+            }
+            else {
                 launchFirstRunDialog();
             }
         }
@@ -133,7 +195,7 @@ public class MainActivity extends Activity implements Constants, ActivityThemeCh
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(DialogInterface dialog,int which) {
                                 String message = getString(R.string.su_cancel_message);
                                 SharedPreferences.Editor e = mPreferences.edit();
                                 e.putBoolean("rootcanceled", true);
@@ -196,7 +258,7 @@ public class MainActivity extends Activity implements Constants, ActivityThemeCh
     private String[] getTitles() {
         String titleString[];
         if (mVoltageExists) {
-            if (Helpers.showBattery()) {
+        	if(Helpers.showBattery()){
                 titleString = new String[]{
                         getString(R.string.t_cpu_settings),
                         getString(R.string.t_battery_info),
@@ -207,29 +269,32 @@ public class MainActivity extends Activity implements Constants, ActivityThemeCh
                         getString(R.string.t_cpu_info),
                         getString(R.string.t_disk_info),
                         getString(R.string.t_tools)};
-            } else {
+                }
+                else{
+                    titleString = new String[]{
+                            getString(R.string.t_cpu_settings),
+                            getString(R.string.t_oom_settings),
+                            getString(R.string.t_volt_settings),
+                            getString(R.string.t_adv_settings),
+                            getString(R.string.t_time_in_state),
+                            getString(R.string.t_cpu_info),
+                            getString(R.string.t_disk_info),
+                            getString(R.string.t_tools)};
+                }
+        } 
+        else {
+        	if(Helpers.showBattery()){
                 titleString = new String[]{
                         getString(R.string.t_cpu_settings),
+                        getString(R.string.t_battery_info),
                         getString(R.string.t_oom_settings),
-                        getString(R.string.t_volt_settings),
                         getString(R.string.t_adv_settings),
                         getString(R.string.t_time_in_state),
                         getString(R.string.t_cpu_info),
                         getString(R.string.t_disk_info),
                         getString(R.string.t_tools)};
             }
-        } else {
-            if (Helpers.showBattery()) {
-                titleString = new String[]{
-                        getString(R.string.t_cpu_settings),
-                        getString(R.string.t_battery_info),
-                        getString(R.string.t_oom_settings),
-                        getString(R.string.t_adv_settings),
-                        getString(R.string.t_time_in_state),
-                        getString(R.string.t_cpu_info),
-                        getString(R.string.t_disk_info),
-                        getString(R.string.t_tools)};
-            } else {
+        	else{
                 titleString = new String[]{
                         getString(R.string.t_cpu_settings),
                         getString(R.string.t_oom_settings),
@@ -254,71 +319,6 @@ public class MainActivity extends Activity implements Constants, ActivityThemeCh
         final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
         mIsLightTheme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
         setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
-    }
-
-    class TitleAdapter extends FragmentPagerAdapter {
-        String titles[] = getTitles();
-        private Fragment frags[] = new Fragment[titles.length];
-
-        public TitleAdapter(FragmentManager fm) {
-            super(fm);
-            if (mVoltageExists) {
-                if (Helpers.showBattery()) {
-                    frags[0] = new CPUSettings();
-                    frags[1] = new BatteryInfo();
-                    frags[2] = new OOMSettings();
-                    frags[3] = new VoltageControlSettings();
-                    frags[4] = new Advanced();
-                    frags[5] = new TimeInState();
-                    frags[6] = new CPUInfo();
-                    frags[7] = new DiskInfo();
-                    frags[8] = new Tools();
-                } else {
-                    frags[0] = new CPUSettings();
-                    frags[1] = new OOMSettings();
-                    frags[2] = new VoltageControlSettings();
-                    frags[3] = new Advanced();
-                    frags[4] = new TimeInState();
-                    frags[5] = new CPUInfo();
-                    frags[6] = new DiskInfo();
-                    frags[7] = new Tools();
-                }
-            } else {
-                if (Helpers.showBattery()) {
-                    frags[0] = new CPUSettings();
-                    frags[1] = new BatteryInfo();
-                    frags[2] = new OOMSettings();
-                    frags[3] = new Advanced();
-                    frags[4] = new TimeInState();
-                    frags[5] = new CPUInfo();
-                    frags[6] = new DiskInfo();
-                    frags[7] = new Tools();
-                } else {
-                    frags[0] = new CPUSettings();
-                    frags[1] = new OOMSettings();
-                    frags[2] = new Advanced();
-                    frags[3] = new TimeInState();
-                    frags[4] = new CPUInfo();
-                    frags[5] = new DiskInfo();
-                    frags[6] = new Tools();
-                }
-            }
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles[position];
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return frags[position];
-        }
-
-        @Override
-        public int getCount() {
-            return frags.length;
-        }
     }
 }
 

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 Performance Control - An Android CPU Control application
 Copyright (C) 2012  James Roberts
 
@@ -17,130 +18,110 @@ Copyright (C) 2012  James Roberts
 -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
 
     <PreferenceCategory
-        android:key="oom"
-        android:title="@string/prefcat_oom">
-
+            android:key="oom"
+            android:title="@string/prefcat_oom">
         <Preference
-            android:key="oom_foreground_app"
-            android:title="@string/title_foreground_app" />
-
+                android:key="oom_foreground_app"
+                android:title="@string/title_foreground_app"/>
         <Preference
-            android:key="oom_visible_app"
-            android:title="@string/title_visible_app" />
-
+                android:key="oom_visible_app"
+                android:title="@string/title_visible_app"/>
         <Preference
-            android:key="oom_secondary_server"
-            android:title="@string/title_secondary_server" />
-
+                android:key="oom_secondary_server"
+                android:title="@string/title_secondary_server"/>
         <Preference
-            android:key="oom_hidden_app"
-            android:title="@string/title_hidden_app" />
-
+                android:key="oom_hidden_app"
+                android:title="@string/title_hidden_app"/>
         <Preference
-            android:key="oom_content_providers"
-            android:title="@string/title_content_providers" />
-
+                android:key="oom_content_providers"
+                android:title="@string/title_content_providers"/>
         <Preference
-            android:key="oom_empty_app"
-            android:title="@string/title_empty_app" />
-
+                android:key="oom_empty_app"
+                android:title="@string/title_empty_app"/>
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_minfree_boot"
-            android:summary="@string/ps_blx_boot"
-            android:title="@string/sob" />
+                android:defaultValue="false"
+                android:key="pref_minfree_boot"
+                android:summary="@string/ps_blx_boot"
+                android:title="@string/sob"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:key="oom_predefines"
+            android:title="@string/prefcat_oom_predefines">
+  		<Preference
+                android:key="oom_verylight"
+                android:title="@string/pt_verylight"/>
+			<Preference
+                android:key="oom_light"
+                android:title="@string/pt_light"/>
+			<Preference
+                android:key="oom_medium"
+                android:title="@string/pt_medium"/>
+			<Preference
+                android:key="oom_aggressive"
+                android:title="@string/pt_aggressive"/>
+			<Preference
+                android:key="oom_veryaggressive"
+                android:title="@string/pt_veryaggressive"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="oom_predefines"
-        android:title="@string/prefcat_oom_predefines">
-
+            android:key="notkill_user_proc"
+            android:title="@string/prefcat_user_proc">
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="pref_user_proc"
+                android:title="@string/pt_user_proc"/>
         <Preference
-            android:key="oom_verylight"
-            android:title="@string/pt_verylight" />
-
-        <Preference
-            android:key="oom_light"
-            android:title="@string/pt_light" />
-
-        <Preference
-            android:key="oom_medium"
-            android:title="@string/pt_medium" />
-
-        <Preference
-            android:key="oom_aggressive"
-            android:title="@string/pt_aggressive" />
-
-        <Preference
-            android:key="oom_veryaggressive"
-            android:title="@string/pt_veryaggressive" />
+                android:key="pref_user_names_proc"
+                android:summary="@string/ps_user_proc"
+                android:title="@string/pt_user_names_proc"/>
+        <CheckBoxPreference
+                android:defaultValue="false"
+                android:key="user_proc_boot"
+                android:summary="@string/ps_restore_boot"
+                android:title="@string/sob"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="notkill_user_proc"
-        android:title="@string/prefcat_user_proc">
-
+            android:key="notkill_sys_proc"
+            android:title="@string/prefcat_sys_proc">
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_user_proc"
-            android:title="@string/pt_user_proc" />
-
+                android:defaultValue="false"
+                android:key="pref_sys_proc"
+                android:title="@string/pt_sys_proc"/>
         <Preference
-            android:key="pref_user_names_proc"
-            android:summary="@string/ps_user_proc"
-            android:title="@string/pt_user_names_proc" />
+                android:key="pref_sys_names_proc"
+                android:summary="@string/ps_sys_proc"
+                android:title="@string/pt_sys_names_proc"/>
 
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="user_proc_boot"
-            android:summary="@string/ps_restore_boot"
-            android:title="@string/sob" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="notkill_sys_proc"
-        android:title="@string/prefcat_sys_proc">
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_sys_proc"
-            android:title="@string/pt_sys_proc" />
-
-        <Preference
-            android:key="pref_sys_names_proc"
-            android:summary="@string/ps_sys_proc"
-            android:title="@string/pt_sys_names_proc" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="sys_proc_boot"
-            android:summary="@string/ps_restore_boot"
-            android:title="@string/sob" />
+                android:defaultValue="false"
+                android:key="sys_proc_boot"
+                android:summary="@string/ps_restore_boot"
+                android:title="@string/sob"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:key="ksm"
         android:title="@string/prefcat_ksm">
-
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="pref_run_ksm"
-            android:title="@string/pt_run_ksm" />
-
+            android:title="@string/pt_run_ksm"/>
         <Preference
             android:key="ksm_settings"
-            android:title="@string/ksm_adv_title" />
+            android:title="@string/ksm_adv_title"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="ksm_boot"
             android:summary="@string/ps_restore_boot"
-            android:title="@string/sob" />
+            android:title="@string/sob"/>
 
     </PreferenceCategory>
 </PreferenceScreen>

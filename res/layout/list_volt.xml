@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
 Performance Control - An Android CPU Control application
 Copyright (C) 2012 Jared Rummler
 Copyright (C) 2012  James Roberts
@@ -18,32 +19,32 @@ Copyright (C) 2012  James Roberts
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingRight="10dp"
-    android:paddingLeft="10dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp">
 
     <TextView
-        android:id="@+id/Freq"
-        style="?android:attr/listSeparatorTextViewStyle"
-        android:text="@string/freq" />
+            android:id="@+id/Freq"
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:text="@string/freq"/>
 
     <TextView
-        android:id="@+id/mVCurrent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dip"
-        android:padding="2dp"
-        android:text="@string/current" />
+            android:id="@+id/mVCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dip"
+            android:padding="2dp"
+            android:text="@string/current"/>
 
     <TextView
-        android:id="@+id/mVSaved"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="3dip"
-        android:layout_marginTop="3dip"
-        android:padding="2dp"
-        android:text="@string/saved" />
+            android:id="@+id/mVSaved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dip"
+            android:layout_marginTop="3dip"
+            android:padding="2dp"
+            android:text="@string/saved"/>
 
 </LinearLayout>

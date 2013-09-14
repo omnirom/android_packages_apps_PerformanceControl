@@ -18,8 +18,7 @@
 
 package com.brewcrewfoo.performance.fragments;
 
-import android.app.AlertDialog;
-import android.app.Fragment;
+import android.app.*;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,24 +29,11 @@ import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.Switch;
-import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.Constants;
@@ -63,72 +49,12 @@ import java.util.List;
 
 public class VoltageControlSettings extends Fragment implements Constants {
 
+    private static final int NEW_MENU_ID=Menu.FIRST+1;
     public static final int DIALOG_EDIT_VOLT = 0;
-    private static final int NEW_MENU_ID = Menu.FIRST + 1;
-    private static final int[] STEPS = new int[]{600, 625, 650, 675, 700,
-            725, 750, 775, 800, 825, 850, 875, 900, 925, 950, 975, 1000, 1025,
-            1050, 1075, 1100, 1125, 1150, 1175, 1200, 1225, 1250, 1275, 1300,
-            1325, 1350, 1375, 1400, 1425, 1450, 1475, 1500, 1525, 1550, 1575,
-            1600};
-    SharedPreferences mPreferences;
     private List<Voltage> mVoltages;
     private ListAdapter mAdapter;
+    SharedPreferences mPreferences;
     private Voltage mVoltage;
-
-    public static List<Voltage> getVolts(final SharedPreferences preferences) {
-        final List<Voltage> volts = new ArrayList<Voltage>();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(Helpers.getVoltagePath()), 256);
-            String line = "";
-            if (Helpers.getVoltagePath().equals(VDD_PATH)) {
-                while ((line = br.readLine()) != null) {
-                    line = line.replaceAll("\\s", "");
-                    if (!line.equals("")) {
-                        final String[] values = line.split(":");
-                        final String freq = values[0];
-                        final String currentMv = values[1];
-                        final String savedMv = preferences.getString(freq, currentMv);
-                        final Voltage voltage = new Voltage();
-                        voltage.setFreq(freq);
-                        voltage.setCurrentMV(currentMv);
-                        voltage.setSavedMV(savedMv);
-                        volts.add(voltage);
-                    }
-                }
-            } else {
-                while ((line = br.readLine()) != null) {
-                    final String[] values = line.split("\\s+");
-                    if (values != null) {
-                        if (values.length >= 2) {
-                            final String freq = values[0].replace("mhz:", "");
-                            final String currentMv = values[1];
-                            final String savedMv = preferences.getString(freq, currentMv);
-                            final Voltage voltage = new Voltage();
-                            voltage.setFreq(freq);
-                            voltage.setCurrentMV(currentMv);
-                            voltage.setSavedMV(savedMv);
-                            volts.add(voltage);
-                        }
-                    }
-                }
-            }
-            br.close();
-        } catch (FileNotFoundException e) {
-            Log.d(TAG, Helpers.getVoltagePath() + " does not exist");
-        } catch (IOException e) {
-            Log.d(TAG, "Error reading " + Helpers.getVoltagePath());
-        }
-        return volts;
-    }
-
-    private static int getNearestStepIndex(final int value) {
-        int index = 0;
-        for (int STEP : STEPS) {
-            if (value > STEP) index++;
-            else break;
-        }
-        return index;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -150,17 +76,17 @@ public class VoltageControlSettings extends Fragment implements Constants {
 
 
         if (mVoltages.isEmpty()) {
-            view.findViewById(R.id.emptyList).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.BottomBar).setVisibility(View.GONE);
+            ((TextView) view.findViewById(R.id.emptyList)).setVisibility(View.VISIBLE);
+            ((RelativeLayout) view.findViewById(R.id.BottomBar)).setVisibility(View.GONE);
         }
 
         setOnBoot.setChecked(mPreferences.getBoolean(VOLTAGE_SOB, false));
         setOnBoot
                 .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        mPreferences.edit().putBoolean(VOLTAGE_SOB, isChecked).apply();
-                        if (isChecked) {
+                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                        mPreferences.edit().putBoolean(VOLTAGE_SOB,isChecked).apply();
+                        if (isChecked){
                             String warningMessage = getString(R.string.volt_info);
 
                             new AlertDialog.Builder(getActivity())
@@ -168,7 +94,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
                                     .setNegativeButton(getString(R.string.cancel),
                                             new DialogInterface.OnClickListener() {
                                                 @Override
-                                                public void onClick(DialogInterface dialog, int which) {
+                                                public void onClick(DialogInterface dialog,int which) {
                                                     //mPreferences.edit().putBoolean(VOLTAGE_SOB,false).apply();
                                                     setOnBoot.setChecked(false);
                                                 }
@@ -176,7 +102,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
                                     .setPositiveButton(getString(R.string.ok),
                                             new DialogInterface.OnClickListener() {
                                                 @Override
-                                                public void onClick(DialogInterface dialog, int which) {
+                                                public void onClick(DialogInterface dialog,int which) {
                                                     //mPreferences.edit().putBoolean(VOLTAGE_SOB,true).apply();
                                                 }
                                             }).create().show();
@@ -185,52 +111,46 @@ public class VoltageControlSettings extends Fragment implements Constants {
                     }
                 });
 
-        view.findViewById(R.id.applyBtn).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                final StringBuilder sb = new StringBuilder();
-                if (Helpers.getVoltagePath().equals(VDD_PATH)) {
-                    for (final Voltage volt : mVoltages) {
-                        if (!volt.getSavedMV().equals(volt.getCurrentMv())) {
-                            for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                                sb.append("busybox echo ")
-                                        .append(volt.getFreq())
-                                        .append(" ")
-                                        .append(volt.getSavedMV())
-                                        .append(" > ")
-                                        .append(Helpers.getVoltagePath().replace("cpu0", "cpu" + i))
-                                        .append(" \n");
-                            }
-                        }
-                    }
-                } else {
-                    final StringBuilder b = new StringBuilder();
-                    for (final Voltage volt : mVoltages) {
-                        b.append(volt.getSavedMV())
-                                .append(" ");
-                    }
-                    for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                        sb.append("busybox echo ")
-                                .append(b.toString())
-                                .append(" > ")
-                                .append(Helpers.getVoltagePath().replace("cpu0", "cpu" + i))
-                                .append(" \n");
-                    }
-                }
-                Helpers.shExec(sb);
+        ((Button) view.findViewById(R.id.applyBtn)).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+			final StringBuilder sb = new StringBuilder();
+    		if (Helpers.getVoltagePath().equals(VDD_PATH)) {
+				for (final Voltage volt : mVoltages) {
+					if(!volt.getSavedMV().equals(volt.getCurrentMv())){
+						for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+							sb.append("busybox echo "
+								+ volt.getFreq()+" "+volt.getSavedMV() + " > "
+								+ Helpers.getVoltagePath().replace("cpu0","cpu" + i) + " \n");
+						}
+					}
+				}
+			}
+			else{
+				final StringBuilder b = new StringBuilder();
+				for (final Voltage volt : mVoltages) {
+					b.append(volt.getSavedMV()).append(" ");
+				}
+				for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+					sb.append("busybox echo "
+					+ b.toString() + " > "
+					+ Helpers.getVoltagePath().replace("cpu0","cpu" + i) + " \n");
+				}
+			}
+			Helpers.shExec(sb);
 
-                final List<Voltage> volts = getVolts(mPreferences);
-                mVoltages.clear();
-                mVoltages.addAll(volts);
-                mAdapter.notifyDataSetChanged();
-            }
-        });
+			final List<Voltage> volts = getVolts(mPreferences);
+			mVoltages.clear();
+			mVoltages.addAll(volts);
+			mAdapter.notifyDataSetChanged();
+			}
+		});
 
         mAdapter.setListItems(mVoltages);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
                 mVoltage = mVoltages.get(position);
                 showDialog(DIALOG_EDIT_VOLT);
             }
@@ -238,60 +158,120 @@ public class VoltageControlSettings extends Fragment implements Constants {
 
         return view;
     }
-
     @Override
     public void onResume() {
         super.onResume();
     }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.voltage_control_menu, menu);
-        Helpers.addItems2Menu(menu, NEW_MENU_ID, getString(R.string.menu_tab), (ViewPager) getView().getParent());
+        Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Helpers.removeCurItem(item, Menu.FIRST + 1, (ViewPager) getView().getParent());
-        switch (item.getItemId()) {
-            case R.id.app_settings:
-                Intent intent = new Intent(getActivity(), PCSettings.class);
-                startActivity(intent);
-                break;
-            case R.id.volt_increase:
-                IncreasebyStep(25);
-                break;
-            case R.id.volt_decrease:
-                IncreasebyStep(-25);
-                break;
-            case R.id.reset:
-                ResetVolt();
-                break;
+        Helpers.removeCurItem(item,Menu.FIRST+1,(ViewPager) getView().getParent());
+        switch (item.getItemId()){
+        case R.id.app_settings:
+            Intent intent = new Intent(getActivity(), PCSettings.class);
+            startActivity(intent);
+            break;
+        case R.id.volt_increase:
+            IncreasebyStep(25);
+            break;
+        case R.id.volt_decrease:
+            IncreasebyStep(-25);
+            break;
+        case R.id.reset:
+            ResetVolt();
+            break;
         }
         return true;
     }
 
     private void ResetVolt() {
-        for (final Voltage volt : mVoltages) {
-            SharedPreferences.Editor editor = mPreferences.edit();
-            editor.remove(volt.getFreq()).commit();
-        }
-        final List<Voltage> volts = getVolts(mPreferences);
-        mVoltages.clear();
-        mVoltages.addAll(volts);
-        mAdapter.notifyDataSetChanged();
+	for (final Voltage volt : mVoltages) {
+		SharedPreferences.Editor editor = mPreferences.edit();
+                editor.remove(volt.getFreq()).commit();
+	}
+	final List<Voltage> volts = getVolts(mPreferences);
+	mVoltages.clear();
+	mVoltages.addAll(volts);
+	mAdapter.notifyDataSetChanged();
     }
-
     private void IncreasebyStep(final int pas) {
-        for (final Voltage volt : mVoltages) {
-            String value = Integer.toString(Integer.parseInt(volt.getSavedMV()) + pas);
-            SharedPreferences.Editor editor = mPreferences.edit();
-            editor.putString(volt.getFreq(), value).commit();
+	for (final Voltage volt : mVoltages) {
+		String value=Integer.toString( Integer.parseInt(volt.getSavedMV())+pas);
+		SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putString(volt.getFreq(), value).commit();
+	}
+	final List<Voltage> volts = getVolts(mPreferences);
+	mVoltages.clear();
+	mVoltages.addAll(volts);
+	mAdapter.notifyDataSetChanged();
+    }
+    
+    
+    public static List<Voltage> getVolts(final SharedPreferences preferences) {
+        final List<Voltage> volts = new ArrayList<Voltage>();
+        try {
+		BufferedReader br = new BufferedReader(new FileReader(Helpers.getVoltagePath()), 256);
+		String line = "";
+		if (Helpers.getVoltagePath().equals(VDD_PATH)) {
+			while ((line = br.readLine()) != null) {
+				line = line.replaceAll("\\s","");
+				if (!line.equals("")) {
+					final String[] values = line.split(":");
+					final String freq = values[0];
+					final String currentMv = values[1];
+					final String savedMv = preferences.getString(freq,currentMv);
+					final Voltage voltage = new Voltage();
+					voltage.setFreq(freq);
+					voltage.setCurrentMV(currentMv);
+					voltage.setSavedMV(savedMv);
+					volts.add(voltage);
+				}
+			}
+		}
+		else{
+			while ((line = br.readLine()) != null) {
+				final String[] values = line.split("\\s+");
+				if (values != null) {
+					if (values.length >= 2) {
+						final String freq = values[0].replace("mhz:", "");
+						final String currentMv = values[1];
+						final String savedMv = preferences.getString(freq,currentMv);
+						final Voltage voltage = new Voltage();
+						voltage.setFreq(freq);
+						voltage.setCurrentMV(currentMv);
+						voltage.setSavedMV(savedMv);
+						volts.add(voltage);
+					}
+				}
+			}
+		}
+		br.close();
+        } catch (FileNotFoundException e) {
+            Log.d(TAG, Helpers.getVoltagePath() + " does not exist");
+        } catch (IOException e) {
+            Log.d(TAG, "Error reading " + Helpers.getVoltagePath());
         }
-        final List<Voltage> volts = getVolts(mPreferences);
-        mVoltages.clear();
-        mVoltages.addAll(volts);
-        mAdapter.notifyDataSetChanged();
+        return volts;
+   }
+
+    private static final int[] STEPS = new int[]{600, 625, 650, 675, 700,
+            725, 750, 775, 800, 825, 850, 875, 900, 925, 950, 975, 1000, 1025,
+            1050, 1075, 1100, 1125, 1150, 1175, 1200, 1225, 1250, 1275, 1300,
+            1325, 1350, 1375, 1400, 1425, 1450, 1475, 1500, 1525, 1550, 1575,
+            1600};
+
+    private static int getNearestStepIndex(final int value) {
+        int index = 0;
+        for (int STEP : STEPS) {
+            if (value > STEP) index++;
+            else break;
+        }
+        return index;
     }
 
     protected void showDialog(final int id) {
@@ -299,7 +279,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
         switch (id) {
             case DIALOG_EDIT_VOLT:
                 final LayoutInflater factory = LayoutInflater.from(getActivity());
-                final View voltageDialog = factory.inflate(R.layout.voltage_dialog, null);
+                final View voltageDialog = factory.inflate(R.layout.voltage_dialog,null);
 
                 final EditText voltageEdit = (EditText) voltageDialog.findViewById(R.id.voltageEdit);
                 final SeekBar voltageSeek = (SeekBar) voltageDialog.findViewById(R.id.voltageSeek);
@@ -314,21 +294,22 @@ public class VoltageControlSettings extends Fragment implements Constants {
                     }
 
                     @Override
-                    public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                    public void beforeTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
                     }
 
                     @Override
-                    public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                    public void onTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
                         String text = voltageEdit.getText().toString();
                         int value = 0;
                         try {
                             value = Integer.parseInt(text);
-                            if (value > STEPS[STEPS.length - 1]) {
-                                value = STEPS[STEPS.length - 1];
-                                text = String.valueOf(value);
+                            if(value>STEPS[STEPS.length-1]){
+                                value=STEPS[STEPS.length-1];
+                                text=String.valueOf(value);
                                 voltageEdit.setText(text);
                             }
-                        } catch (NumberFormatException nfe) {
+                        }
+                        catch (NumberFormatException nfe) {
                             return;
                         }
                         voltageMeter.setText(text + " mV");
@@ -344,7 +325,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
                 voltageSeek
                         .setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
                             @Override
-                            public void onProgressChanged(SeekBar sb, int progress, boolean fromUser) {
+                            public void onProgressChanged(SeekBar sb, int progress,boolean fromUser) {
                                 if (fromUser) {
                                     final String volt = Integer.toString(STEPS[progress]);
                                     voltageMeter.setText(volt + " mV");
@@ -365,13 +346,13 @@ public class VoltageControlSettings extends Fragment implements Constants {
                         });
 
                 dialog = new AlertDialog.Builder(getActivity())
-                        .setTitle(mVoltage.getFreq() + getResources().getString(
-                                R.string.ps_volt_mhz_voltage))
+                        .setTitle(mVoltage.getFreq()+ getResources().getString(
+                                        R.string.ps_volt_mhz_voltage))
                         .setView(voltageDialog)
                         .setPositiveButton(
                                 getResources().getString(R.string.ps_volt_save),
                                 new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                    public void onClick(DialogInterface dialog,int whichButton) {
                                         //removeDialog(id);
                                         dialog.cancel();
                                         final String value = voltageEdit.getText().toString();
@@ -384,7 +365,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
                                 })
                         .setNegativeButton(getString(R.string.cancel),
                                 new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                    public void onClick(DialogInterface dialog,int whichButton) {
                                         //removeDialog(id);
                                         dialog.cancel();
                                     }
@@ -433,7 +414,8 @@ public class VoltageControlSettings extends Fragment implements Constants {
                 holder.mCurrentMV = (TextView) convertView.findViewById(R.id.mVCurrent);
                 holder.mSavedMV = (TextView) convertView.findViewById(R.id.mVSaved);
                 convertView.setTag(holder);
-            } else {
+            }
+            else {
                 holder = (ViewHolder) convertView.getTag();
             }
 
