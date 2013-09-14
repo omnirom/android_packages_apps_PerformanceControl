@@ -55,7 +55,7 @@ public interface Constants {
     // Other settings
     public static final String MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
     public static final String MINFREE_ADJ_PATH = "/sys/module/lowmemorykiller/parameters/adj";
-    public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/default/read_ahead_kb","/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
+    public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
     //"/sys/devices/virtual/bdi/default/read_ahead_kb"
     
     public static final String INTENT_ACTION_FASTCHARGE = "com.aokp.romcontrol.FCHARGE_CHANGED";
