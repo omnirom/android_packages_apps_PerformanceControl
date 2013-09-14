@@ -141,7 +141,7 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
             mPreferences.edit().putString(PREF_SYS_NAMES, Helpers.readOneLine(USER_SYS_NAMES_PATH)).apply();
         }
         if (!new File(KSM_RUN_PATH).exists()) {
-            PreferenceCategory hideCat = (PreferenceCategory) findPreference("prefcat_ksmc");
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("ksm");
             getPreferenceScreen().removePreference(hideCat);
         }
         else{
