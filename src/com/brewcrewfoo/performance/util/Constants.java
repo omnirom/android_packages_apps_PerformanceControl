@@ -21,7 +21,7 @@ package com.brewcrewfoo.performance.util;
 public interface Constants {
 
     public static final String TAG = "PerformanceControl";
-    public static final String VERSION_NUM = "2.1.2.1";
+    public static final String VERSION_NUM = "2.1.3";
     //hide flashing kernel/recovery options
     // NO_FLASH=true > hide flash options
     // NO_FLASH=false > show flash options
@@ -180,6 +180,10 @@ public interface Constants {
     public static final String PREF_FIX_PERMS = "pref_fix_perms";
     public static final String PREF_LOG = "pref_log";
     public static final String PREF_OPTIM_DB = "pref_optim_db";
+
+    //Freezer
+    public static final String PREF_FRREZE = "freeze_packs";
+    public static final String PREF_UNFRREZE = "unfreeze_packs";
 
     //zRam
     public static final String ZRAM_SIZE_PATH = "/sys/block/zram0/disksize";

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.brewcrewfoo.performance"
           android:versionCode="4"
-          android:versionName="2.1.2.1">
+          android:versionName="2.1.3">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -26,7 +26,8 @@
         </activity>
 
         <activity android:name="com.brewcrewfoo.performance.activities.PCSettings"/>
-        <activity android:name="com.brewcrewfoo.performance.activities.PackActivity"/>
+        <activity android:name="com.brewcrewfoo.performance.activities.PackActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name="com.brewcrewfoo.performance.activities.FlasherActivity"/>
         <activity android:name="com.brewcrewfoo.performance.activities.FileChooser"
                   android:configChanges="keyboardHidden|orientation|screenSize"/>
@@ -35,6 +36,8 @@
         <activity android:name="com.brewcrewfoo.performance.activities.iResidualsActivity"
                   android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name="com.brewcrewfoo.performance.activities.KSMActivity"/>
+        <activity android:name="com.brewcrewfoo.performance.activities.FreezerActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <receiver android:name=".service.BootReceiver">
             <intent-filter>
