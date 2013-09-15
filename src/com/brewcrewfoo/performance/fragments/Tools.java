@@ -45,6 +45,7 @@ import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.FlasherActivity;
+import com.brewcrewfoo.performance.activities.FreezerActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.activities.ResidualsActivity;
 import com.brewcrewfoo.performance.util.CMDProcessor;
@@ -90,6 +91,10 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
         }
         if(Helpers.binExist("sqlite3").equals(NOT_FOUND)){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_optim_db");
+            getPreferenceScreen().removePreference(hideCat);
+        }
+        if(Helpers.binExist("pm").equals(NOT_FOUND)){
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_freezer");
             getPreferenceScreen().removePreference(hideCat);
         }
         setRetainInstance(true);
@@ -253,12 +258,21 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
             //alertDialog.setCancelable(false);
-
             Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             theButton.setOnClickListener(new sqlListener(alertDialog));
-
-
         }
+        else if (key.equals(PREF_FRREZE)){
+            Intent getpacks = new Intent(getActivity(), FreezerActivity.class);
+            getpacks.putExtra("freeze",true);
+            getpacks.putExtra("packs","usr");
+            startActivity(getpacks);
+        }
+        else if (key.equals(PREF_UNFRREZE)){
+            Intent getpacks = new Intent(getActivity(), FreezerActivity.class);
+            getpacks.putExtra("freeze",false);
+            startActivity(getpacks);
+        }
+
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
