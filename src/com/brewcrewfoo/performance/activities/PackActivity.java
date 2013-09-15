@@ -6,6 +6,7 @@ package com.brewcrewfoo.performance.activities;
 import java.util.Arrays;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -90,7 +91,11 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
             }
         });
     }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -100,22 +105,19 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
 
         @Override
         protected String doInBackground(String... params) {
+            CMDProcessor.CommandResult cr = null;
             if(tip){
-                CMDProcessor.CommandResult cr = null;
                 cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -s | cut -d':' -f2`");
-                if(cr.success()&& !cr.stdout.equals("")){
-                    return cr.stdout;
-                }
             }
             else{
-                CMDProcessor.CommandResult cr = null;
                 cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -3 | cut -d':' -f2`");
-                if(cr.success()&& !cr.stdout.equals("")){
-                    return cr.stdout;
-                }
             }
-
-            return null;
+            if(cr.success()&& !cr.stdout.equals("")){
+                return cr.stdout;
+            }
+            else{
+                return null;
+            }
         }
 
         @Override
