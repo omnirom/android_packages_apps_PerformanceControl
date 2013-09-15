@@ -271,6 +271,8 @@ Translation by Laurentiu1996
     <string name="prefcat_freezer">ÎNGHEȚARE sau DEZGHEȚARE PACHETE</string>
     <string name="pt_freeze">Îngheaţare pachet</string>
     <string name="pt_unfreeze">Dezgheţare pachet</string>
+    <string name="ps_freeze">Lista pachetelor instalate in sistem</string>
+    <string name="ps_unfreeze">Lista pachetelor îngheaţate</string>
     <string name="mt_system_packs">Pachete System</string>
     <string name="mt_user_packs">Pachete Utilizator</string>
     <string name="freeze_msg">%s va fi îngheaţat. Continuaţi?</string>

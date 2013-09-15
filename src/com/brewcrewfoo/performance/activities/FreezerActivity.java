@@ -15,7 +15,6 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -49,7 +48,6 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
     private String pn;
     private String titlu;
     private ProgressDialog progressDialog;
-    private Boolean isrun=false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -242,7 +240,6 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }
-            isrun=false;
             if(result.equals("ok")){
                 adapter.delItem(curpos);
                 adapter.notifyDataSetChanged();
@@ -253,8 +250,7 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
 
         @Override
         protected void onPreExecute() {
-            isrun=true;
-            progressDialog = ProgressDialog.show(context, titlu, getString(R.string.wait));
+            progressDialog = ProgressDialog.show(context, null, getString(R.string.wait));
         }
 
         @Override

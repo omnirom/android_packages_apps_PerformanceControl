@@ -80,9 +80,11 @@ Copyright (C) 2012  James Roberts
         android:title="@string/prefcat_freezer">
         <Preference
             android:key="freeze_packs"
+            android:summary="@string/ps_freeze"
             android:title="@string/pt_freeze"/>
         <Preference
             android:key="unfreeze_packs"
+            android:summary="@string/ps_unfreeze"
             android:title="@string/pt_unfreeze"/>
     </PreferenceCategory>
 </PreferenceScreen>
