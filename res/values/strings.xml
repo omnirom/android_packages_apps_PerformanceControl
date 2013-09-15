@@ -303,8 +303,8 @@ Copyright (C) 2012  James Roberts
     <string name="pt_unfreeze">Unfreeze Packages</string>
     <string name="mt_system_packs">System Packages</string>
     <string name="mt_user_packs">User Packages</string>
-    <string name="freeze_msg">%s will be freezed. Continue?</string>
-    <string name="unfreeze_msg">%s will be unfreezed. Continue?</string>
+    <string name="freeze_msg">%s will be frozen. Continue?</string>
+    <string name="unfreeze_msg">%s will be unfroze. Continue?</string>
 
     <!-- zRam -->
     <string name="prefcat_zram">zRAM</string>
