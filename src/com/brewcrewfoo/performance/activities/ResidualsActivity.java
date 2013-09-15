@@ -145,9 +145,7 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                         mPreferences.edit().putLong(RESIDUAL_FILES,System.currentTimeMillis()).commit();
                     }
             }
-            if (resultCode == RESULT_CANCELED) {
-                //
-            }
+            //if (resultCode == RESULT_CANCELED) {}
         }
     }
 

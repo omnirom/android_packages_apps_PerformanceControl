@@ -435,8 +435,8 @@ public class Helpers implements Constants {
             f.read(buffer);
             f.close();
             final String s = new String(buffer);
-            final StringBuffer sb = new StringBuffer(s);
-            if(!postfix.equals("")){ sb.append("\n\n"+postfix); }
+            final StringBuilder sb = new StringBuilder(s);
+            if(!postfix.equals("")){ sb.append("\n\n").append(postfix); }
             if(!prefix.equals("")){ sb.insert(0,prefix+"\n"); }
             sb.insert(0,"#!"+Helpers.binExist("sh")+"\n\n");
             try {
@@ -457,11 +457,10 @@ public class Helpers implements Constants {
         }
     }
     public static String ReadableByteCount(long bytes) {
-        int unit = 1024;
-        if (bytes < unit) return bytes + " B";
-        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        if (bytes < 1024) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(1024));
         String pre = String.valueOf("KMGTPE".charAt(exp-1));
-        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+        return String.format("%.1f %sB", bytes / Math.pow(1024, exp), pre);
     }
     public static void removeCurItem(MenuItem item,int idx,ViewPager vp){
         for(int i=0;i< vp.getAdapter().getCount();i++){

@@ -3,8 +3,6 @@ package com.brewcrewfoo.performance.util;
 /**
  * Created by h0rn3t on 17.07.2013.
  */
-import java.util.List;
-
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;

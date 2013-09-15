@@ -3,7 +3,6 @@ package com.brewcrewfoo.performance.fragments;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.StatFs;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -11,13 +10,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
@@ -210,13 +207,11 @@ public class DiskInfo extends Fragment implements Constants {
 
     public static long Freebytes(File f) {
         StatFs stat = new StatFs(f.getPath());
-        long bytesAvailable = (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
-        return bytesAvailable;
+        return (long)stat.getBlockSize() * (long)stat.getAvailableBlocks();
     }
     public static long Totalbytes(File f) {
         StatFs stat = new StatFs(f.getPath());
-        long bytesAvailable = (long)stat.getBlockSize() * (long)stat.getBlockCount();
-        return bytesAvailable;
+        return (long)stat.getBlockSize() * (long)stat.getBlockCount();
     }
 
     public Boolean set_part_info(String part,String titlu,TextView t1,TextView t2,TextView t3,TextView t4,ProgressBar b,RelativeLayout l){

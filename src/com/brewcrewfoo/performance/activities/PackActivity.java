@@ -45,7 +45,6 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
     private String pack_path;
     private String pack_pref;
     private String pmList[];
-    private PackAdapter adapter;
     private Boolean tip;
 
 
@@ -125,7 +124,7 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
                 pmList =result.split(" ");
             linlaHeaderProgress.setVisibility(View.GONE);
             if(pmList.length>0){
-                adapter=new PackAdapter(PackActivity.this, pmList, packageManager );
+                PackAdapter adapter = new PackAdapter(PackActivity.this, pmList, packageManager);
                 packList.setAdapter(adapter);
                 linTools.setVisibility(View.VISIBLE);
                 linNopack.setVisibility(View.GONE);

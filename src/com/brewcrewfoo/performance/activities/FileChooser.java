@@ -226,11 +226,11 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                         return null;
                     }
                     nFile=dn+"/boot.img";
-                    sb.append("dd if="+nFile+" of="+part+"\n");
-                    sb.append("busybox rm -rf "+dn+"/*\n");
+                    sb.append("dd if=").append(nFile).append(" of=").append(part).append("\n");
+                    sb.append("busybox rm -rf ").append(dn).append("/*\n");
                 }
                 else{
-                    sb.append("dd if="+nFile+" of="+part+"\n");
+                    sb.append("dd if=").append(nFile).append(" of=").append(part).append("\n");
                 }
                 sb.append("busybox rm -rf /data/dalvik-cache/*\n");
                 sb.append("busybox rm -rf /cache/*\n");
@@ -248,11 +248,11 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                         return null;
                     }
                     nFile=dn+"/recovery.img";
-                    sb.append("dd if="+nFile+" of="+part+"\n");
-                    sb.append("busybox rm -rf "+dn+"/*\n");
+                    sb.append("dd if=").append(nFile).append(" of=").append(part).append("\n");
+                    sb.append("busybox rm -rf ").append(dn).append("/*\n");
                 }
                 else{
-                    sb.append("dd if="+nFile+" of="+part+"\n");
+                    sb.append("dd if=").append(nFile).append(" of=").append(part).append("\n");
                 }
 
                 sb.append("reboot recovery\n");

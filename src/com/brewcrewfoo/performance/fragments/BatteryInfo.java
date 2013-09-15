@@ -271,23 +271,6 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                     mBattIcon.setImageResource(R.drawable.battery_5);
                     break;
             }
-            /*
-            int voltage;
-
-            if(String.valueOf(rawvoltage).length()<=2){
-                voltage=rawvoltage*1000;
-            }
-            else if(String.valueOf(rawvoltage).length()<=4){
-                voltage=rawvoltage;
-            }
-            else{
-                voltage=Math.round(rawvoltage/1000);
-            }
-            if (new File(BAT_VOLT_PATH).exists()){
-                voltage=Integer.parseInt(Helpers.readOneLine(BAT_VOLT_PATH));
-            }
-            mbattery_volt.setText(voltage+" mV");
-*/
             mbattery_status.setText((temperature/10)+"°C  "+getResources().getStringArray(R.array.batt_status)[status]);
 
         }

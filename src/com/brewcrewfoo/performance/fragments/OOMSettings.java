@@ -18,6 +18,7 @@
 
 package com.brewcrewfoo.performance.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -316,14 +317,13 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        getActivity();
         if (requestCode == 1) {
-            if(resultCode == getActivity().RESULT_OK){
+            if(resultCode == Activity.RESULT_OK){
                 String s[]= data.getStringExtra("result").split(" ");
                 mKSMsettings.setSummary(getString(R.string.ksm_pagtoscan)+" "+s[0]+" | "+getString(R.string.ksm_sleep)+" "+s[1]);
             }
-            if (resultCode == getActivity().RESULT_CANCELED) {
-                //
-            }
+            //if (resultCode == Activity.RESULT_CANCELED) {}
         }
     }
 	private void updateOOM(String[] v) {
