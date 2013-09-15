@@ -75,4 +75,14 @@ Copyright (C) 2012  James Roberts
                 android:key="pref_optim_db"
                 android:title="@string/optim_db_title"/>
     </PreferenceCategory>
+    <PreferenceCategory
+        android:key="category_freezer"
+        android:title="@string/prefcat_freezer">
+        <Preference
+            android:key="freeze_packs"
+            android:title="@string/pt_freeze"/>
+        <Preference
+            android:key="unfreeze_packs"
+            android:title="@string/pt_unfreeze"/>
+    </PreferenceCategory>
 </PreferenceScreen>

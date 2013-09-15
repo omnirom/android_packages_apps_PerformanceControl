@@ -266,6 +266,19 @@ Translation by Laurentiu1996
     <string name="ksm_pagvolatile">Pagini volatile:</string>
     <string name="ksm_pagtoscan">Pagini de scanat:</string>
     <string name="ksm_sleep">Pauză (ms):</string>
+    <!-- 2.1.3 -->
+    <!-- freezer -->
+    <string name="prefcat_freezer">FREEZE and UNFREEZE PACKAGES</string>
+    <string name="pt_freeze">Freeze Packages</string>
+    <string name="pt_unfreeze">Unfreeze Packages</string>
+    <string name="mt_system_packs">System Packages</string>
+    <string name="mt_user_packs">User Packages</string>
+    <string name="freeze_msg">%s will be freezed. Continue?</string>
+    <string name="unfreeze_msg">%s will be unfreezed. Continue?</string>
+    <!-- zRam -->
+    <string name="prefcat_zram">zRAM</string>
+    <string name="pt_run_zram">Activaţi zRam</string>
+    <string name="zram_set_title">Setări</string>
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Utilizaţi o temă deschisă</string>
     <string name="ps_use_light_theme">Dacă este bifată, aplicaţia va folosi o temă deschisă Holo</string>
