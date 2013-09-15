@@ -111,6 +111,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         List<Item>dir = new ArrayList<Item>();
         List<Item>fls = new ArrayList<Item>();
         try{
+            assert dirs != null;
             for(File ff: dirs){
                 Date lastModDate = new Date(ff.lastModified());
                 DateFormat formater = DateFormat.getDateTimeInstance();
@@ -308,7 +309,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                                 dialog.cancel();
                             }
                         });
-        ;
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
         //alertDialog.setCancelable(false);
