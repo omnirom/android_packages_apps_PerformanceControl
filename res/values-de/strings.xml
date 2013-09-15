@@ -280,9 +280,9 @@ Translation by Rhonin86
     <string name="ksm_sleep">Schlaf (ms):</string>
     <!-- 2.1.3 -->
     <!-- freezer -->
-    <string name="prefcat_freezer">FREEZE and UNFREEZE PACKAGES</string>
+    <string name="prefcat_freezer">FREEZE or DEFROST PACKAGES</string>
     <string name="pt_freeze">Freeze Packages</string>
-    <string name="pt_unfreeze">Unfreeze Packages</string>
+    <string name="pt_unfreeze">Defrost Packages</string>
     <string name="mt_system_packs">System Packages</string>
     <string name="mt_user_packs">User Packages</string>
     <string name="freeze_msg">%s will be frozen. Continue?</string>
