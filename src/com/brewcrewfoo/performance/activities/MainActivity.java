@@ -80,22 +80,24 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
 	                frags[0] = new CPUSettings();
 		            frags[1] = new BatteryInfo();
 		            frags[2] = new OOMSettings();
-	                frags[3] = new VoltageControlSettings();
-	                frags[4] = new Advanced();
-	                frags[5] = new TimeInState();
-	                frags[6] = new CPUInfo();
-                    frags[7] = new DiskInfo();
-                    frags[8] = new Tools();
+                    frags[3] = new VM();
+	                frags[4] = new VoltageControlSettings();
+	                frags[5] = new Advanced();
+	                frags[6] = new TimeInState();
+	                frags[7] = new CPUInfo();
+                    frags[8] = new DiskInfo();
+                    frags[9] = new Tools();
             	}
             	else{
 			        frags[0] = new CPUSettings();
 	        	    frags[1] = new OOMSettings();
-                	frags[2] = new VoltageControlSettings();
-                	frags[3] = new Advanced();
-                	frags[4] = new TimeInState();
-                	frags[5] = new CPUInfo();
-                    frags[6] = new DiskInfo();
-                    frags[7] = new Tools();
+                    frags[2] = new VM();
+                	frags[3] = new VoltageControlSettings();
+                	frags[4] = new Advanced();
+                	frags[5] = new TimeInState();
+                	frags[6] = new CPUInfo();
+                    frags[7] = new DiskInfo();
+                    frags[8] = new Tools();
             	}
             } 
             else {
@@ -103,20 +105,22 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                     frags[0] = new CPUSettings();
                     frags[1] = new BatteryInfo();
                     frags[2] = new OOMSettings();
+                    frags[3] = new VM();
+                    frags[4] = new Advanced();
+                    frags[5] = new TimeInState();
+                    frags[6] = new CPUInfo();
+                    frags[7] = new DiskInfo();
+                    frags[8] = new Tools();
+                }
+                else{
+                    frags[0] = new CPUSettings();
+                    frags[1] = new OOMSettings();
+                    frags[2] = new VM();
                     frags[3] = new Advanced();
                     frags[4] = new TimeInState();
                     frags[5] = new CPUInfo();
                     frags[6] = new DiskInfo();
                     frags[7] = new Tools();
-                }
-                else{
-                    frags[0] = new CPUSettings();
-                    frags[1] = new OOMSettings();
-                    frags[2] = new Advanced();
-                    frags[3] = new TimeInState();
-                    frags[4] = new CPUInfo();
-                    frags[5] = new DiskInfo();
-                    frags[6] = new Tools();
                 }
             }
         }
@@ -263,6 +267,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                         getString(R.string.t_cpu_settings),
                         getString(R.string.t_battery_info),
                         getString(R.string.t_oom_settings),
+                        getString(R.string.prefcat_vm_settings),
                         getString(R.string.t_volt_settings),
                         getString(R.string.t_adv_settings),
                         getString(R.string.t_time_in_state),
@@ -274,6 +279,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                     titleString = new String[]{
                             getString(R.string.t_cpu_settings),
                             getString(R.string.t_oom_settings),
+                            getString(R.string.prefcat_vm_settings),
                             getString(R.string.t_volt_settings),
                             getString(R.string.t_adv_settings),
                             getString(R.string.t_time_in_state),
@@ -288,6 +294,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                         getString(R.string.t_cpu_settings),
                         getString(R.string.t_battery_info),
                         getString(R.string.t_oom_settings),
+                        getString(R.string.prefcat_vm_settings),
                         getString(R.string.t_adv_settings),
                         getString(R.string.t_time_in_state),
                         getString(R.string.t_cpu_info),
@@ -298,6 +305,7 @@ public class MainActivity extends Activity implements Constants,ActivityThemeCha
                 titleString = new String[]{
                         getString(R.string.t_cpu_settings),
                         getString(R.string.t_oom_settings),
+                        getString(R.string.prefcat_vm_settings),
                         getString(R.string.t_adv_settings),
                         getString(R.string.t_time_in_state),
                         getString(R.string.t_cpu_info),
