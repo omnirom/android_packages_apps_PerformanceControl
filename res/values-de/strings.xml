@@ -212,7 +212,7 @@ Translation by Rhonin86
     <string name="prefcat_wipe_cache">Cache und Dalvik Cache</string>
     <string name="wipe_cache_title">Lösche Cache und Dalvik Cache</string>
     <string name="ps_wipe_cache">Cache Partition: %s</string>
-    <string name="wipe_cache_msg">Am Ende wird das System neu gestartet.\nWeiter machen?</string>
+    <string name="wipe_cache_msg">Am Ende wird das System neu gestartet.\nFortfahren?</string>
 
     <string name="prefcat_flash_img">Flash *.img Datei (Direkt oder aus CWM-Zip)</string>
     <string name="kernel_img_title">Flash Kernel</string>
@@ -229,7 +229,7 @@ Translation by Rhonin86
     <string name="prefcat_residual_files">Lösche überflüssige Dateien</string>
     <string name="residual_files_title">Lösche überflüssige Dateien</string>
     <string name="btncleanall">Lösche alle</string>
-    <string name="clean_files_msg">Überflüssige Dateien von %s werden gelöscht. Weiter machen?</string>
+    <string name="clean_files_msg">Überflüssige Dateien von %s werden gelöscht. Fortfahren?</string>
     <string name="filesstr">Datei(en)</string>
     <string name="no_residuals">keine überflüssigen Dateien</string>
 
@@ -247,7 +247,7 @@ Translation by Rhonin86
     </string-array>
     <string name="prefcat_fix_perms">Repariere Berechtigungen</string>
     <string name="fix_perms_title">Repariere Berechtigungen</string>
-    <string name="fix_perms_msg">Aktion benötigt mehrere Minuten. Weiter machen?</string>
+    <string name="fix_perms_msg">Aktion benötigt mehrere Minuten. Fortfahren?</string>
     <string name="preflogg_fix_perms">Aktiviere Loggen</string>
 
     <string name="free">frei %s</string>
@@ -257,7 +257,7 @@ Translation by Rhonin86
     <string name="bad_zip">%s nicht in Zip-Datei gefunden !</string>
     <string name="closebtn">schließen</string>
     <string name="delallbtn">löschen Sie alle</string>
-    <string name="del_file_msg">%s wird gelöscht. Weiter machen?</string>
+    <string name="del_file_msg">%s wird gelöscht. Fortfahren?</string>
     <string-array name="batt_status">
         <item>Unbekannte</item>
         <item>Unbekannte</item>
