@@ -26,8 +26,7 @@
         </activity>
 
         <activity android:name="com.brewcrewfoo.performance.activities.PCSettings"/>
-        <activity android:name="com.brewcrewfoo.performance.activities.PackActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.brewcrewfoo.performance.activities.PackActivity"/>
         <activity android:name="com.brewcrewfoo.performance.activities.FlasherActivity"/>
         <activity android:name="com.brewcrewfoo.performance.activities.FileChooser"
                   android:configChanges="keyboardHidden|orientation|screenSize"/>

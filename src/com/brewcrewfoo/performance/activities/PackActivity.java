@@ -91,11 +91,7 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
             }
         });
     }
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
 
-    }
     @Override
     public void onResume() {
         super.onResume();
