@@ -36,6 +36,8 @@ public interface Constants {
     public static final String GOVERNORS_LIST_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
     public static final String GOVERNOR_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
     public static final String[] IO_SCHEDULER_PATH = {"/sys/block/mmcblk0/queue/scheduler","/sys/block/mmcblk1/queue/scheduler"};
+    //Dynamic frequency scaling
+    public static final String DYN_CPU_PATH = "/sys/power/cpufreq_max_limit";
     
     public static final String NUM_OF_CPUS_PATH = "/sys/devices/system/cpu/present";
 
