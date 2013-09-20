@@ -89,10 +89,6 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_flash_img");
             getPreferenceScreen().removePreference(hideCat);
         }
-        if(Helpers.binExist("sqlite3").equals(NOT_FOUND)){
-            PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_optim_db");
-            getPreferenceScreen().removePreference(hideCat);
-        }
         if(Helpers.binExist("pm").equals(NOT_FOUND)){
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("category_freezer");
             getPreferenceScreen().removePreference(hideCat);
@@ -238,7 +234,9 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
 
         }
         else if(key.equals(PREF_OPTIM_DB)) {
-            Helpers.get_assetsScript("sql_optimize",getActivity(),"#","");
+            Helpers.get_assetsBinary("sqlite3",getActivity());
+            Helpers.get_assetsScript("sql_optimize",getActivity(),"busybox chmod 750 "+getActivity().getFilesDir()+"/sqlite3","");
+
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getString(R.string.optim_db_title))
                     .setMessage(getString(R.string.ps_optim_db)+"\n\n"+getString(R.string.fix_perms_msg))

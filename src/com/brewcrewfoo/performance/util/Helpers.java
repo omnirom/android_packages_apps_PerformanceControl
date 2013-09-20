@@ -456,6 +456,31 @@ public class Helpers implements Constants {
             e.printStackTrace();
         }
     }
+    public static void get_assetsBinary(String fn,Context c){
+        byte[] buffer;
+        final AssetManager assetManager = c.getAssets();
+        try {
+            InputStream f =assetManager.open(fn);
+            buffer = new byte[f.available()];
+            f.read(buffer);
+            f.close();
+            try {
+                FileOutputStream fos;
+                fos = c.openFileOutput(fn, Context.MODE_PRIVATE);
+                fos.write(buffer);
+                fos.close();
+
+            } catch (IOException e) {
+                Log.d(TAG, "error write "+fn+" file");
+                e.printStackTrace();
+            }
+
+        }
+        catch (IOException e) {
+            Log.d(TAG, "error read "+fn+" file");
+            e.printStackTrace();
+        }
+    }
     public static String ReadableByteCount(long bytes) {
         if (bytes < 1024) return bytes + " B";
         int exp = (int) (Math.log(bytes) / Math.log(1024));
