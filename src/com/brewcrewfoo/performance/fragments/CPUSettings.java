@@ -215,32 +215,23 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         // we have a break now, write the values..
-        if (seekBar.getId() == R.id.max_slider) {
-            for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                new CMDProcessor().su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ_PATH.replace("cpu0", "cpu" + i));
-                //new CMDProcessor().su.runWaitFor("busybox echo " + mMinFreqSetting + " > " + MIN_FREQ_PATH.replace("cpu0", "cpu" + i));
-            }
-            if (mIsTegra3) {
-                new CMDProcessor().su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + TEGRA_MAX_FREQ_PATH);
-            }
-            if (mIsDynFreq) {
-                new CMDProcessor().su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + DYN_FREQ_PATH);
-            }
+        for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+            new CMDProcessor().su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ_PATH.replace("cpu0", "cpu" + i));
+            new CMDProcessor().su.runWaitFor("busybox echo " + mMinFreqSetting + " > " + MIN_FREQ_PATH.replace("cpu0", "cpu" + i));
         }
-        else if (seekBar.getId() == R.id.min_slider) {
-            for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                //new CMDProcessor().su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + MAX_FREQ_PATH.replace("cpu0", "cpu" + i));
-                new CMDProcessor().su.runWaitFor("busybox echo " + mMinFreqSetting + " > " + MIN_FREQ_PATH.replace("cpu0", "cpu" + i));
-            }
+        if (mIsTegra3) {
+            new CMDProcessor().su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + TEGRA_MAX_FREQ_PATH);
         }
+        if (mIsDynFreq) {
+            new CMDProcessor().su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + DYN_FREQ_PATH);
+        }
+
     }
 
     public class GovListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-            // do this on all cpu's since MSM can have different governors on
-            // each cpu
-            // and it doesn't hurt other devices to do it
+            // do this on all cpu's since MSM can have different governors on each cpu and it doesn't hurt other devices to do it
             for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
                 new CMDProcessor().su.runWaitFor("busybox echo " + selected + " > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i));
             }
