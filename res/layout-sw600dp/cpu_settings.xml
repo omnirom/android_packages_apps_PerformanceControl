@@ -21,21 +21,18 @@ Copyright (C) 2012  James Roberts
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center_horizontal"
-              android:orientation="vertical">
-
-    <Space
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight=".3"
-            />
+              android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
     <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight=".8"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        android:layout_gravity="top"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="40dp">
 
         <TextView
                 android:id="@+id/current_speed"
@@ -46,82 +43,130 @@ Copyright (C) 2012  James Roberts
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".75"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+        android:id="@+id/dynamic_set"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:visibility="gone">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp" >
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
-                android:orientation="horizontal">
+                android:orientation="horizontal" >
 
-            <TextView
-                    android:id="@+id/current_max_label"
+                <TextView
+                    android:id="@+id/dynamic_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/current_max"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp" />
 
-            <TextView
-                    android:id="@+id/max_speed_text"
+                <TextView
+                    android:id="@+id/dynamic_speed_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"/>
-        </LinearLayout>
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-        <SeekBar
-                android:id="@+id/max_slider"
+            <SeekBar
                 style="?android:attr/progressBarStyleHorizontal"
+                android:id="@+id/dynamic_slider"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"/>
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".75"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+        android:id="@+id/speed_set"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp">
 
         <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
-                android:orientation="horizontal">
-
-            <TextView
-                    android:id="@+id/current_min_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/current_min"
-                    android:textSize="18sp"/>
-
-            <TextView
-                    android:id="@+id/min_speed_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"/>
-        </LinearLayout>
-
-        <SeekBar
-                android:id="@+id/min_slider"
-                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"/>
+            android:gravity="center_horizontal"
+                android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dip"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/current_max_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/current_max"
+                        android:textSize="18sp"/>
+
+                <TextView
+                        android:id="@+id/max_speed_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"/>
+            </LinearLayout>
+
+            <SeekBar
+                    android:id="@+id/max_slider"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+                android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/current_min_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/current_min"
+                        android:textSize="18sp"/>
+
+                <TextView
+                        android:id="@+id/min_speed_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"/>
+            </LinearLayout>
+
+            <SeekBar
+                    android:id="@+id/min_slider"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-        android:layout_weight=".5"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="20dp">
 
         <TextView
                 android:id="@+id/governor_label"
@@ -129,7 +174,7 @@ Copyright (C) 2012  James Roberts
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dip"
                 android:text="@string/governor"
-                android:textSize="14sp"/>
+                android:textSize="16sp"/>
 
         <Spinner
                 android:id="@+id/pref_governor"
@@ -139,9 +184,9 @@ Copyright (C) 2012  James Roberts
 
     <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight=".5"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <TextView
                 android:id="@+id/io_label"
@@ -149,7 +194,7 @@ Copyright (C) 2012  James Roberts
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dip"
                 android:text="@string/io"
-                android:textSize="14sp"/>
+                android:textSize="16sp"/>
 
         <Spinner
                 android:id="@+id/pref_io"
@@ -159,9 +204,9 @@ Copyright (C) 2012  James Roberts
 
     <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight=".5"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <TextView
                 android:id="@+id/set_on_boot_label"
