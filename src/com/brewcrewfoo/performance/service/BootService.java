@@ -74,20 +74,20 @@ public class BootService extends Service implements Constants {
 			final String gov = preferences.getString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
 			final String io = preferences.getString(PREF_IO, Helpers.getIOScheduler());
 
-			boolean mIsTegra3 = new File(TEGRA_MAX_FREQ_PATH).exists();
-
 			for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
 				sb.append("busybox echo ").append(max).append(" > ").append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i)).append(" \n");
 				sb.append("busybox echo ").append(min).append(" > ").append(MIN_FREQ_PATH.replace("cpu0", "cpu" + i)).append(" \n");
 				sb.append("busybox echo ").append(gov).append(" > ").append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(" \n");
 			}
-			if (mIsTegra3) {
+			if (new File(TEGRA_MAX_FREQ_PATH).exists()) {
 				sb.append("busybox echo ").append(max).append(" > ").append(TEGRA_MAX_FREQ_PATH).append(" \n");
 			}
+            if(new File(DYN_FREQ_PATH).exists()){
+                sb.append("busybox echo ").append(max).append(" > ").append(DYN_FREQ_PATH).append(" \n");
+            }
 			for(int i=0;i<IO_SCHEDULER_PATH.length; i++){
                 if (new File(IO_SCHEDULER_PATH[i]).exists())
                     sb.append("busybox echo ").append(io).append(" > ").append(IO_SCHEDULER_PATH[i]).append(" \n");
-
 			}
 		}
 
