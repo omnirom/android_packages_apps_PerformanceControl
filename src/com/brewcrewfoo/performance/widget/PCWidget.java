@@ -33,6 +33,8 @@ import com.brewcrewfoo.performance.activities.MainActivity;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
+import java.io.File;
+
 public class PCWidget extends AppWidgetProvider implements Constants {
 
     SharedPreferences mPreferences;
@@ -56,6 +58,10 @@ public class PCWidget extends AppWidgetProvider implements Constants {
         for (int awi : appWidgetIds) {
             String max = Helpers.toMHz(Helpers.readOneLine(MAX_FREQ_PATH));
             String min = Helpers.toMHz(Helpers.readOneLine(MIN_FREQ_PATH));
+            if(new File(DYN_FREQ_PATH).exists()){ //if dynamic freq scaling exists min=max
+                max = Helpers.toMHz(Helpers.readOneLine(DYN_FREQ_PATH));
+                min=max;
+            }
             String gov = Helpers.readOneLine(GOVERNOR_PATH);
             String io = Helpers.getIOScheduler();
             onUpdateWidget(context, appWidgetManager, awi, max, min, gov, io);
@@ -68,8 +74,7 @@ public class PCWidget extends AppWidgetProvider implements Constants {
         int bgColor = mPreferences.getInt(PREF_WIDGET_BG_COLOR, 0xff000000);
         int textColor = mPreferences.getInt(PREF_WIDGET_TEXT_COLOR, 0xff808080);
         views.setImageViewBitmap(R.id.widget_bg, Helpers.getBackground(bgColor));
-        //views.setTextViewText(R.id.max, Helpers.toMHz(max));
-        //views.setTextViewText(R.id.min, Helpers.toMHz(min));
+
         views.setTextViewText(R.id.max, max);
         views.setTextViewText(R.id.min, min);
         views.setTextViewText(R.id.gov, gov);
