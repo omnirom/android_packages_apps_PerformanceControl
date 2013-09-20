@@ -266,7 +266,7 @@ public class BootService extends Service implements Constants {
         }
         sb.append(preferences.getString(PREF_SH,"# no custom shell command")+" \n");
 
-		Helpers.shExec(sb);
+		Helpers.shExec(sb,c);
 		return null;
         }
     	@Override

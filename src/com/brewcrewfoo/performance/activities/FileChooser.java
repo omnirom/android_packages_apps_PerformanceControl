@@ -259,7 +259,7 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
                 sb.append("reboot recovery\n");
                 //Log.d(TAG,sb.toString());
             }
-            Helpers.shExec(sb);
+            Helpers.shExec(sb,context);
             return null;
         }
 

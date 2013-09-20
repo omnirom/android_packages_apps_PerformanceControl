@@ -405,25 +405,13 @@ public class Helpers implements Constants {
 	    return ((new File(BLX_PATH).exists()) || (fastcharge_path()!=null));
     }
 
-    public static void shWrite(String f){
-        new CMDProcessor().su.runWaitFor("busybox cat "+f+" > " + SH_PATH );
-        new CMDProcessor().su.runWaitFor("busybox chmod 755 "+SH_PATH );
-    }
-
-	public static String shExec(StringBuilder s){
-		if (new File(SH_PATH).exists()) {
-			s.insert(0,"#!"+binExist("sh")+"\n\n");
-			new CMDProcessor().su.runWaitFor("busybox echo \""+s.toString()+"\" > " + SH_PATH );
-            new CMDProcessor().su.runWaitFor("busybox chmod 755 "+SH_PATH );
-            CMDProcessor.CommandResult cr = null;
-			cr=new CMDProcessor().su.runWaitFor(SH_PATH);
-            if(cr.success()){return cr.stdout;}
-            else{Log.d(TAG, "execute: "+cr.stderr);return "";}
-		}
-		else{
-			Log.d(TAG, "missing file: "+SH_PATH);
-            return "";
-		}
+	public static String shExec(StringBuilder s,Context c){
+        get_assetsScript("run", c, s.toString(),"");
+        new CMDProcessor().su.runWaitFor("busybox chmod 750 "+ c.getFilesDir()+"/run" );
+        CMDProcessor.CommandResult cr = null;
+		cr=new CMDProcessor().su.runWaitFor(c.getFilesDir()+"/run");
+        if(cr.success()){return cr.stdout;}
+        else{Log.d(TAG, "execute: "+cr.stderr);return "";}
 	}
 
     public static void get_assetsScript(String fn,Context c,String prefix,String postfix){

@@ -1,6 +1,7 @@
 package com.brewcrewfoo.performance.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import java.io.File;
 public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBarChangeListener, ActivityThemeChangeInterface {
     SharedPreferences mPreferences;
     private boolean mIsLightTheme;
+    final Context context = this;
     private TextView t1;
     private TextView t2;
     private TextView t3;
@@ -198,7 +200,7 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
                         sb.append("busybox echo 2 > " + KSM_RUN_PATH + ";\n");
                         sb.append("sleep 0.5;\n");
                         sb.append("busybox echo "+vlast+" > " + KSM_RUN_PATH + ";\n");
-                        Helpers.shExec(sb);
+                        Helpers.shExec(sb,context);
 
                     }
                 };

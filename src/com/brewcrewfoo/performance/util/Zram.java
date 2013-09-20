@@ -72,6 +72,6 @@ public class Zram implements Constants {
         for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
             sb.append("busybox echo " + String.valueOf(v*1024*1024) + " > " + ZRAM_SIZE_PATH.replace("zram0", "zram" + i));
         }
-        Helpers.shExec(sb);
+        //Helpers.shExec(sb,c);
     }
 }

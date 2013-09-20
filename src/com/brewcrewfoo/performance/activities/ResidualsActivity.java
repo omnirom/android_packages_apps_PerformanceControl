@@ -75,7 +75,7 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                 final Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
-                        Helpers.shExec(sb);
+                        Helpers.shExec(sb,context);
                         mPreferences.edit().putLong(RESIDUAL_FILES,System.currentTimeMillis()).commit();
                         finish();
                     }
@@ -153,7 +153,7 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
         @Override
         protected String doInBackground(String... params) {
             CMDProcessor.CommandResult cr = null;
-            cr=new CMDProcessor().su.runWaitFor(SH_PATH);
+            cr=new CMDProcessor().su.runWaitFor(getFilesDir()+"/residual_files -c");
             if(cr.success()){return cr.stdout;}
             else{Log.d(TAG,"residual files err: "+cr.stderr); return null; }
         }
@@ -197,8 +197,8 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                 t.append(residualfile);
                 t.append(" ");
             }
-            Helpers.get_assetsScript("count_files",context,"DIRS=\""+t.toString()+"\";","count_files \"$DIRS\";\n");
-            Helpers.shWrite(getFilesDir()+"/count_files");
+            Helpers.get_assetsScript("residual_files",context,"DIRS=\""+t.toString()+"\";","");
+            new CMDProcessor().su.runWaitFor("busybox chmod 750 "+getFilesDir()+"/residual_files" );
         }
 
         @Override

@@ -104,7 +104,6 @@ public interface Constants {
     public static final String PREF_BLX = "pref_blx";
     public static final String BLX_PATH = "/sys/class/misc/batterylifeextender/charging_limit";
     public static final String BLX_SOB = "blx_sob";
-    public static final String SH_PATH = "/data/PerformanceControl";
     //-------DFsync---------
     public static final String DSYNC_PATH = "/sys/kernel/dyn_fsync/Dyn_fsync_active";
     public static final String PREF_DSYNC= "pref_dsync";

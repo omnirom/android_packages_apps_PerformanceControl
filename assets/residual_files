@@ -22,3 +22,8 @@ for d in $1; do
 done;
 echo "$r";
 }
+arg=$@;
+if [ "$arg" == "-c" ]; then
+    count_files "$DIRS";
+    exit;
+fi;

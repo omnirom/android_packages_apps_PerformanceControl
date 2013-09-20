@@ -306,7 +306,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 				for(int i=0; i<READ_AHEAD_PATH.length; i++){
 					sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
 				}
-				Helpers.shExec(sb);
+				Helpers.shExec(sb,getActivity());
 			}
 			mReadAhead.setSummary(sreadahead+values + " kb");
 		}	

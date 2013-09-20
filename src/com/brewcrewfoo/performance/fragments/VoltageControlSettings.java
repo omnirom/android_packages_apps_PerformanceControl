@@ -137,7 +137,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
 					+ Helpers.getVoltagePath().replace("cpu0","cpu" + i) + " \n");
 				}
 			}
-			Helpers.shExec(sb);
+			Helpers.shExec(sb,getActivity());
 
 			final List<Voltage> volts = getVolts(mPreferences);
 			mVoltages.clear();

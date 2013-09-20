@@ -251,7 +251,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 if (new File(IO_SCHEDULER_PATH[i]).exists())
 				sb.append("busybox echo "+selected+" > " + IO_SCHEDULER_PATH[i] + "\n");
 			}
-			Helpers.shExec(sb);
+			Helpers.shExec(sb,getActivity());
             updateSharedPrefs(PREF_IO, selected);
         }
 

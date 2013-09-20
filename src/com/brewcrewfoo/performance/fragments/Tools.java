@@ -207,7 +207,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             startActivity(intent);
         }
         else if(key.equals(PREF_FIX_PERMS)) {
-            Helpers.get_assetsScript("fix_permissions",getActivity(),"#","");
+
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getString(R.string.fix_perms_title))
                     .setMessage(getString(R.string.fix_perms_msg))
@@ -234,9 +234,6 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
 
         }
         else if(key.equals(PREF_OPTIM_DB)) {
-            Helpers.get_assetsBinary("sqlite3",getActivity());
-            Helpers.get_assetsScript("sql_optimize",getActivity(),"busybox chmod 750 "+getActivity().getFilesDir()+"/sqlite3","");
-
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(getString(R.string.optim_db_title))
                     .setMessage(getString(R.string.ps_optim_db)+"\n\n"+getString(R.string.fix_perms_msg))
@@ -290,7 +287,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
     private class FixPermissionsOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            new CMDProcessor().su.runWaitFor(SH_PATH);
+            new CMDProcessor().su.runWaitFor(getActivity().getFilesDir()+"/fix_permissions");
             return null;
         }
 
@@ -307,7 +304,8 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             isrun=true;
             tip=1;
             progressDialog = ProgressDialog.show(getActivity(), getString(R.string.fix_perms_title),getString(R.string.wait));
-            Helpers.shWrite(getActivity().getFilesDir()+"/fix_permissions");
+            Helpers.get_assetsScript("fix_permissions",getActivity(),"#","");
+            new CMDProcessor().su.runWaitFor("busybox chmod 750 "+getActivity().getFilesDir()+"/fix_permissions" );
         }
 
         @Override
@@ -334,7 +332,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             sb.append("busybox rm -rf /data/dalvik-cache/*\n");
             sb.append("busybox rm -rf /cache/*\n");
             sb.append("reboot\n");
-            Helpers.shExec(sb);
+            Helpers.shExec(sb,getActivity());
             return null;
         }
 
@@ -372,7 +370,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
     private class DBoptimOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            new CMDProcessor().su.runWaitFor(SH_PATH);
+            new CMDProcessor().su.runWaitFor(getActivity().getFilesDir()+"/sql_optimize");
             return null;
         }
 
@@ -390,7 +388,9 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             tip=2;
             progressDialog = ProgressDialog.show(getActivity(), getString(R.string.optim_db_title),getString(R.string.wait));
             mPreferences.edit().putLong(PREF_OPTIM_DB,System.currentTimeMillis()).commit();
-            Helpers.shWrite(getActivity().getFilesDir()+"/sql_optimize");
+            Helpers.get_assetsBinary("sqlite3",getActivity());
+            Helpers.get_assetsScript("sql_optimize",getActivity(),"busybox chmod 750 "+getActivity().getFilesDir()+"/sqlite3","");
+            new CMDProcessor().su.runWaitFor("busybox chmod 750 "+getActivity().getFilesDir()+"/sql_optimize" );
         }
 
         @Override
