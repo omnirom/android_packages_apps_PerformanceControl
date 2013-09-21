@@ -39,20 +39,19 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
     private FileArrayAdapter adapter;
     private String rpath;
     private int ndel=0;
-
     Resources res;
-    Context context;
-    ListView packList;
-    LinearLayout linlaHeaderProgress;
-    LinearLayout nofiles;
-    LinearLayout tools;
-    Button applyBtn;
+    private Context context=this;
+    private ListView packList;
+    private LinearLayout linlaHeaderProgress;
+    private LinearLayout nofiles;
+    private LinearLayout tools;
+    private Button applyBtn;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this;
+
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         res = getResources();
         setTheme();
@@ -158,16 +157,18 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
         public void onClick(View v) {
             ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
             ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
-            new CMDProcessor().su.runWaitFor("busybox rm -f "+rpath+"/*");
-            final int n=adapter.getCount();
-            adapter.clear();
-            linlaHeaderProgress.setVisibility(View.VISIBLE);
-            tools.setVisibility(View.GONE);
-            dialog.cancel();
 
+            CMDProcessor.CommandResult cr=new CMDProcessor().su.runWaitFor("busybox rm -f "+rpath+"/*");
+            if(cr.success()){
+                ndel+=adapter.getCount();
+                adapter.clear();
+                linlaHeaderProgress.setVisibility(View.VISIBLE);
+                tools.setVisibility(View.GONE);
+            }
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("result",n);
+            returnIntent.putExtra("result",ndel);
             setResult(RESULT_OK,returnIntent);
+            dialog.dismiss();
             finish();
         }
     }
@@ -184,13 +185,15 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
             ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
             ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(false);
 
-            new CMDProcessor().su.runWaitFor("busybox rm -f "+rpath+"/"+o.getName());
-
-            adapter.remove(o);
-            adapter.notifyDataSetChanged();
+            CMDProcessor.CommandResult cr=new CMDProcessor().su.runWaitFor("busybox rm -f "+rpath+"/"+o.getName());
+            if(cr.success()){
+                adapter.remove(o);
+                adapter.notifyDataSetChanged();
+                ndel++;
+            }
 
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("result",++ndel);
+            returnIntent.putExtra("result",ndel);
             setResult(RESULT_OK,returnIntent);
             dialog.dismiss();
             if(adapter.isEmpty())
