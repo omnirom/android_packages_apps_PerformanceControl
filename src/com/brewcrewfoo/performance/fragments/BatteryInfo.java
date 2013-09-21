@@ -89,9 +89,8 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
         mBattIcon=(ImageView) view.findViewById(R.id.batt_icon);
 
         if (new File(BAT_VOLT_PATH).exists()){
-            try{
                 int volt=Integer.parseInt(Helpers.readOneLine(BAT_VOLT_PATH));
-                if(volt>5000) volt = (int) Math.round(volt / 1000.0);
+                if(volt>5000) volt = (int) Math.round(volt / 1000.0);// in microvolts
                 mbattery_volt.setText(volt+" mV");
                 mBattIcon.setVisibility(ImageView.GONE);
                 mbattery_volt.setVisibility(TextView.VISIBLE);
@@ -114,22 +113,6 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                         return true;
                     }
                 });
-            }
-            catch(Exception e){
-                mBattIcon.setVisibility(ImageView.VISIBLE);
-                mbattery_volt.setVisibility(TextView.GONE);
-                mBattIcon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        try{
-                            Intent powerUsageIntent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
-                            startActivity(powerUsageIntent);
-                        }
-                        catch(Exception e){
-                        }
-                    }
-                });
-            }
         }
         else{
             mBattIcon.setVisibility(ImageView.VISIBLE);
