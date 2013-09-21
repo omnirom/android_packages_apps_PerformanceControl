@@ -128,12 +128,11 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
             @Override
             public void onTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
                 final String text = edit1.getText().toString();
-                int value = 0;
                 try {
-                    value = Integer.parseInt(text);
+                    int value = Integer.parseInt(text);
                     if(value>maxPages2Scan){
                         value=maxPages2Scan;
-                        edit1.setText(String.valueOf(maxPages2Scan));
+                        edit1.setText(String.valueOf(value));
                     }
                     mPage2Scan.setProgress(value);
                 }
@@ -151,7 +150,8 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
         edit2.setText(String.valueOf(v2));
         edit2.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable arg0) {}
+            public void afterTextChanged(Editable arg0) {
+            }
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {}
@@ -159,14 +159,14 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
             @Override
             public void onTextChanged(CharSequence arg0, int arg1,int arg2, int arg3) {
                 final String text = edit2.getText().toString();
-                int value = 0;
                 try {
-                    value = Integer.parseInt(text);
+                    int value = Integer.parseInt(text);
                     if(value>maxSleep){
                         value=maxSleep;
-                        edit2.setText(String.valueOf(maxSleep));
+                        edit2.setText(String.valueOf(value));
                     }
                     mSleep.setProgress(value);
+
                 }
                 catch (NumberFormatException nfe) {
                     return;
@@ -176,14 +176,23 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
         ((Button) findViewById(R.id.apply)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                new CMDProcessor().su.runWaitFor("busybox echo " + edit1.getText().toString() + " > " + KSM_PAGESTOSCAN_PATH);
-                new CMDProcessor().su.runWaitFor("busybox echo " + edit2.getText().toString() + " > " + KSM_SLEEP_PATH);
+                int i1,i2;
+                try {
+                    i1 = Integer.parseInt(edit1.getText().toString());
+                    i2 = Integer.parseInt(edit2.getText().toString());
+                }
+                catch (NumberFormatException e) {
+                    return;
+                }
+
+                new CMDProcessor().su.runWaitFor("busybox echo " + i1 + " > " + KSM_PAGESTOSCAN_PATH);
+                new CMDProcessor().su.runWaitFor("busybox echo " + i2 + " > " + KSM_SLEEP_PATH);
                 mPreferences.edit()
-                        .putString("pref_ksm_pagetoscan", edit1.getText().toString())
-                        .putString("pref_ksm_sleep", edit2.getText().toString())
+                        .putString("pref_ksm_pagetoscan", String.valueOf(i1))
+                        .putString("pref_ksm_sleep", String.valueOf(i2))
                         .commit();
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",edit1.getText().toString()+" "+edit2.getText().toString());
+                returnIntent.putExtra("result",i1+":"+i2);
                 setResult(RESULT_OK,returnIntent);
                 finish();
             }
@@ -195,11 +204,9 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
                     public void run() {
                         final String vlast=Helpers.readOneLine(KSM_RUN_PATH);
                         final StringBuilder sb = new StringBuilder();
-                        sb.append("busybox echo 0 > " + KSM_RUN_PATH + ";\n");
-                        sb.append("sleep 0.5;\n");
-                        sb.append("busybox echo 2 > " + KSM_RUN_PATH + ";\n");
-                        sb.append("sleep 0.5;\n");
-                        sb.append("busybox echo "+vlast+" > " + KSM_RUN_PATH + ";\n");
+                        sb.append("busybox echo 0 > ").append(KSM_RUN_PATH).append(";\n").append("sleep 0.5;\n");
+                        sb.append("busybox echo 2 > ").append(KSM_RUN_PATH).append(";\n").append("sleep 0.5;\n");
+                        sb.append("busybox echo ").append(vlast).append(" > ").append(KSM_RUN_PATH).append(";\n");
                         Helpers.shExec(sb,context);
 
                     }

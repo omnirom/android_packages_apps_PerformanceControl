@@ -214,7 +214,8 @@
                 android:inputType="number"
                 android:layout_alignParentStart="false"
                 android:gravity="right"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:numeric="integer" />
 
         </RelativeLayout>
     </LinearLayout>
@@ -260,7 +261,8 @@
                 android:inputType="number"
                 android:layout_alignParentStart="false"
                 android:gravity="right"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:numeric="integer" />
 
         </RelativeLayout>
 
