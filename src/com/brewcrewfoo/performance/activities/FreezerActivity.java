@@ -98,6 +98,7 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
+        if(!freeze) return false;
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.freezer_menu, menu);
         return super.onCreateOptionsMenu(menu);
