@@ -45,8 +45,14 @@ Copyright (C) 2012  James Roberts
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
-            android:padding="14dip">
-
+        android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp">
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/pc_light_gray"
+            android:layout_alignParentTop="false" />
         <TextView
                 android:id="@+id/set_on_boot_voltage"
                 android:layout_width="wrap_content"
@@ -57,7 +63,8 @@ Copyright (C) 2012  James Roberts
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
                 android:paddingBottom="4dip"
-                android:paddingLeft="4dip"/>
+                android:paddingLeft="4dip"
+            android:layout_marginTop="10dp" />
 
         <Switch
                 android:id="@+id/applyAtBoot"
@@ -78,7 +85,8 @@ Copyright (C) 2012  James Roberts
                 android:textSize="14sp"
                 android:layout_alignParentLeft="false"
                 android:layout_alignParentTop="false"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp" />
 
     </RelativeLayout>
 
