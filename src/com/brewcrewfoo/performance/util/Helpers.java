@@ -401,6 +401,20 @@ public class Helpers implements Constants {
         else{return NOT_FOUND;}
     }
 
+    public static long getTotMem() {
+        long v=0;
+        CMDProcessor.CommandResult cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox grep MemTot /proc/meminfo | busybox grep -E --only-matching '[[:digit:]]+'`");
+        if(cr.success()){
+            try{
+               v = (long) Integer.parseInt(cr.stdout)*1024;
+            }
+            catch (NumberFormatException e) {
+                Log.d(TAG, "MemTot conversion err: "+e);
+            }
+        }
+        return v;
+    }
+
     public static boolean showBattery() {
 	    return ((new File(BLX_PATH).exists()) || (fastcharge_path()!=null));
     }
@@ -411,7 +425,7 @@ public class Helpers implements Constants {
         CMDProcessor.CommandResult cr = null;
 		cr=new CMDProcessor().su.runWaitFor(c.getFilesDir()+"/run");
         if(cr.success()){return cr.stdout;}
-        else{Log.d(TAG, "execute: "+cr.stderr);return "";}
+        else{Log.d(TAG, "execute: "+cr.stderr);return null;}
 	}
 
     public static void get_assetsScript(String fn,Context c,String prefix,String postfix){
