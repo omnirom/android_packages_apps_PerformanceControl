@@ -419,11 +419,14 @@ public class Helpers implements Constants {
 	    return ((new File(BLX_PATH).exists()) || (fastcharge_path()!=null));
     }
 
-	public static String shExec(StringBuilder s,Context c){
+	public static String shExec(StringBuilder s,Context c,Boolean su){
         get_assetsScript("run", c, s.toString(),"");
         new CMDProcessor().su.runWaitFor("busybox chmod 750 "+ c.getFilesDir()+"/run" );
         CMDProcessor.CommandResult cr = null;
-		cr=new CMDProcessor().su.runWaitFor(c.getFilesDir()+"/run");
+        if(su)
+		    cr=new CMDProcessor().su.runWaitFor(c.getFilesDir()+"/run");
+        else
+            cr=new CMDProcessor().sh.runWaitFor(c.getFilesDir()+"/run");
         if(cr.success()){return cr.stdout;}
         else{Log.d(TAG, "execute: "+cr.stderr);return null;}
 	}

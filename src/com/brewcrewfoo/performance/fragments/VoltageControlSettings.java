@@ -55,14 +55,15 @@ public class VoltageControlSettings extends Fragment implements Constants {
     private ListAdapter mAdapter;
     SharedPreferences mPreferences;
     private Voltage mVoltage;
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        context=getActivity();
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         mVoltages = getVolts(mPreferences);
-        mAdapter = new ListAdapter(getActivity());
+        mAdapter = new ListAdapter(context);
 
         setHasOptionsMenu(true);
     }
@@ -89,7 +90,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
                         if (isChecked){
                             String warningMessage = getString(R.string.volt_info);
 
-                            new AlertDialog.Builder(getActivity())
+                            new AlertDialog.Builder(context)
                                     .setMessage(warningMessage)
                                     .setNegativeButton(getString(R.string.cancel),
                                             new DialogInterface.OnClickListener() {
@@ -137,7 +138,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
 					+ Helpers.getVoltagePath().replace("cpu0","cpu" + i) + " \n");
 				}
 			}
-			Helpers.shExec(sb,getActivity());
+			Helpers.shExec(sb,context,true);
 
 			final List<Voltage> volts = getVolts(mPreferences);
 			mVoltages.clear();
@@ -173,7 +174,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
         Helpers.removeCurItem(item,Menu.FIRST+1,(ViewPager) getView().getParent());
         switch (item.getItemId()){
         case R.id.app_settings:
-            Intent intent = new Intent(getActivity(), PCSettings.class);
+            Intent intent = new Intent(context, PCSettings.class);
             startActivity(intent);
             break;
         case R.id.volt_increase:
@@ -278,7 +279,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
         AlertDialog dialog = null;
         switch (id) {
             case DIALOG_EDIT_VOLT:
-                final LayoutInflater factory = LayoutInflater.from(getActivity());
+                final LayoutInflater factory = LayoutInflater.from(context);
                 final View voltageDialog = factory.inflate(R.layout.voltage_dialog,null);
 
                 final EditText voltageEdit = (EditText) voltageDialog.findViewById(R.id.voltageEdit);
@@ -345,7 +346,7 @@ public class VoltageControlSettings extends Fragment implements Constants {
 
                         });
 
-                dialog = new AlertDialog.Builder(getActivity())
+                dialog = new AlertDialog.Builder(context)
                         .setTitle(mVoltage.getFreq()+ getResources().getString(
                                         R.string.ps_volt_mhz_voltage))
                         .setView(voltageDialog)

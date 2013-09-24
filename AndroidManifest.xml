@@ -37,6 +37,7 @@
         <activity android:name="com.brewcrewfoo.performance.activities.KSMActivity"/>
         <activity android:name="com.brewcrewfoo.performance.activities.FreezerActivity"
                   android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.brewcrewfoo.performance.activities.GovSetActivity"/>
 
         <receiver android:name=".service.BootReceiver">
             <intent-filter>

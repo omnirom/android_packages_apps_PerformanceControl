@@ -22,6 +22,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.brewcrewfoo.performance.util.CMDProcessor;
+import com.brewcrewfoo.performance.util.Helpers;
+
 public class BootReceiver extends BroadcastReceiver {
 
     @Override

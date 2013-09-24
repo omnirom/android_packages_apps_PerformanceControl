@@ -19,6 +19,7 @@
 package com.brewcrewfoo.performance.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -37,10 +38,12 @@ public class CPUInfo extends Fragment implements Constants {
     private TextView mKernelInfo;
     private TextView mCPUInfo;
     private TextView mMemInfo;
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context=getActivity();
         setHasOptionsMenu(true);
     }
 
@@ -100,7 +103,7 @@ public class CPUInfo extends Fragment implements Constants {
                 updateData();
                 break;
             case R.id.app_settings:
-                Intent intent = new Intent(getActivity(), PCSettings.class);
+                Intent intent = new Intent(context, PCSettings.class);
                 startActivity(intent);
             break;
         }

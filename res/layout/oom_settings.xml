@@ -124,4 +124,13 @@ Copyright (C) 2012  James Roberts
             android:title="@string/sob"/>
 
     </PreferenceCategory>
+    <PreferenceCategory
+        android:key="zram"
+        android:title="@string/prefcat_zram">
+        <Preference
+            android:key="zram_settings"
+            android:summary="@string/ps_zram"
+            android:title="@string/zram_set_title"/>
+
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -30,6 +30,7 @@ import android.preference.*;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -150,6 +151,12 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
             mKSMsettings.setSummary(getString(R.string.ksm_pagtoscan)+" "+Helpers.readOneLine(KSM_PAGESTOSCAN_PATH)+" | "+getString(R.string.ksm_sleep)+" "+Helpers.readOneLine(KSM_SLEEP_PATH));
         }
         ispm=(!Helpers.binExist("pm").equals(NOT_FOUND));
+
+        //CMDProcessor.CommandResult cr=new CMDProcessor().sh.runWaitFor(ISZRAM);
+        //if(!cr.success()||(cr.success()&&cr.stdout.equals(""))){
+            PreferenceCategory hideCat = (PreferenceCategory) findPreference("zram");
+            getPreferenceScreen().removePreference(hideCat);
+        //}
     }
 
     @Override
@@ -320,8 +327,9 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
         getActivity();
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-                String s[]= data.getStringExtra("result").split(" ");
-                mKSMsettings.setSummary(getString(R.string.ksm_pagtoscan)+" "+s[0]+" | "+getString(R.string.ksm_sleep)+" "+s[1]);
+                final String r=data.getStringExtra("result");
+                Log.d(TAG, "input = "+r);
+                mKSMsettings.setSummary(getString(R.string.ksm_pagtoscan)+" "+r.split(":")[0]+" | "+getString(R.string.ksm_sleep)+" "+r.split(":")[1]);
             }
             //if (resultCode == Activity.RESULT_CANCELED) {}
         }

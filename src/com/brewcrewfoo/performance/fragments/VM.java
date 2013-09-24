@@ -4,6 +4,7 @@ package com.brewcrewfoo.performance.fragments;
  * Created by h0rn3t on 15.09.2013.
  */
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,12 +53,14 @@ public class VM extends PreferenceFragment implements SharedPreferences.OnShared
 
     private int mSeekbarProgress;
     private EditText settingText;
+    private Context context;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        context=getActivity();
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.vm);
 
@@ -104,7 +107,7 @@ public class VM extends PreferenceFragment implements SharedPreferences.OnShared
         Helpers.removeCurItem(item,NEW_MENU_ID,(ViewPager) getView().getParent());
         switch(item.getItemId()){
             case R.id.app_settings:
-                Intent intent = new Intent(getActivity(), PCSettings.class);
+                Intent intent = new Intent(context, PCSettings.class);
                 startActivity(intent);
                 break;
         }
@@ -196,10 +199,10 @@ public class VM extends PreferenceFragment implements SharedPreferences.OnShared
     }
 
     public void openDialog(int currentProgress, String title, final int min, final int max,final Preference pref, final String path, final String key) {
-        Resources res = getActivity().getResources();
+        Resources res = context.getResources();
         String cancel = res.getString(R.string.cancel);
         String ok = res.getString(R.string.ok);
-        LayoutInflater factory = LayoutInflater.from(getActivity());
+        LayoutInflater factory = LayoutInflater.from(context);
         final View alphaDialog = factory.inflate(R.layout.seekbar_dialog, null);
 
         final SeekBar seekbar = (SeekBar) alphaDialog.findViewById(R.id.seek_bar);
@@ -261,7 +264,7 @@ public class VM extends PreferenceFragment implements SharedPreferences.OnShared
         };
         seekbar.setOnSeekBarChangeListener(seekBarChangeListener);
 
-        new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setView(alphaDialog)
                 .setNegativeButton(cancel,

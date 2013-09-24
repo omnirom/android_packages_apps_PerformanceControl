@@ -56,12 +56,14 @@ public class TimeInState extends Fragment implements Constants {
     private boolean mUpdatingData = false;
 
     private CPUStateMonitor monitor = new CPUStateMonitor();
+    private Context context;
     SharedPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        context=getActivity();
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (savedInstanceState != null) {
             mUpdatingData = savedInstanceState.getBoolean("updatingData");
         }
@@ -128,7 +130,7 @@ public class TimeInState extends Fragment implements Constants {
                 updateView();
                 break;
             case R.id.app_settings:
-                Intent intent = new Intent(getActivity(), PCSettings.class);
+                Intent intent = new Intent(context, PCSettings.class);
                 startActivity(intent);
                 break;
         }
@@ -205,7 +207,7 @@ public class TimeInState extends Fragment implements Constants {
 
     private View generateStateRow(CpuState state, ViewGroup parent) {
 
-        LayoutInflater inflater = LayoutInflater.from((Context) getActivity());
+        LayoutInflater inflater = LayoutInflater.from(context);
         LinearLayout view = (LinearLayout) inflater.inflate(R.layout.state_row, parent, false);
 
         float per = (float) state.duration * 100 / monitor.getTotalStateTime();

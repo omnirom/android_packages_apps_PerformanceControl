@@ -36,12 +36,11 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
     private FileArrayAdapter adapter;
 
     Resources res;
-    Context context;
-    ListView packList;
-    LinearLayout linlaHeaderProgress;
-    LinearLayout nofiles;
-    LinearLayout tools;
-    Button applyBtn;
+    private final Context context=this;
+    private ListView packList;
+    private LinearLayout linlaHeaderProgress;
+    private LinearLayout nofiles;
+    private LinearLayout tools;
 
     private Item curItem;
 
@@ -49,7 +48,6 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = this;
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         res = getResources();
@@ -60,12 +58,12 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
         linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
         nofiles = (LinearLayout) findViewById(R.id.nofiles);
         tools = (LinearLayout) findViewById(R.id.tools);
-        applyBtn=(Button) findViewById(R.id.applyBtn);
+        Button applyBtn = (Button) findViewById(R.id.applyBtn);
         applyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 final StringBuilder sb = new StringBuilder();
-                for(int i=0;i<adapter.getCount();i++){
+                for (int i = 0; i < adapter.getCount(); i++) {
                     final Item o = adapter.getItem(i);
                     sb.append("busybox rm -f ").append(o.getName()).append("/*;\n");
                 }
@@ -75,8 +73,8 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                 final Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
-                        Helpers.shExec(sb,context);
-                        mPreferences.edit().putLong(RESIDUAL_FILES,System.currentTimeMillis()).commit();
+                        Helpers.shExec(sb,context,true);
+                        mPreferences.edit().putLong(RESIDUAL_FILES, System.currentTimeMillis()).commit();
                         finish();
                     }
                 };
@@ -153,7 +151,7 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
         @Override
         protected String doInBackground(String... params) {
             CMDProcessor.CommandResult cr = null;
-            cr=new CMDProcessor().su.runWaitFor(getFilesDir()+"/residual_files -c");
+            cr=new CMDProcessor().su.runWaitFor(getFilesDir()+"/utils -count");
             if(cr.success()){return cr.stdout;}
             else{Log.d(TAG,"residual files err: "+cr.stderr); return null; }
         }
@@ -197,8 +195,8 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
                 t.append(residualfile);
                 t.append(" ");
             }
-            Helpers.get_assetsScript("residual_files",context,"DIRS=\""+t.toString()+"\";","");
-            new CMDProcessor().su.runWaitFor("busybox chmod 750 "+getFilesDir()+"/residual_files" );
+            Helpers.get_assetsScript("utils",context,"DIRS=\""+t.toString()+"\";","");
+            new CMDProcessor().su.runWaitFor("busybox chmod 750 "+getFilesDir()+"/utils" );
         }
 
         @Override

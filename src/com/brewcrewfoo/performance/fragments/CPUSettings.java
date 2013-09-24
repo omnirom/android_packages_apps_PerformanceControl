@@ -19,6 +19,7 @@
 package com.brewcrewfoo.performance.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
 import com.brewcrewfoo.performance.R;
+import com.brewcrewfoo.performance.activities.GovSetActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
@@ -56,12 +58,14 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     private boolean mIsTegra3 = false;
     private boolean mIsDynFreq = false;
     private static final int NEW_MENU_ID=Menu.FIRST+1;
-
+    private Context context;
+    private String supported[]={"ondemand","lulzactive","lulzactiveW","interactive","hyper","conservative"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        context=getActivity();
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         setHasOptionsMenu(true);
     }
 
@@ -131,7 +135,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         mMinSlider.setOnSeekBarChangeListener(this);
 
         mGovernor = (Spinner) view.findViewById(R.id.pref_governor);
-        ArrayAdapter<CharSequence> governorAdapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> governorAdapter = new ArrayAdapter<CharSequence>(context, android.R.layout.simple_spinner_item);
         governorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         for (String mAvailableGovernor : mAvailableGovernors) {
             governorAdapter.add(mAvailableGovernor);
@@ -145,7 +149,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         });
 
         mIo = (Spinner) view.findViewById(R.id.pref_io);
-        ArrayAdapter<CharSequence> ioAdapter = new ArrayAdapter<CharSequence>(getActivity(), android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> ioAdapter = new ArrayAdapter<CharSequence>(context, android.R.layout.simple_spinner_item);
         ioAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         for (String aMAvailableIo : mAvailableIo) {
             ioAdapter.add(aMAvailableIo);
@@ -189,8 +193,18 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         Helpers.removeCurItem(item,NEW_MENU_ID,(ViewPager) getView().getParent());
         switch(item.getItemId()){
             case R.id.app_settings:
-                Intent intent = new Intent(getActivity(), PCSettings.class);
+                Intent intent = new Intent(context, PCSettings.class);
                 startActivity(intent);
+                break;
+            case R.id.gov_settings:
+                for(byte i=0;i<supported.length;i++){
+                    if(supported[i].equals(Helpers.readOneLine(GOVERNOR_PATH))){
+                        intent = new Intent(context, GovSetActivity.class);
+                        startActivity(intent);
+                        break;
+                    }
+                }
+
                 break;
         }
         return true;
@@ -231,13 +245,13 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     public class GovListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             String selected = parent.getItemAtPosition(pos).toString();
-            // do this on all cpu's since MSM can have different governors on each cpu and it doesn't hurt other devices to do it
             for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
                 new CMDProcessor().su.runWaitFor("busybox echo " + selected + " > " + GOVERNOR_PATH.replace("cpu0", "cpu" + i));
             }
             updateSharedPrefs(PREF_GOV, selected);
+            // reset gov settings
+            mPreferences.edit().remove(GOV_SETTINGS).remove(GOV_NAME).apply();
         }
-
         public void onNothingSelected(AdapterView<?> parent) {
             // Do nothing.
         }
@@ -251,7 +265,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 if (new File(IO_SCHEDULER_PATH[i]).exists())
 				sb.append("busybox echo "+selected+" > " + IO_SCHEDULER_PATH[i] + "\n");
 			}
-			Helpers.shExec(sb,getActivity());
+			Helpers.shExec(sb,context,true);
             updateSharedPrefs(PREF_IO, selected);
         }
 
@@ -271,7 +285,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
     @Override
     public void onPause() {
-        Helpers.updateAppWidget(getActivity());
+        Helpers.updateAppWidget(context);
         super.onPause();
     }
 

@@ -296,7 +296,7 @@ Copyright (C) 2012  James Roberts
     <string name="ksm_pagvolatile">Pages Volatile:</string>
     <string name="ksm_pagtoscan">Pages to Scan:</string>
     <string name="ksm_sleep">Sleep (ms):</string>
-    <!-- 2.1.3 -->
+
     <!-- freezer -->
     <string name="prefcat_freezer">FREEZE or DEFROST PACKAGES</string>
     <string name="pt_freeze">Freeze Package</string>
@@ -312,6 +312,9 @@ Copyright (C) 2012  James Roberts
     <string name="prefcat_zram">zRAM</string>
     <string name="pt_run_zram">Enable zRam</string>
     <string name="zram_set_title">Settings</string>
+    <!-- 2.1.3 -->
+    <string name="ps_zram">Compress memory for increased virtual capacity</string>
+    <string name="mt_gov_ctrl">Governor Settings</string>
 
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>

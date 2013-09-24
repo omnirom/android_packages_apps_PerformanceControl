@@ -46,6 +46,10 @@ public interface Constants {
     public static final String PREF_GOV = "pref_gov";
     public static final String PREF_IO = "pref_io";
     public static final String CPU_SOB = "cpu_sob";
+    public static final String GOV_SOB = "gov_settings_sob";
+    public static final String GOV_SETTINGS = "gov_settings";
+    public static final String GOV_NAME = "gov_name";
+    public static final String GOV_SETTINGS_PATH = "/sys/devices/system/cpu/cpufreq/";
 
     // CPU info
     public static String KERNEL_INFO_PATH = "/proc/version";
@@ -61,7 +65,7 @@ public interface Constants {
     // Other settings
     public static final String MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
     public static final String MINFREE_ADJ_PATH = "/sys/module/lowmemorykiller/parameters/adj";
-    public static final String[] READ_AHEAD_PATH ={ "/sys/devices/virtual/bdi/179:0/read_ahead_kb","/sys/devices/virtual/bdi/179:32/read_ahead_kb"};
+    public static final String READ_AHEAD_PATH ="/sys/block/mmcblk0/bdi/read_ahead_kb";
     //"/sys/devices/virtual/bdi/default/read_ahead_kb"
     
     public static final String INTENT_ACTION_FASTCHARGE = "com.aokp.romcontrol.FCHARGE_CHANGED";
@@ -187,6 +191,8 @@ public interface Constants {
     public static final String PREF_UNFRREZE = "unfreeze_packs";
 
     //zRam
+    public static final String ISZRAM = "busybox echo `busybox zcat /proc/config.gz | busybox grep ZRAM | busybox grep -v ^#'`";
+    public static final String ZRAM_DEV = "/dev/block/zram0";
     public static final String ZRAM_SIZE_PATH = "/sys/block/zram0/disksize";
     public static final String ZRAM_RESET_PATH = "/sys/block/zram0/reset";
     public static final String ZRAM_COMPR_PATH = "/sys/block/zram0/compr_data_size";

@@ -52,11 +52,13 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     Switch mFastchargeOnBoot;
     SharedPreferences mPreferences;
     private String mFastChargePath;
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-  	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        context=getActivity();
+  	    mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         setRetainInstance(true);
         setHasOptionsMenu(true);
 
@@ -72,7 +74,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
         Helpers.removeCurItem(item,NEW_MENU_ID,(ViewPager) getView().getParent());
         switch(item.getItemId()){
                 case R.id.app_settings:
-                Intent intent = new Intent(getActivity(), PCSettings.class);
+                Intent intent = new Intent(context, PCSettings.class);
                 startActivity(intent);
             break;
         }
@@ -102,6 +104,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                             startActivity(powerUsageIntent);
                         }
                         catch(Exception e){
+
                         }
                     }
                 });
@@ -173,7 +176,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                     String cancel = getString(R.string.cancel);
                     String ok = getString(R.string.ok);
                     //-----------------
-                    new AlertDialog.Builder(getActivity())
+                    new AlertDialog.Builder(context)
                             .setMessage(warningMessage)
                             .setNegativeButton(cancel,
                                     new DialogInterface.OnClickListener() {
@@ -227,15 +230,16 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     @Override
     public void onStop() {
         super.onStop();
-        getActivity().unregisterReceiver(this.batteryInfoReceiver);
+        context=getActivity();
+        context.unregisterReceiver(this.batteryInfoReceiver);
     }
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().registerReceiver(this.batteryInfoReceiver,new IntentFilter(Intent.ACTION_BATTERY_CHANGED) );
+        context=getActivity();
+        context.registerReceiver(this.batteryInfoReceiver,new IntentFilter(Intent.ACTION_BATTERY_CHANGED) );
     }
     private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
-        private int voltage;
         @Override
         public void onReceive(Context context, Intent intent) {
             //int  health= intent.getIntExtra(BatteryManager.EXTRA_HEALTH,0);

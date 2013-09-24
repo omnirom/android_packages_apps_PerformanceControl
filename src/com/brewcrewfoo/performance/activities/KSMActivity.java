@@ -207,7 +207,7 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
                         sb.append("busybox echo 0 > ").append(KSM_RUN_PATH).append(";\n").append("sleep 0.5;\n");
                         sb.append("busybox echo 2 > ").append(KSM_RUN_PATH).append(";\n").append("sleep 0.5;\n");
                         sb.append("busybox echo ").append(vlast).append(" > ").append(KSM_RUN_PATH).append(";\n");
-                        Helpers.shExec(sb,context);
+                        Helpers.shExec(sb,context,true);
 
                     }
                 };

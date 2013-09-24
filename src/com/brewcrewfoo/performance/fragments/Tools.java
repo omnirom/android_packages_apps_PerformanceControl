@@ -24,6 +24,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -63,12 +64,13 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
     private ProgressDialog progressDialog;
     private Preference mResidualFiles;
     private Preference mOptimDB;
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-  	    mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        context=getActivity();
+  	    mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.tools);
 
@@ -104,13 +106,13 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
         if (isrun) {
             switch (tip){
                 case 0:
-                    progressDialog = ProgressDialog.show(getActivity(), getString(R.string.wipe_cache_title),getString(R.string.wait));
+                    progressDialog = ProgressDialog.show(context, getString(R.string.wipe_cache_title),getString(R.string.wait));
                     break;
                 case 1:
-                    progressDialog = ProgressDialog.show(getActivity(), getString(R.string.fix_perms_title),getString(R.string.wait));
+                    progressDialog = ProgressDialog.show(context, getString(R.string.fix_perms_title),getString(R.string.wait));
                     break;
                 case 2:
-                    progressDialog = ProgressDialog.show(getActivity(), getString(R.string.optim_db_title),getString(R.string.wait));
+                    progressDialog = ProgressDialog.show(context, getString(R.string.optim_db_title),getString(R.string.wait));
                     break;
             }
         }
@@ -136,7 +138,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
         Helpers.removeCurItem(item,Menu.FIRST+1,(ViewPager) getView().getParent());
         switch(item.getItemId()){
             case R.id.app_settings:
-                Intent intent = new Intent(getActivity(), PCSettings.class);
+                Intent intent = new Intent(context, PCSettings.class);
                 startActivity(intent);
                 break;
         }
@@ -169,7 +171,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
         }
         else if(key.equals(PREF_WIPE_CACHE)) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(getString(R.string.wipe_cache_title))
                     .setMessage(getString(R.string.wipe_cache_msg))
                     .setNegativeButton(getString(R.string.cancel),
@@ -193,22 +195,22 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
 
         }
         else if(key.equals(FLASH_KERNEL)) {
-            Intent flash = new Intent(getActivity(), FlasherActivity.class);
+            Intent flash = new Intent(context, FlasherActivity.class);
             flash.putExtra("mod","kernel");
             startActivity(flash);
         }
         else if(key.equals(FLASH_RECOVERY)) {
-            Intent flash = new Intent(getActivity(), FlasherActivity.class);
+            Intent flash = new Intent(context, FlasherActivity.class);
             flash.putExtra("mod","recovery");
             startActivity(flash);
         }
         else if(key.equals(RESIDUAL_FILES)) {
-            Intent intent = new Intent(getActivity(), ResidualsActivity.class);
+            Intent intent = new Intent(context, ResidualsActivity.class);
             startActivity(intent);
         }
         else if(key.equals(PREF_FIX_PERMS)) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(getString(R.string.fix_perms_title))
                     .setMessage(getString(R.string.fix_perms_msg))
                         .setNegativeButton(getString(R.string.cancel),
@@ -234,7 +236,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
 
         }
         else if(key.equals(PREF_OPTIM_DB)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(getString(R.string.optim_db_title))
                     .setMessage(getString(R.string.ps_optim_db)+"\n\n"+getString(R.string.fix_perms_msg))
                     .setNegativeButton(getString(R.string.cancel),
@@ -257,13 +259,13 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             theButton.setOnClickListener(new sqlListener(alertDialog));
         }
         else if (key.equals(PREF_FRREZE)){
-            Intent getpacks = new Intent(getActivity(), FreezerActivity.class);
+            Intent getpacks = new Intent(context, FreezerActivity.class);
             getpacks.putExtra("freeze",true);
             getpacks.putExtra("packs","usr");
             startActivity(getpacks);
         }
         else if (key.equals(PREF_UNFRREZE)){
-            Intent getpacks = new Intent(getActivity(), FreezerActivity.class);
+            Intent getpacks = new Intent(context, FreezerActivity.class);
             getpacks.putExtra("freeze",false);
             startActivity(getpacks);
         }
@@ -287,7 +289,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
     private class FixPermissionsOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            new CMDProcessor().su.runWaitFor(getActivity().getFilesDir()+"/fix_permissions");
+            new CMDProcessor().su.runWaitFor(context.getFilesDir()+"/fix_permissions");
             return null;
         }
 
@@ -303,9 +305,9 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
         protected void onPreExecute() {
             isrun=true;
             tip=1;
-            progressDialog = ProgressDialog.show(getActivity(), getString(R.string.fix_perms_title),getString(R.string.wait));
-            Helpers.get_assetsScript("fix_permissions",getActivity(),"#","");
-            new CMDProcessor().su.runWaitFor("busybox chmod 750 "+getActivity().getFilesDir()+"/fix_permissions" );
+            progressDialog = ProgressDialog.show(context, getString(R.string.fix_perms_title),getString(R.string.wait));
+            Helpers.get_assetsScript("fix_permissions",context,"#","");
+            new CMDProcessor().su.runWaitFor("busybox chmod 750 "+context.getFilesDir()+"/fix_permissions" );
         }
 
         @Override
@@ -332,7 +334,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             sb.append("busybox rm -rf /data/dalvik-cache/*\n");
             sb.append("busybox rm -rf /cache/*\n");
             sb.append("reboot\n");
-            Helpers.shExec(sb,getActivity());
+            Helpers.shExec(sb,context,true);
             return null;
         }
 
@@ -348,7 +350,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
         protected void onPreExecute() {
             isrun=true;
             tip=0;
-            progressDialog = ProgressDialog.show(getActivity(), getString(R.string.wipe_cache_title),getString(R.string.wait));
+            progressDialog = ProgressDialog.show(context, getString(R.string.wipe_cache_title),getString(R.string.wait));
         }
 
         @Override
@@ -370,7 +372,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
     private class DBoptimOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
-            new CMDProcessor().su.runWaitFor(getActivity().getFilesDir()+"/sql_optimize");
+            new CMDProcessor().su.runWaitFor(context.getFilesDir()+"/sql_optimize");
             return null;
         }
 
@@ -386,11 +388,11 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
         protected void onPreExecute() {
             isrun=true;
             tip=2;
-            progressDialog = ProgressDialog.show(getActivity(), getString(R.string.optim_db_title),getString(R.string.wait));
+            progressDialog = ProgressDialog.show(context, getString(R.string.optim_db_title),getString(R.string.wait));
             mPreferences.edit().putLong(PREF_OPTIM_DB,System.currentTimeMillis()).commit();
-            Helpers.get_assetsBinary("sqlite3",getActivity());
-            Helpers.get_assetsScript("sql_optimize",getActivity(),"busybox chmod 750 "+getActivity().getFilesDir()+"/sqlite3","");
-            new CMDProcessor().su.runWaitFor("busybox chmod 750 "+getActivity().getFilesDir()+"/sql_optimize" );
+            Helpers.get_assetsBinary("sqlite3",context);
+            Helpers.get_assetsScript("sql_optimize",context,"busybox chmod 750 "+context.getFilesDir()+"/sqlite3","");
+            new CMDProcessor().su.runWaitFor("busybox chmod 750 "+context.getFilesDir()+"/sql_optimize" );
         }
 
         @Override
@@ -400,11 +402,11 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
 
 
     public void shEditDialog(final String key,String title,int msg) {
-        Resources res = getActivity().getResources();
+        Resources res = context.getResources();
         String cancel = res.getString(R.string.cancel);
         String ok = res.getString(R.string.ps_volt_save);
 
-        LayoutInflater factory = LayoutInflater.from(getActivity());
+        LayoutInflater factory = LayoutInflater.from(context);
         final View alphaDialog = factory.inflate(R.layout.sh_dialog, null);
 
 
@@ -431,7 +433,7 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
             public void afterTextChanged(Editable s) {
             }
         });
-        new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setView(alphaDialog)
                 .setNegativeButton(cancel, new DialogInterface.OnClickListener() {

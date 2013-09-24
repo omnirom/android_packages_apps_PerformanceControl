@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/linlaHeaderProgress"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/pbHeaderProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </ProgressBar>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/nofiles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal|top"
+        android:paddingTop="50dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_gravity="top"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/tools"
+        android:layout_marginBottom="4dp">
+
+        <ListView
+            android:id="@+id/applist"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/tools"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/pc_light_gray"
+            android:layout_alignParentTop="false" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sob"
+            android:id="@+id/set_on_boot"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="4dp"
+            android:paddingBottom="4dp"
+            android:layout_marginTop="10dp" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/applyAtBoot"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/set_on_boot" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/apply_values"
+            android:textSize="14dp"
+            android:id="@+id/applyBtn"
+            android:layout_gravity="center_vertical|right"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

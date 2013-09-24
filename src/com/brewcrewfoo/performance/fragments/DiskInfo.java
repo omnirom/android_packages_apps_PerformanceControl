@@ -1,6 +1,7 @@
 package com.brewcrewfoo.performance.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StatFs;
@@ -68,10 +69,12 @@ public class DiskInfo extends Fragment implements Constants {
 
     private String internalsd="";
     private String externalsd="";
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context=getActivity();
         //setRetainInstance(true);
         setHasOptionsMenu(true);
     }
@@ -198,7 +201,7 @@ public class DiskInfo extends Fragment implements Constants {
                 loadData();
                 break;
             case R.id.app_settings:
-                Intent intent = new Intent(getActivity(), PCSettings.class);
+                Intent intent = new Intent(context, PCSettings.class);
                 startActivity(intent);
                 break;
         }

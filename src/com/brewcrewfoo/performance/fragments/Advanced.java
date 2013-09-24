@@ -19,6 +19,7 @@
 package com.brewcrewfoo.performance.fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -73,12 +74,14 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 	private int mSeekbarProgress;
 	private EditText settingText;
 	private String sreadahead;
-    private final String BLN_PATH=Helpers.bln_path();
+    private String BLN_PATH;
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        context=getActivity();
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.advanced);
         
@@ -139,6 +142,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
         else{
             mBltouch.setChecked(Helpers.readOneLine(BL_TOUCH_ON_PATH).equals("1"));
         }
+        BLN_PATH=Helpers.bln_path();
         if (BLN_PATH==null) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("bln");
             getPreferenceScreen().removePreference(hideCat);
@@ -156,9 +160,9 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
             mDynamicWriteBackActive.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
             mDynamicWriteBackSuspend.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
         }
-		
-	    mReadAhead.setValue(Helpers.readOneLine(READ_AHEAD_PATH[0]));
-        mReadAhead.setSummary(getString(R.string.ps_read_ahead, Helpers.readOneLine(READ_AHEAD_PATH[0]) + "  kb"));
+		final String readahead=Helpers.readOneLine(READ_AHEAD_PATH);
+	    mReadAhead.setValue(readahead);
+        mReadAhead.setSummary(getString(R.string.ps_read_ahead, readahead + "  kb"));
             
         setHasOptionsMenu(true);
     }
@@ -179,7 +183,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
         Helpers.removeCurItem(item,NEW_MENU_ID,(ViewPager) getView().getParent());
         switch(item.getItemId()){
             case R.id.app_settings:
-                Intent intent = new Intent(getActivity(), PCSettings.class);
+                Intent intent = new Intent(context, PCSettings.class);
                 startActivity(intent);
             break;
         }
@@ -297,16 +301,11 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
-		SharedPreferences.Editor editor = sharedPreferences.edit();
+		final SharedPreferences.Editor editor = sharedPreferences.edit();
 		if (key.equals(PREF_READ_AHEAD)) {
-			String evalues = Helpers.readOneLine(READ_AHEAD_PATH[0]);
-			String values = sharedPreferences.getString(key,evalues);
-			if (!values.equals(evalues)){
-				final StringBuilder sb = new StringBuilder();
-				for(int i=0; i<READ_AHEAD_PATH.length; i++){
-					sb.append("busybox echo "+values+" > " + READ_AHEAD_PATH[i] + "\n");
-				}
-				Helpers.shExec(sb,getActivity());
+			final String values = mReadAhead.getValue();
+			if (!values.equals(Helpers.readOneLine(READ_AHEAD_PATH))){
+                new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + READ_AHEAD_PATH);
 			}
 			mReadAhead.setSummary(sreadahead+values + " kb");
 		}	
@@ -393,10 +392,10 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
     }
 
     public void openDialog(int currentProgress, String title, final int min, final int max,final Preference pref, final String path, final String key) {
-        Resources res = getActivity().getResources();
+        Resources res = context.getResources();
         String cancel = res.getString(R.string.cancel);
         String ok = res.getString(R.string.ok);
-        LayoutInflater factory = LayoutInflater.from(getActivity());
+        LayoutInflater factory = LayoutInflater.from(context);
         final View alphaDialog = factory.inflate(R.layout.seekbar_dialog, null);
 
         final SeekBar seekbar = (SeekBar) alphaDialog.findViewById(R.id.seek_bar);
@@ -458,7 +457,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
         };
         seekbar.setOnSeekBarChangeListener(seekBarChangeListener);
 
-        new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(context)
 			.setTitle(title)
 			.setView(alphaDialog)
 			.setNegativeButton(cancel,
