@@ -41,7 +41,7 @@ translation by Stefano187
     <string name="current_min">Minima attuale:</string>
     <string name="governor">Governor</string>
     <string name="io">Schedulatore IO</string>
-    <string name="sob">Imposta all'avvio</string>
+    <string name="sob">"Imposta all'avvio"</string>
     <string name="ok">OK</string>
     <string name="cancel">Annulla</string>
     <!-- Other settings -->
@@ -56,7 +56,7 @@ translation by Stefano187
     <string name="ps_free_memory">Quantità di RAM che il minfree taskkiller terrà |
         Attuale: %s
     </string>
-    <string name="ps_free_memory_boot">Applica le quantità all'avvio</string>
+    <string name="ps_free_memory_boot">Applica le quantità all\'avvio</string>
     <string name="pt_read_ahead">SD read ahead</string>
     <string name="ps_read_ahead">Quantità che legge in anticipo la SDCard in kb |
         Attuale: %s
@@ -93,7 +93,7 @@ translation by Stefano187
     <string name="pt_sys_proc">Abilita i processi di sistema non terminabili</string>
     <string name="pt_user_names_proc">Whitelist dei processi utente</string>
     <string name="pt_sys_names_proc">Whitelist dei processi di sistema</string>
-    <string name="ps_restore_boot">Ripristina le seguenti impostazioni all'avvio</string>
+    <string name="ps_restore_boot">Ripristina le seguenti impostazioni all\'avvio</string>
     <string name="ps_user_proc">Lista dei nomi dei processi utente (separati dalla virgola)</string>
     <string name="ps_sys_proc">Lista dei nomi dei processi di sistema (separati dalla virgola)</string>
     <string name="no_proc">Nessun pacchetto</string>
@@ -103,13 +103,13 @@ translation by Stefano187
     <!-- blx -->
     <string name="blx_info">Battery Life eXtender\nAuthor Ezekeel</string>
     <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
-    <string name="pt_blx_boot">Applica all'avvio</string>
-    <string name="ps_blx_boot">Applica la quantità all'avvio</string>
+    <string name="pt_blx_boot">Applica all\'avvio</string>
+    <string name="ps_blx_boot">Applica la quantità all\'avvio</string>
     <string name="blx_title">Limite di carica:</string>
     <!-- dsync -->
     <string name="dsync_info">Dynamic FSync\nAuthor Paul Reioux (faux123)</string>
     <string name="prefcat_dsync">DYNAMIC FSYNC</string>
-    <string name="ps_dsync">Queste impostazioni saranno ripristinate all'avvio</string>
+    <string name="ps_dsync">Queste impostazioni saranno ripristinate all\'avvio</string>
     <string name="pt_dsync">Dynamic Fsync</string>
     <!-- bl_timeout -->
     <string name="prefcat_bltimeout">TIMEOUT RETROILLUMINAZIONE</string>
@@ -130,8 +130,8 @@ translation by Stefano187
     <string name="ps_menuback_enabled">Pressioni ignorate: %s</string>
     <string name="menuback_interrupt_checks_title">Controlli sugli interrupt</string>
     <string name="menuback_first_err_wait_title">Attesa dopo il primo errore</string>
-    <string name="menuback_last_err_wait_title">Attesa dopo l'ultimo errore</string>
-    <string name="ps_pfk_set_on_boot">Se abilitato ripristinerà queste impostazioni all'avvio</string>
+    <string name="menuback_last_err_wait_title">Attesa dopo l\'ultimo errore</string>
+    <string name="ps_pfk_set_on_boot">Se abilitato ripristinerà queste impostazioni all\'avvio</string>
     <!-- dynamic write back -->
     <string name="dynamic_writeback_info">Dynamic Dirty Page Writebacks\nAuthor Cristoforo Cataldo (Christopher83)</string>
     <string name="dynamic_write_back_title">DYNAMIC DIRTY PAGE WRITEBACKS</string>
@@ -151,7 +151,7 @@ translation by Stefano187
     <string name="size_2048_kb">2048kb</string>
     <string name="size_4096_kb">4096kb</string>
     <!-- Voltage control -->
-    <string name="volt_info">ATTENZIONE!\nPrima di attivare "Imposta all'avvio",assicurati che i valori inseriti ​​non eccedano i limiti o che causino il blocco del telefono.</string>
+    <string name="volt_info">ATTENZIONE!\nPrima di attivare "Imposta all\'avvio",assicurati che i valori inseriti ​​non eccedano i limiti o che causino il blocco del telefono.</string>
     <string name="ps_volt_mhz_voltage">" Hz"</string>
     <string name="ps_volt_save">"Salva"</string>
     <string name="ps_volt_current_voltage">"Voltaggio attuale: "</string>
@@ -164,7 +164,7 @@ translation by Stefano187
     <string name="saved">mV salvati</string>
     <string name="not_supported">Il tuo kernel non supporta la modifica dei voltaggi</string>
     <!-- VM settings -->
-    <string name="ps_vm_set_on_boot">Se abilitato ripristinerà queste impostazioni della VM all'avvio</string>
+    <string name="ps_vm_set_on_boot">Se abilitato ripristinerà queste impostazioni della VM all\'avvio</string>
     <string name="dirty_ratio_title">Dirty ratio</string>
     <string name="dirty_background_title">Dirty background ratio</string>
     <string name="dirty_expire_title">Dirty expire centisecs</string>
@@ -190,14 +190,14 @@ translation by Stefano187
     <string name="first_run_title">Verifica del root</string>
     <string name="su_success_title">Riuscita!</string>
     <string name="su_failed_title">Oops!</string>
-    <string name="first_run_message">L'applicazione deve verificare l'accesso come root e la presenza di
-        busybox. Premi OK per continuare. Annulla se non vuoi garantire l'accesso
+    <string name="first_run_message">L\'applicazione deve verificare l\'accesso come root e la presenza di
+        busybox. Premi OK per continuare. Annulla se non vuoi garantire l\'accesso
         come amministratore.
     </string>
-    <string name="su_success_message">Performance Control ha ottenuto l'accesso come root ed
+    <string name="su_success_message">Performance Control ha ottenuto l\'accesso come root ed
         ha trovato busybox. Pronto per il rock!
     </string>
-    <string name="su_cancel_message">Hai deciso di non verificare l'accesso come root e la presenza di busybox.
+    <string name="su_cancel_message">Hai deciso di non verificare l\'accesso come root e la presenza di busybox.
         Gran parte delle opzioni non funzioneranno. Ci dispiace!
     </string>
     <string name="su_failed_su_or_busybox">Accesso come root fallito o busibox non trovato. Gran parte
@@ -207,7 +207,7 @@ translation by Stefano187
     <!-- Tools -->
     <string name="prefcat_sh">COMANDO SHELL PERSONALIZZATO</string>
     <string name="sh_title">Edita un comando shell</string>
-    <string name="ps_sh">Il comando sarà eseguito all'avvio.</string>
+    <string name="ps_sh">Il comando sarà eseguito all\'avvio.</string>
     <string name="sh_msg">Lascia vuoto per non eseguire operazioni.</string>
     <string name="clear">Cancella</string>
     <string name="yes">Si</string>
@@ -250,7 +250,7 @@ translation by Stefano187
     </string-array>
     <string name="prefcat_fix_perms">FIX PERMISSIONS</string>
     <string name="fix_perms_title">Fix permissions</string>
-    <string name="fix_perms_msg">L'operazione potrebbe durare alcuni minuti. Continuare?</string>
+    <string name="fix_perms_msg">L\'operazione potrebbe durare alcuni minuti. Continuare?</string>
     <string name="preflogg_fix_perms">Abilita il log</string>
 
     <string name="free">libero %s</string>
