@@ -4,8 +4,10 @@ package com.brewcrewfoo.performance.util;
  * Created by h0rn3t on 22.09.2013.
  */
 public class Prop {
+
     private String name;
     private String data;
+
     public Prop(String n,String d){
         name = n;
         data = d;
