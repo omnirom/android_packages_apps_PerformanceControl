@@ -222,7 +222,7 @@ translation by Stefano187
     <string name="ps_kernel_img">Flash di un kernel usando un file boot.img. Puoi scegliere o direttamente un file boot.img o un file zip che contenga un boot.img</string>
     <string name="recovery_img_title">Flash RECOVERY</string>
     <string name="ps_recovery_img">Flash di una recovery usando un file recovery.img. Puoi scegliere o direttamente un file boot.img o un file zip che contenga un boot.img</string>
-    <string name="btn_choose">Choose %s</string>
+    <string name="btn_choose">Scegliere %s</string>
     <string name="unsupported_info">Dispositivo non supportato.</string>
     <string name="flash_info">sarà estratto sulla partizione \n%s\n come</string>
     <string name="dir_parent">&lt;Parent DIR&gt;</string>
