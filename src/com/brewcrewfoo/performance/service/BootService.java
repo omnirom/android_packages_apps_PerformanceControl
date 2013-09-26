@@ -87,8 +87,11 @@ public class BootService extends Service implements Constants {
                 if (new File(TEGRA_MAX_FREQ_PATH).exists()) {
                     sb.append("busybox echo ").append(max).append(" > ").append(TEGRA_MAX_FREQ_PATH).append(";\n");
                 }
-                if(new File(DYN_FREQ_PATH).exists()){
-                    sb.append("busybox echo ").append(max).append(" > ").append(DYN_FREQ_PATH).append(";\n");
+                if(new File(DYN_MAX_FREQ_PATH).exists()){
+                    sb.append("busybox echo ").append(max).append(" > ").append(DYN_MAX_FREQ_PATH).append(";\n");
+                }
+                if(new File(DYN_MIN_FREQ_PATH).exists()){
+                    sb.append("busybox echo ").append(min).append(" > ").append(DYN_MIN_FREQ_PATH).append(";\n");
                 }
                 for(int i=0;i<IO_SCHEDULER_PATH.length; i++){
                     if (new File(IO_SCHEDULER_PATH[i]).exists())

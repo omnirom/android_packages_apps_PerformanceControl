@@ -21,7 +21,7 @@ package com.brewcrewfoo.performance.util;
 public interface Constants {
 
     public static final String TAG = "PerformanceControl";
-    public static final String VERSION_NUM = "2.1.3";
+    public static final String VERSION_NUM = "2.1.4";
     //hide flashing kernel/recovery options
     // NO_FLASH=true > hide flash options
     // NO_FLASH=false > show flash options
@@ -37,7 +37,8 @@ public interface Constants {
     public static final String GOVERNOR_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
     public static final String[] IO_SCHEDULER_PATH = {"/sys/block/mmcblk0/queue/scheduler","/sys/block/mmcblk1/queue/scheduler"};
     //Dynamic frequency scaling
-    public static final String DYN_FREQ_PATH = "/sys/power/cpufreq_max_limit";
+    public static final String DYN_MAX_FREQ_PATH = "/sys/power/cpufreq_max_limit";
+    public static final String DYN_MIN_FREQ_PATH = "/sys/power/cpufreq_min_limit";
     
     public static final String NUM_OF_CPUS_PATH = "/sys/devices/system/cpu/present";
 

@@ -58,9 +58,11 @@ public class PCWidget extends AppWidgetProvider implements Constants {
         for (int awi : appWidgetIds) {
             String max = Helpers.toMHz(Helpers.readOneLine(MAX_FREQ_PATH));
             String min = Helpers.toMHz(Helpers.readOneLine(MIN_FREQ_PATH));
-            if(new File(DYN_FREQ_PATH).exists()){ //if dynamic freq scaling exists min=max
-                max = Helpers.toMHz(Helpers.readOneLine(DYN_FREQ_PATH));
-                min=max;
+            if(new File(DYN_MAX_FREQ_PATH).exists()){
+                max = Helpers.toMHz(Helpers.readOneLine(DYN_MAX_FREQ_PATH));
+            }
+            if(new File(DYN_MIN_FREQ_PATH).exists()){
+                min = Helpers.toMHz(Helpers.readOneLine(DYN_MIN_FREQ_PATH));
             }
             String gov = Helpers.readOneLine(GOVERNOR_PATH);
             String io = Helpers.getIOScheduler();

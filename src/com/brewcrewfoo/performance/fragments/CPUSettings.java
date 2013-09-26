@@ -75,7 +75,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
         mCurFreq = (TextView) view.findViewById(R.id.current_speed);
         mIsTegra3 = new File(TEGRA_MAX_FREQ_PATH).exists();
-        mIsDynFreq = new File(DYN_FREQ_PATH).exists();
+        mIsDynFreq = new File(DYN_MAX_FREQ_PATH).exists() && new File(DYN_MIN_FREQ_PATH).exists();
         mAvailableFrequencies = new String[0];
 
         String availableFrequenciesLine = Helpers.readOneLine(STEPS_PATH);
@@ -111,13 +111,9 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 curTegraMax = 0;
             }
         }
-        LinearLayout lminspeed=(LinearLayout) view.findViewById(R.id.min_speed_layout);
         if(mIsDynFreq){
-            mCurMaxSpeed = Helpers.readOneLine(DYN_FREQ_PATH);
-            lminspeed.setVisibility(LinearLayout.GONE);
-        }
-        else{
-            lminspeed.setVisibility(LinearLayout.VISIBLE);
+            mCurMaxSpeed = Helpers.readOneLine(DYN_MAX_FREQ_PATH);
+            mCurMinSpeed = Helpers.readOneLine(DYN_MIN_FREQ_PATH);
         }
 
         mMaxSlider = (SeekBar) view.findViewById(R.id.max_slider);
@@ -237,7 +233,8 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             new CMDProcessor().su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + TEGRA_MAX_FREQ_PATH);
         }
         if (mIsDynFreq) {
-            new CMDProcessor().su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + DYN_FREQ_PATH);
+            new CMDProcessor().su.runWaitFor("busybox echo " + mMaxFreqSetting + " > " + DYN_MAX_FREQ_PATH);
+            new CMDProcessor().su.runWaitFor("busybox echo " + mMinFreqSetting + " > " + DYN_MIN_FREQ_PATH);
         }
 
     }
