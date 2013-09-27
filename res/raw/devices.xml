@@ -97,7 +97,7 @@ File contain partitions layout for flashing kernel & recovery
     <!-- New devices added by rodero95 -->
     <!--2.1.3-->
     <device>
-        <model>MT27,MT27i</model> <!-- Sony Xperia Sola pepper -->
+        <model>MT27,MT27i,MT27a</model> <!-- Sony Xperia Sola pepper -->
         <kernel>/dev/block/mmcblk0p9</kernel>
         <recovery>/dev/block/mmcblk0p10</recovery>
         <cache>/dev/block/mmcblk0p12</cache>
