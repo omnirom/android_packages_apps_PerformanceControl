@@ -203,7 +203,7 @@ public class GovSetActivity extends Activity implements Constants, AdapterView.O
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (tv.getText().toString() != null && tv.getText().toString().length() > 0)
-                            pp.setVal(tv.getText().toString());
+                            pp.setVal(tv.getText().toString().trim());
                         adapter.notifyDataSetChanged();
                     }
                 }).create().show();
