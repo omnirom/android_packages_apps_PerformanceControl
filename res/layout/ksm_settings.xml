@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp">
+        android:paddingTop="20dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/preview"
+        android:paddingBottom="20dip">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -179,9 +189,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="false"
+        android:id="@+id/set1"
+        android:layout_below="@+id/preview"
+        android:paddingBottom="10dip">
 
         <TextView
             android:layout_width="fill_parent"
@@ -226,9 +240,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="false"
+        android:id="@+id/set2"
+        android:layout_below="@+id/set1">
 
         <TextView
             android:layout_width="fill_parent"
@@ -267,12 +284,15 @@
         </RelativeLayout>
 
     </LinearLayout>
-
+</RelativeLayout>
+    </ScrollView>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="bottom">
+        android:baselineAligned="false"
+        android:gravity="bottom"
+        android:minHeight="100dip">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
