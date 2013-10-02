@@ -16,12 +16,16 @@ Copyright (C) 2012  James Roberts
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center_horizontal"
-              android:orientation="vertical">
+              android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="20dip">
 
     <!--  <Space
         android:layout_width="wrap_content"
@@ -30,12 +34,12 @@ Copyright (C) 2012  James Roberts
     /> -->
 
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
+        android:gravity="center_horizontal"
             android:orientation="vertical"
-        android:layout_marginBottom="10dp">
+        android:layout_alignParentTop="true"
+        android:id="@+id/speed">
 
         <TextView
                 android:id="@+id/current_speed"
@@ -49,7 +53,9 @@ Copyright (C) 2012  James Roberts
         android:id="@+id/speed_set"
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/speed"
+        android:gravity="center_horizontal">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -125,12 +131,14 @@ Copyright (C) 2012  James Roberts
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|center_horizontal"
         android:baselineAligned="false"
-        android:measureWithLargestChild="false">
+        android:id="@+id/governor"
+        android:layout_below="@+id/speed_set"
+        android:layout_marginTop="10dip">
 
         <TextView
                 android:id="@+id/governor_label"
@@ -147,12 +155,13 @@ Copyright (C) 2012  James Roberts
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:measureWithLargestChild="false"
-        android:layout_marginTop="10dp">
+        android:gravity="center_vertical|center_horizontal"
+        android:id="@+id/ioscheduler"
+        android:layout_below="@+id/governor"
+        android:layout_marginTop="10dip">
 
         <TextView
                 android:id="@+id/io_label"
@@ -169,11 +178,14 @@ Copyright (C) 2012  James Roberts
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight=".5"
-            android:orientation="horizontal"
-        android:gravity="center_vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:id="@+id/sob"
+        android:layout_below="@+id/ioscheduler"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="30dip">
 
         <TextView
                 android:id="@+id/set_on_boot_label"
@@ -189,4 +201,5 @@ Copyright (C) 2012  James Roberts
                 android:layout_height="wrap_content"/>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
+</ScrollView>

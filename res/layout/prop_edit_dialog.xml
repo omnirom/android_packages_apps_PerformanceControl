@@ -20,6 +20,7 @@
         android:id="@+id/vprop"
         android:layout_gravity="center"
         android:inputType="number"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:singleLine="true" />
 
 </LinearLayout>

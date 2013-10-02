@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+<RelativeLayout
   android:id="@+id/parentview"
               android:orientation="vertical"
               android:gravity="center_horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/batt_val"
         android:layout_width="fill_parent"
@@ -111,3 +114,5 @@
     </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
+
+</ScrollView>

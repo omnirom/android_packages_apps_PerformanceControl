@@ -17,15 +17,18 @@ Copyright (C) 2012  James Roberts
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
     <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal"
     android:weightSum="100"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+        android:paddingTop="20dip">
 
         <LinearLayout
             android:id="@+id/batt_val"
@@ -33,8 +36,7 @@ Copyright (C) 2012  James Roberts
                 android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_weight="55"
-            android:layout_marginTop="20dp">
+            android:layout_weight="55">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -69,7 +71,7 @@ Copyright (C) 2012  James Roberts
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center_vertical|center_horizontal"
+            android:gravity="center_horizontal"
             android:measureWithLargestChild="false"
             android:layout_weight="45"
             android:paddingRight="10dp">
@@ -136,4 +138,4 @@ Copyright (C) 2012  James Roberts
         </LinearLayout>
     </LinearLayout>
 
-
+</ScrollView>
