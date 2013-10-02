@@ -95,8 +95,20 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
         String mCurrentGovernor = Helpers.readOneLine(GOVERNOR_PATH);
         String mCurrentIo = Helpers.getIOScheduler();
-        String mCurMaxSpeed = Helpers.readOneLine(MAX_FREQ_PATH);
-        String mCurMinSpeed = Helpers.readOneLine(MIN_FREQ_PATH);
+        String mCurMaxSpeed;
+        String mCurMinSpeed;
+        if(new File(DYN_MAX_FREQ_PATH).exists()){
+            mCurMaxSpeed = Helpers.readOneLine(DYN_MAX_FREQ_PATH);
+        }
+        else{
+            mCurMaxSpeed = Helpers.readOneLine(MAX_FREQ_PATH);
+        }
+        if(new File(DYN_MIN_FREQ_PATH).exists()){
+            mCurMinSpeed = Helpers.readOneLine(DYN_MIN_FREQ_PATH);
+        }
+        else{
+            mCurMinSpeed = Helpers.readOneLine(MIN_FREQ_PATH);
+        }
 
         if (mIsTegra3) {
             String curTegraMaxSpeed = Helpers.readOneLine(TEGRA_MAX_FREQ_PATH);
@@ -110,10 +122,6 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             catch (NumberFormatException ex) {
                 curTegraMax = 0;
             }
-        }
-        if(mIsDynFreq){
-            mCurMaxSpeed = Helpers.readOneLine(DYN_MAX_FREQ_PATH);
-            mCurMinSpeed = Helpers.readOneLine(DYN_MIN_FREQ_PATH);
         }
 
         mMaxSlider = (SeekBar) view.findViewById(R.id.max_slider);
@@ -164,19 +172,19 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         Switch mSetOnBoot = (Switch) view.findViewById(R.id.cpu_sob);
         mSetOnBoot.setChecked(mPreferences.getBoolean(CPU_SOB, false));
         mSetOnBoot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton v, boolean checked) {
-                        final SharedPreferences.Editor editor = mPreferences.edit();
-                        editor.putBoolean(CPU_SOB, checked);
-                        if (checked) {
-                            editor.putString(PREF_MIN_CPU, Helpers.readOneLine(MIN_FREQ_PATH));
-                            editor.putString(PREF_MAX_CPU, Helpers.readOneLine(MAX_FREQ_PATH));
-                            editor.putString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
-                            editor.putString(PREF_IO, Helpers.getIOScheduler());
-                        }
-                        editor.commit();
-                    }
-                });
+            @Override
+            public void onCheckedChanged(CompoundButton v, boolean checked) {
+                final SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putBoolean(CPU_SOB, checked);
+                if (checked) {
+                    editor.putString(PREF_MIN_CPU, Helpers.readOneLine(MIN_FREQ_PATH));
+                    editor.putString(PREF_MAX_CPU, Helpers.readOneLine(MAX_FREQ_PATH));
+                    editor.putString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
+                    editor.putString(PREF_IO, Helpers.getIOScheduler());
+                }
+                editor.commit();
+            }
+        });
 
         return view;
     }
@@ -203,7 +211,6 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                         break;
                     }
                 }
-
                 break;
         }
         return true;
@@ -241,7 +248,6 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             sb.append("busybox echo ").append(mMinFreqSetting).append(" > ").append(DYN_MIN_FREQ_PATH).append(";\n");
         }
         Helpers.shExec(sb,context,true);
-
     }
 
     public class GovListener implements OnItemSelectedListener {
@@ -272,7 +278,6 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 			Helpers.shExec(sb,context,true);
             updateSharedPrefs(PREF_IO, selected);
         }
-
         public void onNothingSelected(AdapterView<?> parent) {
             // Do nothing.
         }
