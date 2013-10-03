@@ -27,6 +27,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceFrameLayout;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentActivity;
@@ -41,6 +42,7 @@ import com.brewcrewfoo.performance.fragments.*;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
+
 
 public class MainActivity extends Fragment implements Constants,ActivityThemeChangeInterface {
 
@@ -75,6 +77,12 @@ public class MainActivity extends Fragment implements Constants,ActivityThemeCha
         mPagerTabStrip.setBackgroundColor(getResources().getColor(R.color.pc_light_gray));
         mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.pc_blue));
         mPagerTabStrip.setDrawFullUnderline(true);
+
+        // We have to do this now because PreferenceFrameLayout looks at it
+        // only when the view is added.
+        if (container instanceof PreferenceFrameLayout) {
+            ((PreferenceFrameLayout.LayoutParams) rootView.getLayoutParams()).removeBorders = true;
+        }
 
         checkForSu();
 

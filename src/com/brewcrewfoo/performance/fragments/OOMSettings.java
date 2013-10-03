@@ -166,8 +166,10 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.oom_menu, menu);
-        Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
+        if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
+            inflater.inflate(R.menu.oom_menu, menu);
+            Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
+        }
     }
 
     @Override

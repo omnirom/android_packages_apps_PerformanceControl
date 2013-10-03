@@ -21,7 +21,7 @@ Copyright (C) 2012  James Roberts
 
     <string name="app_name">Performance Control</string>
     <!-- Main tabs -->
-    <string name="tab_cpu_settings">CPU Settings</string>
+    <string name="tab_cpu_settings">CPU Speed</string>
     <string name="tab_cpu_profiles">CPU Profiles</string>
     <string name="tab_battery_info">Battery</string>
     <string name="tab_oom_settings">Memory Settings</string>
@@ -31,7 +31,7 @@ Copyright (C) 2012  James Roberts
     <string name="tab_disk_info">Disk Info</string>
     <string name="tab_tools">Tools</string>
     <!-- Titles -->
-    <string name="t_cpu_settings">CPU SETTINGS</string>
+    <string name="t_cpu_settings">CPU SPEED</string>
     <string name="t_battery_info">BATTERY</string>
     <string name="t_oom_settings">MEMORY SETTINGS</string>
     <string name="t_volt_settings">VOLTAGE SETTINGS</string>
@@ -51,11 +51,11 @@ Copyright (C) 2012  James Roberts
     <string name="mt_minus25">Decrease by 25 mV</string>
     <!-- CPU settings -->
     <string name="current_speed">Current Speed</string>
-    <string name="current_max">Current max:</string>
-    <string name="current_min">Current min:</string>
+    <string name="current_max">Maximum speed: </string>
+    <string name="current_min">Minimum speed: </string>
     <string name="governor">Governor</string>
-    <string name="io">IO Scheduler</string>
-    <string name="sob">Set on boot</string>
+    <string name="io">I/O Scheduler</string>
+    <string name="sob">Apply automatically on boot</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <!-- Other settings -->
@@ -63,7 +63,7 @@ Copyright (C) 2012  James Roberts
     <string name="prefcat_tweaks">FAST CHARGE</string>
     <string name="prefcat_misc_short">MISC</string>
     <string name="prefcat_read_ahead">SD READ AHEAD</string>
-    <string name="prefcat_vm_settings">VM SETTINGS</string>
+    <string name="prefcat_vm_settings">DALVIK SETTINGS</string>
     <string name="dt_free_memory">Minfree Taskkiller</string>
     <string name="dt_read_ahead">SD Read Ahead</string>
     <string name="pt_free_memory">Free memory</string>
@@ -71,8 +71,8 @@ Copyright (C) 2012  James Roberts
         Current: %s
     </string>
     <string name="ps_free_memory_boot">Apply the amount above at boot</string>
-    <string name="pt_read_ahead">SD read ahead</string>
-    <string name="ps_read_ahead">Amount to read ahead on SDCard reads in kb |
+    <string name="pt_read_ahead">Storage read ahead</string>
+    <string name="ps_read_ahead">Amount to read ahead on storage, in kb |
         Current: %s
     </string>
 
@@ -84,8 +84,8 @@ Copyright (C) 2012  James Roberts
     <string name="fast_charge_notification_message">Phone is in charge-only mode!</string>
 
 <!-- minfree -->
-   <string name="prefcat_oom">MINFREE TASKKILLER</string>
-   <string name="title_foreground_app">Foreground Applications</string>
+   <string name="prefcat_oom">MINIMUM FREE MEMORY</string>
+   <string name="title_foreground_app">Foreground applications</string>
    <string name="title_visible_app">Visible Applications</string>
    <string name="title_secondary_server">Secondary Server</string>
    <string name="title_hidden_app">Hidden Applications</string>
@@ -94,11 +94,11 @@ Copyright (C) 2012  James Roberts
    <string name="prefcat_oom_predefines">PRESETS</string>
    <string name="pt_oom">Minfree Taskkiller Presets</string>
 
-   <string name="pt_verylight">Very Light</string>
+   <string name="pt_verylight">Very Light (Kills rarely)</string>
    <string name="pt_light">Light</string>
    <string name="pt_medium">Medium</string>
    <string name="pt_aggressive">Aggressive</string>
-   <string name="pt_veryaggressive">Very Aggressive</string>
+   <string name="pt_veryaggressive">Very Aggressive (Kills often)</string>
 
     <!-- do not kill proc -->
     <string name="prefcat_user_proc">NOT KILLABLE USER PROCESSES</string>
@@ -180,6 +180,7 @@ Copyright (C) 2012  James Roberts
     <!-- VM settings -->
     <string name="ps_vm_set_on_boot">If enabled will restore all vm settings on reboot</string>
     <string name="dirty_ratio_title">Dirty ratio</string>
+    <string name="dirty_ratio_summary">A higher ratio means lower CPU but slower app startups</string>
     <string name="dirty_background_title">Dirty background ratio</string>
     <string name="dirty_expire_title">Dirty expire centisecs</string>
     <string name="dirty_writeback_title">Dirty writeback centisecs</string>
