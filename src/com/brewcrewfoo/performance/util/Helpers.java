@@ -33,7 +33,6 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.widget.PCWidget;
 
 import java.io.*;
 
@@ -359,9 +358,11 @@ public class Helpers implements Constants {
 
     /**
      * Helper to update the app widget
+     * @note OMNI: The widget has been disabled
      * @param context
      */
     public static void updateAppWidget(Context context) {
+/*
         AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
         ComponentName widgetComponent = new ComponentName(context, PCWidget.class);
         int[] widgetIds = widgetManager.getAppWidgetIds(widgetComponent);
@@ -369,6 +370,7 @@ public class Helpers implements Constants {
         update.setAction("com.brewcrewfoo.performance.ACTION_FREQS_CHANGED");
         update.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, widgetIds);
         context.sendBroadcast(update);
+*/
     }
 
     /**
