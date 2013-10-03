@@ -282,7 +282,11 @@ public class VM extends PreferenceFragment implements SharedPreferences.OnShared
                         seekbar.setProgress(val);
                         int newProgress = seekbar.getProgress();
                         pref.setSummary(Integer.toString(newProgress));
-                        new CMDProcessor().su.runWaitFor("busybox echo " + newProgress + " > " + path);
+                        if (Helpers.isSystemApp(getActivity())) {
+                            Helpers.writeOneLine(path, Integer.toString(newProgress));
+                        } else {
+                            new CMDProcessor().su.runWaitFor("busybox echo " + newProgress + " > " + path);
+                        }
                         final SharedPreferences.Editor editor = mPreferences.edit();
                         editor.putInt(key, newProgress);
                         editor.commit();

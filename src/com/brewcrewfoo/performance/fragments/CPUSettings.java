@@ -235,19 +235,33 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         // we have a break now, write the values..
-        final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-            sb.append("busybox echo ").append(mMaxFreqSetting).append(" > ").append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
-            sb.append("busybox echo ").append(mMinFreqSetting).append(" > ").append(MIN_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+        if (Helpers.isSystemApp(getActivity())) {
+            for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+                Helpers.writeOneLine(MAX_FREQ_PATH.replace("cpu0", "cpu" + i), mMaxFreqSetting);
+                Helpers.writeOneLine(MIN_FREQ_PATH.replace("cpu0", "cpu" + i), mMinFreqSetting);
+            }
+            if (mIsTegra3) {
+                Helpers.writeOneLine(TEGRA_MAX_FREQ_PATH, mMaxFreqSetting);
+            }
+            if (mIsDynFreq) {
+                Helpers.writeOneLine(DYN_MAX_FREQ_PATH, mMaxFreqSetting);
+                Helpers.writeOneLine(DYN_MIN_FREQ_PATH, mMinFreqSetting);
+            }
+        } else {
+            final StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
+                sb.append("busybox echo ").append(mMaxFreqSetting).append(" > ").append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+                sb.append("busybox echo ").append(mMinFreqSetting).append(" > ").append(MIN_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+            }
+            if (mIsTegra3) {
+                sb.append("busybox echo ").append(mMaxFreqSetting).append(" > ").append(TEGRA_MAX_FREQ_PATH).append(";\n");
+            }
+            if (mIsDynFreq) {
+                sb.append("busybox echo ").append(mMaxFreqSetting).append(" > ").append(DYN_MAX_FREQ_PATH).append(";\n");
+                sb.append("busybox echo ").append(mMinFreqSetting).append(" > ").append(DYN_MIN_FREQ_PATH).append(";\n");
+            }
+            Helpers.shExec(sb,context,true);
         }
-        if (mIsTegra3) {
-            sb.append("busybox echo ").append(mMaxFreqSetting).append(" > ").append(TEGRA_MAX_FREQ_PATH).append(";\n");
-        }
-        if (mIsDynFreq) {
-            sb.append("busybox echo ").append(mMaxFreqSetting).append(" > ").append(DYN_MAX_FREQ_PATH).append(";\n");
-            sb.append("busybox echo ").append(mMinFreqSetting).append(" > ").append(DYN_MIN_FREQ_PATH).append(";\n");
-        }
-        Helpers.shExec(sb,context,true);
     }
 
     public class GovListener implements OnItemSelectedListener {
@@ -255,12 +269,18 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             final StringBuilder sb = new StringBuilder();
             String selected = parent.getItemAtPosition(pos).toString();
             for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                sb.append("busybox echo ").append(selected).append(" > ").append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+                if (Helpers.isSystemApp(getActivity())) {
+                    Helpers.writeOneLine(GOVERNOR_PATH.replace("cpu0", "cpu" + i), selected);
+                } else {
+                    sb.append("busybox echo ").append(selected).append(" > ").append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+                }
             }
             updateSharedPrefs(PREF_GOV, selected);
             // reset gov settings
             mPreferences.edit().remove(GOV_SETTINGS).remove(GOV_NAME).apply();
-            Helpers.shExec(sb,context,true);
+            if (!Helpers.isSystemApp(getActivity())) {
+                Helpers.shExec(sb,context,true);
+            }
         }
         public void onNothingSelected(AdapterView<?> parent) {
             // Do nothing.
@@ -272,10 +292,18 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             String selected = parent.getItemAtPosition(pos).toString();
 			final StringBuilder sb = new StringBuilder();
 			for(int i=0; i<IO_SCHEDULER_PATH.length; i++){
-                if (new File(IO_SCHEDULER_PATH[i]).exists())
-				sb.append("busybox echo ").append(selected).append(" > ").append(IO_SCHEDULER_PATH[i]).append(";\n");
+                if (new File(IO_SCHEDULER_PATH[i]).exists()) {
+                    if (Helpers.isSystemApp(getActivity())) {
+                        Helpers.writeOneLine(IO_SCHEDULER_PATH[i], selected);
+                    } else {
+				        sb.append("busybox echo ").append(selected).append(" > ").append(IO_SCHEDULER_PATH[i]).append(";\n");
+                    }
+                }
 			}
-			Helpers.shExec(sb,context,true);
+
+            if (!Helpers.isSystemApp(getActivity())) {
+                Helpers.shExec(sb,context,true);
+            }
             updateSharedPrefs(PREF_IO, selected);
         }
         public void onNothingSelected(AdapterView<?> parent) {

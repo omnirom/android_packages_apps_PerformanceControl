@@ -195,10 +195,18 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 
 	if (preference == mDsync){
 		if (Integer.parseInt(Helpers.readOneLine(DSYNC_PATH))==0){
-			new CMDProcessor().su.runWaitFor("busybox echo 1 > " + DSYNC_PATH);
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(DSYNC_PATH, "1");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + DSYNC_PATH);
+            }
 		}
-		else{
-			new CMDProcessor().su.runWaitFor("busybox echo 0 > " + DSYNC_PATH);
+		else {
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(DSYNC_PATH, "0");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + DSYNC_PATH);
+            }
 		}
             return true;
 	}
@@ -210,37 +218,69 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 	}
 	else if (preference == mBltouch){
 		if (Integer.parseInt(Helpers.readOneLine(BL_TOUCH_ON_PATH))==0){
-			new CMDProcessor().su.runWaitFor("busybox echo 1 > " + BL_TOUCH_ON_PATH);
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(BL_TOUCH_ON_PATH, "1");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + BL_TOUCH_ON_PATH);
+            }
 		}
-		else{
-			new CMDProcessor().su.runWaitFor("busybox echo 0 > " + BL_TOUCH_ON_PATH);
+		else {
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(BL_TOUCH_ON_PATH, "0");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + BL_TOUCH_ON_PATH);
+            }
 		}
             return true;
 	}
     else if (preference == mBln){
         if (Integer.parseInt(Helpers.readOneLine(BLN_PATH))==0){
-            new CMDProcessor().su.runWaitFor("busybox echo 1 > " + BLN_PATH);
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(BLN_PATH, "1");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + BLN_PATH);
+            }
         }
-        else{
-            new CMDProcessor().su.runWaitFor("busybox echo 0 > " + BLN_PATH);
+        else {
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(BLN_PATH, "0");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + BLN_PATH);
+            }
         }
         return true;
     }
     else if (preference == mHomeOn){
 		if (Integer.parseInt(Helpers.readOneLine(PFK_HOME_ENABLED))==0){
-			new CMDProcessor().su.runWaitFor("busybox echo 1 > " + PFK_HOME_ENABLED);
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(PFK_HOME_ENABLED, "1");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + PFK_HOME_ENABLED);
+            }
 		}
-		else{
-			new CMDProcessor().su.runWaitFor("busybox echo 0 > " + PFK_HOME_ENABLED);
+		else {
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(PFK_HOME_ENABLED, "0");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + PFK_HOME_ENABLED);
+            }
 		}
             return true;
 	}
 	else if (preference == mMenuBackOn){
-		if (Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_ENABLED))==0){
-			new CMDProcessor().su.runWaitFor("busybox echo 1 > " + PFK_MENUBACK_ENABLED);
+		if (Integer.parseInt(Helpers.readOneLine(PFK_MENUBACK_ENABLED)) == 0) {
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(PFK_MENUBACK_ENABLED, "1");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + PFK_MENUBACK_ENABLED);
+            }
 		}
 		else{
-			new CMDProcessor().su.runWaitFor("busybox echo 0 > " + PFK_MENUBACK_ENABLED);
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(PFK_MENUBACK_ENABLED, "0");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + PFK_MENUBACK_ENABLED);
+            }
 		}
             return true;
 	}
@@ -276,10 +316,18 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 	}
 	else if (preference == mDynamicWriteBackOn){
 		if (Integer.parseInt(Helpers.readOneLine(DYNAMIC_DIRTY_WRITEBACK_PATH))==0){
-			new CMDProcessor().su.runWaitFor("busybox echo 1 > " + DYNAMIC_DIRTY_WRITEBACK_PATH);
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(DYNAMIC_DIRTY_WRITEBACK_PATH, "1");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 1 > " + DYNAMIC_DIRTY_WRITEBACK_PATH);
+            }
 		}
 		else{
-			new CMDProcessor().su.runWaitFor("busybox echo 0 > " + DYNAMIC_DIRTY_WRITEBACK_PATH);
+            if (Helpers.isSystemApp(getActivity())) {
+                Helpers.writeOneLine(DYNAMIC_DIRTY_WRITEBACK_PATH, "0");
+            } else {
+                new CMDProcessor().su.runWaitFor("busybox echo 0 > " + DYNAMIC_DIRTY_WRITEBACK_PATH);
+            }
 		}
             return true;
 	}        
@@ -475,7 +523,11 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 					seekbar.setProgress(val);
 					int newProgress = seekbar.getProgress();
 					pref.setSummary(Integer.toString(newProgress));
-					new CMDProcessor().su.runWaitFor("busybox echo " + newProgress + " > " + path);
+                    if (Helpers.isSystemApp(getActivity())) {
+                        Helpers.writeOneLine(path, Integer.toString(newProgress));
+                    } else {
+					   new CMDProcessor().su.runWaitFor("busybox echo " + newProgress + " > " + path);
+                    }
 					final SharedPreferences.Editor editor = mPreferences.edit();
 					editor.putInt(key, newProgress);
 					editor.commit();
