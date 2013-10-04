@@ -424,13 +424,13 @@ public class Helpers implements Constants {
 
 	public static String shExec(StringBuilder s,Context c,Boolean su){
         get_assetsScript("run", c, s.toString(),"");
-        if (isSystemApp((Activity) c)) {
+        if (isSystemApp(c)) {
             new CMDProcessor().sh.runWaitFor("busybox chmod 750 "+ c.getFilesDir()+"/run" );
         } else {
             new CMDProcessor().su.runWaitFor("busybox chmod 750 "+ c.getFilesDir()+"/run" );
         }
         CMDProcessor.CommandResult cr = null;
-        if(su && !isSystemApp((Activity) c))
+        if(su && !isSystemApp(c))
 		    cr=new CMDProcessor().su.runWaitFor(c.getFilesDir()+"/run");
         else
             cr=new CMDProcessor().sh.runWaitFor(c.getFilesDir()+"/run");
@@ -550,7 +550,7 @@ public class Helpers implements Constants {
         }
     }
 
-    public static boolean isSystemApp(Activity c) {
+    public static boolean isSystemApp(Context c) {
         return mIsSystemApp = c.getResources().getBoolean(R.bool.config_isSystemApp);
     }
 }
