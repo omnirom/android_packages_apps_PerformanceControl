@@ -28,6 +28,8 @@ public interface Constants {
     public static final Boolean NO_FLASH = false;
 
     // CPU settings
+    public static final String CPU_PATH = "/sys/devices/system/cpu/cpu";
+    public static final String CPU_FREQ_TAIL = "/cpufreq/scaling_cur_freq";
     public static final String CUR_CPU_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
     public static final String MAX_FREQ_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
     public static final String TEGRA_MAX_FREQ_PATH = "/sys/module/cpu_tegra/parameters/cpu_user_cap";
@@ -59,6 +61,7 @@ public interface Constants {
 
     // Time in state
     public static final String TIME_IN_STATE_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
+    public static final String TIME_IN_STATE_TAIL = "/cpufreq/stats/time_in_state";
     public static final String PREF_OFFSETS = "pref_offsets";
     // Battery
     public static final String BAT_VOLT_PATH = "/sys/class/power_supply/battery/voltage_now";

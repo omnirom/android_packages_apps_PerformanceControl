@@ -159,6 +159,10 @@ public class Helpers implements Constants {
         return line;
     }
 
+    public static boolean fileExists(String fname) {
+        return new File(fname).exists();
+    }
+
     /**
      * Read file via shell
      *
