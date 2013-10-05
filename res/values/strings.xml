@@ -58,6 +58,9 @@ Copyright (C) 2012  James Roberts
     <string name="sob">Apply automatically on boot</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="cpu_info_list_header">Core Status</string>
+    <string name="cpu_speed_header">Core Limits</string>
+    <string name="other_settings_header">Other settings</string>
     <!-- Other settings -->
     <string name="prefcat_free_memory">FREE MEMORY</string>
     <string name="prefcat_tweaks">FAST CHARGE</string>
