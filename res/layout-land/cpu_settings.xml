@@ -39,11 +39,28 @@ Copyright (C) 2012  James Roberts
                 android:orientation="vertical"
             android:layout_gravity="top">
 
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+                android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:id="@+id/speed">
+
             <TextView
-                    android:id="@+id/current_speed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                android:textSize="56sp"/>
+                android:text="@string/cpu_info_list_header"
+                style="?android:attr/listSeparatorTextViewStyle" />
+
+            <ListView
+                android:id="@+id/cpu_info_list"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:paddingLeft="10dp"
+                android:divider="@null"/>
+
+        </LinearLayout>
+
 
         <LinearLayout
                 android:id="@+id/speed_set"
