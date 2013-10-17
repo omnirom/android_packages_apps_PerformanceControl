@@ -423,7 +423,7 @@ public class Helpers implements Constants {
     }
 
     public static boolean showBattery() {
-	    return ((new File(BLX_PATH).exists()) || (fastcharge_path()!=null));
+	    return (new File(BLX_PATH).exists() || (fastcharge_path()!=null) || new File(BAT_VOLT_PATH).exists());
     }
 
 	public static String shExec(StringBuilder s,Context c,Boolean su){

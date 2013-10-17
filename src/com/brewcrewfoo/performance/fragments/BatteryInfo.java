@@ -53,6 +53,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
     SharedPreferences mPreferences;
     private String mFastChargePath;
     private Context context;
+    private boolean mBattIconShown;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup root,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.battery_info, root, false);
+        View view = inflater.inflate(R.layout.pc_battery_info, root, false);
 
         mbattery_percent = (TextView) view.findViewById(R.id.batt_percent);
         mbattery_volt = (TextView) view.findViewById(R.id.batt_volt);
@@ -113,11 +114,26 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
                 mbattery_volt.setOnLongClickListener(new View.OnLongClickListener(){
                     @Override
                     public boolean onLongClick(View view) {
-                        mBattIcon.setVisibility(ImageView.VISIBLE);
-                        mbattery_volt.setVisibility(TextView.GONE);
+                        if (!mBattIconShown){
+                            mBattIcon.setVisibility(ImageView.VISIBLE);
+                            mbattery_volt.setVisibility(TextView.GONE);
+                            mBattIconShown = true;
+                        }
                         return true;
                     }
                 });
+                mBattIcon.setOnLongClickListener(new View.OnLongClickListener(){
+                    @Override
+                    public boolean onLongClick(View view) {
+                        if (mBattIconShown){
+                            mBattIcon.setVisibility(ImageView.GONE);
+                            mbattery_volt.setVisibility(TextView.VISIBLE);
+                            mBattIconShown = false;
+                        }
+                        return true;
+                    }
+                });
+
         }
         else{
             mBattIcon.setVisibility(ImageView.VISIBLE);
