@@ -74,9 +74,10 @@ public class MainActivity extends Fragment implements Constants,ActivityThemeCha
         mViewPager.setCurrentItem(0);
 
         mPagerTabStrip = (PagerTabStrip) rootView.findViewById(R.id.pagerTabStrip);
-        mPagerTabStrip.setBackgroundColor(getResources().getColor(R.color.pc_light_gray));
+        // no background color
+        //mPagerTabStrip.setBackgroundColor(getResources().getColor(R.color.pc_light_gray));
         mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.pc_blue));
-        mPagerTabStrip.setDrawFullUnderline(true);
+        mPagerTabStrip.setDrawFullUnderline(false);
 
         // We have to do this now because PreferenceFrameLayout looks at it
         // only when the view is added.
