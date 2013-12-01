@@ -4,283 +4,285 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true">
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:id="@+id/preview"
-        android:paddingBottom="20dip">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/relativeLayout3"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ksm_pagsharing"
-                android:id="@+id/t5"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="0dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/t6"
-                android:layout_toRightOf="@+id/t5"
-                android:textSize="18dip"
-                android:textStyle="bold"
-                android:layout_alignParentEnd="true"
-                android:gravity="right"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/relativeLayout1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ksm_pagshared"
-                android:id="@+id/t1"
-                android:layout_gravity="center"
-                android:textSize="14dip"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/t2"
-                android:textSize="18dip"
-                android:textStyle="bold"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false"
-                android:layout_toRightOf="@+id/t1"
-                android:layout_alignParentEnd="true"
-                android:gravity="right" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/relativeLayout2"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ksm_pagunshared"
-                android:id="@+id/t3"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="0dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/t4"
-                android:layout_toRightOf="@+id/t3"
-                android:textSize="18dip"
-                android:textStyle="bold"
-                android:layout_alignParentEnd="true"
-                android:gravity="right"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/relativeLayout4"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ksm_pagvolatile"
-                android:id="@+id/t7"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="0dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/t8"
-                android:layout_toRightOf="@+id/t7"
-                android:textSize="18dip"
-                android:textStyle="bold"
-                android:layout_alignParentEnd="true"
-                android:gravity="right"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/relativeLayout5"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ksm_fullscans"
-                android:id="@+id/t9"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="0dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/t10"
-                android:layout_toRightOf="@+id/t9"
-                android:textSize="18dip"
-                android:textStyle="bold"
-                android:layout_alignParentEnd="true"
-                android:gravity="right"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false" />
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentTop="false"
-        android:id="@+id/set1"
-        android:layout_below="@+id/preview"
-        android:paddingBottom="10dip">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ksm_pagtoscan"
-            android:id="@+id/tval1"
-            android:layout_marginBottom="8dp" />
-
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent">
-
-            <SeekBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/val1"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="false"
-                android:layout_toLeftOf="@+id/edit1" />
-
-            <EditText
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/edit1"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false"
-                android:layout_alignParentEnd="true"
-                android:inputType="number"
-                android:layout_alignParentStart="false"
-                android:gravity="right"
-                android:singleLine="true"
-                android:numeric="integer" />
-
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentTop="false"
-        android:id="@+id/set2"
-        android:layout_below="@+id/set1">
-
-        <TextView
-            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ksm_sleep"
-            android:id="@+id/tval2"
-            android:layout_marginBottom="8dp" />
+            android:paddingTop="20dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:id="@+id/preview"
+            android:paddingBottom="20dip">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <SeekBar
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/val2"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="false"
-                android:layout_toLeftOf="@+id/edit2" />
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/relativeLayout3"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
-            <EditText
-                android:layout_width="100dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ksm_pagsharing"
+                    android:id="@+id/t5"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/t6"
+                    android:layout_toRightOf="@+id/t5"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="right"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edit2"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentTop="false"
-                android:layout_alignParentEnd="true"
-                android:inputType="number"
-                android:layout_alignParentStart="false"
-                android:gravity="right"
-                android:singleLine="true"
-                android:numeric="integer" />
+                android:layout_marginBottom="10dp"
+                android:id="@+id/relativeLayout1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ksm_pagshared"
+                    android:id="@+id/t1"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="5dp" />
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/t2"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_toRightOf="@+id/t1"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="right" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/relativeLayout2"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ksm_pagunshared"
+                    android:id="@+id/t3"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/t4"
+                    android:layout_toRightOf="@+id/t3"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="right"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/relativeLayout4"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ksm_pagvolatile"
+                    android:id="@+id/t7"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/t8"
+                    android:layout_toRightOf="@+id/t7"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="right"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/relativeLayout5"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ksm_fullscans"
+                    android:id="@+id/t9"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/t10"
+                    android:layout_toRightOf="@+id/t9"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="right"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:id="@+id/set1"
+            android:layout_below="@+id/preview"
+            android:paddingBottom="10dip">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ksm_pagtoscan"
+                android:id="@+id/tval1"
+                android:layout_marginBottom="8dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/val1"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="false"
+                    android:layout_toLeftOf="@+id/edit1" />
+
+                <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit1"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_alignParentEnd="true"
+                    android:inputType="number"
+                    android:layout_alignParentStart="false"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:numeric="integer" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:id="@+id/set2"
+            android:layout_below="@+id/set1">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ksm_sleep"
+                android:id="@+id/tval2"
+                android:layout_marginBottom="8dp" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/val2"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="false"
+                    android:layout_toLeftOf="@+id/edit2" />
+
+                <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit2"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_alignParentEnd="true"
+                    android:inputType="number"
+                    android:layout_alignParentStart="false"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:numeric="integer" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -290,19 +292,21 @@
             android:gravity="bottom"
             android:layout_below="@+id/set2"
             android:paddingTop="10dip">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mt_reset"
                 android:id="@+id/rst"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
+
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/apply_values"
                 android:id="@+id/apply"
                 android:layout_weight="0.5"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>
-    </ScrollView>
+</ScrollView>

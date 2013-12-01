@@ -1,118 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true">
-<RelativeLayout
-  android:id="@+id/parentview"
-              android:orientation="vertical"
-              android:gravity="center_horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
-    <LinearLayout
-        android:id="@+id/batt_val"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="40dp"
-        android:gravity="center_horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/parentview"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/batt_val"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/batt_icon"
-            android:src="@drawable/battery_1"
-            android:layout_marginBottom="6dp" />
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="40dp"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/batt_icon"
+                android:src="@drawable/battery_1"
+                android:layout_marginBottom="6dp" />
 
             <TextView
-                    android:id="@+id/batt_volt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="60sp"
+                android:id="@+id/batt_volt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="60sp"
                 android:visibility="gone" />
-        <TextView
+
+            <TextView
                 android:id="@+id/batt_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="40sp" />
-        <TextView
+
+            <TextView
                 android:id="@+id/batt_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="22sp" />
-</LinearLayout>
-    <LinearLayout
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/wlayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/batt_val">
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/batt_val">
 
-  <LinearLayout android:id="@+id/blx_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-      android:orientation="vertical"
-            android:gravity="center_horizontal">
+            <LinearLayout
+                android:id="@+id/blx_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
 
-          <TextView
+                <TextView
                     android:id="@+id/blx_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
-        <SeekBar
-                android:id="@+id/blx_slider"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="17dp"
-                android:layout_marginRight="17dp"/>
+                <SeekBar
+                    android:id="@+id/blx_slider"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp" />
 
-      <LinearLayout
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal"
-             android:gravity="center_vertical"
-          android:layout_marginTop="10dip">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="10dip">
 
-         <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginRight="4dip"
-                 android:text="@string/sob"
-                 android:textSize="14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dip"
+                        android:text="@string/sob"
+                        android:textSize="14sp" />
 
-         <Switch
-                 android:id="@+id/blx_sob"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"/>
-     </LinearLayout>
-  </LinearLayout>
+                    <Switch
+                        android:id="@+id/blx_sob"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-            android:id="@+id/fastcharge_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-        android:orientation="horizontal"
-            android:gravity="center_vertical"
-        android:layout_marginTop="40dp">
-
-        <TextView
+            <LinearLayout
+                android:id="@+id/fastcharge_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="4dip"
-                android:text="@string/ps_fast_charge_boot"
-                android:textSize="14sp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="40dp">
 
-        <Switch
-                android:id="@+id/fastcharge_sob"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dip"
+                    android:text="@string/ps_fast_charge_boot"
+                    android:textSize="14sp" />
+
+                <Switch
+                    android:id="@+id/fastcharge_sob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
 </ScrollView>

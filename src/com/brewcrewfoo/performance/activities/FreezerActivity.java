@@ -2,6 +2,7 @@ package com.brewcrewfoo.performance.activities;
 /**
  * Created by h0rn3t on 15.09.2013.
  */
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -31,7 +32,7 @@ import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.PackAdapter;
 
 
-public class FreezerActivity extends Activity implements Constants, AdapterView.OnItemClickListener,ActivityThemeChangeInterface {
+public class FreezerActivity extends Activity implements Constants, AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
 
     final Context context = this;
     private boolean mIsLightTheme;
@@ -44,7 +45,7 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
     private PackAdapter adapter;
     private int curpos;
     private Boolean freeze;
-    private String  packs;
+    private String packs;
     private String pn;
     private String titlu;
     private ProgressDialog progressDialog;
@@ -57,11 +58,11 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
         setTheme();
         setContentView(R.layout.freezer_list);
 
-        Intent i=getIntent();
-        freeze=i.getBooleanExtra("freeze",false);
-        packs=i.getStringExtra("packs");
+        Intent i = getIntent();
+        freeze = i.getBooleanExtra("freeze", false);
+        packs = i.getStringExtra("packs");
 
-        pmList=new String[] {};
+        pmList = new String[]{};
         packageManager = getPackageManager();
 
         linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
@@ -69,11 +70,10 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
 
         packList = (ListView) findViewById(R.id.applist);
         packList.setOnItemClickListener(this);
-        if(freeze) {
-            titlu=getString(R.string.pt_freeze);
-        }
-        else{
-            titlu=getString(R.string.pt_unfreeze);
+        if (freeze) {
+            titlu = getString(R.string.pt_freeze);
+        } else {
+            titlu = getString(R.string.pt_unfreeze);
         }
         new GetPacksOperation().execute();
 
@@ -84,22 +84,22 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
         super.onConfigurationChanged(newConfig);
 
     }
+
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,long row) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long row) {
         pn = (String) parent.getItemAtPosition(position);
-        curpos=position;
-        if(freeze) {
-            makedialog(titlu,getString(R.string.freeze_msg, pn));
-        }
-        else{
-            makedialog(titlu,getString(R.string.unfreeze_msg,pn));
+        curpos = position;
+        if (freeze) {
+            makedialog(titlu, getString(R.string.freeze_msg, pn));
+        } else {
+            makedialog(titlu, getString(R.string.unfreeze_msg, pn));
         }
 
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(!freeze) return false;
-        MenuInflater inflater=getMenuInflater();
+        if (!freeze) return false;
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.freezer_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -107,12 +107,12 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.freez_sys) {
-            if(packs.equals("sys")) return false;
-            packs="sys";
+            if (packs.equals("sys")) return false;
+            packs = "sys";
         }
         if (item.getItemId() == R.id.freez_usr) {
-            if(packs.equals("usr")) return false;
-            packs="usr";
+            if (packs.equals("usr")) return false;
+            packs = "usr";
         }
         new GetPacksOperation().execute();
         return true;
@@ -122,33 +122,30 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
         @Override
         protected String doInBackground(String... params) {
             CMDProcessor.CommandResult cr;
-            if(!freeze){
-                cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -d | cut -d':' -f2`");
-            }
-            else{
-                if(packs.equals("sys")){
-                    cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -s -e | cut -d':' -f2`");
-                }
-                else{
-                    cr=new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -3 -e | cut -d':' -f2`");
+            if (!freeze) {
+                cr = new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -d | cut -d':' -f2`");
+            } else {
+                if (packs.equals("sys")) {
+                    cr = new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -s -e | cut -d':' -f2`");
+                } else {
+                    cr = new CMDProcessor().sh.runWaitFor("busybox echo `pm list packages -3 -e | cut -d':' -f2`");
                 }
             }
-            if(cr.success()&& !cr.stdout.equals(""))
+            if (cr.success() && !cr.stdout.equals(""))
                 return cr.stdout;
             return null;
         }
 
         @Override
         protected void onPostExecute(String result) {
-            if(result!=null)
-                pmList =result.split(" ");
+            if (result != null)
+                pmList = result.split(" ");
             linlaHeaderProgress.setVisibility(View.GONE);
-            if(pmList.length>0){
+            if (pmList.length > 0) {
                 adapter = new PackAdapter(FreezerActivity.this, pmList, packageManager);
                 packList.setAdapter(adapter);
                 linNopack.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 linNopack.setVisibility(View.VISIBLE);
             }
         }
@@ -182,13 +179,13 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
         setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 
-    private void makedialog(String titlu,String msg){
+    private void makedialog(String titlu, String msg) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(titlu)
                 .setMessage(msg)
                 .setNegativeButton(getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                            public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                                 //finish();
                             }
@@ -207,31 +204,33 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
             theButton.setOnClickListener(new FreezeListener(alertDialog));
         }
     }
+
     class FreezeListener implements View.OnClickListener {
         private final Dialog dialog;
+
         public FreezeListener(Dialog dialog) {
             this.dialog = dialog;
         }
+
         @Override
         public void onClick(View v) {
             dialog.cancel();
             new FreezeOperation().execute();
         }
     }
+
     private class FreezeOperation extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... params) {
             CMDProcessor.CommandResult cr;
-            if(freeze){
-                cr=new CMDProcessor().su.runWaitFor("pm disable "+pn+" 2> /dev/null");
+            if (freeze) {
+                cr = new CMDProcessor().su.runWaitFor("pm disable " + pn + " 2> /dev/null");
+            } else {
+                cr = new CMDProcessor().su.runWaitFor("pm enable " + pn + " 2> /dev/null");
             }
-            else{
-                cr=new CMDProcessor().su.runWaitFor("pm enable "+pn+" 2> /dev/null");
-            }
-            if(cr.success()){
+            if (cr.success()) {
                 return "ok";
-            }
-            else{
+            } else {
                 return null;
             }
         }
@@ -241,10 +240,10 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
             if (progressDialog != null) {
                 progressDialog.dismiss();
             }
-            if(result.equals("ok")){
+            if (result.equals("ok")) {
                 adapter.delItem(curpos);
                 adapter.notifyDataSetChanged();
-                if(adapter.isEmpty())
+                if (adapter.isEmpty())
                     linNopack.setVisibility(View.VISIBLE);
             }
         }
