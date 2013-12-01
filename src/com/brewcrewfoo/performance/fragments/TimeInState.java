@@ -19,7 +19,7 @@
 
 package com.brewcrewfoo.performance.fragments;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,13 +38,14 @@ import com.brewcrewfoo.performance.util.CPUStateMonitor.CPUStateMonitorException
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CpuState;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
+import com.brewcrewfoo.performance.widgets.PerformanceFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TimeInState extends Fragment implements Constants {
+public class TimeInState extends PerformanceFragment implements Constants {
 
     private static final int NEW_MENU_ID=Menu.FIRST+1;
     private LinearLayout mStatesView;
@@ -105,13 +106,11 @@ public class TimeInState extends Fragment implements Constants {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
             inflater.inflate(R.menu.time_in_state_menu, menu);
-            Helpers.addItems2Menu(menu, NEW_MENU_ID, getString(R.string.menu_tab), (ViewPager) getView().getParent());
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Helpers.removeCurItem(item,Menu.FIRST+1,(ViewPager) getView().getParent());
         switch (item.getItemId()){
             case R.id.refresh:
                 refreshData();
@@ -288,4 +287,10 @@ public class TimeInState extends Fragment implements Constants {
         }
         editor.putString(PREF_OFFSETS, str).commit();
     }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity, R.string.t_time_in_state);
+    }
+
 }

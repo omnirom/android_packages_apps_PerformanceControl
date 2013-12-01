@@ -18,7 +18,7 @@
 
 package com.brewcrewfoo.performance.fragments;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,10 +29,11 @@ import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
+import com.brewcrewfoo.performance.widgets.PerformanceFragment;
 
 import java.io.*;
 
-public class CPUInfo extends Fragment implements Constants {
+public class CPUInfo extends PerformanceFragment implements Constants {
 
     private static final int NEW_MENU_ID=Menu.FIRST+1;
     private TextView mKernelInfo;
@@ -93,13 +94,11 @@ public class CPUInfo extends Fragment implements Constants {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
             inflater.inflate(R.menu.cpu_info_menu, menu);
-            Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Helpers.removeCurItem(item,NEW_MENU_ID,(ViewPager) getView().getParent());
         switch (item.getItemId()){
             case R.id.refresh:
                 updateData();
@@ -132,5 +131,10 @@ public class CPUInfo extends Fragment implements Constants {
                 }
             }
         }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity, R.string.t_cpu_info);
     }
 }

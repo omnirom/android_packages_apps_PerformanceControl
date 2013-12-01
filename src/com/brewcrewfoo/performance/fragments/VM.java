@@ -3,6 +3,7 @@ package com.brewcrewfoo.performance.fragments;
 /**
  * Created by h0rn3t on 15.09.2013.
  */
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,6 +31,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
+import com.brewcrewfoo.performance.activities.MainActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
@@ -100,13 +102,11 @@ public class VM extends PreferenceFragment implements SharedPreferences.OnShared
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
             inflater.inflate(R.menu.vm_menu, menu);
-            Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Helpers.removeCurItem(item,NEW_MENU_ID,(ViewPager) getView().getParent());
         switch(item.getItemId()){
             case R.id.app_settings:
                 Intent intent = new Intent(context, PCSettings.class);
@@ -295,6 +295,16 @@ public class VM extends PreferenceFragment implements SharedPreferences.OnShared
                     }
                 }).create().show();
     }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        MainActivity mainActivity =
+                ((MainActivity)activity.getFragmentManager().findFragmentByTag(TAG));
+        if(mainActivity!=null)
+            mainActivity.onSectionAttached(R.string.prefcat_vm_settings);
+    }
+
 }
 
 

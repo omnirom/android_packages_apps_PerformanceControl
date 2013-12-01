@@ -339,4 +339,9 @@ Copyright (C) 2012  James Roberts
     <string name="set">Set</string>
     <string name="ics_color">Holo</string>
 
+    <!-- Drawer -->
+    <string name="navigation_drawer_toggle">Toggle Drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>
