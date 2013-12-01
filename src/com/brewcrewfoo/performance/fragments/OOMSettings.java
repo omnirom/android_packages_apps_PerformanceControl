@@ -40,6 +40,7 @@ import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.KSMActivity;
+import com.brewcrewfoo.performance.activities.MainActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.activities.PackActivity;
 import com.brewcrewfoo.performance.util.CMDProcessor;
@@ -48,7 +49,8 @@ import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
 
-public class OOMSettings extends PreferenceFragment implements OnSharedPreferenceChangeListener,Constants {
+public class OOMSettings extends PreferenceFragment
+        implements OnSharedPreferenceChangeListener,Constants {
 
     private static final int NEW_MENU_ID=Menu.FIRST+1;
 
@@ -168,13 +170,11 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
             inflater.inflate(R.menu.oom_menu, menu);
-            Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Helpers.removeCurItem(item,Menu.FIRST+1,(ViewPager) getView().getParent());
         switch(item.getItemId()){
             case R.id.app_settings:
                 Intent intent = new Intent(getActivity(), PCSettings.class);
@@ -562,5 +562,14 @@ public class OOMSettings extends PreferenceFragment implements OnSharedPreferenc
 				}
 			}).create().show();
 			
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        MainActivity mainActivity =
+                ((MainActivity)activity.getFragmentManager().findFragmentByTag(TAG));
+        if(mainActivity!=null)
+            mainActivity.onSectionAttached(R.string.t_oom_settings);
     }
 }

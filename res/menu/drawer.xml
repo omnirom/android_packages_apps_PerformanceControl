@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pc_action_tabbed"
+        android:actionLayout="@layout/action_switch"
+        android:showAsAction="always" />
+    <item
+        android:id="@+id/pc_toggle_drawer"
+        android:showAsAction="always"
+        android:title="@string/navigation_drawer_toggle"
+        android:icon="@drawable/ic_drawer" />
+</menu>

@@ -18,7 +18,7 @@
 
 package com.brewcrewfoo.performance.fragments;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,9 +33,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.GovSetActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
-import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
+import com.brewcrewfoo.performance.widgets.PerformanceFragment;
 
 import java.io.File;
 import java.util.Arrays;
@@ -43,7 +43,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 
-public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeListener, Constants {
+public class CPUSettings extends PerformanceFragment
+        implements SeekBar.OnSeekBarChangeListener, Constants {
 
     private SeekBar mMaxSlider;
     private SeekBar mMinSlider;
@@ -228,13 +229,11 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
             inflater.inflate(R.menu.cpu_settings_menu, menu);
-            Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Helpers.removeCurItem(item,NEW_MENU_ID,(ViewPager) getView().getParent());
         switch(item.getItemId()){
             case R.id.app_settings:
                 Intent intent = new Intent(context, PCSettings.class);
@@ -248,7 +247,6 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                         break;
                     }
                 }
-                break;
         }
         return true;
     }
@@ -461,6 +459,11 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     private void updateSharedPrefs(String var, String value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(var, value).commit();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity, R.string.t_cpu_settings);
     }
 }
 

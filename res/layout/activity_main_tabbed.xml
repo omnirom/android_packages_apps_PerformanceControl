@@ -17,30 +17,22 @@ Copyright (C) 2012  James Roberts
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<com.brewcrewfoo.performance.widgets.CustomDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pc_drawer_layout"
-    android:tag="PerformanceControl"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/pc_container"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/pc_navigation_drawer"
-        android:background="@color/pc_black"
-        android:layout_width="260dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
+        android:layout_weight="1">
 
-</com.brewcrewfoo.performance.widgets.CustomDrawerLayout>
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/pagerTabStrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>
 
