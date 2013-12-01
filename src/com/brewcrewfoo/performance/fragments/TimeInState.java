@@ -26,18 +26,22 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.view.ViewPager;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CPUStateMonitor;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CPUStateMonitorException;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CpuState;
 import com.brewcrewfoo.performance.util.Constants;
-import com.brewcrewfoo.performance.util.Helpers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +50,6 @@ import java.util.Map;
 
 public class TimeInState extends Fragment implements Constants {
 
-    private static final int NEW_MENU_ID=Menu.FIRST+1;
     private LinearLayout mStatesView;
     private TextView mAdditionalStates;
     private TextView mTotalStateTime;
@@ -57,12 +60,12 @@ public class TimeInState extends Fragment implements Constants {
 
     private CPUStateMonitor monitor = new CPUStateMonitor();
     private Context context;
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context=getActivity();
+        context = getActivity();
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (savedInstanceState != null) {
             mUpdatingData = savedInstanceState.getBoolean("updatingData");
@@ -98,29 +101,25 @@ public class TimeInState extends Fragment implements Constants {
     public void onResume() {
         refreshData();
         super.onResume();
-
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
             inflater.inflate(R.menu.time_in_state_menu, menu);
-            Helpers.addItems2Menu(menu, NEW_MENU_ID, getString(R.string.menu_tab), (ViewPager) getView().getParent());
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Helpers.removeCurItem(item,Menu.FIRST+1,(ViewPager) getView().getParent());
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.refresh:
                 refreshData();
                 break;
             case R.id.reset:
                 try {
                     monitor.setOffsets();
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     // not good
                 }
                 saveOffsets();
@@ -178,8 +177,7 @@ public class TimeInState extends Fragment implements Constants {
             mAdditionalStates.setVisibility(View.VISIBLE);
             mHeaderAdditionalStates.setVisibility(View.VISIBLE);
             mAdditionalStates.setText(str);
-        }
-        else {
+        } else {
             mAdditionalStates.setVisibility(View.GONE);
             mHeaderAdditionalStates.setVisibility(View.GONE);
         }
@@ -218,8 +216,7 @@ public class TimeInState extends Fragment implements Constants {
         String sFreq;
         if (state.freq == 0) {
             sFreq = getString(R.string.deep_sleep);
-        }
-        else {
+        } else {
             sFreq = state.freq / 1000 + " MHz";
         }
 
@@ -245,8 +242,7 @@ public class TimeInState extends Fragment implements Constants {
         protected Void doInBackground(Void... v) {
             try {
                 monitor.updateStates();
-            }
-            catch (CPUStateMonitorException e) {
+            } catch (CPUStateMonitorException e) {
             }
             return null;
         }
@@ -263,7 +259,6 @@ public class TimeInState extends Fragment implements Constants {
         }
     }
 
-    //@SuppressLint("UseSparseArrays")
     public void loadOffsets() {
         String prefs = preferences.getString(PREF_OFFSETS, "");
         if (prefs == null || prefs.length() < 1) {

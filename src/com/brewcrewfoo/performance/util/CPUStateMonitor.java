@@ -21,8 +21,16 @@ package com.brewcrewfoo.performance.util;
 
 import android.os.SystemClock;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 //@SuppressLint("UseSparseArrays")
 public class CPUStateMonitor implements Constants {
@@ -48,8 +56,8 @@ public class CPUStateMonitor implements Constants {
         public long duration = 0;
 
         public int compareTo(CpuState state) {
-            Integer a = new Integer(freq);
-            Integer b = new Integer(state.freq);
+            Integer a = freq;
+            Integer b = state.freq;
             return a.compareTo(b);
         }
     }

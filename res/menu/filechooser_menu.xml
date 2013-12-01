@@ -2,7 +2,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:id="@+id/close"
-            android:showAsAction="never"
-            android:title="@string/closebtn"/>
+        android:id="@+id/close"
+        android:showAsAction="never"
+        android:title="@string/closebtn" />
 </menu>

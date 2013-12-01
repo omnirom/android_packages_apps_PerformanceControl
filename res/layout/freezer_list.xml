@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-        * Created by h0rn3t on 15.09.2013.
--->
+
+<!-- Created by h0rn3t on 15.09.2013. -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/linlaHeaderProgress"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <ProgressBar
             android:id="@+id/pbHeaderProgress"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ProgressBar>
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/noproc"
         android:layout_width="match_parent"
@@ -35,8 +36,9 @@
             android:text="@string/no_proc"
             android:id="@+id/textView"
             android:layout_gravity="center_horizontal"
-            android:textSize="16dp"/>
+            android:textSize="16sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +53,7 @@
             android:id="@+id/applist"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:fastScrollEnabled="false"/>
+            android:fastScrollEnabled="false" />
     </LinearLayout>
 
 
