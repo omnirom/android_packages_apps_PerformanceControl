@@ -19,13 +19,14 @@ public class PropAdapter extends ArrayAdapter<Prop> {
     private int id;
     private List<Prop> props;
 
-    public PropAdapter(Context context, int textViewResourceId,List<Prop> objects) {
+    public PropAdapter(Context context, int textViewResourceId, List<Prop> objects) {
         super(context, textViewResourceId, objects);
         c = context;
         id = textViewResourceId;
         props = objects;
     }
-    public Prop getItem(int i){
+
+    public Prop getItem(int i) {
         return props.get(i);
     }
 
@@ -34,7 +35,7 @@ public class PropAdapter extends ArrayAdapter<Prop> {
         View v = convertView;
 
         if (v == null) {
-            LayoutInflater vi = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(id, null);
         }
 
@@ -43,10 +44,10 @@ public class PropAdapter extends ArrayAdapter<Prop> {
             TextView pp = (TextView) v.findViewById(R.id.prop);
             TextView pv = (TextView) v.findViewById(R.id.pval);
 
-            if(pp!=null){
+            if (pp != null) {
                 pp.setText(p.getName());
             }
-            if(pv!=null){
+            if (pv != null) {
                 pv.setText(p.getVal());
             }
 

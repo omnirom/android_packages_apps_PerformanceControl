@@ -22,19 +22,26 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class CPUInfo extends Fragment implements Constants {
 
-    private static final int NEW_MENU_ID=Menu.FIRST+1;
     private TextView mKernelInfo;
     private TextView mCPUInfo;
     private TextView mMemInfo;
@@ -43,7 +50,7 @@ public class CPUInfo extends Fragment implements Constants {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context=getActivity();
+        context = getActivity();
         setHasOptionsMenu(true);
     }
 
@@ -56,10 +63,7 @@ public class CPUInfo extends Fragment implements Constants {
         updateData();
         return view;
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
+
     public void updateData() {
         mKernelInfo.setText("");
         mCPUInfo.setText("");
@@ -67,7 +71,7 @@ public class CPUInfo extends Fragment implements Constants {
         readFile(mKernelInfo, KERNEL_INFO_PATH);
         if (new File(PFK_VER).exists()) {
             mKernelInfo.append("\n");
-            mKernelInfo.append(getString(R.string.pfk_info,Helpers.readOneLine(PFK_VER)));
+            mKernelInfo.append(getString(R.string.pfk_info, Helpers.readOneLine(PFK_VER)));
             mKernelInfo.append("\n");
         }
         if (new File(DYNAMIC_DIRTY_WRITEBACK_PATH).exists()) {
@@ -93,21 +97,19 @@ public class CPUInfo extends Fragment implements Constants {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
             inflater.inflate(R.menu.cpu_info_menu, menu);
-            Helpers.addItems2Menu(menu,NEW_MENU_ID,getString(R.string.menu_tab),(ViewPager) getView().getParent());
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Helpers.removeCurItem(item,NEW_MENU_ID,(ViewPager) getView().getParent());
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.refresh:
                 updateData();
                 break;
             case R.id.app_settings:
                 Intent intent = new Intent(context, PCSettings.class);
                 startActivity(intent);
-            break;
+                break;
         }
         return true;
     }

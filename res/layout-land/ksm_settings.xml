@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false">
-
 
 
     <LinearLayout
@@ -39,10 +39,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/t6"
                 android:layout_toRightOf="@+id/t5"
-                android:textSize="18dip"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_alignParentEnd="true"
-                android:gravity="right"/>
+                android:gravity="right" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -59,7 +59,7 @@
                 android:text="@string/ksm_pagshared"
                 android:id="@+id/t1"
                 android:layout_gravity="center"
-                android:textSize="14dip"
+                android:textSize="14sp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="0dp"
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/t2"
-                android:textSize="18dip"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_toRightOf="@+id/t1"
                 android:layout_alignParentEnd="true"
@@ -100,10 +100,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/t4"
                 android:layout_toRightOf="@+id/t3"
-                android:textSize="18dip"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_alignParentEnd="true"
-                android:gravity="right"/>
+                android:gravity="right" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -130,10 +130,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/t8"
                 android:layout_toRightOf="@+id/t7"
-                android:textSize="18dip"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_alignParentEnd="true"
-                android:gravity="right"/>
+                android:gravity="right" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -160,10 +160,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/t10"
                 android:layout_toRightOf="@+id/t9"
-                android:textSize="18dip"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_alignParentEnd="true"
-                android:gravity="right"/>
+                android:gravity="right" />
         </RelativeLayout>
 
         <LinearLayout
@@ -178,10 +178,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/mt_reset"
                 android:id="@+id/rst"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
@@ -210,7 +211,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent" >
+                android:layout_height="fill_parent">
 
                 <SeekBar
                     android:layout_width="wrap_content"
@@ -256,7 +257,7 @@
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
+                android:layout_height="fill_parent">
 
                 <SeekBar
                     android:layout_width="wrap_content"
@@ -293,7 +294,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/apply_values"
                 android:id="@+id/apply"
-                android:textSize="14dp" />
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
 

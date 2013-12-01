@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 translation by Stefano187
 (http://forum.xda-developers.com/member.php?u=4643755)
 -->
@@ -245,7 +244,7 @@ translation by Stefano187
         <item>Contiene i file log delle app che hanno smesso di funzionare</item>
         <item>Contiene file log generati costantemente</item>
         <item>Contiene statistiche delle app avviate</item>
-        <item>Contiene tracce dagli eventi \'applicazione non risponde\' </item>
+        <item>Contiene tracce dagli eventi \'applicazione non risponde\'</item>
         <item>Contiene file temporanei</item>
     </string-array>
     <string name="prefcat_fix_perms">FIX PERMISSIONS</string>

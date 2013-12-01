@@ -71,7 +71,6 @@ public class CMDProcessor implements Constants {
             SHELL = SHELL_in;
         }
 
-        @SuppressWarnings("deprecation")
         private String getStreamLines(final InputStream is) {
             String out = null;
             StringBuffer buffer = null;
@@ -95,7 +94,7 @@ public class CMDProcessor implements Constants {
         }
 
         public Process run(final String s) {
-            Process process = null;
+            Process process;
             try {
                 process = Runtime.getRuntime().exec(SHELL);
                 final DataOutputStream toProcess = new DataOutputStream(
@@ -123,9 +122,7 @@ public class CMDProcessor implements Constants {
                     stdout = getStreamLines(process.getInputStream());
                     stderr = getStreamLines(process.getErrorStream());
 
-                } catch (final InterruptedException e) {
-                    Log.e(TAG, "runWaitFor " + e.toString());
-                } catch (final NullPointerException e) {
+                } catch (final Exception e) {
                     Log.e(TAG, "runWaitFor " + e.toString());
                 }
             }
