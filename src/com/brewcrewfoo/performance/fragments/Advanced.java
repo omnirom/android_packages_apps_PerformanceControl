@@ -18,6 +18,7 @@
 
 package com.brewcrewfoo.performance.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -37,6 +38,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import com.brewcrewfoo.performance.R;
+import com.brewcrewfoo.performance.activities.MainActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
@@ -44,11 +46,12 @@ import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
 
-public class Advanced extends PreferenceFragment implements OnSharedPreferenceChangeListener, Constants {
+public class Advanced extends PreferenceFragment
+        implements OnSharedPreferenceChangeListener, Constants {
 
     private static final int NEW_MENU_ID=Menu.FIRST+1;
 	private CheckBoxPreference mDsync;
-	
+
 	private Preference mBltimeout;
 	private CheckBoxPreference mBltouch;
 
@@ -56,13 +59,13 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
     //--------
 	private CheckBoxPreference mHomeOn;
 	private CheckBoxPreference mMenuBackOn;
-	
+
 	private Preference mHomeAllowedIrqs;
 	private Preference mHomeReportWait;
 
 	private Preference mMenuBackIrqChecks;
 	private Preference mMenuBackFirstErrWait;
-	private Preference mMenuBackLastErrWait;	
+	private Preference mMenuBackLastErrWait;
 //--------
 	private CheckBoxPreference mDynamicWriteBackOn;
 	private Preference mDynamicWriteBackActive;
@@ -70,7 +73,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 
 	private ListPreference mReadAhead;
 	SharedPreferences mPreferences;
-	
+
 	private int mSeekbarProgress;
 	private EditText settingText;
 	private String sreadahead;
@@ -84,7 +87,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         addPreferencesFromResource(R.layout.advanced);
-        
+
 	    sreadahead=getResources().getString(R.string.ps_read_ahead,"");
 
         mReadAhead = (ListPreference) findPreference(PREF_READ_AHEAD);
@@ -103,7 +106,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
         mDynamicWriteBackOn = (CheckBoxPreference) findPreference(PREF_DYNAMIC_DIRTY_WRITEBACK);
         mDynamicWriteBackActive = findPreference(PREF_DIRTY_WRITEBACK_ACTIVE);
         mDynamicWriteBackSuspend = findPreference(PREF_DIRTY_WRITEBACK_SUSPEND);
-		
+
 
         if (!new File(DSYNC_PATH).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("dsync");
@@ -163,7 +166,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 		final String readahead=Helpers.readOneLine(READ_AHEAD_PATH);
 	    mReadAhead.setValue(readahead);
         mReadAhead.setSummary(getString(R.string.ps_read_ahead, readahead + "  kb"));
-            
+
         setHasOptionsMenu(true);
     }
 
@@ -290,7 +293,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
             String title = getString(R.string.home_allowed_irq_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(PFK_HOME_ALLOWED_IRQ));
             openDialog(currentProgress, title, 1,32, preference, PFK_HOME_ALLOWED_IRQ, PREF_HOME_ALLOWED_IRQ);
-            return true;		
+            return true;
 	}
 	else if (preference == mHomeReportWait) {
             String title = getString(R.string.home_report_wait_title)+" (ms)";
@@ -332,7 +335,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
             }
 		}
             return true;
-	}        
+	}
 	else if (preference == mDynamicWriteBackActive) {
             String title = getString(R.string.dynamic_writeback_active_title);
             int currentProgress = Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
@@ -344,8 +347,8 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
             int currentProgress = Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
             openDialog(currentProgress, title, 0,5000, preference,DIRTY_WRITEBACK_SUSPEND_PATH, PREF_DIRTY_WRITEBACK_SUSPEND);
             return true;
-        }        
-        
+        }
+
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
@@ -358,7 +361,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
                 new CMDProcessor().su.runWaitFor("busybox echo "+values+" > " + READ_AHEAD_PATH);
 			}
 			mReadAhead.setSummary(sreadahead+values + " kb");
-		}	
+		}
 
 		else if (key.equals(PREF_BLTIMEOUT)) {
 			mBltimeout.setSummary(Helpers.readOneLine(BL_TIMEOUT_PATH)+" ms");
@@ -427,7 +430,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 				}
 				else{
 					editor.putBoolean(PREF_DYNAMIC_DIRTY_WRITEBACK,false);
-				}    				
+				}
 				editor.putInt(PREF_DIRTY_WRITEBACK_ACTIVE, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH)))
 				.putInt(PREF_DIRTY_WRITEBACK_SUSPEND, Integer.parseInt(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH)))
 				.apply();
@@ -452,7 +455,7 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 
         seekbar.setMax(max);
         seekbar.setProgress(currentProgress);
-        
+
         settingText = (EditText) alphaDialog.findViewById(R.id.setting_text);
         settingText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 		@Override
@@ -511,30 +514,41 @@ public class Advanced extends PreferenceFragment implements OnSharedPreferenceCh
 			.setTitle(title)
 			.setView(alphaDialog)
 			.setNegativeButton(cancel,
-			new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog,int which) {
-				// nothing
-				}
-			})
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // nothing
+                        }
+                    })
 			.setPositiveButton(ok, new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					int val = Integer.parseInt(settingText.getText().toString());
-					if(val<min){val=min;}
-					seekbar.setProgress(val);
-					int newProgress = seekbar.getProgress();
-					pref.setSummary(Integer.toString(newProgress));
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    int val = Integer.parseInt(settingText.getText().toString());
+                    if (val < min) {
+                        val = min;
+                    }
+                    seekbar.setProgress(val);
+                    int newProgress = seekbar.getProgress();
+                    pref.setSummary(Integer.toString(newProgress));
                     if (Helpers.isSystemApp(getActivity())) {
                         Helpers.writeOneLine(path, Integer.toString(newProgress));
                     } else {
-					   new CMDProcessor().su.runWaitFor("busybox echo " + newProgress + " > " + path);
+                        new CMDProcessor().su.runWaitFor("busybox echo " + newProgress + " > " + path);
                     }
-					final SharedPreferences.Editor editor = mPreferences.edit();
-					editor.putInt(key, newProgress);
-					editor.commit();
-				}
-			}).create().show();
+                    final SharedPreferences.Editor editor = mPreferences.edit();
+                    editor.putInt(key, newProgress);
+                    editor.commit();
+                }
+            }).create().show();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        MainActivity mainActivity =
+                ((MainActivity)activity.getFragmentManager().findFragmentByTag(TAG));
+        if(mainActivity!=null)
+            mainActivity.onSectionAttached(R.string.t_adv_settings);
     }
 }
 

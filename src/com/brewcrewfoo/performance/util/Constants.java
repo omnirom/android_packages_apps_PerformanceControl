@@ -27,6 +27,18 @@ public interface Constants {
     // NO_FLASH=false > show flash options
     public static final Boolean NO_FLASH = false;
 
+    // Fragment IDs
+    public static final int FRAGMENT_ID_CPUSETTINGS   = 0;
+    public static final int FRAGMENT_ID_BATTERYINFO   = 1;
+    public static final int FRAGMENT_ID_OOMSETTINGS   = 2;
+    public static final int FRAGMENT_ID_VM            = 3;
+    public static final int FRAGMENT_ID_VOLTAGECONROL = 4;
+    public static final int FRAGMENT_ID_ADVANCED      = 5;
+    public static final int FRAGMENT_ID_TIMEINSTATE   = 6;
+    public static final int FRAGMENT_ID_CPUINFO       = 7;
+    public static final int FRAGMENT_ID_DISKINFO      = 8;
+    public static final int FRAGMENT_ID_TOOLS         = 9;
+
     // CPU settings
     public static final String CPU_PATH = "/sys/devices/system/cpu/cpu";
     public static final String CPU_FREQ_TAIL = "/cpufreq/scaling_cur_freq";

@@ -39,6 +39,7 @@ import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.util.Voltage;
+import com.brewcrewfoo.performance.widgets.PerformanceFragment;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -47,7 +48,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoltageControlSettings extends Fragment implements Constants {
+public class VoltageControlSettings extends PerformanceFragment implements Constants {
 
     private static final int NEW_MENU_ID=Menu.FIRST+1;
     public static final int DIALOG_EDIT_VOLT = 0;
@@ -453,5 +454,11 @@ public class VoltageControlSettings extends Fragment implements Constants {
             }
         }
     }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity, R.string.t_volt_settings);
+    }
+
 }
 
