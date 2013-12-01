@@ -18,8 +18,8 @@
 
 package com.brewcrewfoo.performance.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -38,11 +38,13 @@ import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
+import com.brewcrewfoo.performance.widgets.PerformanceFragment;
 
 
 import java.io.File;
 
-public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeListener, Constants {
+public class BatteryInfo extends PerformanceFragment
+        implements SeekBar.OnSeekBarChangeListener, Constants {
     private static final int NEW_MENU_ID=Menu.FIRST+1;
     TextView mbattery_percent;
     TextView mbattery_volt;
@@ -297,5 +299,10 @@ public class BatteryInfo extends Fragment implements SeekBar.OnSeekBarChangeList
 
         }
     };
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity, R.string.t_battery_info);
+    }
 
 }

@@ -20,6 +20,7 @@
 
 package com.brewcrewfoo.performance.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 
@@ -47,12 +48,12 @@ import android.widget.TextView;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.FlasherActivity;
 import com.brewcrewfoo.performance.activities.FreezerActivity;
+import com.brewcrewfoo.performance.activities.MainActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.activities.ResidualsActivity;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
-
 
 public class Tools extends PreferenceFragment implements OnSharedPreferenceChangeListener, Constants {
 
@@ -470,6 +471,13 @@ public class Tools extends PreferenceFragment implements OnSharedPreferenceChang
                 .show();
     }
 
-
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        MainActivity mainActivity =
+                ((MainActivity)activity.getFragmentManager().findFragmentByTag(TAG));
+        if(mainActivity!=null)
+            mainActivity.onSectionAttached(R.string.t_tools);
+    }
 
 }

@@ -18,7 +18,7 @@
 
 package com.brewcrewfoo.performance.fragments;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,9 +33,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.GovSetActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
-import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
+import com.brewcrewfoo.performance.widgets.PerformanceFragment;
 
 import java.io.File;
 import java.util.Arrays;
@@ -43,7 +43,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 
-public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeListener, Constants {
+public class CPUSettings extends PerformanceFragment
+        implements SeekBar.OnSeekBarChangeListener, Constants {
 
     private SeekBar mMaxSlider;
     private SeekBar mMinSlider;
@@ -461,6 +462,11 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     private void updateSharedPrefs(String var, String value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(var, value).commit();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity, R.string.t_cpu_settings);
     }
 }
 
