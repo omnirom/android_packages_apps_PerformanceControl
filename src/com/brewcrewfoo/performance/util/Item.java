@@ -4,14 +4,14 @@ package com.brewcrewfoo.performance.util;
  * Created by h0rn3t on 22.07.2013.
  */
 
-public class Item implements Comparable<Item>{
+public class Item implements Comparable<Item> {
     private String name;
     private String data;
     private String date;
     private String path;
     private String image;
 
-    public Item(String n,String d, String dt, String p, String img){
+    public Item(String n, String d, String dt, String p, String img) {
         name = n;
         data = d;
         date = dt;
@@ -19,32 +19,41 @@ public class Item implements Comparable<Item>{
         image = img;
 
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    public void setName(String d){
-        this.name=d;
+
+    public void setName(String d) {
+        this.name = d;
     }
-    public String getData(){
+
+    public String getData() {
         return data;
     }
-    public void setData(String d){
-        this.data=d;
+
+    public void setData(String d) {
+        this.data = d;
     }
-    public String getDate(){
+
+    public String getDate() {
         return date;
     }
-    public void setDate(String d){
-        this.date=d;
+
+    public void setDate(String d) {
+        this.date = d;
     }
-    public String getPath(){
+
+    public String getPath() {
         return path;
     }
+
     public String getImage() {
         return image;
     }
+
     public int compareTo(Item o) {
-        if(this.name != null)
+        if (this.name != null)
             return this.name.toLowerCase().compareTo(o.getName().toLowerCase());
         else
             throw new IllegalArgumentException();

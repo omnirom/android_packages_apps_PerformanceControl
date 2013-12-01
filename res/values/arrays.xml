@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 Performance Control - An Android CPU Control application
 Copyright (C) 2012  James Roberts
 
@@ -49,6 +48,5 @@ Copyright (C) 2012  James Roberts
         <item>2048</item>
         <item>4096</item>
     </string-array>
-
 
 </resources>

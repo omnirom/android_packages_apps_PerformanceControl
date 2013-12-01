@@ -39,7 +39,7 @@ import java.util.List;
 public class GovSetActivity extends Activity implements Constants, AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
     private boolean mIsLightTheme;
     SharedPreferences mPreferences;
-    private final Context context=this;
+    private final Context context = this;
     Resources res;
     private ListView packList;
     private LinearLayout linlaHeaderProgress;
@@ -65,34 +65,33 @@ public class GovSetActivity extends Activity implements Constants, AdapterView.O
         Button applyBtn = (Button) findViewById(R.id.applyBtn);
         final Switch setOnBoot = (Switch) findViewById(R.id.applyAtBoot);
         setOnBoot.setChecked(mPreferences.getBoolean(GOV_SOB, false));
-        curgov=Helpers.readOneLine(GOVERNOR_PATH);
+        curgov = Helpers.readOneLine(GOVERNOR_PATH);
         applyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 final StringBuilder sb = new StringBuilder();
                 final StringBuilder sbs = new StringBuilder();
-                for(int i=0;i<adapter.getCount();i++){
-                    Prop p=adapter.getItem(i);
-                    if(i==0){
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    Prop p = adapter.getItem(i);
+                    if (i == 0) {
                         sb.append(p.getName()).append(":").append(p.getVal());
-                    }
-                    else{
+                    } else {
                         sb.append(";").append(p.getName()).append(":").append(p.getVal());
                     }
                     sbs.append("busybox echo ").append(p.getVal()).append(" > ").append(GOV_SETTINGS_PATH).append(curgov).append("/").append(p.getName()).append(";\n");
                 }
-                mPreferences.edit().putString(GOV_NAME,curgov).putString(GOV_SETTINGS, sb.toString()).commit();
-                Helpers.shExec(sbs,context,true);
+                mPreferences.edit().putString(GOV_NAME, curgov).putString(GOV_SETTINGS, sb.toString()).commit();
+                Helpers.shExec(sbs, context, true);
             }
         });
 
         setOnBoot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     final StringBuilder sb = new StringBuilder();
-                    for(int i=0;i<adapter.getCount();i++){
-                        Prop p=adapter.getItem(i);
+                    for (int i = 0; i < adapter.getCount(); i++) {
+                        Prop p = adapter.getItem(i);
                         if (i == 0) {
                             sb.append(p.getName()).append(":").append(p.getVal());
 
@@ -101,9 +100,8 @@ public class GovSetActivity extends Activity implements Constants, AdapterView.O
 
                         }
                     }
-                    mPreferences.edit().putString(GOV_NAME,curgov).putString(GOV_SETTINGS, sb.toString()).apply();
-                }
-                else{
+                    mPreferences.edit().putString(GOV_NAME, curgov).putString(GOV_SETTINGS, sb.toString()).apply();
+                } else {
                     mPreferences.edit().remove(GOV_SETTINGS).remove(GOV_NAME).apply();
                 }
                 mPreferences.edit().putBoolean(GOV_SOB, isChecked).apply();
@@ -119,71 +117,79 @@ public class GovSetActivity extends Activity implements Constants, AdapterView.O
 
         @Override
         protected String doInBackground(String... params) {
-            new CMDProcessor().su.runWaitFor("busybox chmod 750 "+ context.getFilesDir()+"/utils" );
-            CMDProcessor.CommandResult cr=new CMDProcessor().sh.runWaitFor(getFilesDir()+"/utils -govprop "+curgov);
-            if(cr.success()){return cr.stdout;}
-            else{Log.d(TAG,"read governor err: "+cr.stderr); return null; }
+            new CMDProcessor().su.runWaitFor("busybox chmod 750 " + context.getFilesDir() + "/utils");
+            CMDProcessor.CommandResult cr = new CMDProcessor().sh.runWaitFor(getFilesDir() + "/utils -govprop " + curgov);
+            if (cr.success()) {
+                return cr.stdout;
+            } else {
+                Log.d(TAG, "read governor err: " + cr.stderr);
+                return null;
+            }
         }
+
         @Override
         protected void onPostExecute(String result) {
-            if((result==null)||(result.length()<=0)) {
+            if ((result == null) || (result.length() <= 0)) {
                 finish();
-            }
-            else{
-                String p[]=result.split(";");
+            } else {
+                String p[] = result.split(";");
                 for (String aP : p) {
-                        final String pn[]=aP.split(":");
-                        if(pn[1]!=null && !pn[1].trim().equals(""))
-                        props.add(new Prop(pn[0].substring(pn[0].lastIndexOf("/") + 1, pn[0].length()),pn[1]));
+                    final String pn[] = aP.split(":");
+                    if (pn[1] != null && !pn[1].trim().equals(""))
+                        props.add(new Prop(pn[0].substring(pn[0].lastIndexOf("/") + 1, pn[0].length()), pn[1]));
                 }
                 linlaHeaderProgress.setVisibility(View.GONE);
-                if(props.isEmpty()){
-                        nofiles.setVisibility(View.VISIBLE);
-                        tools.setVisibility(View.GONE);
-                }
-                else{
-                        nofiles.setVisibility(View.GONE);
-                        tools.setVisibility(View.VISIBLE);
-                        adapter = new PropAdapter(GovSetActivity.this, R.layout.prop_item, props);
-                        packList.setAdapter(adapter);
+                if (props.isEmpty()) {
+                    nofiles.setVisibility(View.VISIBLE);
+                    tools.setVisibility(View.GONE);
+                } else {
+                    nofiles.setVisibility(View.GONE);
+                    tools.setVisibility(View.VISIBLE);
+                    adapter = new PropAdapter(GovSetActivity.this, R.layout.prop_item, props);
+                    packList.setAdapter(adapter);
                 }
             }
         }
+
         @Override
         protected void onPreExecute() {
             linlaHeaderProgress.setVisibility(View.VISIBLE);
             nofiles.setVisibility(View.GONE);
             tools.setVisibility(View.GONE);
-            Helpers.get_assetsScript("utils",context,"","");
+            Helpers.get_assetsScript("utils", context, "", "");
         }
+
         @Override
         protected void onProgressUpdate(Void... values) {
         }
     }
+
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,long row) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long row) {
         final Prop p = adapter.getItem(position);
         editPropDialog(p);
     }
+
     @Override
     public boolean isThemeChanged() {
-    final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-            return is_light_theme != mIsLightTheme;
+        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
+        return is_light_theme != mIsLightTheme;
     }
 
     @Override
     public void setTheme() {
-    final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-            mIsLightTheme = is_light_theme;
-            setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
+        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
+        mIsLightTheme = is_light_theme;
+        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
+
     @Override
     public void onResume() {
         super.onResume();
     }
 
     private void editPropDialog(Prop p) {
-        final Prop pp=p;
+        final Prop pp = p;
         LayoutInflater factory = LayoutInflater.from(this);
         final View editDialog = factory.inflate(R.layout.prop_edit_dialog, null);
         final EditText tv = (EditText) editDialog.findViewById(R.id.vprop);

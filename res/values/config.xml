@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--  Copyright (C) 2013 The OmniROM Project
+<?xml version="1.0" encoding="utf-8"?><!--  Copyright (C) 2013 The OmniROM Project
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -23,5 +22,11 @@
 
     <!-- Whether or not to only show performance-related options -->
     <bool name="config_showPerformanceOnly">true</bool>
+
+    <!-- If true, menu_tabbed view is used, else it uses the menu_drawer mode -->
+    <bool name="config_use_tabbed">false</bool>
+
+    <!-- If false, user can't switch between menu_tabbed and menu_drawer mode -->
+    <bool name="config_allow_toggle_tabbed">true</bool>
 
 </resources>

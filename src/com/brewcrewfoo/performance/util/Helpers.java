@@ -19,10 +19,7 @@
 package com.brewcrewfoo.performance.util;
 
 import android.app.Activity;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -34,12 +31,18 @@ import android.view.SubMenu;
 
 import com.brewcrewfoo.performance.R;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Helpers implements Constants {
 
     private static String mVoltagePath;
-    private static boolean mIsSystemApp;
 
     /**
      * Checks device for SuperUser permission
@@ -59,8 +62,7 @@ public class Helpers implements Constants {
                 Log.i(TAG, " SU exists but we dont have permission");
                 return false;
             }
-        }
-        catch (final NullPointerException e) {
+        } catch (final NullPointerException e) {
             Log.e(TAG, e.getMessage());
             return false;
         }
@@ -81,8 +83,7 @@ public class Helpers implements Constants {
                 Log.e(TAG, " Busybox is there but it is borked! ");
                 return false;
             }
-        }
-        catch (final NullPointerException e) {
+        } catch (final NullPointerException e) {
             Log.e(TAG, e.getMessage());
             return false;
         }
@@ -126,7 +127,7 @@ public class Helpers implements Constants {
             final String device = mounts[0];
             final String path = mounts[1];
             final String point = mounts[2];
-            if (cmd.su.runWaitFor("mount -o " + mount + ",remount -t " + point + " " + device+ " " + path).success()) {
+            if (cmd.su.runWaitFor("mount -o " + mount + ",remount -t " + point + " " + device + " " + path).success()) {
                 return true;
             }
         }
@@ -142,19 +143,19 @@ public class Helpers implements Constants {
     public static String readOneLine(String fname) {
         String line = null;
         if (new File(fname).exists()) {
-        	BufferedReader br;
-	        try {
-	            br = new BufferedReader(new FileReader(fname), 512);
-	            try {
-	                line = br.readLine();
-	            } finally {
-	                br.close();
-	            }
-	        } catch (Exception e) {
-	            Log.e(TAG, "IO Exception when reading sys file", e);
-	            // attempt to do magic!
-	            return readFileViaShell(fname, true);
-	        }
+            BufferedReader br;
+            try {
+                br = new BufferedReader(new FileReader(fname), 512);
+                try {
+                    line = br.readLine();
+                } finally {
+                    br.close();
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "IO Exception when reading sys file", e);
+                // attempt to do magic!
+                return readFileViaShell(fname, true);
+            }
         }
         return line;
     }
@@ -190,7 +191,9 @@ public class Helpers implements Constants {
      * @return if line was written
      */
     public static boolean writeOneLine(String fname, String value) {
-    	if (!new File(fname).exists()) {return false;}
+        if (!new File(fname).exists()) {
+            return false;
+        }
         try {
             FileWriter fw = new FileWriter(fname);
             try {
@@ -259,20 +262,17 @@ public class Helpers implements Constants {
         }
         return scheduler;
     }
-/*
-     * @return available performance scheduler
-     */
+
+    /*
+         * @return available performance scheduler
+         */
     public static Boolean GovernorExist(String gov) {
-		if(readOneLine(GOVERNORS_LIST_PATH).indexOf(gov)>-1){
-			return true;
-		}
-		else{
-			return false;
-		}
+        return readOneLine(GOVERNORS_LIST_PATH).contains(gov);
     }
 
     /**
      * Get total number of cpus
+     *
      * @return total number of cpus
      */
     public static int getNumOfCpus() {
@@ -322,15 +322,17 @@ public class Helpers implements Constants {
 
     /**
      * Sets the voltage file to be used by the rest of the app elsewhere.
+     *
      * @param voltageFile
      */
     public static void setVoltagePath(String voltageFile) {
-        Log.d(TAG, "UV table path detected: "+voltageFile);
+        Log.d(TAG, "UV table path detected: " + voltageFile);
         mVoltagePath = voltageFile;
     }
 
     /**
      * Gets the currently set voltage path
+     *
      * @return voltage path
      */
     public static String getVoltagePath() {
@@ -339,15 +341,17 @@ public class Helpers implements Constants {
 
     /**
      * Convert to MHz and append a tag
+     *
      * @param mhzString
      * @return tagged and converted String
      */
     public static String toMHz(String mhzString) {
-        return new StringBuilder().append(Integer.parseInt(mhzString) / 1000).append(" MHz").toString();
+        return String.valueOf(Integer.parseInt(mhzString) / 1000) + " MHz";
     }
 
     /**
      * Restart the activity smoothly
+     *
      * @param activity
      */
     public static void restartPC(final Activity activity) {
@@ -363,8 +367,9 @@ public class Helpers implements Constants {
 
     /**
      * Helper to update the app widget
-     * @note OMNI: The widget has been disabled
+     *
      * @param context
+     * @note OMNI: The widget has been disabled
      */
     public static void updateAppWidget(Context context) {
 /*
@@ -380,6 +385,7 @@ public class Helpers implements Constants {
 
     /**
      * Helper to create a bitmap to set as imageview or bg
+     *
      * @param bgcolor
      * @return bitmap
      */
@@ -394,67 +400,81 @@ public class Helpers implements Constants {
             return null;
         }
     }
+
     public static String binExist(String b) {
         CMDProcessor.CommandResult cr = null;
         cr = new CMDProcessor().sh.runWaitFor("busybox which " + b);
-        if (cr.success()){ return  cr.stdout; }
-        else{ return NOT_FOUND;}
+        if (cr.success()) {
+            return cr.stdout;
+        } else {
+            return NOT_FOUND;
+        }
     }
 
     public static String getCachePartition() {
         CMDProcessor.CommandResult cr = null;
         cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox grep cache | busybox cut -d' ' -f1`");
-        if(cr.success()&& !cr.stdout.equals("") ){return cr.stdout;}
-        else{return NOT_FOUND;}
+        if (cr.success() && !cr.stdout.equals("")) {
+            return cr.stdout;
+        } else {
+            return NOT_FOUND;
+        }
     }
 
     public static long getTotMem() {
-        long v=0;
+        long v = 0;
         CMDProcessor.CommandResult cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox grep MemTot /proc/meminfo | busybox grep -E --only-matching '[[:digit:]]+'`");
-        if(cr.success()){
-            try{
-               v = (long) Integer.parseInt(cr.stdout)*1024;
-            }
-            catch (NumberFormatException e) {
-                Log.d(TAG, "MemTot conversion err: "+e);
+        if (cr.success()) {
+            try {
+                v = (long) Integer.parseInt(cr.stdout) * 1024;
+            } catch (NumberFormatException e) {
+                Log.d(TAG, "MemTot conversion err: " + e);
             }
         }
         return v;
     }
 
     public static boolean showBattery() {
-	    return (new File(BLX_PATH).exists() || (fastcharge_path()!=null) || new File(BAT_VOLT_PATH).exists());
+        return (new File(BLX_PATH).exists() || (fastcharge_path() != null) || new File(BAT_VOLT_PATH).exists());
     }
 
-	public static String shExec(StringBuilder s,Context c,Boolean su){
-        get_assetsScript("run", c, s.toString(),"");
+    public static String shExec(StringBuilder s, Context c, Boolean su) {
+        get_assetsScript("run", c, s.toString(), "");
         if (isSystemApp(c)) {
-            new CMDProcessor().sh.runWaitFor("busybox chmod 750 "+ c.getFilesDir()+"/run" );
+            new CMDProcessor().sh.runWaitFor("busybox chmod 750 " + c.getFilesDir() + "/run");
         } else {
-            new CMDProcessor().su.runWaitFor("busybox chmod 750 "+ c.getFilesDir()+"/run" );
+            new CMDProcessor().su.runWaitFor("busybox chmod 750 " + c.getFilesDir() + "/run");
         }
         CMDProcessor.CommandResult cr = null;
-        if(su && !isSystemApp(c))
-		    cr=new CMDProcessor().su.runWaitFor(c.getFilesDir()+"/run");
+        if (su && !isSystemApp(c))
+            cr = new CMDProcessor().su.runWaitFor(c.getFilesDir() + "/run");
         else
-            cr=new CMDProcessor().sh.runWaitFor(c.getFilesDir()+"/run");
-        if(cr.success()){return cr.stdout;}
-        else{Log.d(TAG, "execute: "+cr.stderr);return null;}
-	}
+            cr = new CMDProcessor().sh.runWaitFor(c.getFilesDir() + "/run");
+        if (cr.success()) {
+            return cr.stdout;
+        } else {
+            Log.d(TAG, "execute: " + cr.stderr);
+            return null;
+        }
+    }
 
-    public static void get_assetsScript(String fn,Context c,String prefix,String postfix){
+    public static void get_assetsScript(String fn, Context c, String prefix, String postfix) {
         byte[] buffer;
         final AssetManager assetManager = c.getAssets();
         try {
-            InputStream f =assetManager.open(fn);
+            InputStream f = assetManager.open(fn);
             buffer = new byte[f.available()];
             f.read(buffer);
             f.close();
             final String s = new String(buffer);
             final StringBuilder sb = new StringBuilder(s);
-            if(!postfix.equals("")){ sb.append("\n\n").append(postfix); }
-            if(!prefix.equals("")){ sb.insert(0,prefix+"\n"); }
-            sb.insert(0,"#!"+Helpers.binExist("sh")+"\n\n");
+            if (!postfix.equals("")) {
+                sb.append("\n\n").append(postfix);
+            }
+            if (!prefix.equals("")) {
+                sb.insert(0, prefix + "\n");
+            }
+            sb.insert(0, "#!" + Helpers.binExist("sh") + "\n\n");
             try {
                 FileOutputStream fos;
                 fos = c.openFileOutput(fn, Context.MODE_PRIVATE);
@@ -462,21 +482,21 @@ public class Helpers implements Constants {
                 fos.close();
 
             } catch (IOException e) {
-                Log.d(TAG, "error write "+fn+" file");
+                Log.d(TAG, "error write " + fn + " file");
                 e.printStackTrace();
             }
 
-        }
-        catch (IOException e) {
-            Log.d(TAG, "error read "+fn+" file");
+        } catch (IOException e) {
+            Log.d(TAG, "error read " + fn + " file");
             e.printStackTrace();
         }
     }
-    public static void get_assetsBinary(String fn,Context c){
+
+    public static void get_assetsBinary(String fn, Context c) {
         byte[] buffer;
         final AssetManager assetManager = c.getAssets();
         try {
-            InputStream f =assetManager.open(fn);
+            InputStream f = assetManager.open(fn);
             buffer = new byte[f.available()];
             f.read(buffer);
             f.close();
@@ -487,74 +507,73 @@ public class Helpers implements Constants {
                 fos.close();
 
             } catch (IOException e) {
-                Log.d(TAG, "error write "+fn+" file");
+                Log.d(TAG, "error write " + fn + " file");
                 e.printStackTrace();
             }
 
-        }
-        catch (IOException e) {
-            Log.d(TAG, "error read "+fn+" file");
+        } catch (IOException e) {
+            Log.d(TAG, "error read " + fn + " file");
             e.printStackTrace();
         }
     }
+
     public static String ReadableByteCount(long bytes) {
         if (bytes < 1024) return bytes + " B";
         int exp = (int) (Math.log(bytes) / Math.log(1024));
-        String pre = String.valueOf("KMGTPE".charAt(exp-1));
+        String pre = String.valueOf("KMGTPE".charAt(exp - 1));
         return String.format("%.1f %sB", bytes / Math.pow(1024, exp), pre);
     }
-    public static void removeCurItem(MenuItem item,int idx,ViewPager vp){
-        for(int i=0;i< vp.getAdapter().getCount();i++){
-            if(item.getItemId() == idx+i+1) {
+
+    public static void removeCurItem(MenuItem item, int idx, ViewPager vp) {
+        for (int i = 0; i < vp.getAdapter().getCount(); i++) {
+            if (item.getItemId() == idx + i + 1) {
                 vp.setCurrentItem(i);
             }
         }
     }
-    public static void addItems2Menu(Menu menu,int idx,String nume,ViewPager vp){
-        final SubMenu smenu = menu.addSubMenu(0, idx, 0,nume);
-        for(int i=0;i< vp.getAdapter().getCount();i++){
-            if(i!=vp.getCurrentItem())
-                smenu.add(0,idx +i+1, 0, vp.getAdapter().getPageTitle(i));
+
+    public static void addItems2Menu(Menu menu, int idx, String nume, ViewPager vp) {
+        final SubMenu smenu = menu.addSubMenu(0, idx, 0, nume);
+        for (int i = 0; i < vp.getAdapter().getCount(); i++) {
+            if (i != vp.getCurrentItem())
+                smenu.add(0, idx + i + 1, 0, vp.getAdapter().getPageTitle(i));
         }
     }
+
     public static String bln_path() {
         if (new File("/sys/class/misc/backlightnotification/enabled").exists()) {
             return "/sys/class/misc/backlightnotification/enabled";
-        }
-        else if (new File("/sys/class/leds/button-backlight/blink_buttons").exists()) {
+        } else if (new File("/sys/class/leds/button-backlight/blink_buttons").exists()) {
             return "/sys/class/leds/button-backlight/blink_buttons";
-        }
-        else{
+        } else {
             return null;
         }
     }
+
     public static String fastcharge_path() {
         if (new File("/sys/kernel/fast_charge/force_fast_charge").exists()) {
             return "/sys/kernel/fast_charge/force_fast_charge";
-        }
-        else if (new File("/sys/module/msm_otg/parameters/fast_charge").exists()) {
+        } else if (new File("/sys/module/msm_otg/parameters/fast_charge").exists()) {
             return "/sys/module/msm_otg/parameters/fast_charge";
-        }
-        else if (new File("/sys/devices/platform/htc_battery/fast_charge").exists()) {
+        } else if (new File("/sys/devices/platform/htc_battery/fast_charge").exists()) {
             return "/sys/devices/platform/htc_battery/fast_charge";
-        }
-        else{
+        } else {
             return null;
         }
     }
+
     public static String fsync_path() {
         if (new File("/sys/class/misc/fsynccontrol/fsync_enabled").exists()) {
             return "/sys/class/misc/fsynccontrol/fsync_enabled";
-        }
-        else if (new File("/sys/module/sync/parameters/fsync_enabled").exists()) {
+        } else if (new File("/sys/module/sync/parameters/fsync_enabled").exists()) {
             return "/sys/module/sync/parameters/fsync_enabled";
-        }
-        else{
+        } else {
             return null;
         }
     }
 
     public static boolean isSystemApp(Context c) {
+        boolean mIsSystemApp;
         return mIsSystemApp = c.getResources().getBoolean(R.bool.config_isSystemApp);
     }
 }
