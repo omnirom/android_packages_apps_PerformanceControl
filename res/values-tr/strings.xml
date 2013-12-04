@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Performance Control - An Android CPU Control application
+Copyright (C) 2012  James Roberts
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+
+    <string name="app_name">Performans Kontrol</string>
+    <!-- Main tabs -->
+    <string name="tab_cpu_settings">CPU Ayarları</string>
+    <string name="tab_cpu_profiles">CPU Profilleri</string>
+    <string name="tab_battery_info">Pil</string>
+    <string name="tab_oom_settings">Hafıza Ayarları</string>
+    <string name="tab_time_in_state">Kullanım Süresi</string>
+    <string name="tab_voltage_settings">Voltaj Ayarları</string>
+    <string name="tab_cpu_info">Genel Bilgi</string>
+    <string name="tab_disk_info">Disk Bilgisi</string>
+    <string name="tab_tools">Araçlar</string>
+    <!-- Titles -->
+    <string name="t_cpu_settings">CPU AYARLARI</string>
+    <string name="t_battery_info">PİL</string>
+    <string name="t_oom_settings">HAFIZA AYARLARI</string>
+    <string name="t_volt_settings">VOLTAJ AYARLARI</string>
+    <string name="t_adv_settings">"GELİŞMİŞ AYARLAR"</string>
+    <string name="t_time_in_state">"KULLANIM SÜRESİ"</string>
+    <string name="t_cpu_info">GENEL BİLGİ</string>
+    <string name="t_disk_info">DİSK BİLGİSİ</string>
+    <string name="t_tools">ARAÇLAR</string>
+
+    <string name="menu_tab">Sekmeler</string>
+    <!-- Menu -->
+    <string name="mt_refresh">Yenile</string>
+    <string name="mt_app_settings">"Uygulama Ayarları"</string>
+    <string name="mt_reset">Sıfırla</string>
+    <string name="mt_restore">Geri Yükle</string>
+    <string name="mt_plus25">Arttır (25 mV)</string>
+    <string name="mt_minus25">Azalt (25 mV)</string>
+    <!-- CPU settings -->
+    <string name="current_speed">Geçerli Hız</string>
+    <string name="current_max">Geçerli Hız (max): </string>
+    <string name="current_min">Geçerli Hız (min): </string>
+    <string name="governor">Denetleyici</string>
+    <string name="io">IO Programlayıcı</string>
+    <string name="sob">Başlangıçta Ayarla</string>
+    <string name="ok">Tamam</string>
+    <string name="cancel">İptal</string>
+    <string name="cpu_info_list_header">Çekirdek Durumu</string>
+    <string name="cpu_speed_header">Çekirdek Sınırları</string>
+    <string name="other_settings_header">Diğer Ayarlar</string>
+    <string name="core_offline">Çevrim Dışı</string>
+    <string name="core">Çekirdek</string>
+
+    <!-- Other settings -->
+    <string name="prefcat_free_memory">Boş Hafıza</string>
+    <string name="prefcat_tweaks">HIZLI ŞARJ</string>
+    <string name="prefcat_misc_short">Değişik</string>
+    <string name="prefcat_read_ahead">TAMPON ARA BELLEK OKUMA</string>
+    <string name="prefcat_vm_settings">Dalvic Cache AYARLARI</string>
+    <string name="dt_free_memory">Minfree Görev Yöneticisi</string>
+    <string name="dt_read_ahead">Tampon Ara Bellek Okuma</string>
+    <string name="pt_free_memory">Boş Hafıza</string>
+    <string name="ps_free_memory">Minfree Görev Yöneticisi tarafından yedekte tutulan RAM |
+        Geçerli: %s
+    </string>
+    <string name="ps_free_memory_boot">Seçilen değeri Başlagıçta ayarla</string>
+    <string name="pt_read_ahead">Tampon Ara Bellek Okuma</string>
+    <string name="ps_read_ahead">SD Karttan Tampon Ara Bellek Okuma (kb) |
+        Geçerli: %s
+    </string>
+
+    <string name="ps_fast_charge_boot">Hızlı Şarj</string>
+    <string name="fast_charge_warning">CİHAZINIZ, HER BAŞLATMA SONRASI PCye BAĞLANAMAZ!
+        \n\nHIZLI ŞARJ AKTİF İKEN CIHAZ ANCAK ŞARJ EDİLEBİLİR!
+    </string>
+    <string name="fast_charge_notification_title">Hızlı Şarj Etkin!</string>
+    <string name="fast_charge_notification_message">Cihaz sadece Şarj-Edilebilir Modda!</string>
+
+<!-- minfree -->
+   <string name="prefcat_oom">MINFREE TASKKILLER</string>
+   <string name="title_foreground_app">Arka Plan Uygulamaları</string>
+   <string name="title_visible_app">Görünür Uygulamalar</string>
+   <string name="title_secondary_server">İkincil Sunucu</string>
+   <string name="title_hidden_app">Gizli Uygulamalar</string>
+   <string name="title_content_providers">İçerik Sağlayıcıları</string>
+   <string name="title_empty_app">Boş Uygulamalar</string>
+   <string name="prefcat_oom_predefines">ÖN AYAR</string>
+   <string name="pt_oom">Minfree Görev Yöneticisi Ön Ayarları</string>
+
+   <string name="pt_verylight">Çok Hafif</string>
+   <string name="pt_light">Hafif</string>
+   <string name="pt_medium">Orta</string>
+   <string name="pt_aggressive">Agresif</string>
+   <string name="pt_veryaggressive">Çok Agresif</string>
+
+    <!-- do not kill proc -->
+    <string name="prefcat_user_proc">SONLANDIRILAMAYAN KULLANICI İŞLEMLERİ</string>
+    <string name="prefcat_sys_proc">SONLANDIRILAMAYAN SİSTEM İŞLEMLERİ</string>
+    <string name="pt_user_proc">Sonlandırılamayan Kullanıcı İşlemlerini Aç</string>
+    <string name="pt_sys_proc">Sonlandırılamayan Sistem İşlemlerini Aç</string>
+    <string name="pt_user_names_proc">Kullanıcı İşlemleri (Whitelist)</string>
+    <string name="pt_sys_names_proc">Sistem İşlemleri (Whitelist)</string>
+    <string name="ps_restore_boot">Ayarları Başlangıçta etkinleştirin.</string>
+    <string name="ps_user_proc">Kullanıcı İşlemleri Listesi (virgül ile ayırın)</string>
+    <string name="ps_sys_proc">Sistem İşlemleri Listesi (virgül ile ayırın)</string>
+    <string name="no_proc">İşlem Yok</string>
+    <!-- bln -->
+    <string name="prefcat_bln">IŞIK BİLDİRİMLERİ</string>
+    <string name="pt_bln">Işık Bildirimi</string>
+    <!-- blx -->
+   <string name="blx_info">Pil ömrü uzatma aracı\nYazar Ezekeel</string>
+   <string name="prefcat_blx">PİL ÖMRÜ UZATICI</string>
+   <string name="pt_blx_boot">Başlangıçta Ayarla</string>
+   <string name="ps_blx_boot">Ayarları Başlangıçta etkinleştirin.</string>
+   <string name="blx_title">Şarj Sınırı:</string>
+    <!-- dsync -->
+   <string name="dsync_info">Dinamik FSync Aracı\nYazar Paul Reioux (faux123)</string>
+   <string name="prefcat_dsync">DİNAMİK FSYNC</string>
+   <string name="ps_dsync">Ayarları Başlangıçta etkinleştirin.</string>
+   <string name="pt_dsync">Dinamik Fsync</string>
+    <!-- bl_timeout -->
+   <string name="prefcat_bltimeout">IŞIK BİLDİRİM ZAMAN AŞIMI</string>
+   <string name="ps_bltimeout">%s ms</string>
+   <string name="bltimeout_title">Işık Bildirimi Zaman Aşımı</string>
+    <!-- bl_touch -->
+   <string name="prefcat_bltouch">TOUCHSCREEN ARKA IŞIĞI</string>
+   <string name="pt_bltouch">Touchscreen arka ışığı</string>
+    <!-- pfk -->
+   <string name="pfk_info">Phantom Key Presses Filter Modülü ver. %s\nYazar Cristoforo Cataldo (Christopher83)</string>
+   <string name="prefcat_pfk">PHANTOM KEY PRESSES FILTER</string>
+   <string name="pt_home_enabled">Ev Tuşu Filtresi</string>
+   <string name="ps_home_enabled">Yok Sayılan Basma: %s</string>
+   <string name="home_allowed_irq_title">İzin Verilen Hata (max)</string>
+   <string name="home_report_wait_title">Bekleme süresini raporla</string>
+   <string name="pt_menuback_enabled">Menü/Geri tuşu Filtresi</string>
+   <string name="ps_menuback_enabled">Yok Sayılan Basma: %s</string>
+   <string name="menuback_interrupt_checks_title">Hata Kontrolü</string>
+   <string name="menuback_first_err_wait_title">İlk hata bekleme süresi</string>
+   <string name="menuback_last_err_wait_title">Son hata bekleme süresi</string>
+   <string name="ps_pfk_set_on_boot">Ayarları Başlangıçta etkinleştirin</string>
+    <!-- dynamic write back -->
+   <string name="dynamic_writeback_info">Dynamic Dirty Page Writebacks Aracı\nYazar Cristoforo Cataldo (Christopher83)</string>
+   <string name="dynamic_write_back_title">DYNAMIC DIRTY PAGE WRITEBACKS</string>
+   <string name="pt_dynamic_write_back">Dynamic Dirty Writeback</string>
+   <string name="dynamic_writeback_active_title">Dirty Writeback Active centisecs</string>
+   <string name="dynamic_writeback_suspend_title">Dirty Writeback Suspend centisecs</string>
+    <!-- -->
+    <string name="size_25_mb">25mb</string>
+    <string name="size_50_mb">50mb</string>
+    <string name="size_75_mb">75mb</string>
+    <string name="size_80_mb">80mb</string>
+    <string name="size_100_mb">100mb</string>
+    <string name="size_128_kb">128kb</string>
+    <string name="size_256_kb">256kb</string>
+    <string name="size_512_kb">512kb</string>
+    <string name="size_1024_kb">1024kb</string>
+    <string name="size_2048_kb">2048kb</string>
+    <string name="size_4096_kb">4096kb</string>
+    <!-- Voltage control -->
+    <string name="volt_info">DİKKAT!\nBaşlangıçta Ayarla seçeneğini etkinleştirmeden önce, girilen değerlerin cihaz için belirlenen güvenli sınırları aşmadığından emin olun..</string>
+    <string name="ps_volt_mhz_voltage">" Hz"</string>
+    <string name="ps_volt_save">"Kaydet"</string>
+    <string name="ps_volt_current_voltage">"Geçerli Voltaj: "</string>
+    <string name="ps_volt_setting_to_apply">"Uygulanacak Değer: "</string>
+    <string name="pt_volt_control">Voltaj Kontrol</string>
+    <string name="ps_volt_control">Her bir frekans için değerleri ayarlayın</string>
+    <string name="apply_values">Değerleri Uygula</string>
+    <string name="freq">Frekans</string>
+    <string name="current">Geçerli mV</string>
+    <string name="saved">Kaydedilen mV</string>
+    <string name="not_supported">Voltaj Kontrolü, Kerneliniz tarafından desteklenmemektedir!</string>
+    <!-- VM settings -->
+    <string name="ps_vm_set_on_boot">Ayarları Başlangıçta etkinleştirin.</string>
+    <string name="dirty_ratio_title">Dirty ratio</string>
+    <string name="dirty_background_title">Dirty background ratio</string>
+    <string name="dirty_expire_title">Dirty expire centisecs</string>
+    <string name="dirty_writeback_title">Dirty writeback centisecs</string>
+    <string name="min_free_title">Minfree kbytes</string>
+    <string name="overcommit_title">Overcommit ratio</string>
+    <string name="swappiness_title">Swappiness</string>
+    <string name="vfs_title">VFS cache pressure</string>
+    <!-- Time in state -->
+    <string name="time_in_state">KULLANIM SÜRESİ</string>
+    <string name="unused_cpu_states">KULLANILMAYAN CPU FREKANSLARI</string>
+    <string name="total_state_time">TOPLAM KULLANIM SÜRESİ</string>
+    <string name="no_states_file_found">Kayıt dosyası bulunamadı. Cihazınızın uyumlu olduğundan emin misiniz?
+        \n\nCustom ROM/Kernel kullanıyorsanız, kayıt
+        dosyasının bulunamadığını yazarına bildirmeyi
+        deneyiniz.
+    </string>
+    <string name="deep_sleep">"Derin Uyku"</string>
+    <!-- CPU info -->
+    <string name="kernel_info">LINUX KERNEL BİLGİSİ</string>
+    <string name="cpu_info">CPU BİLGİSİ</string>
+    <string name="mem_info">HAFIZA BİLGİSİ</string>
+    <string name="first_run_title">İlk Root Kontrolü</string>
+    <string name="su_success_title">Başarılı!</string>
+    <string name="su_failed_title">Oops!</string>
+    <string name="first_run_message">Uygulama, Root erişimi ve Busybox kontrolünü
+        yapmak istiyor. Devam için Tamam, root erişimi vermek istemiyorsanız İPTALe
+        basınız.
+    </string>
+    <string name="su_success_message">Root erişimi/Busybox kontrolü sağlanmıştır.
+        İyi Çalışmalar!
+    </string>
+    <string name="su_cancel_message">Root erişimi/Busibox kontrolünene izin vermediniz.
+        Birçok seçenek doğru çalışmayacaktır. Üzgünüz!
+    </string>
+    <string name="su_failed_su_or_busybox">Root erişimi/Busybox kontrolü sağlanamamıştır.
+        Birçok seçenek doğru çalışmayacaktır. Üzgünüz!
+    </string>
+    <!-- Tools -->
+    <string name="prefcat_sh">CUSTOM SHELL COMMAND</string>
+    <string name="sh_title">Shell Komutunu düzenleyin</string>
+    <string name="ps_sh">Komut, Cihaz yeniden başlatıldığında yerine getirilecektir.</string>
+    <string name="sh_msg">İşlem yapmak istemiyorsanız BOŞ bırakın.</string>
+    <string name="clear">Temiz</string>
+    <string name="yes">Evet</string>
+    <string name="wait">Lütfen Bekleyiniz…</string>
+    <string name="prefcat_wipe_cache">CACHE ve DALVIK CACHE</string>
+    <string name="wipe_cache_title">Cache/Dalvik Cache temizleyin</string>
+    <string name="ps_wipe_cache">Cache partition: %s</string>
+    <string name="wipe_cache_msg">İşlem sonunda cihaz yeniden başlatılacaktır. Devam?</string>
+
+    <string name="prefcat_flash_img">IMG Dosyası Yükle</string>
+    <string name="kernel_img_title">Kernel Yükle</string>
+    <string name="ps_kernel_img">Boot.img dosyasını kernel olarak yükle. Boot.img tek başına veya onu içeren zip dosyası olarak seçilebilir.</string>
+    <string name="recovery_img_title">RECOVERY Yükle</string>
+    <string name="ps_recovery_img">Recovery.img dosyasını recovery olarak yükle. Recovery.img tek başına veya onu içeren zip dosyası olarak seçilebilir.</string>
+    <string name="btn_choose">Seçiniz %s</string>
+    <string name="unsupported_info">Cihazınız Desteklenmemektedir.</string>
+    <string name="flash_info"> \n%s\n bölümüne yüklenecektir.</string>
+    <string name="dir_parent">&lt;Parent DIR&gt;</string>
+    <string name="dir">&lt;DIR&gt;</string>
+    <string name="bkexit">Tekrar ÇIKIŞa basınız</string>
+
+    <string name="prefcat_residual_files">Kalan artçıl dosyaları temizleyin.</string>
+    <string name="residual_files_title">Artçıl Dosyaları Temizleme Aracı</string>
+    <string name="btncleanall">Hepsini temizle</string>
+    <string name="clean_files_msg"> %s de kalan artçıl dosyalar silinecektir. Devam?</string>
+    <string name="filesstr">Dosya(lar)</string>
+    <string name="no_residuals">Artçıl Dosyalar Yok</string>
+
+    <string name="prefcat_optim_db">VERİTABANI OPTİMİZASYOU</string>
+    <string name="optim_db_title">Veritabanı Optimizasyonu</string>
+    <string name="ps_optim_db">Veritabanı, SQL VACUUM komutu kullanılarak optimize edilir.</string>
+
+    <string-array name="residual_info">
+        <item>Android Sistem kayıt dosyalarını içerir</item>
+        <item>Çöken uygulamalar kayıt dosyalarını içerir</item>
+        <item>Sürekli tutulan kayıt dosyalarını içerir</item>
+        <item>Başlatılan uygulama istatistik kayıtlarını içerir</item>
+        <item>\'Uygulama Cevap Vermiyor\' kayıt olaylarını içerir</item>
+        <item>Geçici kayıt dosyalarını içerir</item>
+    </string-array>
+    <string name="prefcat_fix_perms">FIX PERMISSIONS</string>
+    <string name="fix_perms_title">Uygulama izinlerini doğrulayın</string>
+    <string name="fix_perms_msg">İşlem birkaç dakika sürebilir. Devam?</string>
+    <string name="preflogg_fix_perms">Kayıt tutmayı etkinleştirin</string>
+
+    <string name="free">Serbest %s</string>
+    <string name="used">Kullanılmış %s</string>
+
+    <!-- 2.1.0 -->
+    <string name="verify">Denetleniyor…</string>
+    <string name="bad_zip">%s zip dosyasında bulunamadı!</string>
+    <string name="closebtn">Kapat</string>
+    <string name="delallbtn">Hepsini Sil</string>
+    <string name="del_file_msg">%s silinecektir. Devam?</string>
+    <string-array name="batt_status">
+        <item>Bilinmiyor</item>
+        <item>Bilinmiyor</item>
+        <item>Şarj oluyor</item>
+        <item>Şarj Etmiyor</item>
+        <item>Dolu</item>
+        <item>Şarj edilmiyor</item>
+    </string-array>
+    <!-- 2.1.2 -->
+    <!-- ksm -->
+    <string name="prefcat_ksm">KERNEL SAMEPAGE MERGING</string>
+    <string name="pt_run_ksm">KSM açık</string>
+    <string name="ksm_adv_title">Ayarlar</string>
+    <string name="ksm_fullscans">Tam tarama:</string>
+    <string name="ksm_pagshared">Paylaşılmış Sayfalar:</string>
+    <string name="ksm_pagsharing">Paylaşılan Sayfalar:</string>
+    <string name="ksm_pagunshared">Paylaşılmamış Sayfalar:</string>
+    <string name="ksm_pagvolatile">Pages Volatile:</string>
+    <string name="ksm_pagtoscan">Taranacak Sayfalar:</string>
+    <string name="ksm_sleep">Uyku (ms):</string>
+
+    <!-- freezer -->
+    <string name="prefcat_freezer">UYGULAMA DONDURMA/ETKİNLEŞTİRME</string>
+    <string name="pt_freeze">Uygulamayı Dondur</string>
+    <string name="pt_unfreeze">Dondurulmuş Uygulamaları Etkinleştir</string>
+    <string name="ps_freeze">Tüm Yüklenmiş Uygulamalar Listesi</string>
+    <string name="ps_unfreeze">Dondurulmuş Uygulamalar Listesi</string>
+    <string name="mt_system_packs">Sistem Uygulamaları</string>
+    <string name="mt_user_packs">Kullanıcı Uygulamaları</string>
+    <string name="freeze_msg">%s dondurulacaktır. Devam?</string>
+    <string name="unfreeze_msg">%s etkinleştirilecektir. Devam?</string>
+
+    <!-- zRam -->
+    <string name="prefcat_zram">zRAM</string>
+    <string name="pt_run_zram">zRam Aç</string>
+    <string name="zram_set_title">Ayarlar</string>
+    <!-- 2.1.3 -->
+    <string name="ps_zram">Arttırılmış Sanal Kapasite için belleği sıkıştır</string>
+    <string name="mt_gov_ctrl">Denetleyici Ayarları</string>
+
+    <!-- PC Settings -->
+    <string name="pt_use_light_theme">Açık Renkli Arayüzü Kulllan</string>
+    <string name="ps_use_light_theme">İşaretlendiğinde, uygulama Holo Light Arayüzü ile başlatılacaktır</string>
+    <string name="pt_widget_bg_color">Widget Arkaplan Rengi</string>
+    <string name="pt_widget_text_color">Widget Yazı Rengi</string>
+    <string name="pt_ver">"Versiyon - "</string>
+    <!-- Color picker -->
+    <string name="dialog_color_picker">Renk Seçici</string>
+    <string name="press_color_to_apply">İstediğiniz rengi seçmek için basınız</string>
+    <string name="arrow_right">→</string>
+    <string name="arrow_down">↓</string>
+    <string name="hex">Hex:</string>
+    <string name="hex_hint">#FF000000</string>
+    <string name="set">Set</string>
+    <string name="ics_color">Holo</string>
+
+    <!-- Drawer -->
+    <string name="navigation_drawer_toggle">Çekmeceli Arayüz</string>
+    <string name="navigation_drawer_open">Çekmeceli arayüzü etkinleştirin</string>
+    <string name="navigation_drawer_close">Çekmeceli arayüzü kapatın</string>
+    <string name="navigation_toggle_drawer">Çekmeceli Arayüz</string>
+    <string name="navigation_toggle_tabbed">Sekmeli Arayüz</string>
+
+</resources>
