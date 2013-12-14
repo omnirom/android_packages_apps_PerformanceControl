@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8b61a3_305a89f6",
+        "filename": "res/values-it/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2013-12-14T15:40:14Z",
+      "side": 1,
+      "message": "I think that it not translated.",
+      "revId": "b1de3d5e8934740e96a6309a33f7d2af5c95cf0f",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
