@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
 translation by Stefano187
 (http://forum.xda-developers.com/member.php?u=4643755)
+Update 14/12/13  by ale8530 & Leonardo Luzzi
 -->
 <resources>
 
@@ -43,6 +44,12 @@ translation by Stefano187
     <string name="sob">"Imposta all'avvio"</string>
     <string name="ok">OK</string>
     <string name="cancel">Annulla</string>
+    <string name="cpu_info_list_header">Stato CPU</string>
+    <string name="cpu_speed_header">Limite CPU</string>
+    <string name="other_settings_header">Altre impostazioni</string>
+    <string name="core_offline">Spenta</string>
+    <string name="core">CPU</string>
+
     <!-- Other settings -->
     <string name="prefcat_free_memory">MEMORIA LIBERA</string>
     <string name="prefcat_tweaks">CARICA RAPIDA</string>
@@ -165,6 +172,7 @@ translation by Stefano187
     <!-- VM settings -->
     <string name="ps_vm_set_on_boot">Se abilitato ripristinerà queste impostazioni della VM all\'avvio</string>
     <string name="dirty_ratio_title">Dirty ratio</string>
+    <string name="dirty_ratio_summary">Un rapporto più alto vuol dire avere una CPU meno veloce, causando l\'apertura delle applicazioni più lenta</string>
     <string name="dirty_background_title">Dirty background ratio</string>
     <string name="dirty_expire_title">Dirty expire centisecs</string>
     <string name="dirty_writeback_title">Dirty writeback centisecs</string>
@@ -316,5 +324,11 @@ translation by Stefano187
     <string name="hex_hint">#FF000000</string>
     <string name="set">Set</string>
     <string name="ics_color">Holo</string>
+    <!-- Drawer -->
+    <string name="navigation_drawer_toggle">Toggle</string>
+    <string name="navigation_drawer_open">Apri navigazione Toggle</string>
+    <string name="navigation_drawer_close">Chiudi navigazione Toggle</string>
+    <string name="navigation_toggle_drawer">Modalità Toggle</string>
+    <string name="navigation_toggle_tabbed">Modalità Tab</string>
 
 </resources>
