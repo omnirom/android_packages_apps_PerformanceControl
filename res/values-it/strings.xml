@@ -324,12 +324,11 @@ Update 14/12/13 ale8530&Leo
     <string name="hex_hint">#FF000000</string>
     <string name="set">Set</string>
     <string name="ics_color">Holo</string>
-
-    <!-- Drawer -->
+<!-- Drawer -->
     <string name="navigation_drawer_toggle">Toggle</string>
     <string name="navigation_drawer_open">Apri navigazione Toggle</string>
     <string name="navigation_drawer_close">Chiudi navigazione Toggle</string>
-    <string name="navigation_toggle_drawer">Modalità Toogle</string>
+    <string name="navigation_toggle_drawer">Modalità Toggle</string>
     <string name="navigation_toggle_tabbed">Modalità Tab</string>
 
 </resources>
