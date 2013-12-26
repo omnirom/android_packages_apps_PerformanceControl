@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Performance Control - An Android CPU Control application
+Copyright (C) 2012  James Roberts
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	
+   Translation by Nian
+-->
+<resources>
+	<string name="app_name">性能</string>
+	<!-- Main tabs -->
+	<string name="tab_cpu_settings">CPU 速度</string>
+	<string name="tab_cpu_profiles">CPU 个性化</string>
+	<string name="tab_battery_info">电池</string>
+	<string name="tab_oom_settings">内存设置</string>
+	<string name="tab_time_in_state">时间统计</string>
+	<string name="tab_voltage_settings">电压设置</string>
+	<string name="tab_cpu_info">CPU信息</string>
+	<string name="tab_disk_info">磁盘信息</string>
+	<string name="tab_tools">工具</string>
+	<!-- Titles -->
+	<string name="t_cpu_settings">CPU 速度</string>
+	<string name="t_battery_info">电池</string>
+	<string name="t_oom_settings">内存设置</string>
+	<string name="t_volt_settings">电压设置</string>
+	<string name="t_adv_settings">"高级设置"</string>
+	<string name="t_time_in_state">"时间统计"</string>
+	<string name="t_cpu_info">CPU信息</string>
+	<string name="t_disk_info">磁盘信息</string>
+	<string name="t_tools">工具</string>
+	<string name="menu_tab">分页</string>
+	<!-- Menu -->
+	<string name="mt_refresh">刷新</string>
+	<string name="mt_app_settings">"应用设置"</string>
+	<string name="mt_reset">重置</string>
+	<string name="mt_restore">还原</string>
+	<string name="mt_plus25">增加 25 mV</string>
+	<string name="mt_minus25">减少 25 mV</string>
+	<!-- CPU settings -->
+	<string name="current_speed">当前速度</string>
+	<string name="current_max">最大频率: </string>
+	<string name="current_min">最小频率: </string>
+	<string name="governor">调速器</string>
+	<string name="io">I/O 调度模式</string>
+	<string name="sob">启动时设置</string>
+	<string name="ok">确定</string>
+	<string name="cancel">取消</string>
+	<string name="cpu_info_list_header">核心状态</string>
+	<string name="cpu_speed_header">核心限制</string>
+	<string name="other_settings_header">其他设置</string>
+	<string name="core_offline">离线</string>
+	<string name="core">华鑫</string>
+	<!-- Other settings -->
+	<string name="prefcat_free_memory">空闲内存</string>
+	<string name="prefcat_tweaks">快速充电</string>
+	<string name="prefcat_misc_short">其他</string>
+	<string name="prefcat_read_ahead">SD预读</string>
+	<string name="prefcat_vm_settings">DALVIK 设置</string>
+	<string name="dt_free_memory">最少剩余内存值</string>
+	<string name="dt_read_ahead">SD预读值</string>
+	<string name="pt_free_memory">空闲内存</string>
+	<string name="ps_free_memory">当内存小于设定值将会结束进程 |
+        当前: %s
+    </string>
+	<string name="ps_free_memory_boot">启动时设置</string>
+	<string name="pt_read_ahead">储存预读值</string>
+	<string name="ps_read_ahead">设置预读值,单位kb |
+        当前: %s
+    </string>
+	<string name="ps_fast_charge_boot">快速充电</string>
+	<string name="fast_charge_warning">当你开启后,你将无法连接电脑读取文件直到你关闭本功能并重启.
+    </string>
+	<string name="fast_charge_notification_title">快速充电已开启!</string>
+	<string name="fast_charge_notification_message">手机处于快速充电模式中!</string>
+	<!-- minfree -->
+	<string name="prefcat_oom">最小空闲内存</string>
+	<string name="title_foreground_app">前台应用</string>
+	<string name="title_visible_app">可见应用</string>
+	<string name="title_secondary_server">第二服务器</string>
+	<string name="title_hidden_app">隐藏应用</string>
+	<string name="title_content_providers">内容供应</string>
+	<string name="title_empty_app">空白应用</string>
+	<string name="prefcat_oom_predefines">预设置</string>
+	<string name="pt_oom">内存短缺预设置</string>
+	<string name="pt_verylight">极轻量（很少关闭应用）</string>
+	<string name="pt_light">轻量</string>
+	<string name="pt_medium">中度</string>
+	<string name="pt_aggressive">重度</string>
+	<string name="pt_veryaggressive">极重度（主动关闭应用）</string>
+	<!-- do not kill proc -->
+	<string name="prefcat_user_proc">不允许关闭的用户进程</string>
+	<string name="prefcat_sys_proc">不允许关闭的系统进程</string>
+	<string name="pt_user_proc">设置不允许关闭的用户进程</string>
+	<string name="pt_sys_proc">设置不允许关闭的系统进程</string>
+	<string name="pt_user_names_proc">用户进程白名单</string>
+	<string name="pt_sys_names_proc">系统进程白名单</string>
+	<string name="ps_restore_boot">启动时恢复以上设置</string>
+	<string name="ps_user_proc">用户进程名单（半角逗号分隔多个名称）</string>
+	<string name="ps_sys_proc">系统进程名单（半角逗号分隔多个名称）</string>
+	<string name="no_proc">无进程</string>
+	<!-- bln -->
+	<string name="prefcat_bln">背光提示</string>
+	<string name="pt_bln">背光提示</string>
+	<!-- blx -->
+	<string name="blx_info">节电功能\n作者 Ezekeel</string>
+	<string name="prefcat_blx">节电功能</string>
+	<string name="pt_blx_boot">启动时打开</string>
+	<string name="ps_blx_boot">启动时应用以上数值</string>
+	<string name="blx_title">充电限值</string>
+	<!-- dsync -->
+	<string name="dsync_info">动态同步功能\n作者 Paul Reioux (faux123)</string>
+	<string name="prefcat_dsync">动态同步</string>
+	<string name="ps_dsync">启动时将恢复设置</string>
+	<string name="pt_dsync">动态同步</string>
+	<!-- bl_timeout -->
+	<string name="prefcat_bltimeout">背光时长</string>
+	<string name="ps_bltimeout">%s 毫秒</string>
+	<string name="bltimeout_title">背光时长</string>
+	<!-- bl_touch -->
+	<string name="prefcat_bltouch">触屏背光</string>
+	<string name="pt_bltouch">触屏背光</string>
+	<!-- pfk -->
+	<string name="pfk_info">按键防干扰 %s\n作者 Cristoforo Cataldo (Christopher83)</string>
+	<string name="prefcat_pfk">按键防干扰</string>
+	<string name="pt_home_enabled">HOME键</string>
+	<string name="ps_home_enabled">忽略按键: %s</string>
+	<string name="home_allowed_irq_title">最大程度允许干扰</string>
+	<string name="home_report_wait_title">报告等待时间</string>
+	<string name="pt_menuback_enabled">菜单/返回键防干扰</string>
+	<string name="ps_menuback_enabled">忽略按键: %s</string>
+	<string name="menuback_interrupt_checks_title">干扰检查</string>
+	<string name="menuback_first_err_wait_title">首次错误等待时间</string>
+	<string name="menuback_last_err_wait_title">最后错误等待时间</string>
+	<string name="ps_pfk_set_on_boot">如果启用该项，所有PKF设置将会在启动时恢复。</string>
+	<!-- dynamic write back -->
+	<string name="dynamic_writeback_info">动态已更新页写回功能\n作者 Cristoforo Cataldo (Christopher83)</string>
+	<string name="dynamic_write_back_title">动态已更新页写回</string>
+	<string name="pt_dynamic_write_back">动态已更新写回</string>
+	<string name="dynamic_writeback_active_title">已更新写回活动厘秒数</string>
+	<string name="dynamic_writeback_suspend_title">Dirty Writeback Suspend centisecs
+已更新写回暂停厘秒数</string>
+	<!--  -->
+	<string name="size_25_mb">25mb</string>
+	<string name="size_50_mb">50mb</string>
+	<string name="size_75_mb">75mb</string>
+	<string name="size_80_mb">80mb</string>
+	<string name="size_100_mb">100mb</string>
+	<string name="size_128_kb">128kb</string>
+	<string name="size_256_kb">256kb</string>
+	<string name="size_512_kb">512kb</string>
+	<string name="size_1024_kb">1024kb</string>
+	<string name="size_2048_kb">2048kb</string>
+	<string name="size_4096_kb">4096kb</string>
+	<!-- Voltage control -->
+	<string name="volt_info">注意!\n激活启动时启用前，请确保输入的数值 ?? 没有超过限制，否则手机会睡死。</string>
+	<string name="ps_volt_mhz_voltage">" Hz"</string>
+	<string name="ps_volt_save">"节电"</string>
+	<string name="ps_volt_current_voltage">"实时电压: "</string>
+	<string name="ps_volt_setting_to_apply">"设置为: "</string>
+	<string name="pt_volt_control">电压控制</string>
+	<string name="ps_volt_control">按频率设置电压</string>
+	<string name="apply_values">应用数值</string>
+	<string name="freq">频率</string>
+	<string name="current">mV 电流</string>
+	<string name="saved">mV 节省</string>
+	<string name="not_supported">您的内核不支持电压控制</string>
+	<!-- VM settings -->
+	<string name="ps_vm_set_on_boot">启用后所有虚拟内存设置都会在重启后恢复</string>
+	<string name="dirty_ratio_title">虚拟内存百分比</string>
+	<string name="dirty_ratio_summary">更高的百分比意味着更低的CPU和更慢的程序启动</string>
+	<string name="dirty_background_title">虚拟内存后台百分比</string>
+	<string name="dirty_expire_title">超时厘秒数</string>
+	<string name="dirty_writeback_title">写回厘秒数</string>
+	<string name="min_free_title">最小空闲内存 kbytes</string>
+	<string name="overcommit_title">过载百分比</string>
+	<string name="swappiness_title">虚拟内存使用率</string>
+	<string name="vfs_title">VFS cache 阀值</string>
+	<!-- Time in state -->
+	<string name="time_in_state">时间统计</string>
+	<string name="unused_cpu_states">未使用CPU统计</string>
+	<string name="total_state_time">总时间</string>
+	<string name="no_states_file_found">没有时间统计文件，您确定您的手机支持该功能吗？\n\n如果您运行的是非官方ROM，请联系开发者，告诉他时间统计文件无法读取。</string>
+	<string name="deep_sleep">"深度睡眠"</string>
+	<!-- CPU info -->
+	<string name="kernel_info">LINUX内核信息</string>
+	<string name="cpu_info">CPU信息</string>
+	<string name="mem_info">内存信息</string>
+	<string name="first_run_title">启动时首次检查</string>
+	<string name="su_success_title">成功！</string>
+	<string name="su_failed_title">坏了！</string>
+	<string name="first_run_message">该应用需要检查是否有ROOT权限和BusyBox。按“确定”继续。如果不需要获取ROOT权限请按“取消”。</string>
+	<string name="su_success_message">性能控制可以获取ROOT权限并找到BusyBox。准备好大吃一惊吧！</string>
+	<string name="su_cancel_message">你没有选择ROOT权限和BusyBox。大多数选项没ROOT权限不能正常工作。抱歉！</string>
+	<string name="su_failed_su_or_busybox">ROOT权限获取失败或者BusyBox没找到。大多数选项没ROOT权限不能正常工作。抱歉！</string>
+	<!-- Tools -->
+	<string name="prefcat_sh">自定义Shell命令</string>
+	<string name="sh_title">编辑Shell命令</string>
+	<string name="ps_sh">命令将在开机时运行。</string>
+	<string name="sh_msg">留空意味着无任何操作。</string>
+	<string name="clear">清楚</string>
+	<string name="yes">是</string>
+	<string name="wait">请稍等…</string>
+	<string name="prefcat_wipe_cache">缓存和 DALVIK 缓存</string>
+	<string name="wipe_cache_title">清除缓存 和 dalvik 缓存</string>
+	<string name="ps_wipe_cache">缓存分区: %s</string>
+	<string name="wipe_cache_msg">最后，系统即将重启。要继续吗？</string>
+	<string name="prefcat_flash_img">刷IMG文件</string>
+	<string name="kernel_img_title">刷内核</string>
+	<string name="ps_kernel_img">刷 boot.img 文件做内核。 可以选择单独的 boot.img 文件或包含 boot.img 的ZIP文件。</string>
+	<string name="recovery_img_title">刷RECOVERY</string>
+	<string name="ps_recovery_img">刷 recovery.img 文件做recovery。可以选择单独的 recovery.img 文件或包含recovery.img的ZIP文件。</string>
+	<string name="btn_choose">选择 %s</string>
+	<string name="unsupported_info">您的设备不支持。</string>
+	<string name="flash_info">即将在该分区刷机\n%s\n 做</string>
+	<string name="dir_parent">&lt;Parent DIR&gt;</string>
+	<string name="dir">&lt;DIR&gt;</string>
+	<string name="bkexit">再次点按退出</string>
+	<string name="prefcat_residual_files">清除残余文件</string>
+	<string name="residual_files_title">清除残余文件</string>
+	<string name="btncleanall">清除所有</string>
+	<string name="clean_files_msg">残余文件 %s 将被删除，要继续吗？</string>
+	<string name="filesstr">文件</string>
+	<string name="no_residuals">无残余文件</string>
+	<string name="prefcat_optim_db">优化数据库</string>
+	<string name="optim_db_title">优化数据库</string>
+	<string name="ps_optim_db">本操作将用SQL 命令 VACUUM 来优化数据库。</string>
+	<string-array name="residual_info">
+		<item>包含安卓系统日志文件</item>
+		<item>包含崩溃过的应用日志文件</item>
+		<item>包含一直在产生的日志文件</item>
+		<item>包含你点开过应用的统计数据</item>
+		<item>包含 \'应用程序无回应\' 事件的痕迹</item>
+		<item>包含临时文件</item>
+	</string-array>
+	<string name="prefcat_fix_perms">修复权限</string>
+	<string name="fix_perms_title">修复权限</string>
+	<string name="fix_perms_msg">本操作可能需要几分钟，要继续吗？</string>
+	<string name="preflogg_fix_perms">允许日志</string>
+	<string name="free">空闲 %s</string>
+	<string name="used">使用 %s</string>
+	<!-- 2.1.0 -->
+	<string name="verify">认证中…</string>
+	<string name="bad_zip">%s 没有在ZIP文件中找到！</string>
+	<string name="closebtn">关闭</string>
+	<string name="delallbtn">删除所有</string>
+	<string name="del_file_msg">%s 将被删除，要继续吗？</string>
+	<string-array name="batt_status">
+		<item>未知</item>
+		<item>未知</item>
+		<item>正在充电</item>
+		<item>停止充电</item>
+		<item>充电已满</item>
+		<item>没有充电</item>
+	</string-array>
+	<!-- 2.1.2 -->
+	<!-- ksm -->
+	<string name="prefcat_ksm">内核合并内存页面（KSM）</string>
+	<string name="pt_run_ksm">启用KSM</string>
+	<string name="ksm_adv_title">设置</string>
+	<string name="ksm_fullscans">全面扫描:</string>
+	<string name="ksm_pagshared">共享页面:</string>
+	<string name="ksm_pagsharing">共享页面:</string>
+	<string name="ksm_pagunshared">无共享页面:</string>
+	<string name="ksm_pagvolatile">不稳定页面:</string>
+	<string name="ksm_pagtoscan">要扫描页面:</string>
+	<string name="ksm_sleep">睡眠 (ms):</string>
+	<!-- freezer -->
+	<string name="prefcat_freezer">冰冻或解冻数据包</string>
+	<string name="pt_freeze">冰冻数据包</string>
+	<string name="pt_unfreeze">解冻数据包</string>
+	<string name="ps_freeze">已安装数据包列表</string>
+	<string name="ps_unfreeze">冰冻数据包列表</string>
+	<string name="mt_system_packs">系统数据包</string>
+	<string name="mt_user_packs">用户数据包</string>
+	<string name="freeze_msg">%s 会被冰冻，要继续吗？</string>
+	<string name="unfreeze_msg">%s 会被解冻，要继续吗？</string>
+	<!-- zRam -->
+	<string name="prefcat_zram">zRAM</string>
+	<string name="pt_run_zram">启用zRam</string>
+	<string name="zram_set_title">设置</string>
+	<!-- 2.1.3 -->
+	<string name="ps_zram">压缩内存增加虚拟容量</string>
+	<string name="mt_gov_ctrl">管理器设置</string>
+	<!-- PC Settings -->
+	<string name="pt_use_light_theme">用浅色主题</string>
+	<string name="ps_use_light_theme">如果点选，性能控制将用Holo浅色主题</string>
+	<string name="pt_widget_bg_color">插件背景色</string>
+	<string name="pt_widget_text_color">插件字体颜色</string>
+	<string name="pt_ver">"版本 - "</string>
+	<!-- Color picker -->
+	<string name="dialog_color_picker">颜色选择器</string>
+	<string name="press_color_to_apply">点按颜色来选定</string>
+	<string name="arrow_right">→</string>
+	<string name="arrow_down">↓</string>
+	<string name="hex">十六进制颜色代码:</string>
+	<string name="hex_hint">#FF000000</string>
+	<string name="set">设定</string>
+	<string name="ics_color">Holo</string>
+	<!-- Drawer -->
+	<string name="navigation_drawer_toggle">菜单抽屉</string>
+	<string name="navigation_drawer_open">打开导航抽屉</string>
+	<string name="navigation_drawer_close">关闭导航抽屉</string>
+	<string name="navigation_toggle_drawer">切换去抽屉</string>
+	<string name="navigation_toggle_tabbed">切换去按钮</string>
+</resources>
