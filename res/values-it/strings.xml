@@ -54,7 +54,7 @@ Update 14/12/13 ale8530&Leo
     <string name="prefcat_free_memory">MEMORIA LIBERA</string>
     <string name="prefcat_tweaks">CARICA RAPIDA</string>
     <string name="prefcat_misc_short">MISC</string>
-    <string name="prefcat_read_ahead">SD READ AHEAD</string>
+    <string name="prefcat_read_ahead">LETTURA SCHEDA SD</string>
     <string name="prefcat_vm_settings">IMPOSTAZIONI VM</string>
     <string name="dt_free_memory">Minfree Taskkiller</string>
     <string name="dt_read_ahead">Lettura scheda SD</string>
@@ -110,7 +110,7 @@ Update 14/12/13 ale8530&Leo
     <string name="blx_info">Estensione durata della batteria\nAutore Ezekeel</string>
     <string name="prefcat_blx">ESTENSIONE DURATA DELLA BATTERIA</string>
     <string name="pt_blx_boot">Applica all\'avvio</string>
-    <string name="ps_blx_boot">Applica la quantità all\'avvio</string>
+    <string name="ps_blx_boot">Applica la quantità necessaria all\'avvio</string>
     <string name="blx_title">Limite di carica:</string>
     <!-- dsync -->
     <string name="dsync_info">FSync Dinamico\nAutore Paul Reioux (faux123)</string>
@@ -324,7 +324,7 @@ Update 14/12/13 ale8530&Leo
     <string name="hex_hint">#FF000000</string>
     <string name="set">Set</string>
     <string name="ics_color">Holo</string>
-<!-- Drawer -->
+    <!-- Drawer -->
     <string name="navigation_drawer_toggle">Toggle</string>
     <string name="navigation_drawer_open">Apri navigazione Toggle</string>
     <string name="navigation_drawer_close">Chiudi navigazione Toggle</string>
