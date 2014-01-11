@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "0b64a5c6_9af9cd1a",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Informations stockage",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b64a5c6_bafe91fd",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "INFORMATIONS STOCKAGE",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b985df5_5ccd7d86",
         "filename": "res/values-fr/strings.xml",
         "patchSetId": 1
@@ -13,6 +47,24 @@
       "writtenOn": "2014-01-11T06:13:24Z",
       "side": 1,
       "message": "Statut",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b64a5c6_da034510",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b985df5_5ccd7d86",
       "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
@@ -36,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "0b64a5c6_fa08092d",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b985df5_7cca3971",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b985df5_9ca385af",
         "filename": "res/values-fr/strings.xml",
         "patchSetId": 1
@@ -47,6 +117,24 @@
       "writtenOn": "2014-01-11T06:13:24Z",
       "side": 1,
       "message": "différée",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b64a5c6_1a0e9d36",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Ok + \"d\\\u0027écriture\"",
+      "parentUuid": "4b985df5_9ca385af",
       "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
@@ -70,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "0b64a5c6_3a0b6127",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Ok + \"d\\\u0027écriture\"",
+      "parentUuid": "4b985df5_1c98557b",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b985df5_bca8418a",
         "filename": "res/values-fr/strings.xml",
         "patchSetId": 1
@@ -81,6 +187,24 @@
       "writtenOn": "2014-01-11T06:13:24Z",
       "side": 1,
       "message": "différée",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b64a5c6_7a15d940",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b985df5_bca8418a",
       "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
@@ -104,6 +228,24 @@
     },
     {
       "key": {
+        "uuid": "0b64a5c6_5a18157a",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b985df5_dcad0d99",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b985df5_fcb2c9f9",
         "filename": "res/values-fr/strings.xml",
         "patchSetId": 1
@@ -115,6 +257,24 @@
       "writtenOn": "2014-01-11T06:13:24Z",
       "side": 1,
       "message": "différée",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b64a5c6_9a22ada2",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b985df5_fcb2c9f9",
       "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
@@ -138,6 +298,24 @@
     },
     {
       "key": {
+        "uuid": "0b64a5c6_da1c256c",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Ici cela apparaît dans un pop-up donc il en faut un, de plus il est présent dans le texte source.",
+      "parentUuid": "4b985df5_3c951144",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b985df5_5ca2dda6",
         "filename": "res/values-fr/strings.xml",
         "patchSetId": 1
@@ -149,6 +327,41 @@
       "writtenOn": "2014-01-11T06:13:24Z",
       "side": 1,
       "message": "restaurés",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b64a5c6_ba2771b1",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b985df5_5ca2dda6",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b64a5c6_5a31f5e9",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "l\\\u0027écriture différée\"",
       "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
@@ -172,6 +385,24 @@
     },
     {
       "key": {
+        "uuid": "0b64a5c6_fa21e99c",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b985df5_7c9f9961",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b985df5_9c8c653b",
         "filename": "res/values-fr/strings.xml",
         "patchSetId": 1
@@ -189,6 +420,24 @@
     },
     {
       "key": {
+        "uuid": "0b64a5c6_1a377de2",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Ici cela apparaît dans un pop-up donc il en faut un, de plus il est présent dans le texte source.",
+      "parentUuid": "4b985df5_9c8c653b",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b985df5_bc912156",
         "filename": "res/values-fr/strings.xml",
         "patchSetId": 1
@@ -200,6 +449,24 @@
       "writtenOn": "2014-01-11T06:13:24Z",
       "side": 1,
       "message": "(pas de point final (?))",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b64a5c6_3a3441db",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-01-11T11:20:20Z",
+      "side": 1,
+      "message": "Ici cela apparaît dans un pop-up donc il en faut un, de plus il est présent dans le texte source.",
+      "parentUuid": "4b985df5_bc912156",
       "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
