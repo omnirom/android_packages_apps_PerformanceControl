@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b985df5_5ccd7d86",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "Statut",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b985df5_7cca3971",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "ci-dessus",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b985df5_9ca385af",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "différée",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b985df5_1c98557b",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "DIFFÉRÉE",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b985df5_bca8418a",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "différée",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b985df5_dcad0d99",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "différée",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b985df5_fcb2c9f9",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "différée",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b985df5_3c951144",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "(pas de point final (?))",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b985df5_5ca2dda6",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "restaurés",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b985df5_7c9f9961",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "(\"accès root\" mais la ligne d\u0027après c\u0027est \"accès administrateur\". Parle t-on de la même chose ?)",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b985df5_9c8c653b",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "(pas de point final (?))",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b985df5_bc912156",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000519
+      },
+      "writtenOn": "2014-01-11T06:13:24Z",
+      "side": 1,
+      "message": "(pas de point final (?))",
+      "revId": "8581382a8407b72de4116d35f17082b460dd5fbd",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
