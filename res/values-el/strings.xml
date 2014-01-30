@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+Performance Control - An Android CPU Control application
+Copyright (C) 2012  James Roberts
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+
+    <string name="app_name">Έλεγχος επιδόσεων</string>
+    <!-- Main tabs -->
+    <string name="tab_cpu_settings">Ταχύτητα CPU</string>
+    <string name="tab_cpu_profiles">Προφίλ CPU</string>
+    <string name="tab_battery_info">Μπαταρία</string>
+    <string name="tab_oom_settings">Ρυθμίσεις μνήμης</string>
+    <string name="tab_time_in_state">Χρόνος κατάστασης</string>
+    <string name="tab_voltage_settings">Ρυθμίσεις Τάσης</string>
+    <string name="tab_cpu_info">Γενικές πληροφορίες</string>
+    <string name="tab_disk_info">Πληροφορίες δίσκου</string>
+    <string name="tab_tools">Εργαλεία</string>
+    <!-- Titles -->
+    <string name="t_cpu_settings">ΤΑΧΥΤΗΤΑ CPU</string>
+    <string name="t_battery_info">ΜΠΑΤΑΡΙΑ</string>
+    <string name="t_oom_settings">ΡΥΘΜΙΣΕΙΣ ΜΝΗΜΗΣ</string>
+    <string name="t_volt_settings">ΡΥΘΜΙΣΕΙΣ ΤΑΣΗΣ</string>
+    <string name="t_adv_settings">"ΠΡΟΧΩΡΗΜΕΝΕΣ ΡΥΘΜΙΣΕΙΣ"</string>
+    <string name="t_time_in_state">"ΧΡΟΝΟΣ ΚΑΤΑΣΤΑΣΗΣ"</string>
+    <string name="t_cpu_info">ΓΕΝΙΚΕΣ ΠΛΗΡΟΦΟΡΙΕΣ</string>
+    <string name="t_disk_info">ΠΛΗΡΟΦΟΡΙΕΣ ΔΙΣΚΟΥ</string>
+    <string name="t_tools">ΕΡΓΑΛΕΙΑ</string>
+
+    <string name="menu_tab">Καρτέλες</string>
+    <!-- Menu -->
+    <string name="mt_refresh">Ανανέωση</string>
+    <string name="mt_app_settings">"ρυθμίσεις εφαρμογής"</string>
+    <string name="mt_reset">Επαναφορά</string>
+    <string name="mt_restore">Αποκατάσταση</string>
+    <string name="mt_plus25">Αύξηση κατά 25 mV</string>
+    <string name="mt_minus25">Μείωση κατά 25 mV</string>
+    <!-- CPU settings -->
+    <string name="current_speed">Τρέχουσα ταχύτητα</string>
+    <string name="current_max">Μέγιστη ταχύτητα: </string>
+    <string name="current_min">ελάχιστη ταχύτητα: </string>
+    <string name="governor">Governor</string>
+    <string name="io">I/O Scheduler</string>
+    <string name="sob">Αυτόματη εφαρμογή στην εκκίνησ</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="cpu_info_list_header">Κατάσταση πυρήνα</string>
+    <string name="cpu_speed_header">Όρια πυρήνα</string>
+    <string name="other_settings_header">Άλλες ρυθμίσεις</string>
+    <string name="core_offline">Εκτός λειτουργίας</string>
+    <string name="core">Πυρήνας</string>
+
+    <!-- Other settings -->
+    <string name="prefcat_free_memory">FREE MEMORY</string>
+    <string name="prefcat_tweaks">FAST CHARGE</string>
+    <string name="prefcat_misc_short">MISC</string>
+    <string name="prefcat_read_ahead">SD READ AHEAD</string>
+    <string name="prefcat_vm_settings">DALVIK SETTINGS</string>
+    <string name="dt_free_memory">Minfree Taskkiller</string>
+    <string name="dt_read_ahead">SD Read Ahead</string>
+    <string name="pt_free_memory">Free memory</string>
+    <string name="ps_free_memory">Amount of RAM the minfree taskkiller will keep |
+        Current: %s
+    </string>
+    <string name="ps_free_memory_boot">Apply the amount above at boot</string>
+    <string name="pt_read_ahead">Storage read ahead</string>
+    <string name="ps_read_ahead">Amount to read ahead on storage, in kb |
+        Current: %s
+    </string>
+
+    <string name="ps_fast_charge_boot">Fast charge</string>
+    <string name="fast_charge_warning">YOU WILL NOT BE ABLE TO CONNECT TO YOUR PC AFTER
+        EACH REBOOT!\n\nWhile Fast Charge is ON, you can *only* charge your phone!
+    </string>
+    <string name="fast_charge_notification_title">Fast Charge is ON!</string>
+    <string name="fast_charge_notification_message">Phone is in charge-only mode!</string>
+
+    <!-- minfree -->
+    <string name="prefcat_oom">MINIMUM FREE MEMORY</string>
+    <string name="title_foreground_app">Foreground applications</string>
+    <string name="title_visible_app">Visible Applications</string>
+    <string name="title_secondary_server">Secondary Server</string>
+    <string name="title_hidden_app">Hidden Applications</string>
+    <string name="title_content_providers">Content Providers</string>
+    <string name="title_empty_app">Empty Applications</string>
+    <string name="prefcat_oom_predefines">PRESETS</string>
+    <string name="pt_oom">Minfree Taskkiller Presets</string>
+
+    <string name="pt_verylight">Very Light (Kills rarely)</string>
+    <string name="pt_light">Light</string>
+    <string name="pt_medium">Medium</string>
+    <string name="pt_aggressive">Aggressive</string>
+    <string name="pt_veryaggressive">Very Aggressive (Kills often)</string>
+
+    <!-- do not kill proc -->
+    <string name="prefcat_user_proc">NOT KILLABLE USER PROCESSES</string>
+    <string name="prefcat_sys_proc">NOT KILLABLE SYSTEM PROCESSES</string>
+    <string name="pt_user_proc">Enable not killable user processes</string>
+    <string name="pt_sys_proc">Enable not killable system processes</string>
+    <string name="pt_user_names_proc">User Processes whitelist</string>
+    <string name="pt_sys_names_proc">System Processes whitelist</string>
+    <string name="ps_restore_boot">Restore above settings at boot</string>
+    <string name="ps_user_proc">The list of user process names (comma separated)</string>
+    <string name="ps_sys_proc">The list of system process names (comma separated)</string>
+    <string name="no_proc">No packages</string>
+    <!-- bln -->
+    <string name="prefcat_bln">BACKLIGHT NOTIFICATION</string>
+    <string name="pt_bln">Backlight Notification</string>
+    <!-- blx -->
+    <string name="blx_info">Battery Life eXtender feature\nAuthor Ezekeel</string>
+    <string name="prefcat_blx">BATTERY LIFE EXTENDER</string>
+    <string name="pt_blx_boot">Set on boot</string>
+    <string name="ps_blx_boot">Apply the amount above at boot</string>
+    <string name="blx_title">Charge limit:</string>
+    <!-- dsync -->
+    <string name="dsync_info">Dynamic FSync feature\nAuthor Paul Reioux (faux123)</string>
+    <string name="prefcat_dsync">DYNAMIC FSYNC</string>
+    <string name="ps_dsync">Setting will be restored on reboot</string>
+    <string name="pt_dsync">Dynamic Fsync</string>
+    <!-- bl_timeout -->
+    <string name="prefcat_bltimeout">BACKLIGHT TIMEOUT</string>
+    <string name="ps_bltimeout">%s ms</string>
+    <string name="bltimeout_title">Backlight timeout</string>
+    <!-- bl_touch -->
+    <string name="prefcat_bltouch">BACKLIGHT ON TOUCHSCREEN</string>
+    <string name="pt_bltouch">Backlight on touchscreen</string>
+    <!-- pfk -->
+    <string name="pfk_info">Phantom Key Presses Filter module ver. %s\nAuthor Cristoforo Cataldo (Christopher83)</string>
+    <string name="prefcat_pfk">PHANTOM KEY PRESSES FILTER</string>
+    <string name="pt_home_enabled">Home key filter</string>
+    <string name="ps_home_enabled">Ignored key pressed: %s</string>
+    <string name="home_allowed_irq_title">Max allowed interrupts</string>
+    <string name="home_report_wait_title">Report wait time</string>
+
+    <string name="pt_menuback_enabled">Menu/Back keys filter</string>
+    <string name="ps_menuback_enabled">Ignored key pressed: %s</string>
+    <string name="menuback_interrupt_checks_title">Interrupts checks</string>
+    <string name="menuback_first_err_wait_title">First error wait time</string>
+    <string name="menuback_last_err_wait_title">Last error wait time</string>
+    <string name="ps_pfk_set_on_boot">If enabled will restore all pkf settings on reboot</string>
+    <!-- dynamic write back -->
+    <string name="dynamic_writeback_info">Dynamic Dirty Page Writebacks feature\nAuthor Cristoforo Cataldo (Christopher83)</string>
+    <string name="dynamic_write_back_title">DYNAMIC DIRTY PAGE WRITEBACKS</string>
+    <string name="pt_dynamic_write_back">Dynamic Dirty Writeback</string>
+    <string name="dynamic_writeback_active_title">Dirty Writeback Active centisecs</string>
+    <string name="dynamic_writeback_suspend_title">Dirty Writeback Suspend centisecs</string>
+    <!--  -->
+    <string name="size_25_mb">25mb</string>
+    <string name="size_50_mb">50mb</string>
+    <string name="size_75_mb">75mb</string>
+    <string name="size_80_mb">80mb</string>
+    <string name="size_100_mb">100mb</string>
+    <string name="size_128_kb">128kb</string>
+    <string name="size_256_kb">256kb</string>
+    <string name="size_512_kb">512kb</string>
+    <string name="size_1024_kb">1024kb</string>
+    <string name="size_2048_kb">2048kb</string>
+    <string name="size_4096_kb">4096kb</string>
+    <!-- Voltage control -->
+    <string name="volt_info">ATTENTION!\nBefore activating Set on boot, make sure that the values ​​entered do not exceed limits or risk the phone to freeze.</string>
+    <string name="ps_volt_mhz_voltage">" Hz"</string>
+    <string name="ps_volt_save">"Save"</string>
+    <string name="ps_volt_current_voltage">"Current voltage: "</string>
+    <string name="ps_volt_setting_to_apply">"Setting to apply: "</string>
+    <string name="pt_volt_control">Voltage control</string>
+    <string name="ps_volt_control">Set voltages for each frequency</string>
+    <string name="apply_values">Apply values</string>
+    <string name="freq">Frequency</string>
+    <string name="current">mV current</string>
+    <string name="saved">mV saved</string>
+    <string name="not_supported">Your kernel does not support voltage control</string>
+    <!-- VM settings -->
+    <string name="ps_vm_set_on_boot">If enabled will restore all vm settings on reboot</string>
+    <string name="dirty_ratio_title">Dirty ratio</string>
+    <string name="dirty_ratio_summary">A higher ratio means lower CPU but slower app startups</string>
+    <string name="dirty_background_title">Dirty background ratio</string>
+    <string name="dirty_expire_title">Dirty expire centisecs</string>
+    <string name="dirty_writeback_title">Dirty writeback centisecs</string>
+    <string name="min_free_title">Minfree kbytes</string>
+    <string name="overcommit_title">Overcommit ratio</string>
+    <string name="swappiness_title">Swappiness</string>
+    <string name="vfs_title">VFS cache pressure</string>
+    <!-- Time in state -->
+    <string name="time_in_state">TIME IN STATE</string>
+    <string name="unused_cpu_states">UNUSED CPU STATES</string>
+    <string name="total_state_time">TOTAL STATE TIME</string>
+    <string name="no_states_file_found">No states file found. Are you sure your phone is
+        compatible?\n\nIf you are running a custom ROM or kernel, try
+        contacting its developer to inform him that the states file is not
+        readable.
+    </string>
+    <string name="deep_sleep">"Deep Sleep"</string>
+    <!-- CPU info -->
+    <string name="kernel_info">LINUX KERNEL INFORMATION</string>
+    <string name="cpu_info">CPU INFORMATION</string>
+    <string name="mem_info">MEMORY INFORMATION</string>
+    <string name="first_run_title">First check for root</string>
+    <string name="su_success_title">Success!</string>
+    <string name="su_failed_title">Oops!</string>
+    <string name="first_run_message">The application needs to check for root access and
+        busybox. Press OK to continue. Cancel if you would not like to grant
+        root access.
+    </string>
+    <string name="su_success_message">Performance Control was able to get root access and
+        find busybox. Ready to rock!
+    </string>
+    <string name="su_cancel_message">You have chosen to not check for root and busybox.
+        Most options will not work without root access. Sorry!
+    </string>
+    <string name="su_failed_su_or_busybox">Root access failed or busybox was not found. Most
+        options will not work without root access. Sorry!
+    </string>
+
+    <!-- Tools -->
+    <string name="prefcat_sh">CUSTOM SHELL COMMAND</string>
+    <string name="sh_title">Edit shell command</string>
+    <string name="ps_sh">Command will be executed at boot.</string>
+    <string name="sh_msg">Leave blank for no operation.</string>
+    <string name="clear">Clear</string>
+    <string name="yes">Yes</string>
+    <string name="wait">Please wait…</string>
+    <string name="prefcat_wipe_cache">CACHE and DALVIK CACHE</string>
+    <string name="wipe_cache_title">Wipe cache and dalvik cache</string>
+    <string name="ps_wipe_cache">Cache partition: %s</string>
+    <string name="wipe_cache_msg">At the end, the system will reboot. Continue?</string>
+
+    <string name="prefcat_flash_img">FLASH IMG FILE</string>
+    <string name="kernel_img_title">Flash KERNEL</string>
+    <string name="ps_kernel_img">Flash boot.img files as kernel. Can choose individual boot.img file or any zip file that contains boot.img</string>
+    <string name="recovery_img_title">Flash RECOVERY</string>
+    <string name="ps_recovery_img">Flash recovery.img files as recovery. Can choose individual recovery.img file or any zip file that contains recovery.img</string>
+    <string name="btn_choose">Choose %s</string>
+    <string name="unsupported_info">Your device is not supported.</string>
+    <string name="flash_info">will be flashed on partition\n%s\n as</string>
+    <string name="dir_parent">&lt;Parent DIR&gt;</string>
+    <string name="dir">&lt;DIR&gt;</string>
+    <string name="bkexit">Press again to exit</string>
+
+    <string name="prefcat_residual_files">CLEAN RESIDUAL FILES</string>
+    <string name="residual_files_title">Clean residual files</string>
+    <string name="btncleanall">Clean all</string>
+    <string name="clean_files_msg">Residual files from %s will be deleted. Continue?</string>
+    <string name="filesstr">file(s)</string>
+    <string name="no_residuals">No residual files</string>
+
+    <string name="prefcat_optim_db">OPTIMIZE DBs</string>
+    <string name="optim_db_title">Optimize Databases</string>
+    <string name="ps_optim_db">This will optimize databases by using SQL command VACUUM.</string>
+
+    <string-array name="residual_info">
+        <item>Contains Android system log files</item>
+        <item>Contains log files from crashed apps</item>
+        <item>Contains constantly generated log files</item>
+        <item>Contains statistics about what apps you started</item>
+        <item>Contains traces from \'application not responding\' events</item>
+        <item>Contains temporary files</item>
+    </string-array>
+    <string name="prefcat_fix_perms">FIX PERMISSIONS</string>
+    <string name="fix_perms_title">Fix permissions</string>
+    <string name="fix_perms_msg">Operation may take several minutes. Continue?</string>
+    <string name="preflogg_fix_perms">Enable logging</string>
+
+    <string name="free">free %s</string>
+    <string name="used">used %s</string>
+
+    <!-- 2.1.0 -->
+    <string name="verify">Verifying…</string>
+    <string name="bad_zip">%s not found in zip file !</string>
+    <string name="closebtn">Close</string>
+    <string name="delallbtn">Delete all</string>
+    <string name="del_file_msg">%s will be deleted. Continue?</string>
+    <string-array name="batt_status">
+        <item>Άγνωστη</item>
+        <item>Άγνωστη</item>
+        <item>Φορτίζει</item>
+        <item>Αποφορτίζεται</item>
+        <item>Πλήρης</item>
+        <item>Δεν φορτίζει</item>
+    </string-array>
+    <!-- 2.1.2 -->
+    <!-- ksm -->
+    <string name="prefcat_ksm">KERNEL SAMEPAGE MERGING</string>
+    <string name="pt_run_ksm">Enable KSM</string>
+    <string name="ksm_adv_title">Settings</string>
+    <string name="ksm_fullscans">Full Scans:</string>
+    <string name="ksm_pagshared">Pages Shared:</string>
+    <string name="ksm_pagsharing">Pages Sharing:</string>
+    <string name="ksm_pagunshared">Pages Unshared:</string>
+    <string name="ksm_pagvolatile">Pages Volatile:</string>
+    <string name="ksm_pagtoscan">Pages to Scan:</string>
+    <string name="ksm_sleep">Sleep (ms):</string>
+
+    <!-- freezer -->
+    <string name="prefcat_freezer">FREEZE or DEFROST PACKAGES</string>
+    <string name="pt_freeze">Freeze Package</string>
+    <string name="pt_unfreeze">Defrost Package</string>
+    <string name="ps_freeze">List of all installed packages</string>
+    <string name="ps_unfreeze">List of frozen packages</string>
+    <string name="mt_system_packs">System Packages</string>
+    <string name="mt_user_packs">User Packages</string>
+    <string name="freeze_msg">%s will be frozen. Continue?</string>
+    <string name="unfreeze_msg">%s will be defrosted. Continue?</string>
+
+    <!-- zRam -->
+    <string name="prefcat_zram">zRAM</string>
+    <string name="pt_run_zram">Enable zRam</string>
+    <string name="zram_set_title">Settings</string>
+    <!-- 2.1.3 -->
+    <string name="ps_zram">Compress memory for increased virtual capacity</string>
+    <string name="mt_gov_ctrl">Governor Settings</string>
+
+    <!-- PC Settings -->
+    <string name="pt_use_light_theme">Use light theme</string>
+    <string name="ps_use_light_theme">If checked, Performance Control will use a Holo light theme</string>
+    <string name="pt_widget_bg_color">Widget bg color</string>
+    <string name="pt_widget_text_color">Widget text color</string>
+    <string name="pt_ver">"Version - "</string>
+    <!-- Color picker -->
+    <string name="dialog_color_picker">Color Picker</string>
+    <string name="press_color_to_apply">Press on Color to apply</string>
+
+    <string name="set">Set</string>
+    <string name="ics_color">Holo</string>
+
+    <!-- Drawer -->
+    <string name="navigation_drawer_toggle">Αλλαγή Συρταριού</string>
+    <string name="navigation_drawer_open">Άνοιγμα συρταριού περιήγησης</string>
+    <string name="navigation_drawer_close">Κλείσιμο συρταριού περιήγησης</string>
+    <string name="navigation_toggle_drawer">Αλλαγή σε Συρτάρι</string>
+    <string name="navigation_toggle_tabbed">Αλλαγή σε Καρτέλες</string>
+
+</resources>
