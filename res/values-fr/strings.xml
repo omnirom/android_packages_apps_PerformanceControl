@@ -49,7 +49,7 @@ Copyright (C) 2012  James Roberts
     <string name="current_min">Vitesse minimum :\u00A0</string>
     <string name="governor">Stratégie</string>
     <string name="io">Horloge E/S</string>
-    <string name="sob">Appliquer automatiquement au démarrage</string>
+    <string name="sob">Appliquer au démarrage</string>
     <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="cpu_info_list_header">Statut des cœurs</string>
