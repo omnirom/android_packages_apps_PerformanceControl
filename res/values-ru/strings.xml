@@ -19,7 +19,7 @@
     <string name="t_volt_settings">НАСТРОЙКИ НАПРЯЖЕНИЯ</string>
     <string name="t_adv_settings">"РАСШИРЕННЫЕ НАСТРОЙКИ"</string>
     <string name="t_time_in_state">"ВРЕМЯ В ДЕЙСТВИИ"</string>
-    <string name="t_cpu_info">Общая информация</string>
+    <string name="t_cpu_info">ОБЩАЯ ИНФОРМАЦИЯ</string>
     <string name="t_disk_info">О ДИСКЕ</string>
     <string name="t_tools">ИНСТРУМЕНТЫ</string>
     <string name="menu_tab">Вкладки</string>
@@ -74,10 +74,10 @@
     <string name="pt_verylight">Очень Легкий</string>
     <string name="pt_light">Легкий</string>
     <string name="pt_medium">Средний</string>
-    <string name="pt_aggressive">Аггресивный</string>
-    <string name="pt_veryaggressive">Очень Аггресивный</string>
+    <string name="pt_aggressive">Агресивный</string>
+    <string name="pt_veryaggressive">Очень Агресивный</string>
     <!-- do not kill proc -->
-    <string name="prefcat_user_proc">НЕ УБИВАЕМЫЕ ПРОЦЕССЫ</string>
+    <string name="prefcat_user_proc">НЕУБИВАЕМЫЕ ПРОЦЕССЫ</string>
     <string name="prefcat_sys_proc">НЕУБИВАЕМЫЕ СИСТЕМНЫЕ ПРОЦЕССЫ</string>
     <string name="pt_user_proc">Активировать "Неубиваемые процессоры"</string>
     <string name="pt_sys_proc">Активировать "Неубиваемые Системные Процессы"</string>
@@ -265,7 +265,7 @@
     <!-- ksm -->
     <string name="prefcat_ksm">ОБЪЕДИНЁННАЯ ПАМЯТЬ (KSM)</string>
     <string name="pt_run_ksm">Включить KSM</string>
-    <string name="ksm_adv_title">настройки</string>
+    <string name="ksm_adv_title">Настройки</string>
     <string name="ksm_fullscans">Полное сканирование:</string>
     <string name="ksm_pagshared">Объединённые:</string>
     <string name="ksm_pagsharing">Объединяемые:</string>
@@ -304,4 +304,17 @@
     <string name="hex_hint">#FF000000</string>
     <string name="set">Установить</string>
     <string name="ics_color">Holo</string>
+
+    <string name="cpu_info_list_header">Состояние ядер</string>
+    <string name="cpu_speed_header">Частоты</string>
+    <string name="other_settings_header">Другие настройки</string>
+    <string name="core_offline">Оффлайн</string>
+    <string name="core">Ядро</string>
+    <string name="ps_zram">Сжатие данных в ОП для увеличения виртуальной ОП</string>
+    <string name="mt_gov_ctrl">Настройки говернора</string>
+    <string name="navigation_drawer_toggle">Показать меню</string>
+    <string name="navigation_drawer_open">Открыть навигационное меню</string>
+    <string name="navigation_drawer_close">Закрыть навигационное меню</string>
+    <string name="navigation_toggle_drawer">Режим \"Общего меню\"</string>
+    <string name="navigation_toggle_tabbed">Режим \"Вкладок\"</string>
 </resources>
