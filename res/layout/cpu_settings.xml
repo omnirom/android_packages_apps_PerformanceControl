@@ -20,7 +20,7 @@ Copyright (C) 2012  James Roberts
     android:layout_height="fill_parent"
     android:fillViewport="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -32,7 +32,6 @@ Copyright (C) 2012  James Roberts
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_alignParentTop="true"
             android:id="@+id/speed">
 
             <TextView
@@ -53,12 +52,20 @@ Copyright (C) 2012  James Roberts
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/speed"
             android:gravity="center_horizontal">
 
             <TextView
                 android:text="@string/cpu_speed_header"
                 style="?android:attr/listSeparatorTextViewStyle" />
+
+            <TextView
+                android:text="@string/speed_limit_note"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dip"
+                android:layout_marginStart="10dip"
+                android:layout_marginEnd="10dip"
+                android:textSize="16sp"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -142,8 +149,7 @@ Copyright (C) 2012  James Roberts
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/header"
-            android:layout_below="@+id/speed_set">
+            android:id="@+id/header">
 
             <TextView
                 android:text="@string/other_settings_header"
@@ -155,10 +161,10 @@ Copyright (C) 2012  James Roberts
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical|center_horizontal"
-            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:layout_marginStart="10dip"
+            android:layout_marginEnd="10dip"
             android:id="@+id/governor"
-            android:layout_below="@+id/header"
             android:layout_marginTop="10dip">
 
             <TextView
@@ -167,11 +173,14 @@ Copyright (C) 2012  James Roberts
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dip"
                 android:text="@string/governor"
+                android:layout_weight="0.3"
                 android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/pref_governor"
-                android:layout_width="130dip"
+                android:layout_weight="0.7"
+                android:gravity="right"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
@@ -180,9 +189,10 @@ Copyright (C) 2012  James Roberts
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="10dip"
+            android:layout_marginEnd="10dip"
             android:id="@+id/ioscheduler"
-            android:layout_below="@+id/governor"
             android:layout_marginTop="10dip">
 
             <TextView
@@ -191,11 +201,14 @@ Copyright (C) 2012  James Roberts
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dip"
                 android:text="@string/io"
+                android:layout_weight="0.3"
                 android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/pref_io"
-                android:layout_width="120dip"
+                android:layout_weight="0.7"
+                android:layout_width="0dp"
+                android:gravity="right"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
@@ -204,11 +217,11 @@ Copyright (C) 2012  James Roberts
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="10dip"
+            android:layout_marginEnd="10dip"
             android:id="@+id/sob"
-            android:layout_below="@+id/ioscheduler"
-            android:layout_alignParentBottom="true"
-            android:paddingTop="30dip">
+            android:layout_marginTop="20dip">
 
             <TextView
                 android:id="@+id/set_on_boot_label"
@@ -216,14 +229,15 @@ Copyright (C) 2012  James Roberts
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dip"
                 android:text="@string/sob"
+                android:layout_weight="0.3"
                 android:textSize="14sp" />
 
             <Switch
                 android:id="@+id/cpu_sob"
-                android:layout_width="wrap_content"
+                android:layout_weight="0.7"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>
