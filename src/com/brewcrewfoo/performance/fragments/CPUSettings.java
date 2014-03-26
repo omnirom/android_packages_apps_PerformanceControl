@@ -32,6 +32,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -39,7 +40,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.Switch;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.brewcrewfoo.performance.R;
@@ -110,6 +111,7 @@ public class CPUSettings extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup root, Bundle savedInstanceState) {
         mInflater = inflater;
         View view = mInflater.inflate(R.layout.cpu_settings, root, false);
+        final float density = getResources().getDisplayMetrics().density;
 
         mCpuNum = Helpers.getNumOfCpus();
 
@@ -123,6 +125,10 @@ public class CPUSettings extends Fragment
 
         ListView mCpuInfoList = (ListView) view.findViewById(R.id.cpu_info_list);
         mCpuInfoList.setAdapter(mCpuInfoListAdapter);
+        
+        ViewGroup.LayoutParams lstViewParams = (LayoutParams) mCpuInfoList.getLayoutParams();               
+        int listHeigt = Math.round(25 * density)  * mCpuNum;       
+        lstViewParams.height = listHeigt;
 
         mIsTegra3 = new File(TEGRA_MAX_FREQ_PATH).exists();
         mIsDynFreq = new File(DYN_MAX_FREQ_PATH).exists() && new File(DYN_MIN_FREQ_PATH).exists();
@@ -218,7 +224,7 @@ public class CPUSettings extends Fragment
             }
         });
 
-        Switch mSetOnBoot = (Switch) view.findViewById(R.id.cpu_sob);
+        CheckBox mSetOnBoot = (CheckBox) view.findViewById(R.id.cpu_sob);
         mSetOnBoot.setChecked(mPreferences.getBoolean(CPU_SOB, false));
         mSetOnBoot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
