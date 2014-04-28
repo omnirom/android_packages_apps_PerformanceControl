@@ -274,4 +274,5 @@ Copyright (C) 2012  James Roberts
     <string name="navigation_drawer_close">Fermer le panneau latéral</string>
     <string name="navigation_toggle_drawer">Utiliser le panneau latéral</string>
     <string name="navigation_toggle_tabbed">Utiliser les onglets</string>
+    <string name="speed_limit_note">Note : nécessite le support du noyau</string>
 </resources>
