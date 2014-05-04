@@ -90,6 +90,11 @@ public interface Constants {
     public static final String PREF_READ_AHEAD = "pref_read_ahead";
     public static final String PREF_READ_AHEAD_BOOT = "pref_read_ahead_boot";
     public static final String PREF_FASTCHARGE = "pref_fast_charge";
+
+    // Force high-end graphics
+    public static final String PREF_FORCE_HIGHEND_GFX = "pref_force_highend_gfx";
+    public static final String PROP_FORCE_HIGHEND_GFX_PERSIST = "persist.sys.force_highendgfx";
+
     //------ MinFree ------
     public static final String OOM_FOREGROUND_APP = "oom_foreground_app";
     public static final String OOM_VISIBLE_APP = "oom_visible_app";

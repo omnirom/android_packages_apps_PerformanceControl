@@ -18,6 +18,8 @@
 
 package com.brewcrewfoo.performance.fragments;
 
+import android.app.ActivityManager;
+import android.os.SystemProperties;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -82,6 +84,8 @@ public class Advanced extends PreferenceFragment
     private ListPreference mReadAhead;
     private SharedPreferences mPreferences;
 
+    private CheckBoxPreference mForceHighEndGfx;
+
     private int mSeekbarProgress;
     private EditText settingText;
     private String sreadahead;
@@ -99,6 +103,7 @@ public class Advanced extends PreferenceFragment
         sreadahead = getResources().getString(R.string.ps_read_ahead, "");
 
         mReadAhead = (ListPreference) findPreference(PREF_READ_AHEAD);
+        mForceHighEndGfx = (CheckBoxPreference) findPreference(PREF_FORCE_HIGHEND_GFX);
         mBltimeout = findPreference(PREF_BLTIMEOUT);
         mBltouch = (CheckBoxPreference) findPreference(PREF_BLTOUCH);
         mBln = (CheckBoxPreference) findPreference(PREF_BLN);
@@ -170,6 +175,13 @@ public class Advanced extends PreferenceFragment
         final String readahead = Helpers.readOneLine(READ_AHEAD_PATH);
         mReadAhead.setValue(readahead);
         mReadAhead.setSummary(getString(R.string.ps_read_ahead, readahead + "  kb"));
+
+        if (ActivityManager.isLowRamDeviceStatic()) {
+            String forceHighendGfx = SystemProperties.get(PROP_FORCE_HIGHEND_GFX_PERSIST, "false");
+            mForceHighEndGfx.setChecked("true".equals(forceHighendGfx));
+        } else {
+            getPreferenceScreen().removePreference(findPreference(PREF_FORCE_HIGHEND_GFX));
+        }
 
         setHasOptionsMenu(true);
     }
@@ -336,6 +348,9 @@ public class Advanced extends PreferenceFragment
             openDialog(currentProgress, title, 0, 5000, preference,
                     DIRTY_WRITEBACK_SUSPEND_PATH, PREF_DIRTY_WRITEBACK_SUSPEND);
             return true;
+        } else if (preference == mForceHighEndGfx) {
+            SystemProperties.set(PROP_FORCE_HIGHEND_GFX_PERSIST,
+            mForceHighEndGfx.isChecked() ? "true" : "false");
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);

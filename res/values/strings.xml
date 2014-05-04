@@ -87,6 +87,9 @@ Copyright (C) 2012  James Roberts
     </string>
     <string name="fast_charge_notification_title">Fast Charge is ON!</string>
     <string name="fast_charge_notification_message">Phone is in charge-only mode!</string>
+    <string name="prefcat_force_highend_gfx">High-end Graphics</string>
+    <string name="pref_force_highend_gfx_title">Force high-end graphics</string>
+    <string name="pref_force_highend_gfx_summary">Enables high-end visual effects such as transparent status/navigation bar (requires reboot)</string>
 
     <!-- minfree -->
     <string name="prefcat_oom">MINIMUM FREE MEMORY</string>
