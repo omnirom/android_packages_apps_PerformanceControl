@@ -73,6 +73,9 @@ Copyright (C) 2012  James Roberts
     <string name="fast_charge_warning">VOUS NE POURREZ PLUS ACCÉDER À VOTRE APPAREIL APRÈS LE REDÉMARRAGE\u00A0!\n\nLorsque la charge rapide est ACTIVÉE, vous pouvez *seulement* charger votre appareil\u00A0!</string>
     <string name="fast_charge_notification_title">La charge rapide est ACTIVÉE\u00A0!</string>
     <string name="fast_charge_notification_message">Votre appareil est seulement en mode de charge\u00A0!</string>
+    <string name="prefcat_force_highend_gfx">Graphisme haute qualité</string>
+    <string name="pref_force_highend_gfx_title">Forcer les graphismes haute qualité</string>
+    <string name="pref_force_highend_gfx_summary">Activer les effets de haute qualité comme la transparence de la barre de navigation et de statut (nécessite un redémarrage)</string>
     <string name="prefcat_oom">MÉMOIRE LIBRE MINIMUM</string>
     <string name="title_foreground_app">Applications en premier plan</string>
     <string name="title_visible_app">Applications visibles</string>
