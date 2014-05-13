@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b77b57d_351d0378",
+        "filename": "res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000906
+      },
+      "writtenOn": "2014-05-13T12:30:52Z",
+      "side": 1,
+      "message": "Graphisme",
+      "revId": "a3a7aa2c3db767211794c8a5b208c4c5f24f979f",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
