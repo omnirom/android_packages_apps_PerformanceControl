@@ -325,9 +325,17 @@ public class CPUSettings extends Fragment
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             final StringBuilder sb = new StringBuilder();
             String selected = parent.getItemAtPosition(pos).toString();
+            boolean is_system_app = Helpers.isSystemApp(getActivity());
+            boolean write_result = false;
             for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                if (Helpers.isSystemApp(getActivity())) {
-                    Helpers.writeOneLine(GOVERNOR_PATH.replace("cpu0", "cpu" + i), selected);
+                if (is_system_app) {
+                    write_result = Helpers.writeOneLine(GOVERNOR_PATH.replace("cpu0", "cpu" + i), selected);
+                    // Some CPU cores lost their sysfs permission settings after hotplugging,
+                    // so try using su to set the gov.
+                    if (!write_result) {
+                        sb.append("busybox echo ").append(selected).append(" > ")
+                                .append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+                    }
                 } else {
                     sb.append("busybox echo ").append(selected).append(" > ")
                             .append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
@@ -335,8 +343,9 @@ public class CPUSettings extends Fragment
             }
             updateSharedPrefs(PREF_GOV, selected);
             mPreferences.edit().remove(GOV_SETTINGS).remove(GOV_NAME).apply();
-            if (!Helpers.isSystemApp(getActivity())) {
-                Helpers.shExec(sb, context, true);
+            if (!is_system_app || (is_system_app && !write_result)) {
+                // If we are here, it's clear that we have to use su (even if we are a system app)
+                Helpers.shExec(sb, context, true, true);
             }
         }
 
