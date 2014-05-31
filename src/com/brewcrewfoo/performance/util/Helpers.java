@@ -438,7 +438,7 @@ public class Helpers implements Constants {
         return (new File(BLX_PATH).exists() || (fastcharge_path() != null) || new File(BAT_VOLT_PATH).exists());
     }
 
-    public static String shExec(StringBuilder s, Context c, Boolean su) {
+    public static String shExec(StringBuilder s, Context c, Boolean su, Boolean force_su) {
         get_assetsScript("run", c, s.toString(), "");
         if (isSystemApp(c)) {
             new CMDProcessor().sh.runWaitFor("busybox chmod 750 " + c.getFilesDir() + "/run");
@@ -446,7 +446,7 @@ public class Helpers implements Constants {
             new CMDProcessor().su.runWaitFor("busybox chmod 750 " + c.getFilesDir() + "/run");
         }
         CMDProcessor.CommandResult cr = null;
-        if (su && !isSystemApp(c))
+        if (force_su || (su && !isSystemApp(c)))
             cr = new CMDProcessor().su.runWaitFor(c.getFilesDir() + "/run");
         else
             cr = new CMDProcessor().sh.runWaitFor(c.getFilesDir() + "/run");
@@ -456,6 +456,10 @@ public class Helpers implements Constants {
             Log.d(TAG, "execute: " + cr.stderr);
             return null;
         }
+    }
+
+    public static String shExec(StringBuilder s, Context c, Boolean su) {
+        return shExec(s, c, su, false);
     }
 
     public static void get_assetsScript(String fn, Context c, String prefix, String postfix) {
