@@ -69,7 +69,7 @@ Copyright (C) 2012  James Roberts
     <string name="prefcat_tweaks">HIZLI ŞARJ</string>
     <string name="prefcat_misc_short">Değişik</string>
     <string name="prefcat_read_ahead">TAMPON ARA BELLEK OKUMA</string>
-    <string name="prefcat_vm_settings">Dalvic Cache AYARLARI</string>
+    <string name="prefcat_vm_settings">Dalvik Cache AYARLARI</string>
     <string name="dt_free_memory">Minfree Görev Yöneticisi</string>
     <string name="dt_read_ahead">Tampon Ara Bellek Okuma</string>
     <string name="pt_free_memory">Boş Hafıza</string>
