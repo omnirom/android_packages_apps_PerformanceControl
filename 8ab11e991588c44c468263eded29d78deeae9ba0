@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b77b57d_45d47fed",
+        "filename": "res/values-es/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2014-06-23T12:55:09Z",
+      "side": 1,
+      "message": "\"Estado de los núcleos\"",
+      "revId": "8ab11e991588c44c468263eded29d78deeae9ba0",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_65017b72",
+        "filename": "res/values-es/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2014-06-23T12:55:09Z",
+      "side": 1,
+      "message": "\"Núcleo\"",
+      "revId": "8ab11e991588c44c468263eded29d78deeae9ba0",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_85069788",
+        "filename": "res/values-es/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2014-06-23T12:55:09Z",
+      "side": 1,
+      "message": "for me  in \".....*solo*.....\" is better \"*solamente*\" or \"*únicamente*\"",
+      "revId": "8ab11e991588c44c468263eded29d78deeae9ba0",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_c5008f6e",
+        "filename": "res/values-es/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2014-06-23T12:55:09Z",
+      "side": 1,
+      "message": "\"inicio\"",
+      "revId": "8ab11e991588c44c468263eded29d78deeae9ba0",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_e5f58b81",
+        "filename": "res/values-es/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2014-06-23T12:55:09Z",
+      "side": 1,
+      "message": "\"Filtro de las teclas Menú/Volver\"",
+      "revId": "8ab11e991588c44c468263eded29d78deeae9ba0",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_05f3679d",
+        "filename": "res/values-es/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2014-06-23T12:55:09Z",
+      "side": 1,
+      "message": "\"mas\" is incorrect. Perhaps \"más\"",
+      "revId": "8ab11e991588c44c468263eded29d78deeae9ba0",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_25f0638e",
+        "filename": "res/values-es/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2014-06-23T12:55:09Z",
+      "side": 1,
+      "message": "\"cache\" is \"caché\" like lines 68, 71, 77, 78....",
+      "revId": "8ab11e991588c44c468263eded29d78deeae9ba0",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_45ed5fb1",
+        "filename": "res/values-es/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2014-06-23T12:55:09Z",
+      "side": 1,
+      "message": "for me its better \"Su dispositivo no es compatible.\"",
+      "revId": "8ab11e991588c44c468263eded29d78deeae9ba0",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_652edbf7",
+        "filename": "res/values-es/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000501
+      },
+      "writtenOn": "2014-06-23T12:55:09Z",
+      "side": 1,
+      "message": "\"Si se activa, control de rendimiento usará el tema Holo light.\"",
+      "revId": "8ab11e991588c44c468263eded29d78deeae9ba0",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
