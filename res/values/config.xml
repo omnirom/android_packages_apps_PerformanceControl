@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--  Copyright (C) 2013 The OmniROM Project
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Copyright (C) 2013 The OmniROM Project
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -29,4 +30,14 @@
     <!-- If false, user can't switch between menu_tabbed and menu_drawer mode -->
     <bool name="config_allow_toggle_tabbed">true</bool>
 
+
+    <!-- Paths for KSM (Change this in device overlay if device uses different paths, such as in the case of UKSM -->
+    <string name="ksm_run_path" translatable="false">/sys/kernel/mm/ksm/run</string>
+    <string name="ksm_fullscans_path" translatable="false">/sys/kernel/mm/ksm/full_scans</string>
+    <string name="ksm_pages_shared_path" translatable="false">/sys/kernel/mm/ksm/pages_shared</string>
+    <string name="ksm_pages_sharing_path" translatable="false">/sys/kernel/mm/ksm/pages_sharing</string>
+    <string name="ksm_pages_to_scan_path" translatable="false">/sys/kernel/mm/ksm/pages_to_scan</string>
+    <string name="ksm_pages_unshared_path" translatable="false">/sys/kernel/mm/ksm/pages_unshared</string>
+    <string name="ksm_pages_volatile_path" translatable="false">/sys/kernel/mm/ksm/pages_volatile</string>
+    <string name="ksm_pages_sleep_path" translatable="false">/sys/kernel/mm/ksm/sleep_millisecs</string>
 </resources>

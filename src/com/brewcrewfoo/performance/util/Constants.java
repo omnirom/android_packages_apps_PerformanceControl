@@ -103,14 +103,6 @@ public interface Constants {
     public static final String OOM_CONTENT_PROVIDERS = "oom_content_providers";
     public static final String OOM_EMPTY_APP = "oom_empty_app";
     //------ KSM
-    public static final String KSM_RUN_PATH = "/sys/kernel/mm/ksm/run";
-    public static final String KSM_FULLSCANS_PATH = "/sys/kernel/mm/ksm/full_scans";
-    public static final String KSM_PAGESSHARED_PATH = "/sys/kernel/mm/ksm/pages_shared";
-    public static final String KSM_PAGESSHARING_PATH = "/sys/kernel/mm/ksm/pages_sharing";
-    public static final String KSM_PAGESTOSCAN_PATH = "/sys/kernel/mm/ksm/pages_to_scan";
-    public static final String KSM_PAGESUNSHERED_PATH = "/sys/kernel/mm/ksm/pages_unshared";
-    public static final String KSM_PAGESVOLATILE_PATH = "/sys/kernel/mm/ksm/pages_volatile";
-    public static final String KSM_SLEEP_PATH = "/sys/kernel/mm/ksm/sleep_millisecs";
     public static final String PREF_RUN_KSM = "pref_run_ksm";
     public static final String KSM_SOB = "ksm_boot";
 

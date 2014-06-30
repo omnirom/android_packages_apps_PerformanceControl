@@ -28,6 +28,7 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 
+import com.brewcrewfoo.performance.activities.KSMActivity;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.fragments.VoltageControlSettings;
 import com.brewcrewfoo.performance.util.Constants;
@@ -320,19 +321,19 @@ public class BootService extends Service implements Constants {
                             .append(" > ").append(USER_SYS_NAMES_PATH).append(";\n");
                 }
             }
-            if (new File(KSM_RUN_PATH).exists()) {
+            if (new File(KSMActivity.KSM_RUN_PATH).exists()) {
                 if (preferences.getBoolean(KSM_SOB, false)) {
                     if (preferences.getBoolean(PREF_RUN_KSM, false)) {
-                        sb.append("busybox echo 1 > " + KSM_RUN_PATH + ";\n");
+                        sb.append("busybox echo 1 > " + KSMActivity.KSM_RUN_PATH + ";\n");
                     } else {
-                        sb.append("busybox echo 0 > " + KSM_RUN_PATH + ";\n");
+                        sb.append("busybox echo 0 > " + KSMActivity.KSM_RUN_PATH + ";\n");
                     }
                     sb.append("busybox echo ").append(preferences.getString(
-                            "pref_ksm_pagetoscan", Helpers.readOneLine(KSM_PAGESTOSCAN_PATH)))
-                            .append(" > ").append(KSM_PAGESTOSCAN_PATH).append(";\n");
+                            "pref_ksm_pagetoscan", Helpers.readOneLine(KSMActivity.KSM_PAGESTOSCAN_PATH)))
+                            .append(" > ").append(KSMActivity.KSM_PAGESTOSCAN_PATH).append(";\n");
                     sb.append("busybox echo ").append(preferences.getString(
-                            "pref_ksm_sleep", Helpers.readOneLine(KSM_SLEEP_PATH)))
-                            .append(" > ").append(KSM_SLEEP_PATH).append(";\n");
+                            "pref_ksm_sleep", Helpers.readOneLine(KSMActivity.KSM_SLEEP_PATH)))
+                            .append(" > ").append(KSMActivity.KSM_SLEEP_PATH).append(";\n");
                 }
             }
             for (int i = 0; i < Helpers.getNumOfCpus(); i++) {

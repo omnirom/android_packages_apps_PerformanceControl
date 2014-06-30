@@ -131,7 +131,7 @@ public class OOMSettings extends PreferenceFragment
         mUserNames = findPreference(PREF_USER_NAMES);
         mSysNames = findPreference(PREF_SYS_NAMES);
 
-        mKSM = (CheckBoxPreference) findPreference(PREF_RUN_KSM);
+        mKSM = (CheckBoxPreference) findPreference(KSMActivity.PREF_RUN_KSM);
         mKSMsettings = findPreference("ksm_settings");
 
         if (!new File(USER_PROC_PATH).exists()) {
@@ -150,14 +150,14 @@ public class OOMSettings extends PreferenceFragment
             mPreferences.edit().putString(PREF_SYS_NAMES,
                     Helpers.readOneLine(USER_SYS_NAMES_PATH)).apply();
         }
-        if (!new File(KSM_RUN_PATH).exists()) {
+        if (!new File(KSMActivity.KSM_RUN_PATH).exists()) {
             PreferenceCategory hideCat = (PreferenceCategory) findPreference("ksm");
             getPreferenceScreen().removePreference(hideCat);
         } else {
-            mKSM.setChecked(Helpers.readOneLine(KSM_RUN_PATH).equals("1"));
+            mKSM.setChecked(Helpers.readOneLine(KSMActivity.KSM_RUN_PATH).equals("1"));
             mKSMsettings.setSummary(getString(R.string.ksm_pagtoscan) + " " +
-                    Helpers.readOneLine(KSM_PAGESTOSCAN_PATH) + " | " +
-                    getString(R.string.ksm_sleep) + " " + Helpers.readOneLine(KSM_SLEEP_PATH));
+                    Helpers.readOneLine(KSMActivity.KSM_PAGESTOSCAN_PATH) + " | " +
+                    getString(R.string.ksm_sleep) + " " + Helpers.readOneLine(KSMActivity.KSM_SLEEP_PATH));
         }
         ispm = (!Helpers.binExist("pm").equals(NOT_FOUND));
 
@@ -326,17 +326,17 @@ public class OOMSettings extends PreferenceFragment
                         USER_SYS_NAMES_PATH, true);
             }
         } else if (preference.equals(mKSM)) {
-            if (Integer.parseInt(Helpers.readOneLine(KSM_RUN_PATH)) == 0) {
+            if (Integer.parseInt(Helpers.readOneLine(KSMActivity.KSM_RUN_PATH)) == 0) {
                 if (Helpers.isSystemApp(getActivity())) {
-                    Helpers.writeOneLine(KSM_RUN_PATH, "1");
+                    Helpers.writeOneLine(KSMActivity.KSM_RUN_PATH, "1");
                 } else {
-                    new CMDProcessor().su.runWaitFor("busybox echo 1 > " + KSM_RUN_PATH);
+                    new CMDProcessor().su.runWaitFor("busybox echo 1 > " + KSMActivity.KSM_RUN_PATH);
                 }
             } else {
                 if (Helpers.isSystemApp(getActivity())) {
-                    Helpers.writeOneLine(KSM_RUN_PATH, "0");
+                    Helpers.writeOneLine(KSMActivity.KSM_RUN_PATH, "0");
                 } else {
-                    new CMDProcessor().su.runWaitFor("busybox echo 0 > " + KSM_RUN_PATH);
+                    new CMDProcessor().su.runWaitFor("busybox echo 0 > " + KSMActivity.KSM_RUN_PATH);
                 }
             }
             return true;

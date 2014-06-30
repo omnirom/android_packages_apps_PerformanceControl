@@ -30,7 +30,7 @@ import java.io.File;
 public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBarChangeListener, ActivityThemeChangeInterface {
     SharedPreferences mPreferences;
     private boolean mIsLightTheme;
-    final Context context = this;
+    static Context context;
     private TextView t1;
     private TextView t2;
     private TextView t3;
@@ -49,9 +49,19 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
     final private int maxPages2Scan = 2048;
     final private int maxSleep = 5000;
 
+    public static final String KSM_RUN_PATH = context.getString(R.string.ksm_run_path);
+    public static final String KSM_FULLSCANS_PATH = context.getString(R.string.ksm_fullscans_path);
+    public static final String KSM_PAGESSHARED_PATH = context.getString(R.string.ksm_pages_shared_path);
+    public static final String KSM_PAGESSHARING_PATH = context.getString(R.string.ksm_pages_sharing_path);
+    public static final String KSM_PAGESTOSCAN_PATH = context.getString(R.string.ksm_pages_to_scan_path);
+    public static final String KSM_PAGESUNSHARED_PATH = context.getString(R.string.ksm_pages_unshared_path);
+    public static final String KSM_PAGESVOLATILE_PATH = context.getString(R.string.ksm_pages_volatile_path);
+    public static final String KSM_SLEEP_PATH = context.getString(R.string.ksm_pages_sleep_path);
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme();
         setContentView(R.layout.ksm_settings);
@@ -69,7 +79,7 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
             relativeLayout.setVisibility(RelativeLayout.GONE);
         }
         if (new File(KSM_PAGESSHARED_PATH).exists()) {
-            t2.setText(Helpers.readOneLine(KSM_PAGESUNSHERED_PATH));
+            t2.setText(Helpers.readOneLine(KSM_PAGESUNSHARED_PATH));
             ist2 = true;
         } else {
             RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout2);
@@ -286,7 +296,7 @@ public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBa
     protected Handler mCurHandler = new Handler() {
         public void handleMessage(Message msg) {
             if (ist1) t1.setText(Helpers.readOneLine(KSM_PAGESSHARED_PATH));
-            if (ist2) t2.setText(Helpers.readOneLine(KSM_PAGESUNSHERED_PATH));
+            if (ist2) t2.setText(Helpers.readOneLine(KSM_PAGESUNSHARED_PATH));
             if (ist3) t3.setText(Helpers.readOneLine(KSM_PAGESSHARING_PATH));
             if (ist4) t4.setText(Helpers.readOneLine(KSM_PAGESVOLATILE_PATH));
             if (ist5) t5.setText(Helpers.readOneLine(KSM_FULLSCANS_PATH));
