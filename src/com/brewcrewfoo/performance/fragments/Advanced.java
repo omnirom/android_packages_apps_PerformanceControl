@@ -103,7 +103,7 @@ public class Advanced extends PreferenceFragment
         sreadahead = getResources().getString(R.string.ps_read_ahead, "");
 
         mReadAhead = (ListPreference) findPreference(PREF_READ_AHEAD);
-        mForceHighEndGfx = (CheckBoxPreference) findPreference(PREF_FORCE_HIGHEND_GFX);
+        mForceHighEndGfx = (CheckBoxPreference) findPreference(FORCE_HIGHEND_GFX_PREF);
         mBltimeout = findPreference(PREF_BLTIMEOUT);
         mBltouch = (CheckBoxPreference) findPreference(PREF_BLTOUCH);
         mBln = (CheckBoxPreference) findPreference(PREF_BLN);
@@ -177,10 +177,10 @@ public class Advanced extends PreferenceFragment
         mReadAhead.setSummary(getString(R.string.ps_read_ahead, readahead + "  kb"));
 
         if (ActivityManager.isLowRamDeviceStatic()) {
-            String forceHighendGfx = SystemProperties.get(PROP_FORCE_HIGHEND_GFX_PERSIST, "false");
+            String forceHighendGfx = SystemProperties.get(FORCE_HIGHEND_GFX_PERSIST_PROP, "false");
             mForceHighEndGfx.setChecked("true".equals(forceHighendGfx));
         } else {
-            getPreferenceScreen().removePreference(findPreference(PREF_FORCE_HIGHEND_GFX));
+            getPreferenceScreen().removePreference(findPreference(FORCE_HIGHEND_GFX_PREF));
         }
 
         setHasOptionsMenu(true);
@@ -349,7 +349,7 @@ public class Advanced extends PreferenceFragment
                     DIRTY_WRITEBACK_SUSPEND_PATH, PREF_DIRTY_WRITEBACK_SUSPEND);
             return true;
         } else if (preference == mForceHighEndGfx) {
-            SystemProperties.set(PROP_FORCE_HIGHEND_GFX_PERSIST,
+            SystemProperties.set(FORCE_HIGHEND_GFX_PERSIST_PROP,
             mForceHighEndGfx.isChecked() ? "true" : "false");
         }
 
