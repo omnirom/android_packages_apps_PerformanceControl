@@ -92,8 +92,8 @@ public interface Constants {
     public static final String PREF_FASTCHARGE = "pref_fast_charge";
 
     // Force high-end graphics
-    public static final String PREF_FORCE_HIGHEND_GFX = "pref_force_highend_gfx";
-    public static final String PROP_FORCE_HIGHEND_GFX_PERSIST = "persist.sys.force_highendgfx";
+	public static final String FORCE_HIGHEND_GFX_PREF = "pref_force_highend_gfx";
+	public static final String FORCE_HIGHEND_GFX_PERSIST_PROP = "persist.sys.force_highendgfx";
 
     //------ MinFree ------
     public static final String OOM_FOREGROUND_APP = "oom_foreground_app";
