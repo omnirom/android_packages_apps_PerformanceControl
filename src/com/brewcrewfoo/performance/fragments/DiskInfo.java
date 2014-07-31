@@ -253,8 +253,8 @@ public class DiskInfo extends Fragment implements Constants {
                 cachefree, cachebar, lcache);
 
         cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | " +
-                "busybox egrep -v \"asec|android_secure|sdcard1|external_sd|sd-ext\" | " +
-                "busybox egrep -i \"(sdcard|sdcard0)\" | busybox awk '{print $3}'`");
+                "busybox egrep -v \"asec|android_secure|sdcard1|external_sd|sd-ext|media_rw\" | " +
+                "busybox egrep -i \"sdcard|sdcard0\" | busybox awk '{print $3}'`");
 
         if (cr.success() && set_part_info(cr.stdout, "SD card 1", sd1name, sd1total,
                 sd1used, sd1free, sd1bar, lsd1)) {
@@ -265,8 +265,8 @@ public class DiskInfo extends Fragment implements Constants {
         if (!internalsd.equals("")) sep = "|";
 
         cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v " +
-                "\"asec|android_secure" + sep + internalsd + "\" | busybox egrep -i \"" +
-                "(external_sd|sdcard1|sd-ext)\" | busybox awk '{print $3}'`");
+                "\"asec|media_rw|android_secure" + sep + internalsd + "\" | busybox egrep -i \"" +
+                "external_sd|sdcard1|sd-ext\" | busybox awk '{print $3}'`");
 
         if (cr.success() && set_part_info(cr.stdout, "SD card 2", sd2name, sd2total, sd2used,
                 sd2free, sd2bar, lsd2)) {
