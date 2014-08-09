@@ -335,10 +335,6 @@ public class BootService extends Service implements Constants {
                             .append(" > ").append(KSM_SLEEP_PATH).append(";\n");
                 }
             }
-            for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                sb.append("busybox echo ").append(gov).append(" > ")
-                        .append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
-            }
             if (preferences.getBoolean(GOV_SOB, false)) {
                 final String gn = preferences.getString(GOV_NAME, "");
                 if (gn.equals(gov)) {

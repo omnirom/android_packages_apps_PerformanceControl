@@ -576,4 +576,8 @@ public class Helpers implements Constants {
         boolean mIsSystemApp;
         return mIsSystemApp = c.getResources().getBoolean(R.bool.config_isSystemApp);
     }
+
+    public static boolean hasOverallStats() {
+        return fileExists(TIME_IN_STATE_OVERALL_PATH);
+    }
 }
