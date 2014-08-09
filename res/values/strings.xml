@@ -48,6 +48,7 @@ Copyright (C) 2012  James Roberts
     <string name="mt_restore">Restore</string>
     <string name="mt_plus25">Increase by 25 mV</string>
     <string name="mt_minus25">Decrease by 25 mV</string>
+    <string name="mt_share">Share</string>
     <!-- CPU settings -->
     <string name="current_speed">Current Speed</string>
     <string name="current_max">Maximum speed: </string>
@@ -349,4 +350,5 @@ Copyright (C) 2012  James Roberts
     <string name="navigation_toggle_tabbed">Switch to Tabbed</string>
 
     <string name="speed_limit_note">Note: Requires kernel support</string>
+    <string name="state_time_mode">Active time</string>
 </resources>

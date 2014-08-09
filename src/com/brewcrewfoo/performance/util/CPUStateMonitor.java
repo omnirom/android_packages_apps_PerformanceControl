@@ -20,6 +20,7 @@
 package com.brewcrewfoo.performance.util;
 
 import android.os.SystemClock;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -35,8 +36,28 @@ import java.util.Map;
 //@SuppressLint("UseSparseArrays")
 public class CPUStateMonitor implements Constants {
 
-    private List<CpuState> mStates = new ArrayList<CpuState>();
-    private Map<Integer, Long> mOffsets = new HashMap<Integer, Long>();
+    private Map<Integer, ArrayList<CpuState>> mStates;
+    private Map<Integer, Map<Integer, Long>> mOffsets;
+    private boolean mOverallStats;
+    private int mCpuNum;
+
+    public CPUStateMonitor() {
+        mCpuNum = Helpers.getNumOfCpus();
+        mStates = new HashMap<Integer, ArrayList<CpuState>>();
+        mOffsets = new HashMap<Integer, Map<Integer, Long>>();
+        for (int i = 0; i < mCpuNum; i++) {
+            ArrayList<CpuState> cpuStates = new ArrayList<CpuState>();
+            mStates.put(i, cpuStates);
+
+            Map<Integer, Long> cpuOffsets = new HashMap<Integer, Long>();
+            mOffsets.put(i, cpuOffsets);
+        }
+        mOverallStats = Helpers.hasOverallStats();
+    }
+
+    public boolean hasOverallStats() {
+        return mOverallStats;
+    }
 
     @SuppressWarnings("serial")
     public class CPUStateMonitorException extends Exception {
@@ -45,109 +66,203 @@ public class CPUStateMonitor implements Constants {
         }
     }
 
-    //@SuppressLint({"UseValueOf", "UseValueOf"})
+    // @SuppressLint({"UseValueOf", "UseValueOf"})
     public class CpuState implements Comparable<CpuState> {
-        public CpuState(int a, long b) {
+        public CpuState(int cpu, int a, long b) {
+            mCpu = cpu;
             freq = a;
             duration = b;
         }
 
         public int freq = 0;
         public long duration = 0;
+        public int mCpu = 0;
+
+        @Override
+        public String toString() {
+            return mCpu + ":" + freq + ":" + duration;
+        }
 
         public int compareTo(CpuState state) {
             Integer a = freq;
             Integer b = state.freq;
             return a.compareTo(b);
         }
-    }
 
-    public List<CpuState> getStates() {
-        List<CpuState> states = new ArrayList<CpuState>();
-
-        for (CpuState state : mStates) {
-            long duration = state.duration;
-            if (mOffsets.containsKey(state.freq)) {
-                long offset = mOffsets.get(state.freq);
-                if (offset <= duration) {
-                    duration -= offset;
-                } else {
-                    mOffsets.clear();
-                    return getStates();
-                }
+        public long getDuration() {
+            Map<Integer, Long> offsets = getOffsets(mCpu);
+            Long offset = offsets.get(freq);
+            if (offset != null) {
+                return duration - offset;
             }
-            states.add(new CpuState(state.freq, duration));
+            return duration;
         }
-        return states;
     }
 
-    public long getTotalStateTime() {
+    public List<CpuState> getStates(int cpu) {
+        return mStates.get(cpu);
+    }
+
+    public CpuState getFreqState(int cpu, int freq) {
+        List<CpuState> cpuStates = mStates.get(cpu);
+        for (CpuState state : cpuStates) {
+            if (state.freq == freq) {
+                return state;
+            }
+        }
+        return null;
+    }
+
+    public CpuState getDeepSleepState() {
+        List<CpuState> cpuStates = mStates.get(0);
+        for (CpuState state : cpuStates) {
+            if (state.freq == 0) {
+                return state;
+            }
+        }
+        return null;
+    }
+
+    public long getTotalStateTime(int cpu, boolean withOffset) {
         long sum = 0;
         long offset = 0;
 
-        for (CpuState state : mStates) {
-            sum += state.duration;
+        List<CpuState> cpuStates = mStates.get(cpu);
+        for (CpuState state : cpuStates) {
+            if (withOffset) {
+                sum += state.getDuration();
+            } else {
+                sum += state.duration;
+            }
         }
-
-        for (Map.Entry<Integer, Long> entry : mOffsets.entrySet()) {
-            offset += entry.getValue();
-        }
-        return sum - offset;
+        return sum;
     }
 
-    public Map<Integer, Long> getOffsets() {
-        return mOffsets;
+    public Map<Integer, Long> getOffsets(int cpu) {
+        Map<Integer, Long> cpuOffsets = mOffsets.get(cpu);
+        return cpuOffsets;
     }
 
-    public void setOffsets(Map<Integer, Long> offsets) {
-        mOffsets = offsets;
+    public void setOffsets(int cpu, Map<Integer, Long> offsets) {
+        mOffsets.put(cpu, offsets);
     }
 
     public void setOffsets() throws CPUStateMonitorException {
-        mOffsets.clear();
         updateStates();
+        for (int i = 0; i < mCpuNum; i++) {
+            setOffsets(i);
+        }
+    }
 
-        for (CpuState state : mStates) {
-            mOffsets.put(state.freq, state.duration);
+    private void setOffsets(int cpu) throws CPUStateMonitorException {
+        Map<Integer, Long> cpuOffsets = mOffsets.get(cpu);
+        cpuOffsets.clear();
+
+        List<CpuState> cpuStates = mStates.get(cpu);
+        for (CpuState state : cpuStates) {
+            cpuOffsets.put(state.freq, state.duration);
         }
     }
 
     public void removeOffsets() {
-        mOffsets.clear();
+        for (int i = 0; i < mCpuNum; i++) {
+            removeOffsets(i);
+        }
     }
 
-    public List<CpuState> updateStates() throws CPUStateMonitorException {
-        try {
-            InputStream is = new FileInputStream(TIME_IN_STATE_PATH);
-            InputStreamReader ir = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(ir);
-            mStates.clear();
-            readInStates(br);
-            is.close();
-        } catch (IOException e) {
-            throw new CPUStateMonitorException(
-                    "Problem opening time-in-states file");
+    private void removeOffsets(int cpu) {
+        Map<Integer, Long> cpuOffsets = mOffsets.get(cpu);
+        cpuOffsets.clear();
+    }
+
+    public void clear() {
+        int cpuNum = Helpers.getNumOfCpus();
+        for (int i = 0; i < cpuNum; i++) {
+            List<CpuState> cpuStates = mStates.get(i);
+            cpuStates.clear();
+        }
+    }
+
+    public void updateStates() throws CPUStateMonitorException {
+
+        if (mOverallStats) {
+            try {
+                InputStream is = new FileInputStream(TIME_IN_STATE_OVERALL_PATH);
+                InputStreamReader ir = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(ir);
+                clear();
+                readInOverallStates(br);
+                is.close();
+            } catch (IOException e) {
+                throw new CPUStateMonitorException(
+                        "Problem opening time-in-states file");
+            }
+        } else {
+            List<CpuState> cpuStates = mStates.get(0);
+            try {
+                InputStream is = new FileInputStream(TIME_IN_STATE_PATH);
+                InputStreamReader ir = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(ir);
+                clear();
+                readInStates(br, 0, cpuStates);
+                is.close();
+            } catch (IOException e) {
+                throw new CPUStateMonitorException(
+                        "Problem opening time-in-states file");
+            }
         }
 
-        long sleepTime = (SystemClock.elapsedRealtime() - SystemClock.uptimeMillis()) / 10;
-        mStates.add(new CpuState(0, sleepTime));
-
-        Collections.sort(mStates, Collections.reverseOrder());
-
-        return mStates;
+        List<CpuState> cpuStates = mStates.get(0);
+        long sleepTime = Math.max((SystemClock.elapsedRealtime() - SystemClock
+                .uptimeMillis()) / 10, 0);
+        cpuStates.add(new CpuState(0, 0, sleepTime));
     }
 
-    private void readInStates(BufferedReader br)
-            throws CPUStateMonitorException {
+    private void readInStates(BufferedReader br, int cpu,
+            List<CpuState> cpuStates) throws CPUStateMonitorException {
         try {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] nums = line.split(" ");
-                mStates.add(new CpuState(Integer.parseInt(nums[0]), Long.parseLong(nums[1])));
+                cpuStates.add(new CpuState(cpu, Integer.parseInt(nums[0]), Long
+                        .parseLong(nums[1])));
+            }
+            Collections.sort(cpuStates, Collections.reverseOrder());
+        } catch (IOException e) {
+            throw new CPUStateMonitorException(
+                    "Problem processing time-in-states file");
+        }
+    }
+
+    private void readInOverallStates(BufferedReader br)
+            throws CPUStateMonitorException {
+        int cpu = 0;
+        List<CpuState> cpuStates = null;
+        ;
+        int firstFreq = 0;
+        try {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] nums = line.split(" ");
+                int freq = Integer.parseInt(nums[0]);
+                if (firstFreq == 0) {
+                    firstFreq = freq;
+                } else if (freq == firstFreq) {
+                    cpu++;
+                    if (cpuStates != null) {
+                        Collections.sort(cpuStates, Collections.reverseOrder());
+                    }
+                }
+                cpuStates = mStates.get(cpu);
+                cpuStates.add(new CpuState(cpu, freq, Long.parseLong(nums[1])));
             }
         } catch (IOException e) {
             throw new CPUStateMonitorException(
                     "Problem processing time-in-states file");
         }
+    }
+
+    public void dump() {
+        Log.d("PC", "states = " + mStates + "\noffsets = " + mOffsets);
     }
 }
