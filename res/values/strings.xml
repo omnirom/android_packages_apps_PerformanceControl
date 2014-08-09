@@ -349,4 +349,5 @@ Copyright (C) 2012  James Roberts
     <string name="navigation_toggle_tabbed">Switch to Tabbed</string>
 
     <string name="speed_limit_note">Note: Requires kernel support</string>
+    <string name="state_time_mode">Active time</string>
 </resources>
