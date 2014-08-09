@@ -73,8 +73,10 @@ public interface Constants {
 
     // Time in state
     public static final String TIME_IN_STATE_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
-    public static final String TIME_IN_STATE_TAIL = "/cpufreq/stats/time_in_state";
     public static final String PREF_OFFSETS = "pref_offsets";
+    public static final String TIME_IN_STATE_OVERALL_PATH = "/sys/devices/system/cpu/cpufreq/overall_stats/overall_time_in_state";
+    public static final String PREF_STATE_MODE = "pref_state_mode";
+
     // Battery
     public static final String BAT_VOLT_PATH = "/sys/class/power_supply/battery/voltage_now";
 
