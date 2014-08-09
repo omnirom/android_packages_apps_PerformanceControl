@@ -85,9 +85,7 @@ public class BootService extends Service implements Constants {
                             .append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
                     sb.append("busybox echo ").append(min).append(" > ")
                             .append(MIN_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
-                    //sb.append("busybox echo ").append(gov).append(" > ")
-                    // .append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
-                    sb.append("busybox echo performance > ")
+                    sb.append("busybox echo ").append(gov).append(" > ")
                             .append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
                 }
                 if (new File(TEGRA_MAX_FREQ_PATH).exists()) {
@@ -334,10 +332,6 @@ public class BootService extends Service implements Constants {
                             "pref_ksm_sleep", Helpers.readOneLine(KSM_SLEEP_PATH)))
                             .append(" > ").append(KSM_SLEEP_PATH).append(";\n");
                 }
-            }
-            for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                sb.append("busybox echo ").append(gov).append(" > ")
-                        .append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
             }
             if (preferences.getBoolean(GOV_SOB, false)) {
                 final String gn = preferences.getString(GOV_NAME, "");
