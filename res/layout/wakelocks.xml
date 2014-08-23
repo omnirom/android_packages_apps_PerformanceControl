@@ -33,6 +33,23 @@ Copyright (C) 2012  James Roberts
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:text="@string/spinner_type_title" />
+        <Spinner
+            android:id="@+id/list_type_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="@string/spinner_period_title" />
         <Spinner
             android:id="@+id/period_type_select"
@@ -41,6 +58,7 @@ Copyright (C) 2012  James Roberts
             android:gravity="center_vertical" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/ui_state_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -54,18 +72,6 @@ Copyright (C) 2012  James Roberts
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:textSize="20sp" />
-        <CheckBox
-            android:id="@+id/ui_core_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/state_core_mode" />
-        <CheckBox
-            android:id="@+id/ui_mode_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/state_time_mode" />
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
@@ -85,12 +91,12 @@ Copyright (C) 2012  James Roberts
                 android:orientation="vertical"
                 android:paddingBottom="10dp" />
             <TextView
-                android:id="@+id/ui_states_warning"
+                android:id="@+id/ui_kernel_wakelock_warning"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#551111"
                 android:padding="15dp"
-                android:text="@string/no_states_file_found"
+                android:text="@string/no_kernel_wakelock_file_found"
                 android:textSize="20sp"
                 android:visibility="gone" />
             <LinearLayout
