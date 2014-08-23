@@ -38,7 +38,10 @@ import android.widget.TextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import 	android.widget.ShareActionProvider;
+import android.widget.ShareActionProvider;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.util.Log;
 
 import com.brewcrewfoo.performance.R;
@@ -59,20 +62,21 @@ public class TimeInState extends Fragment implements Constants {
     private LinearLayout mStatesView;
     private TextView mTotalStateTime;
     private TextView mStatesWarning;
-    private TextView mHeaderTotalStateTime;
     private CheckBox mStateMode;
     private boolean mUpdatingData = false;
-
     private CPUStateMonitor monitor = new CPUStateMonitor();
     private Context context;
     private SharedPreferences preferences;
     private boolean mOverallStats;
     private int mCpuNum;
     private boolean mActiveStateMode;
+    private boolean mActiveCoreMode = true;
     private ShareActionProvider mProvider;
+    private Spinner mPeriodTypeSelect;
 
     private static final int MENU_REFRESH = Menu.FIRST;
     private static final int MENU_SHARE = MENU_REFRESH + 1;
+    private CheckBox mCoreMode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,11 +105,10 @@ public class TimeInState extends Fragment implements Constants {
         View view = inflater.inflate(R.layout.time_in_state, root, false);
 
         mStatesView = (LinearLayout) view.findViewById(R.id.ui_states_view);
-        mHeaderTotalStateTime = (TextView) view
-                .findViewById(R.id.ui_header_total_state_time);
         mStatesWarning = (TextView) view.findViewById(R.id.ui_states_warning);
         mTotalStateTime = (TextView) view
                 .findViewById(R.id.ui_total_state_time);
+
         mStateMode = (CheckBox) view.findViewById(R.id.ui_mode_switch);
         mActiveStateMode = preferences.getBoolean(PREF_STATE_MODE, false);
         mStateMode.setChecked(mActiveStateMode);
@@ -119,6 +122,51 @@ public class TimeInState extends Fragment implements Constants {
                 updateView();
             }
         });
+
+        mCoreMode = (CheckBox) view.findViewById(R.id.ui_core_switch);
+        if (mOverallStats) {
+            mActiveCoreMode = preferences.getBoolean(PREF_CORE_MODE, true);
+            mCoreMode.setChecked(mActiveCoreMode);
+            mCoreMode.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView,
+                        boolean isChecked) {
+                    mActiveCoreMode = isChecked;
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean(PREF_CORE_MODE, mActiveCoreMode).commit();
+                    updateView();
+                }
+            });
+        } else {
+            mCoreMode.setVisibility(View.GONE);
+            mActiveCoreMode = false;
+        }
+
+        mPeriodTypeSelect = (Spinner) view
+                .findViewById(R.id.period_type_select);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                getActivity().getApplicationContext(),
+                R.array.period_type_entries, R.layout.period_type_item);
+        mPeriodTypeSelect.setAdapter(adapter);
+
+        mPeriodTypeSelect
+                .setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent,
+                            View view, int position, long id) {
+                        if (position == 0) {
+                            monitor.removeOffsets();
+                        } else if (position == 1) {
+                            loadOffsets();
+                        }
+                        refreshData();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                    }
+                });
+
         return view;
     }
 
@@ -168,11 +216,6 @@ public class TimeInState extends Fragment implements Constants {
             saveOffsets();
             refreshData();
             break;
-        case R.id.restore:
-            monitor.removeOffsets();
-            saveOffsets();
-            refreshData();
-            break;
         }
 
         return true;
@@ -184,14 +227,13 @@ public class TimeInState extends Fragment implements Constants {
 
         if (monitor.getStates(0).size() == 0) {
             mStatesWarning.setVisibility(View.VISIBLE);
-            mHeaderTotalStateTime.setVisibility(View.GONE);
             mTotalStateTime.setVisibility(View.GONE);
             mStatesView.setVisibility(View.GONE);
         } else {
             long totTime = getStateTime(mActiveStateMode);
             data.append(totTime + "\n");
             totTime = totTime / 100;
-            if (mOverallStats) {
+            if (mActiveCoreMode) {
                 int cpu = 0;
                 for (CpuState state : monitor.getStates(0)) {
                     if (state.freq == 0) {
@@ -274,7 +316,7 @@ public class TimeInState extends Fragment implements Constants {
             }
             sPer = String.format("%3d", (int) per) + "%";
             sDur = toString(tSec);
-            if (state.freq != 0 && mOverallStats) {
+            if (state.freq != 0 && mActiveCoreMode) {
                 sCpu = String.valueOf(state.mCpu);
             }
         }
