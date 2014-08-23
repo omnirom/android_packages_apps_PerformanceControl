@@ -22,6 +22,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -44,6 +45,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.fragments.Advanced;
@@ -56,6 +58,7 @@ import com.brewcrewfoo.performance.fragments.TimeInState;
 import com.brewcrewfoo.performance.fragments.Tools;
 import com.brewcrewfoo.performance.fragments.VM;
 import com.brewcrewfoo.performance.fragments.VoltageControlSettings;
+import com.brewcrewfoo.performance.fragments.Wakelocks;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
@@ -70,6 +73,7 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
     private static final String PREF_IS_TABBED = "pref_is_tabbed";
+    private static final String TAG = "MainActivity";
 
     //==================================
     // Drawer
@@ -81,6 +85,8 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+    private Fragment mCurrentFragment;
+    private View mFragmentContainer;
 
     //==================================
     // Fields
@@ -142,6 +148,7 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                     getTitles()));
             mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
+            mFragmentContainer = rootView.findViewById(R.id.pc_container);
             setUpNavigationDrawer(
                     rootView.findViewById(R.id.pc_navigation_drawer),
                     (CustomDrawerLayout) rootView.findViewById(R.id.pc_drawer_layout));
@@ -348,11 +355,31 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
         }
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.pc_container, PlaceholderFragment.newInstance(getPosition(position)))
-                .commit();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        final int itemId = getPosition(position);
+
+        if (mCurrentFragment != null) {
+            transaction.detach(mCurrentFragment);
+        }
+
+        // Do we already have this fragment?
+        String name = makeFragmentName(mFragmentContainer.getId(), itemId);
+        mCurrentFragment = fragmentManager.findFragmentByTag(name);
+        if (mCurrentFragment != null) {
+            transaction.attach(mCurrentFragment);
+        } else {
+            mCurrentFragment = PlaceholderFragment.newInstance(itemId);
+            transaction.add(mFragmentContainer.getId(), mCurrentFragment,
+                    makeFragmentName(mFragmentContainer.getId(), itemId));
+        }
+
+        transaction.commit();
     }
 
+    private static String makeFragmentName(int viewId, long id) {
+        return "android:switcher:" + viewId + ":" + id;
+    }
     /**
      * Depending on if the item is shown or not, it increases
      * the position to make the activity load the right fragment.
@@ -402,6 +429,7 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                             getString(R.string.t_volt_settings),
                             getString(R.string.t_adv_settings),
                             getString(R.string.t_time_in_state),
+                            getString(R.string.t_wakelocks),
                             getString(R.string.t_cpu_info),
                             getString(R.string.t_disk_info)};
                 } else {
@@ -414,6 +442,7 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                             getString(R.string.t_volt_settings),
                             getString(R.string.t_adv_settings),
                             getString(R.string.t_time_in_state),
+                            getString(R.string.t_wakelocks),
                             getString(R.string.t_cpu_info),
                             getString(R.string.t_disk_info),
                             getString(R.string.t_tools)};
@@ -428,6 +457,7 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                             getString(R.string.t_volt_settings),
                             getString(R.string.t_adv_settings),
                             getString(R.string.t_time_in_state),
+                            getString(R.string.t_wakelocks),
                             getString(R.string.t_cpu_info),
                             getString(R.string.t_disk_info)};
                 } else {
@@ -439,6 +469,7 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                             getString(R.string.t_volt_settings),
                             getString(R.string.t_adv_settings),
                             getString(R.string.t_time_in_state),
+                            getString(R.string.t_wakelocks),
                             getString(R.string.t_cpu_info),
                             getString(R.string.t_disk_info),
                             getString(R.string.t_tools)};
@@ -455,6 +486,7 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                             getString(R.string.prefcat_vm_settings),
                             getString(R.string.t_adv_settings),
                             getString(R.string.t_time_in_state),
+                            getString(R.string.t_wakelocks),
                             getString(R.string.t_cpu_info),
                             getString(R.string.t_disk_info)};
                 } else {
@@ -466,6 +498,7 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                             getString(R.string.prefcat_vm_settings),
                             getString(R.string.t_adv_settings),
                             getString(R.string.t_time_in_state),
+                            getString(R.string.t_wakelocks),
                             getString(R.string.t_cpu_info),
                             getString(R.string.t_disk_info),
                             getString(R.string.t_tools)};
@@ -479,6 +512,7 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                             getString(R.string.prefcat_vm_settings),
                             getString(R.string.t_adv_settings),
                             getString(R.string.t_time_in_state),
+                            getString(R.string.t_wakelocks),
                             getString(R.string.t_cpu_info),
                             getString(R.string.t_disk_info)};
                 } else {
@@ -489,6 +523,7 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                             getString(R.string.prefcat_vm_settings),
                             getString(R.string.t_adv_settings),
                             getString(R.string.t_time_in_state),
+                            getString(R.string.t_wakelocks),
                             getString(R.string.t_cpu_info),
                             getString(R.string.t_disk_info),
                             getString(R.string.t_tools)};
@@ -545,6 +580,9 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                 case FRAGMENT_ID_TOOLS:
                     fragment = new Tools();
                     break;
+                case FRAGMENT_ID_WAKELOCKS:
+                    fragment = new Wakelocks();
+                    break;
             }
 
             return fragment;
@@ -573,10 +611,11 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                     frags[4] = new VoltageControlSettings();
                     frags[5] = new Advanced();
                     frags[6] = new TimeInState();
-                    frags[7] = new CPUInfo();
-                    frags[8] = new DiskInfo();
+                    frags[7] = new Wakelocks();
+                    frags[8] = new CPUInfo();
+                    frags[9] = new DiskInfo();
                     if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                        frags[9] = new Tools();
+                        frags[10] = new Tools();
                     }
                 } else {
                     frags[0] = new CPUSettings();
@@ -585,10 +624,11 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                     frags[3] = new VoltageControlSettings();
                     frags[4] = new Advanced();
                     frags[5] = new TimeInState();
-                    frags[6] = new CPUInfo();
-                    frags[7] = new DiskInfo();
+                    frags[6] = new Wakelocks();
+                    frags[7] = new CPUInfo();
+                    frags[8] = new DiskInfo();
                     if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                        frags[8] = new Tools();
+                        frags[9] = new Tools();
                     }
                 }
             } else {
@@ -599,10 +639,11 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                     frags[3] = new VM();
                     frags[4] = new Advanced();
                     frags[5] = new TimeInState();
-                    frags[6] = new CPUInfo();
-                    frags[7] = new DiskInfo();
+                    frags[6] = new Wakelocks();
+                    frags[7] = new CPUInfo();
+                    frags[8] = new DiskInfo();
                     if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                        frags[8] = new Tools();
+                        frags[9] = new Tools();
                     }
                 } else {
                     frags[0] = new CPUSettings();
@@ -610,10 +651,11 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                     frags[2] = new VM();
                     frags[3] = new Advanced();
                     frags[4] = new TimeInState();
-                    frags[5] = new CPUInfo();
-                    frags[6] = new DiskInfo();
+                    frags[5] = new Wakelocks();
+                    frags[6] = new CPUInfo();
+                    frags[7] = new DiskInfo();
                     if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                        frags[7] = new Tools();
+                        frags[8] = new Tools();
                     }
                 }
             }

@@ -33,6 +33,7 @@ import com.brewcrewfoo.performance.fragments.VoltageControlSettings;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.util.Voltage;
+import com.brewcrewfoo.performance.fragments.Wakelocks;
 
 import java.io.File;
 import java.util.List;
@@ -72,6 +73,8 @@ public class BootService extends Service implements Constants {
             // clear saved offsets - they make no sense after a reboot
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(PREF_OFFSETS, "").commit();
+
+            Wakelocks.clearKernelWakelockStatus(c);
 
             final StringBuilder sb = new StringBuilder();
             final String FASTCHARGE_PATH = Helpers.fastcharge_path();

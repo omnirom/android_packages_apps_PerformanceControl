@@ -69,7 +69,7 @@ public class DiskInfo extends Fragment implements Constants {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
-        //setRetainInstance(true);
+
         setHasOptionsMenu(true);
     }
 
