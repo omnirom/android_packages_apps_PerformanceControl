@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
 Performance Control - An Android CPU Control application
 Copyright (C) 2012  James Roberts
 
@@ -15,13 +16,10 @@ Copyright (C) 2012  James Roberts
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-
 <resources>
-
     <string name="app_name">Performance Control</string>
     <!-- Main tabs -->
     <string name="tab_cpu_settings">CPU Speed</string>
-    <string name="tab_cpu_profiles">CPU Profiles</string>
     <string name="tab_battery_info">Battery</string>
     <string name="tab_oom_settings">Memory Settings</string>
     <string name="tab_time_in_state">Time In State</string>
@@ -29,6 +27,7 @@ Copyright (C) 2012  James Roberts
     <string name="tab_cpu_info">General Info</string>
     <string name="tab_disk_info">Disk Info</string>
     <string name="tab_tools">Tools</string>
+    <string name="tab_wakelocks">Wakelocks</string>
     <!-- Titles -->
     <string name="t_cpu_settings">CPU SPEED</string>
     <string name="t_battery_info">BATTERY</string>
@@ -39,7 +38,7 @@ Copyright (C) 2012  James Roberts
     <string name="t_cpu_info">GENERAL INFO</string>
     <string name="t_disk_info">DISK INFO</string>
     <string name="t_tools">TOOLS</string>
-
+    <string name="t_wakelocks">WAKELOCKS</string>
     <string name="menu_tab">Tabs</string>
     <!-- Menu -->
     <string name="mt_refresh">Refresh</string>
@@ -63,7 +62,6 @@ Copyright (C) 2012  James Roberts
     <string name="other_settings_header">Other settings</string>
     <string name="core_offline">Offline</string>
     <string name="core">Core</string>
-
     <!-- Other settings -->
     <string name="prefcat_free_memory">FREE MEMORY</string>
     <string name="prefcat_tweaks">FAST CHARGE</string>
@@ -74,24 +72,19 @@ Copyright (C) 2012  James Roberts
     <string name="dt_read_ahead">SD Read Ahead</string>
     <string name="pt_free_memory">Free memory</string>
     <string name="ps_free_memory">Amount of RAM the minfree taskkiller will keep |
-        Current: %s
-    </string>
+        Current: %s</string>
     <string name="ps_free_memory_boot">Apply the amount above at boot</string>
     <string name="pt_read_ahead">Storage read ahead</string>
     <string name="ps_read_ahead">Amount to read ahead on storage, in kb |
-        Current: %s
-    </string>
-
+        Current: %s</string>
     <string name="ps_fast_charge_boot">Fast charge</string>
     <string name="fast_charge_warning">YOU WILL NOT BE ABLE TO CONNECT TO YOUR PC AFTER
-        EACH REBOOT!\n\nWhile Fast Charge is ON, you can *only* charge your phone!
-    </string>
+        EACH REBOOT!\n\nWhile Fast Charge is ON, you can *only* charge your phone!</string>
     <string name="fast_charge_notification_title">Fast Charge is ON!</string>
     <string name="fast_charge_notification_message">Phone is in charge-only mode!</string>
     <string name="prefcat_force_highend_gfx">High-end Graphics</string>
     <string name="pref_force_highend_gfx_title">Force high-end graphics</string>
     <string name="pref_force_highend_gfx_summary">Enables high-end visual effects such as transparent status/navigation bar (requires reboot)</string>
-
     <!-- minfree -->
     <string name="prefcat_oom">MINIMUM FREE MEMORY</string>
     <string name="title_foreground_app">Foreground applications</string>
@@ -102,13 +95,11 @@ Copyright (C) 2012  James Roberts
     <string name="title_empty_app">Empty Applications</string>
     <string name="prefcat_oom_predefines">PRESETS</string>
     <string name="pt_oom">Minfree Taskkiller Presets</string>
-
     <string name="pt_verylight">Very Light (Kills rarely)</string>
     <string name="pt_light">Light</string>
     <string name="pt_medium">Medium</string>
     <string name="pt_aggressive">Aggressive</string>
     <string name="pt_veryaggressive">Very Aggressive (Kills often)</string>
-
     <!-- do not kill proc -->
     <string name="prefcat_user_proc">NOT KILLABLE USER PROCESSES</string>
     <string name="prefcat_sys_proc">NOT KILLABLE SYSTEM PROCESSES</string>
@@ -148,7 +139,6 @@ Copyright (C) 2012  James Roberts
     <string name="ps_home_enabled">Ignored key pressed: %s</string>
     <string name="home_allowed_irq_title">Max allowed interrupts</string>
     <string name="home_report_wait_title">Report wait time</string>
-
     <string name="pt_menuback_enabled">Menu/Back keys filter</string>
     <string name="ps_menuback_enabled">Ignored key pressed: %s</string>
     <string name="menuback_interrupt_checks_title">Interrupts checks</string>
@@ -204,8 +194,7 @@ Copyright (C) 2012  James Roberts
     <string name="no_states_file_found">No states file found. Are you sure your phone is
         compatible?\n\nIf you are running a custom ROM or kernel, try
         contacting its developer to inform him that the states file is not
-        readable.
-    </string>
+        readable.</string>
     <string name="deep_sleep">"Deep Sleep"</string>
     <!-- CPU info -->
     <string name="kernel_info">LINUX KERNEL INFORMATION</string>
@@ -216,18 +205,13 @@ Copyright (C) 2012  James Roberts
     <string name="su_failed_title">Oops!</string>
     <string name="first_run_message">The application needs to check for root access and
         busybox. Press OK to continue. Cancel if you would not like to grant
-        root access.
-    </string>
+        root access.</string>
     <string name="su_success_message">Performance Control was able to get root access and
-        find busybox. Ready to rock!
-    </string>
+        find busybox. Ready to rock!</string>
     <string name="su_cancel_message">You have chosen to not check for root and busybox.
-        Most options will not work without root access. Sorry!
-    </string>
+        Most options will not work without root access. Sorry!</string>
     <string name="su_failed_su_or_busybox">Root access failed or busybox was not found. Most
-        options will not work without root access. Sorry!
-    </string>
-
+        options will not work without root access. Sorry!</string>
     <!-- Tools -->
     <string name="prefcat_sh">CUSTOM SHELL COMMAND</string>
     <string name="sh_title">Edit shell command</string>
@@ -240,7 +224,6 @@ Copyright (C) 2012  James Roberts
     <string name="wipe_cache_title">Wipe cache and dalvik cache</string>
     <string name="ps_wipe_cache">Cache partition: %s</string>
     <string name="wipe_cache_msg">At the end, the system will reboot. Continue?</string>
-
     <string name="prefcat_flash_img">FLASH IMG FILE</string>
     <string name="kernel_img_title">Flash KERNEL</string>
     <string name="ps_kernel_img">Flash boot.img files as kernel. Can choose individual boot.img file or any zip file that contains boot.img</string>
@@ -252,18 +235,15 @@ Copyright (C) 2012  James Roberts
     <string name="dir_parent">&lt;Parent DIR&gt;</string>
     <string name="dir">&lt;DIR&gt;</string>
     <string name="bkexit">Press again to exit</string>
-
     <string name="prefcat_residual_files">CLEAN RESIDUAL FILES</string>
     <string name="residual_files_title">Clean residual files</string>
     <string name="btncleanall">Clean all</string>
     <string name="clean_files_msg">Residual files from %s will be deleted. Continue?</string>
     <string name="filesstr">file(s)</string>
     <string name="no_residuals">No residual files</string>
-
     <string name="prefcat_optim_db">OPTIMIZE DBs</string>
     <string name="optim_db_title">Optimize Databases</string>
     <string name="ps_optim_db">This will optimize databases by using SQL command VACUUM.</string>
-
     <string-array name="residual_info">
         <item>Contains Android system log files</item>
         <item>Contains log files from crashed apps</item>
@@ -276,10 +256,8 @@ Copyright (C) 2012  James Roberts
     <string name="fix_perms_title">Fix permissions</string>
     <string name="fix_perms_msg">Operation may take several minutes. Continue?</string>
     <string name="preflogg_fix_perms">Enable logging</string>
-
     <string name="free">free %s</string>
     <string name="used">used %s</string>
-
     <!-- 2.1.0 -->
     <string name="verify">Verifying…</string>
     <string name="bad_zip">%s not found in zip file !</string>
@@ -306,7 +284,6 @@ Copyright (C) 2012  James Roberts
     <string name="ksm_pagvolatile">Pages Volatile:</string>
     <string name="ksm_pagtoscan">Pages to Scan:</string>
     <string name="ksm_sleep">Sleep (ms):</string>
-
     <!-- freezer -->
     <string name="prefcat_freezer">FREEZE or DEFROST PACKAGES</string>
     <string name="pt_freeze">Freeze Package</string>
@@ -317,7 +294,6 @@ Copyright (C) 2012  James Roberts
     <string name="mt_user_packs">User Packages</string>
     <string name="freeze_msg">%s will be frozen. Continue?</string>
     <string name="unfreeze_msg">%s will be defrosted. Continue?</string>
-
     <!-- zRam -->
     <string name="prefcat_zram">zRAM</string>
     <string name="pt_run_zram">Enable zRam</string>
@@ -325,7 +301,6 @@ Copyright (C) 2012  James Roberts
     <!-- 2.1.3 -->
     <string name="ps_zram">Compress memory for increased virtual capacity</string>
     <string name="mt_gov_ctrl">Governor Settings</string>
-
     <!-- PC Settings -->
     <string name="pt_use_light_theme">Use light theme</string>
     <string name="ps_use_light_theme">If checked, Performance Control will use a Holo light theme</string>
@@ -341,14 +316,36 @@ Copyright (C) 2012  James Roberts
     <string name="hex_hint" translatable="false">#FF000000</string>
     <string name="set">Set</string>
     <string name="ics_color">Holo</string>
-
     <!-- Drawer -->
     <string name="navigation_drawer_toggle">Toggle Drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_toggle_drawer">Switch to Drawer</string>
     <string name="navigation_toggle_tabbed">Switch to Tabbed</string>
-
     <string name="speed_limit_note">Note: Requires kernel support</string>
-    <string name="state_time_mode">Active time</string>
+    <string name="state_time_mode">Awake</string>
+    <string name="since_boot">Boot</string>
+    <string name="since_charged">Charged</string>
+    <string name="since_unplugged">Unplugged</string>
+    <string name="since_reset">Reset</string>
+    <string name="other">Activity</string>
+    <string name="kernel_wakelocks">Kernel wakelocks</string>
+    <string name="partial_wakelocks">Partial wakelocks</string>
+    <string name="create_ref">Reset</string>
+    <string name="spinner_period_title">Since</string>
+    <string name="spinner_type_title">Show</string>
+    <string name="screen_on_time">Screen on</string>
+    <string name="awake_time">Awake</string>
+    <string name="deep_sleep_time">Deep sleep</string>
+    <string name="no_kernel_wakelock_file_found">No kernel wakelock stats file /proc/wakelocks or /sys/kernel/debug/wakeup_sources found.</string>
+    <string name="more_line_text">more\u2026</string>
+    <string name="state_core_mode">Cores</string>
+    <string name="kernel_wakelock_time">Kernel wakelocks</string>
+    <string name="user_wakelock_time">Partial wakelocks</string>
+    <string name="battery_change">Battery change</string>
+    <string name="spinner_state_time_title">Time</string>
+    <string name="total_time">Total</string>
+    <string name="wakelock_time">Wakelocks</string>
+    <string name="copy_as_text">Copy as text</string>
+    <string name="google_it">Google for it</string>
 </resources>
