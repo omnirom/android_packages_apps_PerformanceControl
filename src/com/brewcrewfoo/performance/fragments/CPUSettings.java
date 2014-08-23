@@ -77,10 +77,6 @@ public class CPUSettings extends Fragment
     private CpuInfoListAdapter mCpuInfoListAdapter;
     private List<String> mCpuInfoListData;
     private LayoutInflater mInflater;
-    private String supported[] = {
-            "ondemand", "lulzactive", "lulzactiveW",
-            "interactive", "hyper", "conservative",
-            "smartmax"};
 
     public class CpuInfoListAdapter extends ArrayAdapter<String> {
 
@@ -248,6 +244,8 @@ public class CPUSettings extends Fragment
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
             inflater.inflate(R.menu.cpu_settings_menu, menu);
+        } else {
+            //inflater.inflate(R.menu.cpu_settings_menu_simple, menu);
         }
     }
 
@@ -259,13 +257,9 @@ public class CPUSettings extends Fragment
                 startActivity(intent);
                 break;
             case R.id.gov_settings:
-                for (String aSupported : supported) {
-                    if (aSupported.equals(Helpers.readOneLine(GOVERNOR_PATH))) {
-                        intent = new Intent(context, GovSetActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                }
+                intent = new Intent(context, GovSetActivity.class);
+                startActivity(intent);
+                break;
         }
         return true;
     }

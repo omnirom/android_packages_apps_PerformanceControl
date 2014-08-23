@@ -33,14 +33,59 @@ Copyright (C) 2012  James Roberts
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@string/spinner_period_title" />
+            android:text="@string/spinner_type_title" />
         <Spinner
-            android:id="@+id/period_type_select"
+            android:id="@+id/list_type_select"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical" />
     </LinearLayout>
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_weight="0.5" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/spinner_period_title" />
+            <Spinner
+                android:id="@+id/period_type_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/state_time_select_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|end"
+            android:visibility="gone"
+            android:paddingLeft="10dp"
+            android:layout_weight="0.5">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/spinner_state_time_title" />
+            <Spinner
+                android:id="@+id/state_time_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ui_state_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -55,18 +100,12 @@ Copyright (C) 2012  James Roberts
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-        <CheckBox
-            android:id="@+id/ui_core_switch"
+        <TextView
+            android:id="@+id/ui_total_wakelock_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/state_core_mode" />
-        <CheckBox
-            android:id="@+id/ui_mode_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/state_time_mode" />
+            android:layout_gravity="center_vertical|end"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -92,12 +131,12 @@ Copyright (C) 2012  James Roberts
                 android:orientation="vertical"
                 android:paddingBottom="10dp" />
             <TextView
-                android:id="@+id/ui_states_warning"
+                android:id="@+id/ui_kernel_wakelock_warning"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#551111"
                 android:padding="15dp"
-                android:text="@string/no_states_file_found"
+                android:text="@string/no_kernel_wakelock_file_found"
                 android:textSize="20sp"
                 android:visibility="gone" />
             <LinearLayout
