@@ -402,7 +402,7 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                 break;
             case 3:
                 if (pos > 0) position = pos + 1;
-                if (pos > 3) position = pos + 2;
+                if (pos >= 3) position = pos + 2;
                 break;
         }
         return position;
