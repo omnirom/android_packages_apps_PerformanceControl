@@ -50,6 +50,7 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.SparseArray;
@@ -71,8 +72,11 @@ import android.widget.ShareActionProvider;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.PopupMenu;
+import android.widget.ImageView;
 import android.content.ClipboardManager;
 import android.content.ClipData;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 
 import com.android.internal.app.IBatteryStats;
 import com.android.internal.os.BatteryStatsImpl;
@@ -83,11 +87,11 @@ import com.brewcrewfoo.performance.util.Constants;
 public class Wakelocks extends Fragment implements Constants {
     private static final String TAG = "Wakelocks";
     private static String sRefFilename = "wakelockdata.ref";
+    private static String sUnplugFilename = "wakelockdata.unplug";
     private static final int MAX_KERNEL_LIST_ITEMS = 10;
     private static final int MAX_USER_LIST_ITEMS = 7;
-    private static final int TIME_PERIOD_BOOT = 42;
     private static final int TIME_PERIOD_RESET = 43;
-
+    private static final int TIME_PERIOD_UNPLUG = 44;
     private LinearLayout mStatesView;
     private LinearLayout mTimeView;
     private LinearLayout mStateTimeView;
@@ -98,7 +102,7 @@ public class Wakelocks extends Fragment implements Constants {
     private Context mContext;
     private SharedPreferences mPreferences;
     private ShareActionProvider mProvider;
-    private static IBatteryStats sBatteryStats;
+    private static BatteryStats sBatteryStats;
     private long rawUptime;
     private long rawRealtime;
     private long sleepTime;
@@ -108,10 +112,12 @@ public class Wakelocks extends Fragment implements Constants {
     private ArrayList<WakelockStats> mUserWakelocks = new ArrayList<WakelockStats>();
     private static ArrayList<WakelockStats> sRefKernelWakelocks = new ArrayList<WakelockStats>();
     private static ArrayList<WakelockStats> sRefUserWakelocks = new ArrayList<WakelockStats>();
+    private static ArrayList<WakelockStats> sUnplugKernelWakelocks = new ArrayList<WakelockStats>();
     private static long sRefRealTimestamp = 0;
     private static long sRefUpTimestamp = 0;
-    private static int sWhich = TIME_PERIOD_BOOT;
+    private static int sWhich = TIME_PERIOD_UNPLUG;
     private static int sRefBatteryLevel = -1;
+    private static int sRefUnplugBatteryLevel = -1;
     private int mPeriodType;
     private Spinner mPeriodTypeSelect;
     private int mListType;
@@ -119,13 +125,14 @@ public class Wakelocks extends Fragment implements Constants {
     private static boolean sKernelWakelockData = false;
     private boolean mShowAll;
     private StringBuffer mShareData;
-    private static SparseArray<ArrayList<String>> sAppUidData;
-    private boolean mIsOnBattery;
-    private long mScreenOnTime;
-    private long mBatteryRealtime;
     private int mStateTimeMode;
     private Spinner mStateTimeSelect;
     private PopupMenu mPopup;
+    private static long sUnplugBatteryUptime;
+    private static long sUnplugBatteryRealtime;
+    private static int sUnplugBatteryLevel;
+    private static boolean sIsOnBattery;
+    private List<WakelockAppStats> mAppWakelockList = new ArrayList<WakelockAppStats>();
 
     private static final int MENU_REFRESH = Menu.FIRST;
     private static final int MENU_SHARE = MENU_REFRESH + 1;
@@ -147,32 +154,17 @@ public class Wakelocks extends Fragment implements Constants {
     };
 
     private static final int[] PROC_WAKELOCKS_FORMAT = new int[] {
-        Process.PROC_TAB_TERM|Process.PROC_OUT_STRING|                // 0: name
-                              Process.PROC_QUOTES,
-        Process.PROC_TAB_TERM|Process.PROC_OUT_LONG,                  // 1: count
-        Process.PROC_TAB_TERM,
-        Process.PROC_TAB_TERM,
-        Process.PROC_TAB_TERM,
-        Process.PROC_TAB_TERM|Process.PROC_OUT_LONG,                  // 5: total time
-        Process.PROC_TAB_TERM|Process.PROC_OUT_LONG,                  // 6: sleep time
+            Process.PROC_TAB_TERM | Process.PROC_OUT_STRING | // 0: name
+                    Process.PROC_QUOTES,
+            Process.PROC_TAB_TERM | Process.PROC_OUT_LONG, // 1: count
+            Process.PROC_TAB_TERM, Process.PROC_TAB_TERM,
+            Process.PROC_TAB_TERM,
+            Process.PROC_TAB_TERM | Process.PROC_OUT_LONG, // 5: total time
+            Process.PROC_TAB_TERM | Process.PROC_OUT_LONG, // 6: sleep time
     };
 
     private static final String[] sProcWakelocksName = new String[3];
     private static final long[] sProcWakelocksData = new long[4];
-
-    private static final String[] sSystemPackages = new String[] {
-            "com.android.settings", "org.omnirom.torch",
-            "com.android.location.fused", "com.android.providers.settings",
-            "com.android.inputdevices", "android", "com.android.keychain",
-            "com.android.systemui", "com.android.keyguard",
-            "com.android.providers.downloads.ui",
-            "com.android.providers.media", "com.android.providers.downloads" };
-    private static final String[] sPhonePackages = new String[] {
-            "com.android.phone", "com.android.providers.telephony",
-            "com.android.stk" };
-    private static final String[] sContactPackage = new String[] {
-            "com.android.contacts", "com.android.providers.userdictionary",
-            "com.android.providers.contacts" };
 
     static final class WakelockStats {
         final int mType; // 0 == kernel 1 == user
@@ -181,17 +173,15 @@ public class Wakelocks extends Fragment implements Constants {
         long mTotalTime;
         long mPreventSuspendTime;
         int mUid;
-        String mAppInfo;
 
         WakelockStats(int type, String name, int count, long totalTime,
-                long preventSuspendTime, int uid, String appInfo) {
+                long preventSuspendTime, int uid) {
             mType = type;
             mName = name;
             mCount = count;
             mTotalTime = totalTime;
             mPreventSuspendTime = preventSuspendTime;
             mUid = uid;
-            mAppInfo = appInfo;
         }
 
         @Override
@@ -201,9 +191,69 @@ public class Wakelocks extends Fragment implements Constants {
         }
     }
 
-    final Comparator<WakelockStats> wakelockStatsComparator = new Comparator<WakelockStats>() {
+    static final class WakelockAppStats {
+        int mUid;
+        List<WakelockStats> mAppWakelocks;
+        long mPreventSuspendTime;
+
+        WakelockAppStats(int uid) {
+            mUid = uid;
+            mAppWakelocks = new ArrayList<WakelockStats>();
+        }
+
+        public void addWakelockStat(WakelockStats wakelock) {
+            mAppWakelocks.add(wakelock);
+            mPreventSuspendTime += wakelock.mPreventSuspendTime;
+            Collections.sort(mAppWakelocks, sWakelockStatsComparator);
+        }
+
+        public List<WakelockStats> getWakelocks() {
+            return mAppWakelocks;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+
+            if (!(o instanceof WakelockAppStats)) {
+                return false;
+            }
+
+            WakelockAppStats lhs = (WakelockAppStats) o;
+            return mUid == lhs.mUid;
+        }
+
+        @Override
+        public int hashCode() {
+            return mUid;
+        }
+
+        @Override
+        public String toString() {
+            return mUid  + "||" + mAppWakelocks;
+        }
+    }
+
+    final static Comparator<WakelockStats> sWakelockStatsComparator = new Comparator<WakelockStats>() {
         @Override
         public int compare(WakelockStats lhs, WakelockStats rhs) {
+            long lhsTime = lhs.mPreventSuspendTime;
+            long rhsTime = rhs.mPreventSuspendTime;
+            if (lhsTime < rhsTime) {
+                return 1;
+            }
+            if (lhsTime > rhsTime) {
+                return -1;
+            }
+            return 0;
+        }
+    };
+
+    final static Comparator<WakelockAppStats> sAppWakelockStatsComparator = new Comparator<WakelockAppStats>() {
+        @Override
+        public int compare(WakelockAppStats lhs, WakelockAppStats rhs) {
             long lhsTime = lhs.mPreventSuspendTime;
             long rhsTime = rhs.mPreventSuspendTime;
             if (lhsTime < rhsTime) {
@@ -232,16 +282,8 @@ public class Wakelocks extends Fragment implements Constants {
 
         mProvider = new ShareActionProvider(mContext);
 
-        buildUidAppsData();
         loadWakelockRef();
-    }
-
-    private static IBatteryStats getBatteryStats() {
-        if (sBatteryStats == null) {
-            sBatteryStats = IBatteryStats.Stub.asInterface(ServiceManager
-                    .getService(BatteryStats.SERVICE_NAME));
-        }
-        return sBatteryStats;
+        loadWakelockUnplug();
     }
 
     @Override
@@ -271,9 +313,9 @@ public class Wakelocks extends Fragment implements Constants {
                             View view, int position, long id) {
                         mPeriodType = position;
                         if (position == 0) {
-                            sWhich = TIME_PERIOD_BOOT;
-                        } else if (position == 1) {
                             sWhich = TIME_PERIOD_RESET;
+                        }  else if (position == 1) {
+                            sWhich = TIME_PERIOD_UNPLUG;
                         }
                         refreshData();
                     }
@@ -321,7 +363,6 @@ public class Wakelocks extends Fragment implements Constants {
                     public void onNothingSelected(AdapterView<?> arg0) {
                     }
                 });
-
 
         mPeriodTypeSelect.setSelection(mPeriodType);
         mListTypeSelect.setSelection(mListType);
@@ -383,8 +424,10 @@ public class Wakelocks extends Fragment implements Constants {
             refreshData();
             break;
         case R.id.reset:
-            saveWakelockRef(mContext);
-            refreshData();
+            if (sIsOnBattery) {
+                saveWakelockRef(mContext);
+                refreshData();
+            }
             break;
         }
 
@@ -392,7 +435,7 @@ public class Wakelocks extends Fragment implements Constants {
     }
 
     private void updateView() {
-        Log.d(TAG, "updateView " + sKernelWakelockData + " " + mUpdatingData);
+        //Log.d(TAG, "updateView " + sKernelWakelockData + " " + mUpdatingData);
         if (mUpdatingData) {
             return;
         }
@@ -410,14 +453,38 @@ public class Wakelocks extends Fragment implements Constants {
             long totalTimeInSecs = 0;
             long totalUptimeInSecs = 0;
             String batteryLevelText = null;
-            if (sWhich == TIME_PERIOD_BOOT) {
-                totalTimeInSecs = rawRealtime / 1000;
-                totalUptimeInSecs = rawUptime / 1000;
-            } else if (sWhich == TIME_PERIOD_RESET) {
-                totalTimeInSecs = (rawRealtime - sRefRealTimestamp) / 1000;
-                totalUptimeInSecs = (rawUptime - sRefUpTimestamp) / 1000;
-                if (sRefBatteryLevel != -1) {
-                    int batteryLevelDiff = mBatteryLevel - sRefBatteryLevel;
+            boolean showStats = false;
+            mTotalWakelockTime.setText("");
+
+            if (sWhich == TIME_PERIOD_RESET) {
+                if (sIsOnBattery) {
+                    totalTimeInSecs = Math.max((rawRealtime - sRefRealTimestamp) / 1000, 0);
+                    totalUptimeInSecs = Math.max((rawUptime - sRefUpTimestamp) / 1000, 0);
+                    if (sRefBatteryLevel != -1) {
+                        int batteryLevelDiff = mBatteryLevel - sRefBatteryLevel;
+                        if (batteryLevelDiff != 0) {
+                            float hours = (float) totalTimeInSecs / 3600;
+                            batteryLevelText = String.valueOf(batteryLevelDiff)
+                                    + "% "
+                                    + String.format("%.2f", (float) batteryLevelDiff
+                                        / hours) + "%/h";
+                        } else {
+                            batteryLevelText = "0% 0.00%/h";
+                        }
+                    }
+                    mTotalStateTime.setText(getResources().getString(R.string.total_time)
+                        + " " + toString(totalTimeInSecs));
+                    showStats = true;
+                } else {
+                    totalTimeInSecs = 0;
+                    totalUptimeInSecs = 0;
+                    mTotalStateTime.setText(getResources().getString(R.string.no_stat_because_plugged));
+                }
+            } else if (sWhich == TIME_PERIOD_UNPLUG) {
+                if (sIsOnBattery) {
+                    totalTimeInSecs = microToSecs(sUnplugBatteryRealtime);
+                    totalUptimeInSecs = microToSecs(sUnplugBatteryUptime);
+                    int batteryLevelDiff = mBatteryLevel - sUnplugBatteryLevel;
                     if (batteryLevelDiff != 0) {
                         float hours = (float) totalTimeInSecs / 3600;
                         batteryLevelText = String.valueOf(batteryLevelDiff)
@@ -427,12 +494,16 @@ public class Wakelocks extends Fragment implements Constants {
                     } else {
                         batteryLevelText = "0% 0.00%/h";
                     }
+                    mTotalStateTime.setText(getResources().getString(R.string.total_time)
+                        + " " + toString(totalTimeInSecs));
+                    showStats = true;
+                } else {
+                    totalTimeInSecs = 0;
+                    totalUptimeInSecs = 0;
+                    mTotalStateTime.setText(getResources().getString(R.string.no_stat_because_plugged));
                 }
             }
             sleepTime = Math.max(totalTimeInSecs - totalUptimeInSecs, 0);
-
-            mTotalStateTime.setText(getResources().getString(R.string.total_time)
-                    + " " + toString(totalTimeInSecs));
 
             long kernelWakelockTime = getKernelWakelockSummaryTime();
             long userWakelockTime = getUserWakelockSummaryTime();
@@ -440,7 +511,7 @@ public class Wakelocks extends Fragment implements Constants {
             long kernelWakelockTimeInSecs = kernelWakelockTime > 0 ? kernelWakelockTime / 1000 : 0;
             long userWakelockTimeInSecs = userWakelockTime > 0 ? userWakelockTime / 1000 : 0;
 
-            if (mListType == 0) {
+            if (mListType == 0 && showStats) {
                 generateTimeRow(getResources().getString(R.string.awake_time),
                         totalUptimeInSecs, totalTimeInSecs, mStatesView);
                 generateTimeRow(
@@ -460,7 +531,7 @@ public class Wakelocks extends Fragment implements Constants {
                 }
                 mTotalWakelockTime.setText(getResources().getString(R.string.wakelock_time)
                     + " " +  toString(kernelWakelockTimeInSecs + userWakelockTimeInSecs));
-            } else if (mListType == 1) {
+            } else if (mListType == 1 && showStats) {
                 int i = 0;
                 if (mStateTimeMode == 1) {
                     totalTimeInSecs = kernelWakelockTimeInSecs;
@@ -469,14 +540,14 @@ public class Wakelocks extends Fragment implements Constants {
                         .iterator();
                 while (nextWakelock.hasNext()) {
                     WakelockStats entry = nextWakelock.next();
-                    generateWakelockRow(entry, entry.mName,
+                    generateWakelockRow(entry,
                             entry.mPreventSuspendTime / 1000, entry.mCount,
-                            totalTimeInSecs, null, mStatesView);
+                            totalTimeInSecs, mStatesView, false);
                     i++;
                     if (!mShowAll && i >= MAX_KERNEL_LIST_ITEMS) {
                         generateMoreRow(
                                 String.valueOf(mKernelWakelocks.size()
-                                        - MAX_KERNEL_LIST_ITEMS)
+                                        - i)
                                         + " "
                                         + getResources().getString(
                                                 R.string.more_line_text),
@@ -486,7 +557,7 @@ public class Wakelocks extends Fragment implements Constants {
                 }
                 mTotalWakelockTime.setText(getResources().getString(R.string.wakelock_time)
                     + " " + toString(kernelWakelockTimeInSecs));
-            } else if (mListType == 2) {
+            } else if (mListType == 2 && showStats) {
                 int i = 0;
                 if (mStateTimeMode == 1) {
                     totalTimeInSecs = userWakelockTimeInSecs;
@@ -495,14 +566,14 @@ public class Wakelocks extends Fragment implements Constants {
                         .iterator();
                 while (nextWakelock.hasNext()) {
                     WakelockStats entry = nextWakelock.next();
-                    generateWakelockRow(entry, entry.mName,
+                    generateWakelockRow(entry,
                             entry.mPreventSuspendTime / 1000, entry.mCount,
-                            totalTimeInSecs, entry.mAppInfo, mStatesView);
+                            totalTimeInSecs, mStatesView, true);
                     i++;
                     if (!mShowAll && i >= MAX_USER_LIST_ITEMS) {
                         generateMoreRow(
                                 String.valueOf(mUserWakelocks.size()
-                                        - MAX_USER_LIST_ITEMS)
+                                        - i)
                                         + " "
                                         + getResources().getString(
                                                 R.string.more_line_text),
@@ -512,14 +583,54 @@ public class Wakelocks extends Fragment implements Constants {
                 }
                 mTotalWakelockTime.setText(getResources().getString(R.string.wakelock_time)
                     + " " + toString(userWakelockTimeInSecs));
+            } else if (mListType == 3 && showStats) {
+                boolean moreAdded = false;
+                int j = 0;
+                if (mStateTimeMode == 1) {
+                    totalTimeInSecs = userWakelockTimeInSecs;
+                }
+                Iterator<WakelockAppStats> nextWakelock = mAppWakelockList
+                        .iterator();
+                while (nextWakelock.hasNext()) {
+                    WakelockAppStats entry = nextWakelock.next();
+                    generateAppWakelockRow(entry, mStatesView, totalTimeInSecs);
+
+                    Iterator<WakelockStats> nextAppWakelock = entry.getWakelocks()
+                        .iterator();
+                    while (nextAppWakelock.hasNext()) {
+                        WakelockStats appEntry = nextAppWakelock.next();
+                        generateWakelockRow(appEntry,
+                                appEntry.mPreventSuspendTime / 1000, appEntry.mCount,
+                                totalTimeInSecs, mStatesView, false);
+                        j++;
+
+                        if (!mShowAll && j >= MAX_USER_LIST_ITEMS) {
+                            generateMoreRow(
+                                    String.valueOf(mUserWakelocks.size()
+                                            - j)
+                                            + " "
+                                            + getResources().getString(
+                                                    R.string.more_line_text),
+                                    mStatesView);
+                            moreAdded = true;
+                            break;
+                        }
+                    }
+                    if (moreAdded) {
+                        break;
+                    }
+                }
+                mTotalWakelockTime.setText(getResources().getString(R.string.wakelock_time)
+                    + " " + toString(userWakelockTimeInSecs));
+
             }
         }
-        Log.d(TAG, "updateView " + mShareData.length());
+        //Log.d(TAG, "updateView " + mShareData.length());
         updateShareIntent(mShareData.toString());
     }
 
     public void refreshData() {
-        Log.d(TAG, "refreshData " + mUpdatingData);
+        //Log.d(TAG, "refreshData " + mUpdatingData);
 
         if (!mUpdatingData) {
             new RefreshStateDataTask().execute((Void) null);
@@ -631,8 +742,8 @@ public class Wakelocks extends Fragment implements Constants {
         return view;
     }
 
-    private View generateWakelockRow(final WakelockStats entry, String title, long duration, int count,
-            long totalTime, String appName, ViewGroup parent) {
+    private View generateWakelockRow(final WakelockStats entry, long duration, int count,
+            long totalTime, ViewGroup parent, boolean withMore) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         final LinearLayout view = (LinearLayout) inflater.inflate(
                 R.layout.wakelock_row, parent, false);
@@ -660,17 +771,30 @@ public class Wakelocks extends Fragment implements Constants {
         TextView countText = (TextView) view.findViewById(R.id.ui_count_text);
         TextView moreText = (TextView) view.findViewById(R.id.ui_more_text);
 
-        text.setText(title);
+        text.setText(entry.mName);
         perText.setText(sPer);
         durText.setText(sDur);
         bar.setProgress((int) per);
         countText.setText(String.valueOf(count));
 
-        if (appName != null) {
-            moreText.setVisibility(View.VISIBLE);
-            moreText.setText(appName);
+        if (withMore) {
+            String[] packages = mContext.getPackageManager().getPackagesForUid(entry.mUid);
+            if (packages != null && packages.length != 0) {
+                try {
+                    String rootPackage = getNormalizedRootPackage(packages);
+                    ApplicationInfo ai = mContext.getPackageManager().getApplicationInfo(rootPackage, 0);
+                    CharSequence label = ai.loadLabel(mContext.getPackageManager());
+                    moreText.setVisibility(View.VISIBLE);
+                    if (label != null) {
+                        moreText.setText(label);
+                    } else {
+                        moreText.setText(rootPackage);
+                    }
+                } catch(android.content.pm.PackageManager.NameNotFoundException e) {
+                    return null;
+                }
+            }
         }
-
         view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -680,6 +804,75 @@ public class Wakelocks extends Fragment implements Constants {
         });
 
         parent.addView(view);
+        return view;
+    }
+
+    private View generateAppWakelockRow(final WakelockAppStats entry, ViewGroup parent, long totalTime) {
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        final LinearLayout view = (LinearLayout) inflater.inflate(
+                R.layout.wakelock_app_row, parent, false);
+
+        float per = 0f;
+        String sPer = "";
+        String sDur = "";
+        long tSec = 0;
+        long duration = entry.mPreventSuspendTime / 1000;
+
+        if (duration != 0) {
+            per = (float) duration * 100 / totalTime;
+            if (per > 100f) {
+                per = 0f;
+            }
+            tSec = duration;
+        }
+        sPer = String.format("%3d", (int) per) + "%";
+        sDur = toString(tSec);
+        TextView text = (TextView) view.findViewById(R.id.ui_text);
+        TextView moreText = (TextView) view.findViewById(R.id.ui_more_text);
+        TextView durText = (TextView) view.findViewById(R.id.ui_duration_text);
+        TextView perText = (TextView) view
+                .findViewById(R.id.ui_percentage_text);
+        ImageView appIcon = (ImageView) view.findViewById(R.id.ui_icon);
+
+        String[] packages = mContext.getPackageManager().getPackagesForUid(entry.mUid);
+        if (packages != null && packages.length != 0) {
+            try {
+                String rootPackage = getNormalizedRootPackage(packages);
+                ApplicationInfo ai = mContext.getPackageManager().getApplicationInfo(rootPackage, 0);
+                CharSequence label = ai.loadLabel(mContext.getPackageManager());
+                String packageName = rootPackage;
+                String appName = rootPackage;
+                if (label != null) {
+                    appName = label.toString();
+                }
+                Drawable appIconDrawable = ai.loadIcon(mContext.getPackageManager());
+                text.setText(appName);
+                moreText.setVisibility(View.VISIBLE);
+                moreText.setText(packageName);
+                perText.setText(sPer);
+                durText.setText(sDur);
+                appIcon.setImageDrawable(appIconDrawable);
+            } catch(android.content.pm.PackageManager.NameNotFoundException e) {
+                return null;
+            }
+
+            /*view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                }
+            });*/
+
+            if (packages.length == 1) {
+                view.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        handleAppLongPress(entry, view);
+                        return true;
+                    }
+                });
+            }
+            parent.addView(view);
+        }
         return view;
     }
 
@@ -714,17 +907,6 @@ public class Wakelocks extends Fragment implements Constants {
             TextView textEnd = (TextView) view.findViewById(R.id.ui_text_end);
             textEnd.setText(titleEnd);
         }
-        parent.addView(view);
-        return view;
-    }
-
-    private View generateSeparatorRow(String title, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        LinearLayout view = (LinearLayout) inflater.inflate(
-                R.layout.wakelock_sep_row, parent, false);
-
-        TextView text = (TextView) view.findViewById(R.id.ui_text);
-        text.setText(title);
         parent.addView(view);
         return view;
     }
@@ -826,7 +1008,7 @@ public class Wakelocks extends Fragment implements Constants {
                 WakelockStats foundEntry = indexList.get(name);
                 if (foundEntry == null) {
                     foundEntry = new WakelockStats(0, name, count, totalTime,
-                            preventSuspendTime, 0, null);
+                            preventSuspendTime, 0);
                     wakelockList.add(foundEntry);
                     indexList.put(name, foundEntry);
                 } else {
@@ -844,25 +1026,62 @@ public class Wakelocks extends Fragment implements Constants {
         try {
             return new WakelockStats(Integer.valueOf(parts[0]), parts[1],
                     Integer.valueOf(parts[2]), Long.valueOf(parts[3]),
-                    Long.valueOf(parts[4]), -1, null);
+                    Long.valueOf(parts[4]), -1);
         } catch (java.lang.NumberFormatException e) {
             return null;
         }
     }
 
     public static void clearKernelWakelockStatus(Context context) {
-        sRefKernelWakelocks = new ArrayList<WakelockStats>();
-        sRefUserWakelocks = new ArrayList<WakelockStats>();
+        Log.d(TAG, "clearKernelWakelockStatus");
+        sRefKernelWakelocks.clear();
+        sRefUserWakelocks.clear();
+        sUnplugKernelWakelocks.clear();
         File file = new File(context.getFilesDir(), sRefFilename);
         if (file.exists()) {
             file.delete();
         }
+        file = new File(context.getFilesDir(), sUnplugFilename);
+        if (file.exists()) {
+            file.delete();
+        }
+        // will be set to actual values on unplug
         sRefRealTimestamp = 0;
         sRefUpTimestamp = 0;
         sRefBatteryLevel = -1;
     }
 
-    private static void saveWakelockData(Context context, String fileName,
+    public static void powerUnplugged(Context context) {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "PerformanceControl.powerUnplugged");
+        wl.acquire();
+
+        Log.d(TAG, "powerUnplugged");
+        clearKernelWakelockStatus(context);
+
+        readKernelWakelockStats(sUnplugKernelWakelocks);
+        saveUnplugWakelockData(context, sUnplugFilename, sUnplugKernelWakelocks);
+
+        wl.release();
+    }
+
+    public static void powerPlugged(Context context) {
+        Log.d(TAG, "powerPlugged");
+        sUnplugKernelWakelocks.clear();
+    }
+
+    private static void saveWakelockList(BufferedWriter buf, ArrayList<WakelockStats> wlList) throws java.io.IOException {
+        Iterator<WakelockStats> nextWakelock = wlList.iterator();
+        while (nextWakelock.hasNext()) {
+            WakelockStats entry = nextWakelock.next();
+            String wlLine = entry.toString();
+            buf.write(wlLine);
+            buf.newLine();
+        }
+    }
+
+    private static void saveRefWakelockData(Context context, String fileName,
             ArrayList<WakelockStats> kernelData,
             ArrayList<WakelockStats> userData) {
         try {
@@ -875,53 +1094,59 @@ public class Wakelocks extends Fragment implements Constants {
             buf.newLine();
             buf.write(String.valueOf(sRefBatteryLevel));
             buf.newLine();
-            Iterator<WakelockStats> nextWakelock = kernelData.iterator();
-            while (nextWakelock.hasNext()) {
-                WakelockStats entry = nextWakelock.next();
-                String wlLine = entry.toString();
-                buf.write(wlLine);
-                buf.newLine();
-            }
-            nextWakelock = userData.iterator();
-            while (nextWakelock.hasNext()) {
-                WakelockStats entry = nextWakelock.next();
-                String wlLine = entry.toString();
-                buf.write(wlLine);
-                buf.newLine();
-            }
+            saveWakelockList(buf, kernelData);
+            saveWakelockList(buf, userData);
 
             buf.flush();
             buf.close();
         } catch (java.io.IOException e) {
+            Log.e(TAG, "saveRefWakelockData:", e);
+        }
+    }
+
+    private static void saveUnplugWakelockData(Context context, String fileName,
+            ArrayList<WakelockStats> kernelData) {
+        try {
+            File file = new File(context.getFilesDir(), fileName);
+            BufferedWriter buf = new BufferedWriter(new FileWriter(file));
+
+            saveWakelockList(buf, kernelData);
+
+            buf.flush();
+            buf.close();
+        } catch (java.io.IOException e) {
+            Log.e(TAG, "saveUnplugWakelockData:", e);
         }
     }
 
     private static void saveWakelockRef(Context context) {
-        sRefKernelWakelocks = new ArrayList<WakelockStats>();
-        sRefUserWakelocks = new ArrayList<WakelockStats>();
+        sRefKernelWakelocks.clear();
+        sRefUserWakelocks.clear();
         readKernelWakelockStats(sRefKernelWakelocks);
 
-        try {
-            byte[] data = getBatteryStats().getStatistics();
+        //try {
+            /*IBatteryStats stats = IBatteryStats.Stub.asInterface(ServiceManager
+                    .getService(BatteryStats.SERVICE_NAME));
+            byte[] data = stats.getStatistics();
             Parcel parcel = Parcel.obtain();
             parcel.unmarshall(data, 0, data.length);
             parcel.setDataPosition(0);
-            BatteryStats batteryStats = com.android.internal.os.BatteryStatsImpl.CREATOR
-                    .createFromParcel(parcel);
+            BatteryStats sBatteryStats = com.android.internal.os.BatteryStatsImpl.CREATOR
+                    .createFromParcel(parcel);*/
 
-            readUserWakelockStats(batteryStats, sRefUserWakelocks);
+            readUserWakelockStats(sBatteryStats, sRefUserWakelocks, false);
 
             sRefRealTimestamp = SystemClock.elapsedRealtime();
             sRefUpTimestamp = SystemClock.uptimeMillis();
-            sRefBatteryLevel = batteryStats.getDischargeCurrentLevel();
-            saveWakelockData(context, sRefFilename, sRefKernelWakelocks,
+            sRefBatteryLevel = sBatteryStats.getDischargeCurrentLevel();
+            saveRefWakelockData(context, sRefFilename, sRefKernelWakelocks,
                 sRefUserWakelocks);
-        } catch (RemoteException e) {
+        /*} catch (RemoteException e) {
             Log.e(TAG, "RemoteException:", e);
-        }
+        }*/
     }
 
-    private void loadWakelockData(String fileName,
+    private void loadRefWakelockData(String fileName,
             ArrayList<WakelockStats> kernelData,
             ArrayList<WakelockStats> userData) {
         try {
@@ -950,14 +1175,42 @@ public class Wakelocks extends Fragment implements Constants {
             }
             buf.close();
         } catch (Exception e) {
-            Log.d(TAG, "loadWakelockData:", e);
+            Log.e(TAG, "loadRefWakelockData:", e);
+        }
+    }
+
+    private void loadUnplugWakelockData(String fileName,
+            ArrayList<WakelockStats> kernelData) {
+        try {
+            File file = new File(mContext.getFilesDir(), fileName);
+            if (!file.exists()) {
+                return;
+            }
+            BufferedReader buf = new BufferedReader(new FileReader(file));
+            String line = null;
+            while ((line = buf.readLine()) != null) {
+                WakelockStats wl = fromString(line);
+                if (wl != null) {
+                    if (wl.mType == 0) {
+                        kernelData.add(wl);
+                    }
+                }
+            }
+            buf.close();
+        } catch (Exception e) {
+            Log.e(TAG, "loadUnplugWakelockData:", e);
         }
     }
 
     private void loadWakelockRef() {
-        sRefKernelWakelocks = new ArrayList<WakelockStats>();
-        sRefUserWakelocks = new ArrayList<WakelockStats>();
-        loadWakelockData(sRefFilename, sRefKernelWakelocks, sRefUserWakelocks);
+        sRefKernelWakelocks.clear();
+        sRefUserWakelocks.clear();
+        loadRefWakelockData(sRefFilename, sRefKernelWakelocks, sRefUserWakelocks);
+    }
+
+    private void loadWakelockUnplug() {
+        sUnplugKernelWakelocks.clear();
+        loadUnplugWakelockData(sUnplugFilename, sUnplugKernelWakelocks);
     }
 
     private ArrayList<WakelockStats> diffToWakelockStatus(
@@ -985,7 +1238,7 @@ public class Wakelocks extends Fragment implements Constants {
                 if (diffCount > 0 && diffTotalTime > 0) {
                     WakelockStats newEntry = new WakelockStats(entry.mType,
                             entry.mName, diffCount, diffTotalTime,
-                            diffPreventSuspendTime, entry.mUid, entry.mAppInfo);
+                            diffPreventSuspendTime, entry.mUid);
                     diffWakelocks.add(newEntry);
                 }
             } else {
@@ -996,7 +1249,7 @@ public class Wakelocks extends Fragment implements Constants {
     }
 
     private static void readUserWakelockStats(BatteryStats stats,
-            ArrayList<WakelockStats> userData) {
+            ArrayList<WakelockStats> userData, boolean unplug) {
         SparseArray<? extends BatteryStats.Uid> uidStats = stats.getUidStats();
         HashMap<String, WakelockStats> indexList = new HashMap<String, WakelockStats>();
 
@@ -1018,20 +1271,19 @@ public class Wakelocks extends Fragment implements Constants {
                     if (partialWakeTimer != null) {
                         long totalTimeMillis = computeWakeLock(
                                 partialWakeTimer,
-                                SystemClock.elapsedRealtime() * 1000, sWhich);
-                        int count = partialWakeTimer.getCountLocked(sWhich);
+                                unplug ?
+                                    sUnplugBatteryRealtime :
+                                    (SystemClock.elapsedRealtime() * 1000),
+                                    BatteryStats.STATS_SINCE_UNPLUGGED);
+                        int count = partialWakeTimer.getCountLocked(
+                                    BatteryStats.STATS_SINCE_UNPLUGGED);
                         if (totalTimeMillis > 0 && count > 0) {
                             WakelockStats foundEntry = indexList.get(ent
                                     .getKey());
                             if (foundEntry == null) {
-                                String appInfo = null;
-                                ArrayList<String> pkgs = sAppUidData.get(uid);
-                                if (pkgs != null && pkgs.size() > 0) {
-                                    appInfo = pkgs.get(0);
-                                }
                                 foundEntry = new WakelockStats(1, ent.getKey(),
                                         count, totalTimeMillis,
-                                        totalTimeMillis, uid, appInfo);
+                                        totalTimeMillis, uid);
                                 userData.add(foundEntry);
                                 indexList.put(ent.getKey(), foundEntry);
                             } else {
@@ -1047,46 +1299,39 @@ public class Wakelocks extends Fragment implements Constants {
     }
 
     private void load() {
-        Log.d(TAG, "load");
+        //Log.d(TAG, "load");
         try {
             mShowAll = false;
             mShareData = new StringBuffer();
-
-            byte[] data = getBatteryStats().getStatistics();
+            IBatteryStats stats = IBatteryStats.Stub.asInterface(ServiceManager
+                    .getService(BatteryStats.SERVICE_NAME));
+            byte[] data = stats.getStatistics();
             Parcel parcel = Parcel.obtain();
             parcel.unmarshall(data, 0, data.length);
             parcel.setDataPosition(0);
-            BatteryStats batteryStats = com.android.internal.os.BatteryStatsImpl.CREATOR
+            sBatteryStats = com.android.internal.os.BatteryStatsImpl.CREATOR
                     .createFromParcel(parcel);
 
             rawUptime = SystemClock.uptimeMillis();
             rawRealtime = SystemClock.elapsedRealtime();
-            mBatteryLevel = batteryStats.getDischargeCurrentLevel();
+            mBatteryLevel = sBatteryStats.getDischargeCurrentLevel();
+            sUnplugBatteryLevel = sBatteryStats.getDischargeCurrentLevel();
 
-            mIsOnBattery = batteryStats.getIsOnBattery();
-            long batteryUptime = batteryStats
-                    .getBatteryUptime(rawUptime * 1000);
-            mBatteryRealtime = batteryStats
-                    .getBatteryRealtime(rawRealtime * 1000);
-            long whichBatteryUptime = batteryStats.computeBatteryUptime(
+            sIsOnBattery = sBatteryStats.getIsOnBattery();
+            sUnplugBatteryUptime = sBatteryStats.computeBatteryUptime(
                     rawUptime * 1000, BatteryStats.STATS_SINCE_UNPLUGGED);
-            long whichBatteryRealtime = batteryStats.computeBatteryRealtime(
+            sUnplugBatteryRealtime = sBatteryStats.computeBatteryRealtime(
                     rawRealtime * 1000, BatteryStats.STATS_SINCE_UNPLUGGED);
-            long totalRealtime = batteryStats.computeRealtime(
+            long totalRealtime = sBatteryStats.computeRealtime(
                     rawRealtime * 1000, BatteryStats.STATS_SINCE_UNPLUGGED);
-            long totalUptime = batteryStats.computeUptime(rawUptime * 1000,
+            long totalUptime = sBatteryStats.computeUptime(rawUptime * 1000,
                     BatteryStats.STATS_SINCE_UNPLUGGED);
-            mScreenOnTime = batteryStats.getScreenOnTime(mBatteryRealtime,
-                    BatteryStats.STATS_SINCE_UNPLUGGED);
-
-            Log.d(TAG, "" + mBatteryLevel + " " + sRefBatteryLevel + " "
-                    + toString(microToSecs(batteryUptime)) + " "
-                    + toString(microToSecs(mBatteryRealtime)) + " "
-                    + toString(microToSecs(whichBatteryUptime)) + " "
-                    + toString(microToSecs(whichBatteryRealtime)) + " "
+            sIsOnBattery = sBatteryStats.getIsOnBattery();
+            /*Log.d(TAG, "" + mBatteryLevel  + " "
+                    + toString(microToSecs(sUnplugBatteryUptime)) + " "
+                    + toString(microToSecs(sUnplugBatteryRealtime)) + " "
                     + toString(microToSecs(totalRealtime)) + " "
-                    + toString(microToSecs(totalUptime)) + " "
-                    + toString(microToSecs(mScreenOnTime)));
+                    + toString(microToSecs(totalUptime)));*/
 
             mShareData.append("\n================\n");
             mShareData.append("Kernel wakelocks\n");
@@ -1094,65 +1339,81 @@ public class Wakelocks extends Fragment implements Constants {
             ArrayList<WakelockStats> allKernelWakelocks = new ArrayList<WakelockStats>();
             readKernelWakelockStats(allKernelWakelocks);
 
+            // init ref data after unplug
+            if (sRefBatteryLevel == -1) {
+                sRefRealTimestamp = rawRealtime;
+                sRefUpTimestamp = rawUptime;
+                sRefBatteryLevel = sUnplugBatteryLevel;
+                sRefKernelWakelocks.addAll(allKernelWakelocks);
+            }
+
             mKernelWakelocks.clear();
             if (sWhich == TIME_PERIOD_RESET) {
-                mKernelWakelocks.addAll(diffToWakelockStatus(
-                        sRefKernelWakelocks, allKernelWakelocks));
+                if (sIsOnBattery) {
+                    mKernelWakelocks.addAll(diffToWakelockStatus(
+                            sRefKernelWakelocks, allKernelWakelocks));
+                }
+            } else if (sWhich == TIME_PERIOD_UNPLUG) {
+                if (sIsOnBattery) {
+                    mKernelWakelocks.addAll(diffToWakelockStatus(
+                            sUnplugKernelWakelocks, allKernelWakelocks));
+                }
             } else {
                 mKernelWakelocks.addAll(allKernelWakelocks);
             }
-            Collections.sort(mKernelWakelocks, wakelockStatsComparator);
+            Collections.sort(mKernelWakelocks, sWakelockStatsComparator);
             mShareData.append(mKernelWakelocks.toString());
 
             mShareData.append("\n================\n");
             mShareData.append("Wakelocks\n");
             mShareData.append("================\n");
             ArrayList<WakelockStats> allUserWakelocks = new ArrayList<WakelockStats>();
-            readUserWakelockStats(batteryStats, allUserWakelocks);
+            readUserWakelockStats(sBatteryStats, allUserWakelocks, sWhich == TIME_PERIOD_UNPLUG);
 
             mUserWakelocks.clear();
             if (sWhich == TIME_PERIOD_RESET) {
-                mUserWakelocks.addAll(diffToWakelockStatus(sRefUserWakelocks,
-                        allUserWakelocks));
+                if (sIsOnBattery) {
+                    mUserWakelocks.addAll(diffToWakelockStatus(sRefUserWakelocks,
+                           allUserWakelocks));
+                }
+            } else if (sWhich == TIME_PERIOD_UNPLUG) {
+                if (sIsOnBattery) {
+                    mUserWakelocks.addAll(allUserWakelocks);
+                }
             } else {
                 mUserWakelocks.addAll(allUserWakelocks);
             }
-            Collections.sort(mUserWakelocks, wakelockStatsComparator);
+            Collections.sort(mUserWakelocks, sWakelockStatsComparator);
             mShareData.append(mUserWakelocks.toString());
+
+            buildAppWakelockList();
+            Collections.sort(mAppWakelockList, sAppWakelockStatsComparator);
 
         } catch (RemoteException e) {
             Log.e(TAG, "RemoteException:", e);
+            mTotalStateTime.post(new Runnable() {
+                public void run() {
+                    mTotalStateTime.setText(getResources().getString(R.string.no_stat_because_error));
+                }
+            });
         }
     }
 
-    private void buildUidAppsData() {
-        HashSet<String> systemPkgSet = new HashSet<String>(
-                Arrays.asList(sSystemPackages));
-        HashSet<String> phonePkgSet = new HashSet<String>(
-                Arrays.asList(sPhonePackages));
-        HashSet<String> contactPkgSet = new HashSet<String>(
-                Arrays.asList(sContactPackage));
+    private void buildAppWakelockList() {
+        mAppWakelockList.clear();
 
-        List<ApplicationInfo> apps = mContext.getPackageManager()
-                .getInstalledApplications(0);
-        if (apps != null) {
-            sAppUidData = new SparseArray<ArrayList<String>>();
-            for (int i = 0; i < apps.size(); i++) {
-                ApplicationInfo ai = apps.get(i);
-                ArrayList<String> pkgs = sAppUidData.get(ai.uid);
-                if (pkgs == null) {
-                    pkgs = new ArrayList<String>();
-                    sAppUidData.put(ai.uid, pkgs);
-                }
-                if (systemPkgSet.contains(ai.packageName)) {
-                    pkgs.add("Android System");
-                } else if (phonePkgSet.contains(ai.packageName)) {
-                    pkgs.add("Phone");
-                } else if (contactPkgSet.contains(ai.packageName)) {
-                    pkgs.add("Contacts");
-                }
-                pkgs.add(ai.packageName);
+        Iterator<WakelockStats> nextWakelock = mUserWakelocks
+                .iterator();
+        while (nextWakelock.hasNext()) {
+            WakelockStats entry = nextWakelock.next();
+            WakelockAppStats appStats = new WakelockAppStats(entry.mUid);
+            int idx = mAppWakelockList.indexOf(appStats);
+            if (idx == -1) {
+                mAppWakelockList.add(appStats);
+            } else {
+                appStats = mAppWakelockList.get(idx);
             }
+            appStats.addWakelockStat(entry);
         }
     }
 
@@ -1192,13 +1453,13 @@ public class Wakelocks extends Fragment implements Constants {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.copy_as_text) {
                     ClipboardManager clipboard = (ClipboardManager)
-                            mContext.getSystemService(Context.CLIPBOARD_SERVICE); 
+                            mContext.getSystemService(Context.CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText(wakeLockName, wakeLockName);
                     clipboard.setPrimaryClip(clip);
                 } else if (item.getItemId() == R.id.google_it) {
                     try {
                         Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                        intent.putExtra(SearchManager.QUERY, wakeLockName);
+                        intent.putExtra(SearchManager.QUERY, "wakelock " + wakeLockName);
                         startActivity(intent);
                     } catch (Exception e) {
                     }
@@ -1214,5 +1475,50 @@ public class Wakelocks extends Fragment implements Constants {
             }
         });
         popup.show();
+    }
+
+    private void handleAppLongPress(final WakelockAppStats entry, View view) {
+        final PopupMenu popup = new PopupMenu(mContext, view);
+        mPopup = popup;
+        popup.getMenuInflater().inflate(R.menu.wakelocks_app_popup_menu,
+                popup.getMenu());
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.app_details) {
+                    String[] packages = mContext.getPackageManager().getPackagesForUid(entry.mUid);
+                    if (packages != null && packages.length == 1) {
+                        Intent intent = new Intent();
+                        intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.parse("package:" + packages[0]));
+                        startActivity(intent);
+                    }
+                } else {
+                    return false;
+                }
+                return true;
+            }
+        });
+        popup.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            public void onDismiss(PopupMenu menu) {
+                mPopup = null;
+            }
+        });
+        popup.show();
+    }
+
+    private String getNormalizedRootPackage(final String[] packages) {
+        List<String> packageList = Arrays.asList(packages);
+        String rootPackage = packages[0];
+        if (packageList.contains("android")) {
+            rootPackage = "android";
+        } else if (packageList.contains("com.google.android.gms")) {
+            rootPackage = "com.google.android.gms";
+        } else if (packageList.contains("com.android.systemui")) {
+            rootPackage = "com.android.systemui";
+        } else if (packageList.contains("com.android.phone")) {
+            rootPackage = "com.android.phone";
+        }
+        return rootPackage;
     }
 }
