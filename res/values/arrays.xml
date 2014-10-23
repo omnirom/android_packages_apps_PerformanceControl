@@ -49,13 +49,14 @@ Copyright (C) 2012  James Roberts
         <item>4096</item>
     </string-array>
     <string-array name="period_type_entries">
-        <item>@string/since_boot</item>
         <item>@string/since_reset</item>
+        <item>@string/since_unplug</item>
     </string-array>
     <string-array name="list_type_entries">
         <item>@string/other</item>
         <item>@string/kernel_wakelocks</item>
         <item>@string/partial_wakelocks</item>
+        <item>@string/app_wakelocks</item>
     </string-array>
     <string-array name="state_time_entries">
         <item>@string/total_time</item>
