@@ -29,6 +29,9 @@ Copyright (C) 2012  James Roberts
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:layout_weight="1" />
     <TextView
         android:id="@+id/ui_text_end"
