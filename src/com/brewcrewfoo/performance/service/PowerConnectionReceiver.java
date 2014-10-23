@@ -32,9 +32,10 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
 
         if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
             // Do something when power connected
+            Wakelocks.powerPlugged(context);
         } else if (action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
             // Do something when power disconnected
-            //Wakelocks.saveKernelWakelockUnplugged(context);
+            Wakelocks.powerUnplugged(context);
         }
     }
 }
