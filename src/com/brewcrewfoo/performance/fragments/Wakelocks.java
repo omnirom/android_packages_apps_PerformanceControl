@@ -133,6 +133,7 @@ public class Wakelocks extends Fragment implements Constants {
     private static int sUnplugBatteryLevel;
     private static boolean sIsOnBattery;
     private List<WakelockAppStats> mAppWakelockList = new ArrayList<WakelockAppStats>();
+    private static boolean sHasRefData;
 
     private static final int MENU_REFRESH = Menu.FIRST;
     private static final int MENU_SHARE = MENU_REFRESH + 1;
@@ -458,23 +459,29 @@ public class Wakelocks extends Fragment implements Constants {
 
             if (sWhich == TIME_PERIOD_RESET) {
                 if (sIsOnBattery) {
-                    totalTimeInSecs = Math.max((rawRealtime - sRefRealTimestamp) / 1000, 0);
-                    totalUptimeInSecs = Math.max((rawUptime - sRefUpTimestamp) / 1000, 0);
-                    if (sRefBatteryLevel != -1) {
-                        int batteryLevelDiff = mBatteryLevel - sRefBatteryLevel;
-                        if (batteryLevelDiff != 0) {
-                            float hours = (float) totalTimeInSecs / 3600;
-                            batteryLevelText = String.valueOf(batteryLevelDiff)
-                                    + "% "
-                                    + String.format("%.2f", (float) batteryLevelDiff
-                                        / hours) + "%/h";
-                        } else {
-                            batteryLevelText = "0% 0.00%/h";
+                    if (sHasRefData) {
+                        totalTimeInSecs = Math.max((rawRealtime - sRefRealTimestamp) / 1000, 0);
+                        totalUptimeInSecs = Math.max((rawUptime - sRefUpTimestamp) / 1000, 0);
+                        if (sRefBatteryLevel != -1) {
+                            int batteryLevelDiff = mBatteryLevel - sRefBatteryLevel;
+                            if (batteryLevelDiff != 0) {
+                                float hours = (float) totalTimeInSecs / 3600;
+                                batteryLevelText = String.valueOf(batteryLevelDiff)
+                                        + "% "
+                                        + String.format("%.2f", (float) batteryLevelDiff
+                                            / hours) + "%/h";
+                            } else {
+                                batteryLevelText = "0% 0.00%/h";
+                            }
                         }
+                        mTotalStateTime.setText(getResources().getString(R.string.total_time)
+                            + " " + toString(totalTimeInSecs));
+                        showStats = true;
+                    } else {
+                        totalTimeInSecs = 0;
+                        totalUptimeInSecs = 0;
+                        mTotalStateTime.setText(getResources().getString(R.string.no_stat_because_reset));
                     }
-                    mTotalStateTime.setText(getResources().getString(R.string.total_time)
-                        + " " + toString(totalTimeInSecs));
-                    showStats = true;
                 } else {
                     totalTimeInSecs = 0;
                     totalUptimeInSecs = 0;
@@ -1049,6 +1056,7 @@ public class Wakelocks extends Fragment implements Constants {
         sRefRealTimestamp = 0;
         sRefUpTimestamp = 0;
         sRefBatteryLevel = -1;
+        sHasRefData = false;
     }
 
     public static void powerUnplugged(Context context) {
@@ -1096,6 +1104,8 @@ public class Wakelocks extends Fragment implements Constants {
             buf.newLine();
             saveWakelockList(buf, kernelData);
             saveWakelockList(buf, userData);
+
+            sHasRefData = true;
 
             buf.flush();
             buf.close();
@@ -1173,6 +1183,7 @@ public class Wakelocks extends Fragment implements Constants {
                     }
                 }
             }
+            sHasRefData = true;
             buf.close();
         } catch (Exception e) {
             Log.e(TAG, "loadRefWakelockData:", e);
@@ -1315,7 +1326,7 @@ public class Wakelocks extends Fragment implements Constants {
             rawUptime = SystemClock.uptimeMillis();
             rawRealtime = SystemClock.elapsedRealtime();
             mBatteryLevel = sBatteryStats.getDischargeCurrentLevel();
-            sUnplugBatteryLevel = sBatteryStats.getDischargeCurrentLevel();
+            sUnplugBatteryLevel = sBatteryStats.getDischargeStartLevel();
 
             sIsOnBattery = sBatteryStats.getIsOnBattery();
             sUnplugBatteryUptime = sBatteryStats.computeBatteryUptime(
