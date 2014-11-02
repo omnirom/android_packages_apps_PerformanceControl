@@ -66,7 +66,7 @@ public class TimeInState extends Fragment implements Constants {
     private boolean mUpdatingData = false;
     private CPUStateMonitor monitor = new CPUStateMonitor();
     private Context context;
-    private SharedPreferences preferences;
+    private SharedPreferences mPreferences;
     private boolean mOverallStats;
     private int mCpuNum;
     private boolean mActiveStateMode;
@@ -75,7 +75,8 @@ public class TimeInState extends Fragment implements Constants {
     private Spinner mPeriodTypeSelect;
     private LinearLayout mProgress;
     private CheckBox mCoreMode;
-    private int mPeriodType;
+    private int mPeriodType = 1;
+    private boolean sHasRefData;
 
     private static final int MENU_REFRESH = Menu.FIRST;
     private static final int MENU_SHARE = MENU_REFRESH + 1;
@@ -86,7 +87,8 @@ public class TimeInState extends Fragment implements Constants {
         context = getActivity();
         mOverallStats = monitor.hasOverallStats();
         mCpuNum = Helpers.getNumOfCpus();
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mPeriodType = mPreferences.getInt("which", 1);
         if (savedInstanceState != null) {
             mUpdatingData = savedInstanceState.getBoolean("updatingData");
             mPeriodType = savedInstanceState.getInt("which");
@@ -112,14 +114,14 @@ public class TimeInState extends Fragment implements Constants {
                 .findViewById(R.id.ui_total_state_time);
 
         mStateMode = (CheckBox) view.findViewById(R.id.ui_mode_switch);
-        mActiveStateMode = preferences.getBoolean(PREF_STATE_MODE, false);
+        mActiveStateMode = mPreferences.getBoolean(PREF_STATE_MODE, false);
         mStateMode.setChecked(mActiveStateMode);
         mStateMode.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                     boolean isChecked) {
                 mActiveStateMode = isChecked;
-                SharedPreferences.Editor editor = preferences.edit();
+                SharedPreferences.Editor editor = mPreferences.edit();
                 editor.putBoolean(PREF_STATE_MODE, mActiveStateMode).commit();
                 updateView();
             }
@@ -127,14 +129,14 @@ public class TimeInState extends Fragment implements Constants {
 
         mCoreMode = (CheckBox) view.findViewById(R.id.ui_core_switch);
         if (mOverallStats) {
-            mActiveCoreMode = preferences.getBoolean(PREF_CORE_MODE, true);
+            mActiveCoreMode = mPreferences.getBoolean(PREF_CORE_MODE, true);
             mCoreMode.setChecked(mActiveCoreMode);
             mCoreMode.setOnCheckedChangeListener(new OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView,
                         boolean isChecked) {
                     mActiveCoreMode = isChecked;
-                    SharedPreferences.Editor editor = preferences.edit();
+                    SharedPreferences.Editor editor = mPreferences.edit();
                     editor.putBoolean(PREF_CORE_MODE, mActiveCoreMode).commit();
                     updateView();
                 }
@@ -155,10 +157,11 @@ public class TimeInState extends Fragment implements Constants {
                     @Override
                     public void onItemSelected(AdapterView<?> parent,
                             View view, int position, long id) {
+                        mPeriodType = position;
                         if (position == 0) {
-                            monitor.removeOffsets();
-                        } else if (position == 1) {
                             loadOffsets();
+                        } else if (position == 1) {
+                            monitor.removeOffsets();
                         }
                         refreshData();
                     }
@@ -183,6 +186,12 @@ public class TimeInState extends Fragment implements Constants {
     public void onResume() {
         refreshData();
         super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        mPreferences.edit().putInt("which", mPeriodType).commit();
+        super.onPause();
     }
 
     @Override
@@ -217,6 +226,9 @@ public class TimeInState extends Fragment implements Constants {
                 // not good
             }
             saveOffsets();
+            if (mPeriodType == 1) {
+                monitor.removeOffsets();
+            }
             refreshData();
             break;
         }
@@ -238,48 +250,52 @@ public class TimeInState extends Fragment implements Constants {
             mTotalStateTime.setVisibility(View.GONE);
             mStatesView.setVisibility(View.GONE);
         } else {
-            long totTime = getStateTime(mActiveStateMode);
-            data.append(totTime + "\n");
-            totTime = totTime / 100;
-            if (mActiveCoreMode) {
-                int cpu = 0;
-                for (CpuState state : monitor.getStates(0)) {
-                    if (state.freq == 0) {
-                        continue;
-                    }
-                    data.append(state.mCpu + " " + state.freq + " "
-                            + state.getDuration() + "\n");
-                    generateStateRowHeader(state, mStatesView);
-                    generateStateRow(state, mStatesView);
-                    for (cpu = 1; cpu < mCpuNum; cpu++) {
-                        state = monitor.getFreqState(cpu, state.freq);
-                        generateStateRow(state, mStatesView);
+            if (mPeriodType == 0 && !sHasRefData) {
+                mTotalStateTime.setText(getResources().getString(R.string.no_stat_because_reset));
+            } else {
+                long totTime = getStateTime(mActiveStateMode);
+                data.append(totTime + "\n");
+                totTime = totTime / 100;
+                if (mActiveCoreMode) {
+                    int cpu = 0;
+                    for (CpuState state : monitor.getStates(0)) {
+                        if (state.freq == 0) {
+                            continue;
+                        }
                         data.append(state.mCpu + " " + state.freq + " "
                                 + state.getDuration() + "\n");
+                        generateStateRowHeader(state, mStatesView);
+                        generateStateRow(state, mStatesView);
+                        for (cpu = 1; cpu < mCpuNum; cpu++) {
+                            state = monitor.getFreqState(cpu, state.freq);
+                            generateStateRow(state, mStatesView);
+                            data.append(state.mCpu + " " + state.freq + " "
+                                    + state.getDuration() + "\n");
+                        }
+                    }
+                } else {
+                    for (CpuState state : monitor.getStates(0)) {
+                        if (state.freq == 0) {
+                            continue;
+                        }
+                        generateStateRowHeader(state, mStatesView);
+                        generateStateRow(state, mStatesView);
+                        data.append(state.freq + " " + state.getDuration() + "\n");
                     }
                 }
-            } else {
-                for (CpuState state : monitor.getStates(0)) {
-                    if (state.freq == 0) {
-                        continue;
-                    }
-                    generateStateRowHeader(state, mStatesView);
-                    generateStateRow(state, mStatesView);
-                    data.append(state.freq + " " + state.getDuration() + "\n");
-                }
-            }
 
-            if (!mActiveStateMode) {
-                CpuState deepSleepState = monitor.getDeepSleepState();
-                if (deepSleepState != null) {
-                    generateStateRowHeader(deepSleepState, mStatesView);
-                    generateStateRow(deepSleepState, mStatesView);
-                    data.append(deepSleepState.freq + " "
-                            + deepSleepState.getDuration() + "\n");
+                if (!mActiveStateMode) {
+                    CpuState deepSleepState = monitor.getDeepSleepState();
+                    if (deepSleepState != null) {
+                        generateStateRowHeader(deepSleepState, mStatesView);
+                        generateStateRow(deepSleepState, mStatesView);
+                        data.append(deepSleepState.freq + " "
+                                + deepSleepState.getDuration() + "\n");
+                    }
                 }
+                mTotalStateTime.setText(getResources().getString(R.string.total_time)
+                        + " " + toString(totTime));
             }
-            mTotalStateTime.setText(getResources().getString(R.string.total_time)
-                    + " " + toString(totTime));
         }
         updateShareIntent(data.toString());
     }
@@ -397,7 +413,7 @@ public class TimeInState extends Fragment implements Constants {
     }
 
     public void loadOffsets() {
-        String prefs = preferences.getString(PREF_OFFSETS, "");
+        String prefs = mPreferences.getString(PREF_OFFSETS, "");
         if (prefs == null || prefs.length() < 1) {
             return;
         }
@@ -416,10 +432,11 @@ public class TimeInState extends Fragment implements Constants {
             }
             monitor.setOffsets(cpu, offsets);
         }
+        sHasRefData = true;
     }
 
     public void saveOffsets() {
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences.Editor editor = mPreferences.edit();
         String str = "";
         for (int cpu = 0; cpu < mCpuNum; cpu++) {
             for (Map.Entry<Integer, Long> entry : monitor.getOffsets(cpu)
@@ -429,6 +446,13 @@ public class TimeInState extends Fragment implements Constants {
             str += ":";
         }
         editor.putString(PREF_OFFSETS, str).commit();
+        sHasRefData = true;
+    }
+
+    public void clarOffsets() {
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(PREF_OFFSETS, "").commit();
+        sHasRefData = false;
     }
 
     private long getStateTime(boolean activeMode) {
