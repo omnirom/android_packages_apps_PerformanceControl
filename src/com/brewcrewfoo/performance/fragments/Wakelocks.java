@@ -118,7 +118,7 @@ public class Wakelocks extends Fragment implements Constants {
     private static int sWhich = TIME_PERIOD_UNPLUG;
     private static int sRefBatteryLevel = -1;
     private static int sRefUnplugBatteryLevel = -1;
-    private int mPeriodType;
+    private int mPeriodType = 1;
     private Spinner mPeriodTypeSelect;
     private int mListType;
     private Spinner mListTypeSelect;
@@ -272,6 +272,10 @@ public class Wakelocks extends Fragment implements Constants {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
         mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mPeriodType = mPreferences.getInt("which", 1);
+        mListType = mPreferences.getInt("listType", 0);
+        mStateTimeMode = mPreferences.getInt("stateTime", 0);
+
         if (savedInstanceState != null) {
             mUpdatingData = savedInstanceState.getBoolean("updatingData");
             mPeriodType = savedInstanceState.getInt("which");
@@ -304,7 +308,7 @@ public class Wakelocks extends Fragment implements Constants {
         mPeriodTypeSelect = (Spinner) view
                 .findViewById(R.id.period_type_select);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                mContext, R.array.period_type_entries, R.layout.period_type_item);
+                mContext, R.array.wakelock_period_type_entries, R.layout.period_type_item);
         mPeriodTypeSelect.setAdapter(adapter);
 
         mPeriodTypeSelect
@@ -396,6 +400,9 @@ public class Wakelocks extends Fragment implements Constants {
         if (mPopup != null) {
             mPopup.dismiss();
         }
+        mPreferences.edit().putInt("which", mPeriodType).commit();
+        mPreferences.edit().putInt("listType", mListType).commit();
+        mPreferences.edit().putInt("stateTime", mStateTimeMode).commit();
         super.onPause();
     }
 
@@ -786,20 +793,18 @@ public class Wakelocks extends Fragment implements Constants {
 
         if (withMore) {
             String[] packages = mContext.getPackageManager().getPackagesForUid(entry.mUid);
-            if (packages != null && packages.length != 0) {
-                try {
-                    String rootPackage = getNormalizedRootPackage(packages);
-                    ApplicationInfo ai = mContext.getPackageManager().getApplicationInfo(rootPackage, 0);
-                    CharSequence label = ai.loadLabel(mContext.getPackageManager());
-                    moreText.setVisibility(View.VISIBLE);
-                    if (label != null) {
-                        moreText.setText(label);
-                    } else {
-                        moreText.setText(rootPackage);
-                    }
-                } catch(android.content.pm.PackageManager.NameNotFoundException e) {
-                    return null;
+            String rootPackage = getNormalizedRootPackage(packages);
+            try {
+                ApplicationInfo ai = mContext.getPackageManager().getApplicationInfo(rootPackage, 0);
+                CharSequence label = ai.loadLabel(mContext.getPackageManager());
+                moreText.setVisibility(View.VISIBLE);
+                if (label != null) {
+                    moreText.setText(label);
+                } else {
+                    moreText.setText(rootPackage);
                 }
+            } catch(android.content.pm.PackageManager.NameNotFoundException e) {
+                return null;
             }
         }
         view.setOnLongClickListener(new View.OnLongClickListener() {
@@ -842,44 +847,44 @@ public class Wakelocks extends Fragment implements Constants {
         ImageView appIcon = (ImageView) view.findViewById(R.id.ui_icon);
 
         String[] packages = mContext.getPackageManager().getPackagesForUid(entry.mUid);
-        if (packages != null && packages.length != 0) {
-            try {
-                String rootPackage = getNormalizedRootPackage(packages);
-                ApplicationInfo ai = mContext.getPackageManager().getApplicationInfo(rootPackage, 0);
-                CharSequence label = ai.loadLabel(mContext.getPackageManager());
-                String packageName = rootPackage;
-                String appName = rootPackage;
-                if (label != null) {
-                    appName = label.toString();
-                }
-                Drawable appIconDrawable = ai.loadIcon(mContext.getPackageManager());
-                text.setText(appName);
-                moreText.setVisibility(View.VISIBLE);
-                moreText.setText(packageName);
-                perText.setText(sPer);
-                durText.setText(sDur);
-                appIcon.setImageDrawable(appIconDrawable);
-            } catch(android.content.pm.PackageManager.NameNotFoundException e) {
-                return null;
-            }
+        try {
+            String rootPackage = getNormalizedRootPackage(packages);
 
-            /*view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                }
-            });*/
-
-            if (packages.length == 1) {
-                view.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        handleAppLongPress(entry, view);
-                        return true;
-                    }
-                });
+            ApplicationInfo ai = mContext.getPackageManager().getApplicationInfo(rootPackage, 0);
+            CharSequence label = ai.loadLabel(mContext.getPackageManager());
+            String packageName = rootPackage;
+            String appName = rootPackage;
+            if (label != null) {
+                appName = label.toString();
             }
-            parent.addView(view);
+            Drawable appIconDrawable = ai.loadIcon(mContext.getPackageManager());
+            text.setText(appName);
+            moreText.setVisibility(View.VISIBLE);
+            moreText.setText(packageName);
+            perText.setText(sPer);
+            durText.setText(sDur);
+            appIcon.setImageDrawable(appIconDrawable);
+        } catch(android.content.pm.PackageManager.NameNotFoundException e) {
+            return null;
         }
+
+        /*view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });*/
+
+        if (packages != null && packages.length == 1) {
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    handleAppLongPress(entry, view);
+                    return true;
+                }
+            });
+        }
+        parent.addView(view);
+
         return view;
     }
 
@@ -1519,16 +1524,21 @@ public class Wakelocks extends Fragment implements Constants {
     }
 
     private String getNormalizedRootPackage(final String[] packages) {
-        List<String> packageList = Arrays.asList(packages);
-        String rootPackage = packages[0];
-        if (packageList.contains("android")) {
+        String rootPackage = null;
+        if (packages == null || packages.length == 0) {
             rootPackage = "android";
-        } else if (packageList.contains("com.google.android.gms")) {
-            rootPackage = "com.google.android.gms";
-        } else if (packageList.contains("com.android.systemui")) {
-            rootPackage = "com.android.systemui";
-        } else if (packageList.contains("com.android.phone")) {
-            rootPackage = "com.android.phone";
+        } else {
+            List<String> packageList = Arrays.asList(packages);
+            rootPackage = packages[0];
+            if (packageList.contains("android")) {
+                rootPackage = "android";
+            } else if (packageList.contains("com.google.android.gms")) {
+                rootPackage = "com.google.android.gms";
+            } else if (packageList.contains("com.android.systemui")) {
+                rootPackage = "com.android.systemui";
+            } else if (packageList.contains("com.android.phone")) {
+                rootPackage = "com.android.phone";
+            }
         }
         return rootPackage;
     }
