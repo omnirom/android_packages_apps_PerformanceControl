@@ -22,23 +22,14 @@ Copyright (C) 2012  James Roberts
     <string name="tab_cpu_settings">CPU Speed</string>
     <string name="tab_battery_info">Battery</string>
     <string name="tab_oom_settings">Memory Settings</string>
+    <string name="tab_volt_settings">Voltage Settings</string>
+    <string name="tab_adv_settings">"Advanced Settings"</string>
     <string name="tab_time_in_state">Time In State</string>
-    <string name="tab_voltage_settings">Voltage Settings</string>
     <string name="tab_cpu_info">General Info</string>
     <string name="tab_disk_info">Disk Info</string>
     <string name="tab_tools">Tools</string>
     <string name="tab_wakelocks">Wakelocks</string>
-    <!-- Titles -->
-    <string name="t_cpu_settings">CPU SPEED</string>
-    <string name="t_battery_info">BATTERY</string>
-    <string name="t_oom_settings">MEMORY SETTINGS</string>
-    <string name="t_volt_settings">VOLTAGE SETTINGS</string>
-    <string name="t_adv_settings">"ADVANCED SETTINGS"</string>
-    <string name="t_time_in_state">"TIME IN STATE"</string>
-    <string name="t_cpu_info">GENERAL INFO</string>
-    <string name="t_disk_info">DISK INFO</string>
-    <string name="t_tools">TOOLS</string>
-    <string name="t_wakelocks">WAKELOCKS</string>
+
     <string name="menu_tab">Tabs</string>
     <!-- Menu -->
     <string name="mt_refresh">Refresh</string>
