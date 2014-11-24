@@ -56,7 +56,6 @@ import com.brewcrewfoo.performance.fragments.DiskInfo;
 import com.brewcrewfoo.performance.fragments.OOMSettings;
 import com.brewcrewfoo.performance.fragments.TimeInState;
 import com.brewcrewfoo.performance.fragments.Tools;
-import com.brewcrewfoo.performance.fragments.VM;
 import com.brewcrewfoo.performance.fragments.VoltageControlSettings;
 import com.brewcrewfoo.performance.fragments.Wakelocks;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
@@ -64,20 +63,20 @@ import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.widgets.CustomDrawerLayout;
 
+public class MainActivity extends Fragment implements Constants,
+        ActivityThemeChangeInterface {
 
-public class MainActivity extends Fragment implements Constants, ActivityThemeChangeInterface {
-
-    //==================================
+    // ==================================
     // Static Fields
-    //==================================
+    // ==================================
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
     private static final String PREF_IS_TABBED = "pref_is_tabbed";
     private static final String TAG = "MainActivity";
 
-    //==================================
+    // ==================================
     // Drawer
-    //==================================
+    // ==================================
     private ActionBarDrawerToggle mDrawerToggle;
     private CustomDrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
@@ -88,17 +87,16 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
     private Fragment mCurrentFragment;
     private View mFragmentContainer;
 
-    //==================================
+    // ==================================
     // Fields
-    //==================================
-    private static int DRAWER_MODE = 0;
+    // ==================================
     private static boolean mVoltageExists;
     private SharedPreferences mPreferences;
     private boolean mIsTabbed = true;
 
-    //==================================
+    // ==================================
     // Overridden Methods
-    //==================================
+    // ==================================
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,12 +104,14 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
 
         mVoltageExists = Helpers.voltageFileExists();
 
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mUserLearnedDrawer = mPreferences.getBoolean(PREF_USER_LEARNED_DRAWER, false);
+        mPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        mUserLearnedDrawer = mPreferences.getBoolean(PREF_USER_LEARNED_DRAWER,
+                false);
 
         if (getResources().getBoolean(R.bool.config_allow_toggle_tabbed))
-            mIsTabbed = mPreferences.getBoolean(PREF_IS_TABBED,
-                    getResources().getBoolean(R.bool.config_use_tabbed));
+            mIsTabbed = mPreferences.getBoolean(PREF_IS_TABBED, getResources()
+                    .getBoolean(R.bool.config_use_tabbed));
         else
             mIsTabbed = getResources().getBoolean(R.bool.config_use_tabbed);
 
@@ -120,49 +120,57 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
         actionBar.setHomeButtonEnabled(true);
 
         if (savedInstanceState != null) {
-            mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+            mCurrentSelectedPosition = savedInstanceState
+                    .getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         ViewGroup rootView;
 
         if (!mIsTabbed) {
-            rootView = (ViewGroup) inflater.inflate(R.layout.activity_main, container, false);
+            rootView = (ViewGroup) inflater.inflate(R.layout.activity_main,
+                    container, false);
 
-            mDrawerListView = (ListView) rootView.findViewById(R.id.pc_navigation_drawer);
-            mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    selectItem(position);
-                }
-            });
+            mDrawerListView = (ListView) rootView
+                    .findViewById(R.id.pc_navigation_drawer);
+            mDrawerListView
+                    .setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent,
+                                View view, int position, long id) {
+                            selectItem(position);
+                        }
+                    });
 
-            mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                    getActionBar().getThemedContext(),
-                    android.R.layout.simple_list_item_1,
-                    android.R.id.text1,
-                    getTitles()));
+            mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
+                    .getThemedContext(), android.R.layout.simple_list_item_1,
+                    android.R.id.text1, getTitles()));
             mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
             mFragmentContainer = rootView.findViewById(R.id.pc_container);
             setUpNavigationDrawer(
                     rootView.findViewById(R.id.pc_navigation_drawer),
-                    (CustomDrawerLayout) rootView.findViewById(R.id.pc_drawer_layout));
+                    (CustomDrawerLayout) rootView
+                            .findViewById(R.id.pc_drawer_layout));
 
         } else {
-            rootView = (ViewGroup) inflater.inflate(R.layout.activity_main_tabbed, container, false);
+            rootView = (ViewGroup) inflater.inflate(
+                    R.layout.activity_main_tabbed, container, false);
 
-            ViewPager mViewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
+            ViewPager mViewPager = (ViewPager) rootView
+                    .findViewById(R.id.viewpager);
             TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
             mViewPager.setAdapter(titleAdapter);
             mViewPager.setCurrentItem(0);
 
-            PagerTabStrip mPagerTabStrip = (PagerTabStrip) rootView.findViewById(R.id.pagerTabStrip);
-            mPagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.pc_blue));
+            PagerTabStrip mPagerTabStrip = (PagerTabStrip) rootView
+                    .findViewById(R.id.pagerTabStrip);
+            mPagerTabStrip.setTabIndicatorColor(getResources().getColor(
+                    R.color.pc_blue));
             mPagerTabStrip.setDrawFullUnderline(false);
         }
 
@@ -199,7 +207,8 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate((mIsTabbed ? R.menu.menu_tabbed : R.menu.menu_drawer), menu);
+        inflater.inflate((mIsTabbed ? R.menu.menu_tabbed : R.menu.menu_drawer),
+                menu);
         if (!getResources().getBoolean(R.bool.config_allow_toggle_tabbed)) {
             menu.removeItem(R.id.pc_action_tabbed);
         }
@@ -215,73 +224,80 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
             }
         }
         switch (item.getItemId()) {
-            case android.R.id.home:
-                Intent homeIntent = new Intent();
-                homeIntent.setClassName("com.android.settings", "com.android.settings.Settings");
-                homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(homeIntent);
-                return true;
-            case R.id.pc_toggle_drawer:
-                if (isDrawerOpen())
-                    mDrawerLayout.closeDrawer(mFragmentContainerView);
-                else
-                    mDrawerLayout.openDrawer(mFragmentContainerView);
-                return true;
-            case R.id.pc_action_tabbed:
-                mIsTabbed = !mIsTabbed;
-                mPreferences.edit().putBoolean(PREF_IS_TABBED, mIsTabbed).commit();
-                Helpers.restartPC(getActivity());
-                return true;
+        case android.R.id.home:
+            Intent homeIntent = new Intent();
+            homeIntent.setClassName("com.android.settings",
+                    "com.android.settings.Settings");
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+            return true;
+        case R.id.pc_toggle_drawer:
+            if (isDrawerOpen())
+                mDrawerLayout.closeDrawer(mFragmentContainerView);
+            else
+                mDrawerLayout.openDrawer(mFragmentContainerView);
+            return true;
+        case R.id.pc_action_tabbed:
+            mIsTabbed = !mIsTabbed;
+            mPreferences.edit().putBoolean(PREF_IS_TABBED, mIsTabbed).commit();
+            Helpers.restartPC(getActivity());
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean isThemeChanged() {
-        /*final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;*/
+        /*
+         * final boolean is_light_theme =
+         * mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false); return
+         * is_light_theme != mIsLightTheme;
+         */
         return false;
     }
 
     @Override
     public void setTheme() {
-        /*final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);*/
+        /*
+         * final boolean is_light_theme =
+         * mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false); mIsLightTheme =
+         * mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
+         * setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
+         */
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //if (isThemeChanged()) {
-        //    Helpers.restartPC(this);
-        //}
+        // if (isThemeChanged()) {
+        // Helpers.restartPC(this);
+        // }
     }
 
-    //==================================
+    // ==================================
     // Methods
-    //==================================
+    // ==================================
 
     /**
-     * Users of this fragment must call this method to set up the
-     * navigation menu_drawer interactions.
-     *
-     * @param fragmentContainerView The view of this fragment in its activity's layout.
-     * @param drawerLayout          The DrawerLayout containing this fragment's UI.
+     * Users of this fragment must call this method to set up the navigation
+     * menu_drawer interactions.
+     * 
+     * @param fragmentContainerView
+     *            The view of this fragment in its activity's layout.
+     * @param drawerLayout
+     *            The DrawerLayout containing this fragment's UI.
      */
-    public void setUpNavigationDrawer(View fragmentContainerView, CustomDrawerLayout drawerLayout) {
+    public void setUpNavigationDrawer(View fragmentContainerView,
+            CustomDrawerLayout drawerLayout) {
         mFragmentContainerView = fragmentContainerView;
         mDrawerLayout = drawerLayout;
 
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+                GravityCompat.START);
 
-        mDrawerToggle = new ActionBarDrawerToggle(
-                getActivity(),
-                mDrawerLayout,
-                R.drawable.ic_drawer,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close
-        ) {
+        mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
+                R.drawable.ic_drawer, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -289,7 +305,8 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                     return;
                 }
 
-                getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                getActivity().invalidateOptionsMenu(); // calls
+                                                       // onPrepareOptionsMenu()
             }
 
             @Override
@@ -301,14 +318,18 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
 
                 if (!mUserLearnedDrawer) {
                     mUserLearnedDrawer = true;
-                    mPreferences.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).commit();
+                    mPreferences.edit()
+                            .putBoolean(PREF_USER_LEARNED_DRAWER, true)
+                            .commit();
                 }
 
-                getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+                getActivity().invalidateOptionsMenu(); // calls
+                                                       // onPrepareOptionsMenu()
             }
         };
 
-        // Remove or set it to true, if you want to use home to toggle the menu_drawer
+        // Remove or set it to true, if you want to use home to toggle the
+        // menu_drawer
         mDrawerToggle.setDrawerIndicatorEnabled(false);
 
         if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
@@ -328,7 +349,8 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
     }
 
     public boolean isDrawerOpen() {
-        return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
+        return mDrawerLayout != null
+                && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
 
     /**
@@ -380,209 +402,96 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
     private static String makeFragmentName(int viewId, long id) {
         return "android:switcher:" + viewId + ":" + id;
     }
+
     /**
-     * Depending on if the item is shown or not, it increases
-     * the position to make the activity load the right fragment.
-     *
-     * @param pos The selected position
+     * Depending on if the item is shown or not, it increases the position to
+     * make the activity load the right fragment.
+     * 
+     * @param pos
+     *            The selected position
      * @return the modified position
      */
     public int getPosition(int pos) {
         int position = pos;
-        switch (DRAWER_MODE) {
-            default:
-            case 0:
-                position = pos;
-                break;
-            case 1:
-                if (pos > 0) position = pos + 1;
-                break;
-            case 2:
-                if (pos > 3) position = pos + 1;
-                break;
-            case 3:
-                if (pos > 0) position = pos + 1;
-                if (pos >= 3) position = pos + 2;
-                break;
-        }
         return position;
     }
 
     /**
      * Get a list of titles for the tabstrip to display depending on if the
-     * voltage control fragment and battery fragment will be displayed. (Depends on the result of
-     * Helpers.voltageTableExists() & Helpers.showBattery()
-     *
+     * voltage control fragment and battery fragment will be displayed. (Depends
+     * on the result of Helpers.voltageTableExists() & Helpers.showBattery()
+     * 
      * @return String[] containing titles
      */
     private String[] getTitles() {
         String titleString[];
         if (mVoltageExists) {
-            if (Helpers.showBattery()) {
-                if (getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                    DRAWER_MODE = 0;
-                    titleString = new String[]{
-                            getString(R.string.t_cpu_settings),
-                            getString(R.string.t_battery_info),
-                            getString(R.string.t_oom_settings),
-                            getString(R.string.prefcat_vm_settings),
-                            getString(R.string.t_volt_settings),
-                            getString(R.string.t_adv_settings),
-                            getString(R.string.t_time_in_state),
-                            getString(R.string.t_wakelocks),
-                            getString(R.string.t_cpu_info),
-                            getString(R.string.t_disk_info)};
-                } else {
-                    DRAWER_MODE = 0;
-                    titleString = new String[]{
-                            getString(R.string.t_cpu_settings),
-                            getString(R.string.t_battery_info),
-                            getString(R.string.t_oom_settings),
-                            getString(R.string.prefcat_vm_settings),
-                            getString(R.string.t_volt_settings),
-                            getString(R.string.t_adv_settings),
-                            getString(R.string.t_time_in_state),
-                            getString(R.string.t_wakelocks),
-                            getString(R.string.t_cpu_info),
-                            getString(R.string.t_disk_info),
-                            getString(R.string.t_tools)};
-                }
-            } else {
-                if (getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                    DRAWER_MODE = 1;
-                    titleString = new String[]{
-                            getString(R.string.t_cpu_settings),
-                            getString(R.string.t_oom_settings),
-                            getString(R.string.prefcat_vm_settings),
-                            getString(R.string.t_volt_settings),
-                            getString(R.string.t_adv_settings),
-                            getString(R.string.t_time_in_state),
-                            getString(R.string.t_wakelocks),
-                            getString(R.string.t_cpu_info),
-                            getString(R.string.t_disk_info)};
-                } else {
-                    DRAWER_MODE = 1;
-                    titleString = new String[]{
-                            getString(R.string.t_cpu_settings),
-                            getString(R.string.t_oom_settings),
-                            getString(R.string.prefcat_vm_settings),
-                            getString(R.string.t_volt_settings),
-                            getString(R.string.t_adv_settings),
-                            getString(R.string.t_time_in_state),
-                            getString(R.string.t_wakelocks),
-                            getString(R.string.t_cpu_info),
-                            getString(R.string.t_disk_info),
-                            getString(R.string.t_tools)};
-                }
-            }
+            titleString = new String[] { getString(R.string.tab_cpu_settings),
+                    getString(R.string.tab_battery_info),
+                    getString(R.string.tab_oom_settings),
+                    getString(R.string.tab_adv_settings),
+                    getString(R.string.tab_time_in_state),
+                    getString(R.string.tab_wakelocks),
+                    getString(R.string.tab_cpu_info),
+                    getString(R.string.tab_disk_info),
+                    getString(R.string.tab_volt_settings) };
+
         } else {
-            if (Helpers.showBattery()) {
-                if (getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                    DRAWER_MODE = 2;
-                    titleString = new String[]{
-                            getString(R.string.t_cpu_settings),
-                            getString(R.string.t_battery_info),
-                            getString(R.string.t_oom_settings),
-                            getString(R.string.prefcat_vm_settings),
-                            getString(R.string.t_adv_settings),
-                            getString(R.string.t_time_in_state),
-                            getString(R.string.t_wakelocks),
-                            getString(R.string.t_cpu_info),
-                            getString(R.string.t_disk_info)};
-                } else {
-                    DRAWER_MODE = 2;
-                    titleString = new String[]{
-                            getString(R.string.t_cpu_settings),
-                            getString(R.string.t_battery_info),
-                            getString(R.string.t_oom_settings),
-                            getString(R.string.prefcat_vm_settings),
-                            getString(R.string.t_adv_settings),
-                            getString(R.string.t_time_in_state),
-                            getString(R.string.t_wakelocks),
-                            getString(R.string.t_cpu_info),
-                            getString(R.string.t_disk_info),
-                            getString(R.string.t_tools)};
-                }
-            } else {
-                if (getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                    DRAWER_MODE = 3;
-                    titleString = new String[]{
-                            getString(R.string.t_cpu_settings),
-                            getString(R.string.t_oom_settings),
-                            getString(R.string.prefcat_vm_settings),
-                            getString(R.string.t_adv_settings),
-                            getString(R.string.t_time_in_state),
-                            getString(R.string.t_wakelocks),
-                            getString(R.string.t_cpu_info),
-                            getString(R.string.t_disk_info)};
-                } else {
-                    DRAWER_MODE = 3;
-                    titleString = new String[]{
-                            getString(R.string.t_cpu_settings),
-                            getString(R.string.t_oom_settings),
-                            getString(R.string.prefcat_vm_settings),
-                            getString(R.string.t_adv_settings),
-                            getString(R.string.t_time_in_state),
-                            getString(R.string.t_wakelocks),
-                            getString(R.string.t_cpu_info),
-                            getString(R.string.t_disk_info),
-                            getString(R.string.t_tools)};
-                }
-            }
+            titleString = new String[] { getString(R.string.tab_cpu_settings),
+                    getString(R.string.tab_battery_info),
+                    getString(R.string.tab_oom_settings),
+                    getString(R.string.tab_adv_settings),
+                    getString(R.string.tab_time_in_state),
+                    getString(R.string.tab_wakelocks),
+                    getString(R.string.tab_cpu_info),
+                    getString(R.string.tab_disk_info) };
         }
         return titleString;
     }
 
-    //==================================
+    // ==================================
     // Internal Classes
-    //==================================
+    // ==================================
 
     /**
-     * Loads our Fragments.
+     * Loads oments.
      */
     public static class PlaceholderFragment extends Fragment {
 
         /**
-         * Returns a new instance of this fragment for the given section
-         * number.
+         * Returns a new instance of this fragment for the given section number.
          */
         public static Fragment newInstance(int fragmentId) {
             Fragment fragment;
             switch (fragmentId) {
-                default:
-                case FRAGMENT_ID_CPUSETTINGS:
-                    fragment = new CPUSettings();
-                    break;
-                case FRAGMENT_ID_BATTERYINFO:
-                    fragment = new BatteryInfo();
-                    break;
-                case FRAGMENT_ID_OOMSETTINGS:
-                    fragment = new OOMSettings();
-                    break;
-                case FRAGMENT_ID_VM:
-                    fragment = new VM();
-                    break;
-                case FRAGMENT_ID_VOLTAGECONROL:
-                    fragment = new VoltageControlSettings();
-                    break;
-                case FRAGMENT_ID_ADVANCED:
-                    fragment = new Advanced();
-                    break;
-                case FRAGMENT_ID_TIMEINSTATE:
-                    fragment = new TimeInState();
-                    break;
-                case FRAGMENT_ID_CPUINFO:
-                    fragment = new CPUInfo();
-                    break;
-                case FRAGMENT_ID_DISKINFO:
-                    fragment = new DiskInfo();
-                    break;
-                case FRAGMENT_ID_TOOLS:
-                    fragment = new Tools();
-                    break;
-                case FRAGMENT_ID_WAKELOCKS:
-                    fragment = new Wakelocks();
-                    break;
+            default:
+            case FRAGMENT_ID_CPUSETTINGS:
+                fragment = new CPUSettings();
+                break;
+            case FRAGMENT_ID_BATTERYINFO:
+                fragment = new BatteryInfo();
+                break;
+            case FRAGMENT_ID_OOMSETTINGS:
+                fragment = new OOMSettings();
+                break;
+            case FRAGMENT_ID_VOLTAGECONROL:
+                fragment = new VoltageControlSettings();
+                break;
+            case FRAGMENT_ID_ADVANCED:
+                fragment = new Advanced();
+                break;
+            case FRAGMENT_ID_TIMEINSTATE:
+                fragment = new TimeInState();
+                break;
+            case FRAGMENT_ID_CPUINFO:
+                fragment = new CPUInfo();
+                break;
+            case FRAGMENT_ID_DISKINFO:
+                fragment = new DiskInfo();
+                break;
+            case FRAGMENT_ID_WAKELOCKS:
+                fragment = new Wakelocks();
+                break;
             }
 
             return fragment;
@@ -593,9 +502,9 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
         }
     }
 
-    //==================================
+    // ==================================
     // Adapters
-    //==================================
+    // ==================================
     class TitleAdapter extends FragmentPagerAdapter {
         String titles[] = getTitles();
         private Fragment frags[] = new Fragment[titles.length];
@@ -603,61 +512,24 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
         public TitleAdapter(FragmentManager fm) {
             super(fm);
             if (mVoltageExists) {
-                if (Helpers.showBattery()) {
-                    frags[0] = new CPUSettings();
-                    frags[1] = new BatteryInfo();
-                    frags[2] = new OOMSettings();
-                    frags[3] = new VM();
-                    frags[4] = new VoltageControlSettings();
-                    frags[5] = new Advanced();
-                    frags[6] = new TimeInState();
-                    frags[7] = new Wakelocks();
-                    frags[8] = new CPUInfo();
-                    frags[9] = new DiskInfo();
-                    if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                        frags[10] = new Tools();
-                    }
-                } else {
-                    frags[0] = new CPUSettings();
-                    frags[1] = new OOMSettings();
-                    frags[2] = new VM();
-                    frags[3] = new VoltageControlSettings();
-                    frags[4] = new Advanced();
-                    frags[5] = new TimeInState();
-                    frags[6] = new Wakelocks();
-                    frags[7] = new CPUInfo();
-                    frags[8] = new DiskInfo();
-                    if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                        frags[9] = new Tools();
-                    }
-                }
+                frags[0] = new CPUSettings();
+                frags[1] = new BatteryInfo();
+                frags[2] = new OOMSettings();
+                frags[3] = new Advanced();
+                frags[4] = new TimeInState();
+                frags[5] = new Wakelocks();
+                frags[6] = new CPUInfo();
+                frags[7] = new DiskInfo();
+                frags[8] = new VoltageControlSettings();
             } else {
-                if (Helpers.showBattery()) {
-                    frags[0] = new CPUSettings();
-                    frags[1] = new BatteryInfo();
-                    frags[2] = new OOMSettings();
-                    frags[3] = new VM();
-                    frags[4] = new Advanced();
-                    frags[5] = new TimeInState();
-                    frags[6] = new Wakelocks();
-                    frags[7] = new CPUInfo();
-                    frags[8] = new DiskInfo();
-                    if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                        frags[9] = new Tools();
-                    }
-                } else {
-                    frags[0] = new CPUSettings();
-                    frags[1] = new OOMSettings();
-                    frags[2] = new VM();
-                    frags[3] = new Advanced();
-                    frags[4] = new TimeInState();
-                    frags[5] = new Wakelocks();
-                    frags[6] = new CPUInfo();
-                    frags[7] = new DiskInfo();
-                    if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-                        frags[8] = new Tools();
-                    }
-                }
+                frags[0] = new CPUSettings();
+                frags[1] = new BatteryInfo();
+                frags[2] = new OOMSettings();
+                frags[3] = new Advanced();
+                frags[4] = new TimeInState();
+                frags[5] = new Wakelocks();
+                frags[6] = new CPUInfo();
+                frags[7] = new DiskInfo();
             }
         }
 
@@ -677,9 +549,9 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
         }
     }
 
-    //==================================
+    // ==================================
     // Dialogs
-    //==================================
+    // ==================================
 
     /**
      * Check if root access, and prompt the user to grant PC access
@@ -690,7 +562,8 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
         }
 
         boolean firstrun = mPreferences.getBoolean("firstrun", true);
-        boolean rootWasCanceled = mPreferences.getBoolean("rootcanceled", false);
+        boolean rootWasCanceled = mPreferences
+                .getBoolean("rootcanceled", false);
 
         if (firstrun || rootWasCanceled) {
             SharedPreferences.Editor e = mPreferences.edit();
@@ -716,9 +589,11 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
                                 String message = getString(R.string.su_cancel_message);
-                                SharedPreferences.Editor e = mPreferences.edit();
+                                SharedPreferences.Editor e = mPreferences
+                                        .edit();
                                 e.putBoolean("rootcanceled", true);
                                 e.commit();
                                 suResultDialog(failedTitle, message);
@@ -751,17 +626,19 @@ public class MainActivity extends Fragment implements Constants, ActivityThemeCh
     /**
      * Display the result of the check for root access so the user knows what to
      * expect in respect to functionality of the application.
-     *
-     * @param title   Oops or OK depending on the result
-     * @param message Success or fail message
+     * 
+     * @param title
+     *            Oops or OK depending on the result
+     * @param message
+     *            Success or fail message
      */
     private void suResultDialog(String title, String message) {
         LayoutInflater factory = LayoutInflater.from(getActivity());
         final View suResultDialog = factory.inflate(R.layout.su_dialog, null);
         TextView tv = (TextView) suResultDialog.findViewById(R.id.message);
         tv.setText(message);
-        new AlertDialog.Builder(getActivity()).setTitle(title).setView(suResultDialog)
-                .setCancelable(false)
+        new AlertDialog.Builder(getActivity()).setTitle(title)
+                .setView(suResultDialog).setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

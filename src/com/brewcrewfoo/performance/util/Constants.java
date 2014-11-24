@@ -31,15 +31,13 @@ public interface Constants {
     public static final int FRAGMENT_ID_CPUSETTINGS = 0;
     public static final int FRAGMENT_ID_BATTERYINFO = 1;
     public static final int FRAGMENT_ID_OOMSETTINGS = 2;
-    public static final int FRAGMENT_ID_VM = 3;
-    public static final int FRAGMENT_ID_VOLTAGECONROL = 4;
-    public static final int FRAGMENT_ID_ADVANCED = 5;
-    public static final int FRAGMENT_ID_TIMEINSTATE = 6;
-    public static final int FRAGMENT_ID_WAKELOCKS = 7;
-    public static final int FRAGMENT_ID_CPUINFO = 8;
-    public static final int FRAGMENT_ID_DISKINFO = 9;
-    public static final int FRAGMENT_ID_TOOLS = 10;
-
+    public static final int FRAGMENT_ID_ADVANCED = 3;
+    public static final int FRAGMENT_ID_TIMEINSTATE = 4;
+    public static final int FRAGMENT_ID_WAKELOCKS = 5;
+    public static final int FRAGMENT_ID_CPUINFO = 6;
+    public static final int FRAGMENT_ID_DISKINFO = 7;
+    public static final int FRAGMENT_ID_VOLTAGECONROL = 8;
+    
     // CPU settings
     public static final String CPU_PATH = "/sys/devices/system/cpu/cpu";
     public static final String CPU_FREQ_TAIL = "/cpufreq/scaling_cur_freq";
