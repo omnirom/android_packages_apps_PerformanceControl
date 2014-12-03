@@ -74,7 +74,7 @@ public class BootService extends Service implements Constants {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(PREF_OFFSETS, "").commit();
 
-            Wakelocks.clearKernelWakelockStatus(c);
+            Wakelocks.clearStatus(c);
 
             final StringBuilder sb = new StringBuilder();
             final String FASTCHARGE_PATH = Helpers.fastcharge_path();

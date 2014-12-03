@@ -27,6 +27,6 @@
     <bool name="config_use_tabbed">false</bool>
 
     <!-- If false, user can't switch between menu_tabbed and menu_drawer mode -->
-    <bool name="config_allow_toggle_tabbed">true</bool>
+    <bool name="config_allow_toggle_tabbed">false</bool>
 
 </resources>

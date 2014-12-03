@@ -92,7 +92,7 @@ public class MainActivity extends Fragment implements Constants,
     // ==================================
     private static boolean mVoltageExists;
     private SharedPreferences mPreferences;
-    private boolean mIsTabbed = true;
+    private boolean mIsTabbed;
 
     // ==================================
     // Overridden Methods
@@ -109,11 +109,10 @@ public class MainActivity extends Fragment implements Constants,
         mUserLearnedDrawer = mPreferences.getBoolean(PREF_USER_LEARNED_DRAWER,
                 false);
 
-        if (getResources().getBoolean(R.bool.config_allow_toggle_tabbed))
+        if (getResources().getBoolean(R.bool.config_allow_toggle_tabbed)) {
             mIsTabbed = mPreferences.getBoolean(PREF_IS_TABBED, getResources()
                     .getBoolean(R.bool.config_use_tabbed));
-        else
-            mIsTabbed = getResources().getBoolean(R.bool.config_use_tabbed);
+        }
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -147,7 +146,7 @@ public class MainActivity extends Fragment implements Constants,
                     });
 
             mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
-                    .getThemedContext(), android.R.layout.simple_list_item_1,
+                    .getThemedContext(), R.layout.drawer_item,
                     android.R.id.text1, getTitles()));
             mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
