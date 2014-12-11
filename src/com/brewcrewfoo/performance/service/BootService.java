@@ -145,10 +145,13 @@ public class BootService extends Service implements Constants {
 
             if (preferences.getBoolean(PREF_READ_AHEAD_BOOT, false)) {
                 final String values = preferences.getString(
-                        PREF_READ_AHEAD, Helpers.readOneLine(READ_AHEAD_PATH));
-                if (new File(READ_AHEAD_PATH).exists())
-                    sb.append("busybox echo ").append(values).append(" > ")
-                            .append(READ_AHEAD_PATH).append(";\n");
+                        PREF_READ_AHEAD, Helpers.readOneLine(READ_AHEAD_PATH[0]));
+                for (String aREAD_AHEAD_PATH : READ_AHEAD_PATH) {
+                    if (new File(aREAD_AHEAD_PATH).exists()) {
+                        sb.append("busybox echo ").append(values).append(" > ")
+                                .append(aREAD_AHEAD_PATH).append(";\n");
+                    }
+                }   
             }
 
             if (FASTCHARGE_PATH != null) {

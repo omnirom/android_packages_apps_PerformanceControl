@@ -21,9 +21,9 @@ Copyright (C) 2012  James Roberts
     <!-- Main tabs -->
     <string name="tab_cpu_settings">CPU Speed</string>
     <string name="tab_battery_info">Battery</string>
-    <string name="tab_oom_settings">Memory Settings</string>
-    <string name="tab_volt_settings">Voltage Settings</string>
-    <string name="tab_adv_settings">"Advanced Settings"</string>
+    <string name="tab_oom_settings">Memory</string>
+    <string name="tab_volt_settings">Voltage Control</string>
+    <string name="tab_adv_settings">"Advanced"</string>
     <string name="tab_time_in_state">Time In State</string>
     <string name="tab_cpu_info">General Info</string>
     <string name="tab_disk_info">Disk Info</string>

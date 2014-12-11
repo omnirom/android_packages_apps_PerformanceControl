@@ -1407,7 +1407,7 @@ public class Wakelocks extends Fragment implements Constants {
             rawUptime = SystemClock.uptimeMillis();
             rawRealtime = SystemClock.elapsedRealtime();
             mBatteryLevel = sBatteryStats.getDischargeCurrentLevel();
-            int unplugBatteryLevel = sBatteryStats.getDischargeStartLevel();
+            mUnplugBatteryLevel = sBatteryStats.getDischargeStartLevel();
 
             mUnplugBatteryUptime = sBatteryStats.computeBatteryUptime(
                     rawUptime * 1000, BatteryStats.STATS_SINCE_UNPLUGGED);
@@ -1425,7 +1425,7 @@ public class Wakelocks extends Fragment implements Constants {
             if (sRefBatteryLevel == -1) {
                 sRefRealTimestamp = rawRealtime;
                 sRefUpTimestamp = rawUptime;
-                sRefBatteryLevel = unplugBatteryLevel;
+                sRefBatteryLevel = mUnplugBatteryLevel;
                 sRefKernelWakelocks.addAll(allKernelWakelocks);
             }
 

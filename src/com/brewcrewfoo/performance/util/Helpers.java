@@ -580,4 +580,8 @@ public class Helpers implements Constants {
     public static boolean hasOverallStats() {
         return fileExists(TIME_IN_STATE_OVERALL_PATH);
     }
+
+    public static boolean lowmemExists() {
+        return new File(MINFREE_PATH).exists();
+    }
 }
