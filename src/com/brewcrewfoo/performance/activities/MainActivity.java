@@ -63,6 +63,9 @@ import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.widgets.CustomDrawerLayout;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class MainActivity extends Fragment implements Constants,
         ActivityThemeChangeInterface {
 
@@ -92,7 +95,8 @@ public class MainActivity extends Fragment implements Constants,
     // ==================================
     private static boolean mVoltageExists;
     private SharedPreferences mPreferences;
-    private boolean mIsTabbed;
+    private static boolean mLowmemExists;
+    private String[] mTitles;
 
     // ==================================
     // Overridden Methods
@@ -103,17 +107,14 @@ public class MainActivity extends Fragment implements Constants,
         super.onCreate(savedInstanceState);
 
         mVoltageExists = Helpers.voltageFileExists();
+        mLowmemExists = Helpers.lowmemExists();
 
         mPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = mPreferences.getBoolean(PREF_USER_LEARNED_DRAWER,
                 false);
 
-        if (getResources().getBoolean(R.bool.config_allow_toggle_tabbed)) {
-            mIsTabbed = mPreferences.getBoolean(PREF_IS_TABBED, getResources()
-                    .getBoolean(R.bool.config_use_tabbed));
-        }
-
+        mTitles = getTitles();
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
@@ -130,48 +131,31 @@ public class MainActivity extends Fragment implements Constants,
             Bundle savedInstanceState) {
         ViewGroup rootView;
 
-        if (!mIsTabbed) {
-            rootView = (ViewGroup) inflater.inflate(R.layout.activity_main,
-                    container, false);
+        rootView = (ViewGroup) inflater.inflate(R.layout.activity_main,
+                container, false);
 
-            mDrawerListView = (ListView) rootView
-                    .findViewById(R.id.pc_navigation_drawer);
-            mDrawerListView
-                    .setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent,
-                                View view, int position, long id) {
-                            selectItem(position);
-                        }
-                    });
+        mDrawerListView = (ListView) rootView
+                .findViewById(R.id.pc_navigation_drawer);
+        mDrawerListView
+                .setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view,
+                            int position, long id) {
 
-            mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
-                    .getThemedContext(), R.layout.drawer_item,
-                    android.R.id.text1, getTitles()));
-            mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+                        // xxx
+                        selectItem(position);
+                    }
+                });
 
-            mFragmentContainer = rootView.findViewById(R.id.pc_container);
-            setUpNavigationDrawer(
-                    rootView.findViewById(R.id.pc_navigation_drawer),
-                    (CustomDrawerLayout) rootView
-                            .findViewById(R.id.pc_drawer_layout));
+        mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
+                .getThemedContext(), R.layout.drawer_item, android.R.id.text1,
+                mTitles));
+        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
-        } else {
-            rootView = (ViewGroup) inflater.inflate(
-                    R.layout.activity_main_tabbed, container, false);
-
-            ViewPager mViewPager = (ViewPager) rootView
-                    .findViewById(R.id.viewpager);
-            TitleAdapter titleAdapter = new TitleAdapter(getFragmentManager());
-            mViewPager.setAdapter(titleAdapter);
-            mViewPager.setCurrentItem(0);
-
-            PagerTabStrip mPagerTabStrip = (PagerTabStrip) rootView
-                    .findViewById(R.id.pagerTabStrip);
-            mPagerTabStrip.setTabIndicatorColor(getResources().getColor(
-                    R.color.pc_blue));
-            mPagerTabStrip.setDrawFullUnderline(false);
-        }
+        mFragmentContainer = rootView.findViewById(R.id.pc_container);
+        setUpNavigationDrawer(rootView.findViewById(R.id.pc_navigation_drawer),
+                (CustomDrawerLayout) rootView
+                        .findViewById(R.id.pc_drawer_layout));
 
         if (container instanceof PreferenceFrameLayout) {
             ((PreferenceFrameLayout.LayoutParams) rootView.getLayoutParams()).removeBorders = true;
@@ -191,23 +175,18 @@ public class MainActivity extends Fragment implements Constants,
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (!mIsTabbed) {
-            mDrawerToggle.onConfigurationChanged(newConfig);
-        }
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (!mIsTabbed) {
-            outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
-        }
+        outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate((mIsTabbed ? R.menu.menu_tabbed : R.menu.menu_drawer),
-                menu);
+        inflater.inflate(R.menu.menu_drawer, menu);
         if (!getResources().getBoolean(R.bool.config_allow_toggle_tabbed)) {
             menu.removeItem(R.id.pc_action_tabbed);
         }
@@ -217,10 +196,8 @@ public class MainActivity extends Fragment implements Constants,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (!mIsTabbed) {
-            if (mDrawerToggle.onOptionsItemSelected(item)) {
-                return true;
-            }
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
         }
         switch (item.getItemId()) {
         case android.R.id.home:
@@ -235,11 +212,6 @@ public class MainActivity extends Fragment implements Constants,
                 mDrawerLayout.closeDrawer(mFragmentContainerView);
             else
                 mDrawerLayout.openDrawer(mFragmentContainerView);
-            return true;
-        case R.id.pc_action_tabbed:
-            mIsTabbed = !mIsTabbed;
-            mPreferences.edit().putBoolean(PREF_IS_TABBED, mIsTabbed).commit();
-            Helpers.restartPC(getActivity());
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -378,7 +350,10 @@ public class MainActivity extends Fragment implements Constants,
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        final int itemId = getPosition(position);
+        final int itemId = getPosition(mTitles[position]);
+        if (itemId == -1) {
+            return;
+        }
 
         if (mCurrentFragment != null) {
             transaction.detach(mCurrentFragment);
@@ -410,9 +385,35 @@ public class MainActivity extends Fragment implements Constants,
      *            The selected position
      * @return the modified position
      */
-    public int getPosition(int pos) {
-        int position = pos;
-        return position;
+    public int getPosition(String item) {
+        if (item.equals(getString(R.string.tab_cpu_settings))) {
+            return FRAGMENT_ID_CPUSETTINGS;
+        }
+        if (item.equals(getString(R.string.tab_battery_info))) {
+            return FRAGMENT_ID_BATTERYINFO;
+        }
+        if (item.equals(getString(R.string.tab_adv_settings))) {
+            return FRAGMENT_ID_ADVANCED;
+        }
+        if (item.equals(getString(R.string.tab_time_in_state))) {
+            return FRAGMENT_ID_TIMEINSTATE;
+        }
+        if (item.equals(getString(R.string.tab_wakelocks))) {
+            return FRAGMENT_ID_WAKELOCKS;
+        }
+        if (item.equals(getString(R.string.tab_cpu_info))) {
+            return FRAGMENT_ID_CPUINFO;
+        }
+        if (item.equals(getString(R.string.tab_disk_info))) {
+            return FRAGMENT_ID_DISKINFO;
+        }
+        if (item.equals(getString(R.string.tab_volt_settings))) {
+            return FRAGMENT_ID_VOLTAGECONTROL;
+        }
+        if (item.equals(getString(R.string.tab_oom_settings))) {
+            return FRAGMENT_ID_OOMSETTINGS;
+        }
+        return -1;
     }
 
     /**
@@ -423,29 +424,21 @@ public class MainActivity extends Fragment implements Constants,
      * @return String[] containing titles
      */
     private String[] getTitles() {
-        String titleString[];
+        List<String> titles = new ArrayList<String>();
+        titles.add(getString(R.string.tab_cpu_settings));
+        titles.add(getString(R.string.tab_battery_info));
+        titles.add(getString(R.string.tab_adv_settings));
+        titles.add(getString(R.string.tab_time_in_state));
+        titles.add(getString(R.string.tab_wakelocks));
+        titles.add(getString(R.string.tab_cpu_info));
+        titles.add(getString(R.string.tab_disk_info));
         if (mVoltageExists) {
-            titleString = new String[] { getString(R.string.tab_cpu_settings),
-                    getString(R.string.tab_battery_info),
-                    getString(R.string.tab_oom_settings),
-                    getString(R.string.tab_adv_settings),
-                    getString(R.string.tab_time_in_state),
-                    getString(R.string.tab_wakelocks),
-                    getString(R.string.tab_cpu_info),
-                    getString(R.string.tab_disk_info),
-                    getString(R.string.tab_volt_settings) };
-
-        } else {
-            titleString = new String[] { getString(R.string.tab_cpu_settings),
-                    getString(R.string.tab_battery_info),
-                    getString(R.string.tab_oom_settings),
-                    getString(R.string.tab_adv_settings),
-                    getString(R.string.tab_time_in_state),
-                    getString(R.string.tab_wakelocks),
-                    getString(R.string.tab_cpu_info),
-                    getString(R.string.tab_disk_info) };
+            titles.add(getString(R.string.tab_volt_settings));
         }
-        return titleString;
+        if (mLowmemExists) {
+            titles.add(getString(R.string.tab_oom_settings));
+        }
+        return titles.toArray(new String[titles.size()]);
     }
 
     // ==================================
@@ -473,7 +466,7 @@ public class MainActivity extends Fragment implements Constants,
             case FRAGMENT_ID_OOMSETTINGS:
                 fragment = new OOMSettings();
                 break;
-            case FRAGMENT_ID_VOLTAGECONROL:
+            case FRAGMENT_ID_VOLTAGECONTROL:
                 fragment = new VoltageControlSettings();
                 break;
             case FRAGMENT_ID_ADVANCED:
@@ -498,53 +491,6 @@ public class MainActivity extends Fragment implements Constants,
 
         public PlaceholderFragment() {
             // intentionally left blank
-        }
-    }
-
-    // ==================================
-    // Adapters
-    // ==================================
-    class TitleAdapter extends FragmentPagerAdapter {
-        String titles[] = getTitles();
-        private Fragment frags[] = new Fragment[titles.length];
-
-        public TitleAdapter(FragmentManager fm) {
-            super(fm);
-            if (mVoltageExists) {
-                frags[0] = new CPUSettings();
-                frags[1] = new BatteryInfo();
-                frags[2] = new OOMSettings();
-                frags[3] = new Advanced();
-                frags[4] = new TimeInState();
-                frags[5] = new Wakelocks();
-                frags[6] = new CPUInfo();
-                frags[7] = new DiskInfo();
-                frags[8] = new VoltageControlSettings();
-            } else {
-                frags[0] = new CPUSettings();
-                frags[1] = new BatteryInfo();
-                frags[2] = new OOMSettings();
-                frags[3] = new Advanced();
-                frags[4] = new TimeInState();
-                frags[5] = new Wakelocks();
-                frags[6] = new CPUInfo();
-                frags[7] = new DiskInfo();
-            }
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles[position];
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return frags[position];
-        }
-
-        @Override
-        public int getCount() {
-            return frags.length;
         }
     }
 
@@ -645,4 +591,3 @@ public class MainActivity extends Fragment implements Constants,
                 }).create().show();
     }
 }
-
