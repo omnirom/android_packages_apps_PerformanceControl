@@ -42,6 +42,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.GovSetActivity;
@@ -63,6 +64,7 @@ public class CPUSettings extends Fragment
     private Spinner mGovernor;
     private Spinner mIo;
     private TextView mMaxSpeedText;
+    private TextView mMaxSpeedHeader;
     private TextView mMinSpeedText;
     private String[] mAvailableFrequencies;
     private String mMaxFreqSetting;
@@ -77,6 +79,7 @@ public class CPUSettings extends Fragment
     private CpuInfoListAdapter mCpuInfoListAdapter;
     private List<String> mCpuInfoListData;
     private LayoutInflater mInflater;
+    private boolean mPowerProfileEnabled;
 
     public class CpuInfoListAdapter extends ArrayAdapter<String> {
 
@@ -110,6 +113,7 @@ public class CPUSettings extends Fragment
         final float density = getResources().getDisplayMetrics().density;
 
         mCpuNum = Helpers.getNumOfCpus();
+        mPowerProfileEnabled = Helpers.powerProfileEnabled(getActivity());
 
         mCpuInfoListData = new ArrayList<String>(mCpuNum);
         for (int i = 0; i < mCpuNum; i++) {
@@ -176,16 +180,21 @@ public class CPUSettings extends Fragment
         mMaxSlider = (SeekBar) view.findViewById(R.id.max_slider);
         mMaxSlider.setMax(mFrequenciesNum);
         mMaxSpeedText = (TextView) view.findViewById(R.id.max_speed_text);
+        mMaxSpeedHeader = (TextView) view.findViewById(R.id.current_max_label);
         mMaxSpeedText.setText(Helpers.toMHz(mCurMaxSpeed));
-        mMaxSlider.setProgress(Arrays.asList(mAvailableFrequencies).indexOf(mCurMaxSpeed));
         mMaxFreqSetting = mCurMaxSpeed;
         mMaxSlider.setOnSeekBarChangeListener(this);
+
+        if (mPowerProfileEnabled) {
+            mMaxSlider.setVisibility(View.GONE);
+            TextView powerProfileLabel = (TextView) view.findViewById(R.id.current_max_label_power_profile);
+            powerProfileLabel.setVisibility(View.VISIBLE);
+        }
 
         mMinSlider = (SeekBar) view.findViewById(R.id.min_slider);
         mMinSlider.setMax(mFrequenciesNum);
         mMinSpeedText = (TextView) view.findViewById(R.id.min_speed_text);
         mMinSpeedText.setText(Helpers.toMHz(mCurMinSpeed));
-        mMinSlider.setProgress(Arrays.asList(mAvailableFrequencies).indexOf(mCurMinSpeed));
         mMinFreqSetting = mCurMinSpeed;
         mMinSlider.setOnSeekBarChangeListener(this);
 
@@ -370,6 +379,9 @@ public class CPUSettings extends Fragment
             mCurCPUThread = new CurCPUThread();
             mCurCPUThread.start();
         }
+        // WTF - we need to call setProgress here to create propper update
+        mMaxSlider.setProgress(Arrays.asList(mAvailableFrequencies).indexOf(mMaxFreqSetting));
+        mMinSlider.setProgress(Arrays.asList(mAvailableFrequencies).indexOf(mMinFreqSetting));
         super.onResume();
     }
 
