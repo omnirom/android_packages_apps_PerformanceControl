@@ -80,6 +80,7 @@ public class BootService extends Service implements Constants {
             final String FASTCHARGE_PATH = Helpers.fastcharge_path();
             final String BLN_PATH = Helpers.bln_path();
             final String gov = preferences.getString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
+            final boolean powerProfileEnabled = Helpers.powerProfileEnabled(c);
 
             if (preferences.getBoolean(CPU_SOB, false)) {
                 final String max = preferences.getString(
@@ -89,8 +90,10 @@ public class BootService extends Service implements Constants {
                 final String io = preferences.getString(PREF_IO, Helpers.getIOScheduler());
 
                 for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                    sb.append("busybox echo ").append(max).append(" > ")
-                            .append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+                    if (!powerProfileEnabled) {
+                        sb.append("busybox echo ").append(max).append(" > ")
+                                .append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+                    }
                     sb.append("busybox echo ").append(min).append(" > ")
                             .append(MIN_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
                     sb.append("busybox echo ").append(gov).append(" > ")

@@ -37,6 +37,7 @@ public interface Constants {
     public static final int FRAGMENT_ID_CPUINFO = 6;
     public static final int FRAGMENT_ID_DISKINFO = 7;
     public static final int FRAGMENT_ID_VOLTAGECONTROL = 8;
+    public static final int FRAGMENT_ID_POWER_PROFILE = 9;
     
     // CPU settings
     public static final String CPU_PATH = "/sys/devices/system/cpu/cpu";
