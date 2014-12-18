@@ -99,6 +99,16 @@ Copyright (C) 2012  James Roberts
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/current_max_label_power_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/current_max_power_profile"
+                    android:visibility="gone"
+                    android:gravity="start"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
                 <SeekBar
                     android:id="@+id/max_slider"
                     style="?android:attr/progressBarStyleHorizontal"

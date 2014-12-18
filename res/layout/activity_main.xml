@@ -36,7 +36,7 @@ Copyright (C) 2012  James Roberts
         android:background="#fff"
         android:layout_width="260dp"
         android:layout_height="match_parent"
-        android:layout_gravity="end"
+        android:layout_gravity="start"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp" />
