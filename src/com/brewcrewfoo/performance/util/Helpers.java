@@ -28,6 +28,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.content.ContentResolver;
+import android.provider.Settings;
 
 import com.brewcrewfoo.performance.R;
 
@@ -583,5 +585,10 @@ public class Helpers implements Constants {
 
     public static boolean lowmemExists() {
         return new File(MINFREE_PATH).exists();
+    }
+
+    public static boolean powerProfileEnabled(Context c) {
+        return Settings.System.getInt(c.getContentResolver(),
+                Settings.System.POWER_PROFILE_ENABLED, 0) != 0;
     }
 }
