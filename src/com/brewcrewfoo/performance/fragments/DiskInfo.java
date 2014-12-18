@@ -58,6 +58,8 @@ public class DiskInfo extends Fragment {
     private String externalsd = "";
     private Context context;
 
+    private static final int MENU_REFRESH = Menu.FIRST;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,20 +182,19 @@ public class DiskInfo extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-            inflater.inflate(R.menu.disk_info_menu, menu);
-        }
+        menu.add(0, MENU_REFRESH, 0, R.string.mt_refresh)
+                .setIcon(com.android.internal.R.drawable.ic_menu_refresh)
+                .setAlphabeticShortcut('r')
+                .setShowAsAction(
+                        MenuItem.SHOW_AS_ACTION_IF_ROOM
+                                | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.refresh:
+            case MENU_REFRESH:
                 loadData();
-                break;
-            case R.id.app_settings:
-                Intent intent = new Intent(context, PCSettings.class);
-                startActivity(intent);
                 break;
         }
         return true;
