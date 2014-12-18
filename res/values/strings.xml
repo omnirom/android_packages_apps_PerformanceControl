@@ -29,6 +29,7 @@ Copyright (C) 2012  James Roberts
     <string name="tab_disk_info">Disk Info</string>
     <string name="tab_tools">Tools</string>
     <string name="tab_wakelocks">Wakelocks</string>
+    <string name="tab_power_profile">Power Profile</string>
 
     <string name="menu_tab">Tabs</string>
     <!-- Menu -->
@@ -42,6 +43,7 @@ Copyright (C) 2012  James Roberts
     <!-- CPU settings -->
     <string name="current_speed">Current Speed</string>
     <string name="current_max">Maximum speed: </string>
+    <string name="current_max_power_profile">Power Profiles enabled</string>
     <string name="current_min">Minimum speed: </string>
     <string name="governor">Governor</string>
     <string name="io">I/O Scheduler</string>
@@ -345,4 +347,16 @@ Copyright (C) 2012  James Roberts
     <string name="no_stat_because_reset">Create reset</string>
     <string name="no_stat_because_plugged">Unplug power</string>
     <string name="no_stat_because_error">Error loading battery stats</string>
+    <string name="power_profile">Power profiles</string>
+    <string name="power_profile_enable">Enabled</string>
+    <string name="default_power_profile">Default profile</string>
+    <string name="screen_off_power_profile">Screen-off profile</string>
+    <string name="power_profile_apps">Applications</string>
+    <string name="dialog_delete_title">Delete</string>
+    <string name="dialog_delete_message">Remove selected item?</string>
+    <string name="profile_applist_title">Apps</string>
+    <string name="profile_choose_app">Choose app</string>
+    <string name="profiles_add">Add</string>
+    <string name="power_profile_plugged">Profiles while plugged</string>
+    <string name="power_profile_plugged_summary">Use profiles also while power is plugged</string>
 </resources>

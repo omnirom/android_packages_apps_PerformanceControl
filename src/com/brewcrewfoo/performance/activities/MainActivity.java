@@ -34,9 +34,6 @@ import android.preference.PreferenceFrameLayout;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -60,7 +57,7 @@ import com.brewcrewfoo.performance.fragments.TimeInState;
 import com.brewcrewfoo.performance.fragments.Tools;
 import com.brewcrewfoo.performance.fragments.VoltageControlSettings;
 import com.brewcrewfoo.performance.fragments.Wakelocks;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
+import com.brewcrewfoo.performance.fragments.PowerProfileFragment;
 import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.widgets.CustomDrawerLayout;
@@ -68,14 +65,12 @@ import com.brewcrewfoo.performance.widgets.CustomDrawerLayout;
 import java.util.List;
 import java.util.ArrayList;
 
-public class MainActivity extends Fragment implements ActivityThemeChangeInterface {
+public class MainActivity extends Fragment {
 
     // ==================================
     // Static Fields
     // ==================================
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
-    private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
-    private static final String PREF_IS_TABBED = "pref_is_tabbed";
     private static final String TAG = "MainActivity";
 
     // ==================================
@@ -87,7 +82,6 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
     private View mFragmentContainerView;
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
-    private boolean mUserLearnedDrawer;
     private Fragment mCurrentFragment;
     private View mFragmentContainer;
 
@@ -98,6 +92,7 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
     private SharedPreferences mPreferences;
     private static boolean mLowmemExists;
     private String[] mTitles;
+    private boolean mPowerProfilesSupported;
 
     // ==================================
     // Overridden Methods
@@ -112,10 +107,11 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
 
         mPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
-        mUserLearnedDrawer = mPreferences.getBoolean(PREF_USER_LEARNED_DRAWER,
-                false);
+        mPowerProfilesSupported = getResources().getBoolean(
+                com.android.internal.R.bool.config_powerProfilesSupported);
 
         mTitles = getTitles();
+
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
@@ -186,16 +182,6 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_drawer, menu);
-        if (!getResources().getBoolean(R.bool.config_allow_toggle_tabbed)) {
-            menu.removeItem(R.id.pc_action_tabbed);
-        }
-        restoreActionBar();
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -208,42 +194,8 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
             homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(homeIntent);
             return true;
-        case R.id.pc_toggle_drawer:
-            if (isDrawerOpen())
-                mDrawerLayout.closeDrawer(mFragmentContainerView);
-            else
-                mDrawerLayout.openDrawer(mFragmentContainerView);
-            return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean isThemeChanged() {
-        /*
-         * final boolean is_light_theme =
-         * mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false); return
-         * is_light_theme != mIsLightTheme;
-         */
-        return false;
-    }
-
-    @Override
-    public void setTheme() {
-        /*
-         * final boolean is_light_theme =
-         * mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false); mIsLightTheme =
-         * mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-         * setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
-         */
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // if (isThemeChanged()) {
-        // Helpers.restartPC(this);
-        // }
     }
 
     // ==================================
@@ -253,7 +205,7 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
     /**
      * Users of this fragment must call this method to set up the navigation
      * menu_drawer interactions.
-     * 
+     *
      * @param fragmentContainerView
      *            The view of this fragment in its activity's layout.
      * @param drawerLayout
@@ -264,49 +216,25 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
         mFragmentContainerView = fragmentContainerView;
         mDrawerLayout = drawerLayout;
 
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
-                GravityCompat.START);
-
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
-                R.drawable.ic_drawer, R.string.navigation_drawer_open,
+                R.drawable.ic_drawer_white, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                if (!isAdded()) {
-                    return;
-                }
-
-                getActivity().invalidateOptionsMenu(); // calls
-                                                       // onPrepareOptionsMenu()
+                getActivity().invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                if (!isAdded()) {
-                    return;
-                }
-
-                if (!mUserLearnedDrawer) {
-                    mUserLearnedDrawer = true;
-                    mPreferences.edit()
-                            .putBoolean(PREF_USER_LEARNED_DRAWER, true)
-                            .commit();
-                }
-
-                getActivity().invalidateOptionsMenu(); // calls
-                                                       // onPrepareOptionsMenu()
+                getActivity().invalidateOptionsMenu();
             }
         };
 
-        // Remove or set it to true, if you want to use home to toggle the
-        // menu_drawer
-        mDrawerToggle.setDrawerIndicatorEnabled(false);
-
-        if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
-            mDrawerLayout.openDrawer(mFragmentContainerView);
-        }
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        selectItem(mCurrentSelectedPosition);
 
         mDrawerLayout.post(new Runnable() {
             @Override
@@ -314,25 +242,11 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
                 mDrawerToggle.syncState();
             }
         });
-
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        selectItem(mCurrentSelectedPosition);
     }
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null
                 && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
-    }
-
-    /**
-     * Restores the action bar after closing the menu_drawer
-     */
-    public void restoreActionBar() {
-        ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(getActivity().getTitle());
     }
 
     private ActionBar getActionBar() {
@@ -341,12 +255,6 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
 
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
-        if (mDrawerListView != null) {
-            mDrawerListView.setItemChecked(position, true);
-        }
-        if (mDrawerLayout != null) {
-            mDrawerLayout.closeDrawer(mFragmentContainerView);
-        }
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -372,6 +280,8 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
         }
 
         transaction.commit();
+        mDrawerListView.setItemChecked(position, true);
+        mDrawerLayout.closeDrawer(mDrawerListView);
     }
 
     private static String makeFragmentName(int viewId, long id) {
@@ -380,7 +290,7 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
 
     /**
      * Gets the position of the item
-     * 
+     *
      * @param item
      *            The item
      * @return the item position
@@ -413,6 +323,9 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
         if (item.equals(getString(R.string.tab_oom_settings))) {
             return FRAGMENT_ID_OOMSETTINGS;
         }
+        if (item.equals(getString(R.string.tab_power_profile))) {
+            return FRAGMENT_ID_POWER_PROFILE;
+        }
         return -1;
     }
 
@@ -420,7 +333,7 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
      * Get a list of titles for the tabstrip to display depending on if the
      * voltage control fragment and battery fragment will be displayed. (Depends
      * on the result of Helpers.voltageTableExists() & Helpers.showBattery()
-     * 
+     *
      * @return String[] containing titles
      */
     private String[] getTitles() {
@@ -437,6 +350,9 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
         }
         if (mLowmemExists) {
             titles.add(getString(R.string.tab_oom_settings));
+        }
+        if (mPowerProfilesSupported) {
+            titles.add(getString(R.string.tab_power_profile));
         }
         return titles.toArray(new String[titles.size()]);
     }
@@ -483,6 +399,9 @@ public class MainActivity extends Fragment implements ActivityThemeChangeInterfa
                 break;
             case FRAGMENT_ID_WAKELOCKS:
                 fragment = new Wakelocks();
+                break;
+            case FRAGMENT_ID_POWER_PROFILE:
+                fragment = new PowerProfileFragment();
                 break;
             }
 
