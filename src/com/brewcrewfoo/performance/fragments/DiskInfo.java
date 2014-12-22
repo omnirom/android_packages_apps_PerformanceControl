@@ -5,25 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StatFs;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
 
-public class DiskInfo extends Fragment implements Constants {
+public class DiskInfo extends Fragment {
 
     private RelativeLayout lsys;
     private RelativeLayout ldata;

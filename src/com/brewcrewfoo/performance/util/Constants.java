@@ -18,7 +18,7 @@
 
 package com.brewcrewfoo.performance.util;
 
-public interface Constants {
+public class Constants {
 
     public static final String TAG = "PerformanceControl";
     public static final String VERSION_NUM = "2.1.4-omni";

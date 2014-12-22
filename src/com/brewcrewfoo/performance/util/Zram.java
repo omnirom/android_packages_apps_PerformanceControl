@@ -1,9 +1,11 @@
 package com.brewcrewfoo.performance.util;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 /**
  * Created by h0rn3t on 09.09.2013.
  */
-public class Zram implements Constants {
+public class Zram {
 
     private int diskSize = 0;
     private int compressedDataSize = 0;

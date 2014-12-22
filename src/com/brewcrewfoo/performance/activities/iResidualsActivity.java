@@ -18,11 +18,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.FileArrayAdapter;
 import com.brewcrewfoo.performance.util.Item;
 
@@ -30,10 +28,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.brewcrewfoo.performance.util.Constants.PREF_USE_LIGHT_THEME;
+import static com.brewcrewfoo.performance.util.Constants.TAG;
+
 /**
  * Created by h0rn3t on 31.07.2013.
  */
-public class iResidualsActivity extends Activity implements Constants, AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
+public class iResidualsActivity extends Activity implements AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
     SharedPreferences mPreferences;
     private boolean mIsLightTheme;
     private FileArrayAdapter adapter;

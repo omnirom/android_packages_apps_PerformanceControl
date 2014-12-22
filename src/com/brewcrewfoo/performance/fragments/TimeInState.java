@@ -26,38 +26,22 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ShareActionProvider;
-import android.widget.Spinner;
-import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
 import android.util.Log;
-
+import android.view.*;
+import android.widget.*;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CPUStateMonitor;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CPUStateMonitorException;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CpuState;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class TimeInState extends Fragment implements Constants {
+import static com.brewcrewfoo.performance.util.Constants.*;
+
+public class TimeInState extends Fragment {
 
     private LinearLayout mStatesView;
     private TextView mTotalStateTime;

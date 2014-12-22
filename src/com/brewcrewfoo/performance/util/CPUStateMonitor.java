@@ -22,19 +22,13 @@ package com.brewcrewfoo.performance.util;
 import android.os.SystemClock;
 import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
-//@SuppressLint("UseSparseArrays")
-public class CPUStateMonitor implements Constants {
+import static com.brewcrewfoo.performance.util.Constants.TIME_IN_STATE_OVERALL_PATH;
+import static com.brewcrewfoo.performance.util.Constants.TIME_IN_STATE_PATH;
+
+public class CPUStateMonitor {
 
     private Map<Integer, ArrayList<CpuState>> mStates;
     private Map<Integer, Map<Integer, Long>> mOffsets;

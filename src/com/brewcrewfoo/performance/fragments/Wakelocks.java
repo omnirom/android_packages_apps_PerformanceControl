@@ -19,6 +19,8 @@
 
 package com.brewcrewfoo.performance.fragments;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -86,7 +88,7 @@ import com.android.internal.os.BatteryStatsImpl;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.Constants;
 
-public class Wakelocks extends Fragment implements Constants {
+public class Wakelocks extends Fragment {
     private static final String TAG = "Wakelocks";
     private static String sRefFilename = "wakelockdata.ref";
     private static String sUnplugFilename = "wakelockdata.unplug";

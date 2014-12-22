@@ -27,18 +27,18 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.fragments.VoltageControlSettings;
-import com.brewcrewfoo.performance.util.Constants;
+import com.brewcrewfoo.performance.fragments.Wakelocks;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.util.Voltage;
-import com.brewcrewfoo.performance.fragments.Wakelocks;
 
 import java.io.File;
 import java.util.List;
 
-public class BootService extends Service implements Constants {
+import static com.brewcrewfoo.performance.util.Constants.*;
+
+public class BootService extends Service {
     public static boolean servicesStarted = false;
     Context context;
 

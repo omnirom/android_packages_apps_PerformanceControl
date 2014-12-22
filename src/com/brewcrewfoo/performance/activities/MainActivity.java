@@ -18,6 +18,8 @@
 
 package com.brewcrewfoo.performance.activities;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -66,8 +68,7 @@ import com.brewcrewfoo.performance.widgets.CustomDrawerLayout;
 import java.util.List;
 import java.util.ArrayList;
 
-public class MainActivity extends Fragment implements Constants,
-        ActivityThemeChangeInterface {
+public class MainActivity extends Fragment implements ActivityThemeChangeInterface {
 
     // ==================================
     // Static Fields
@@ -378,12 +379,11 @@ public class MainActivity extends Fragment implements Constants,
     }
 
     /**
-     * Depending on if the item is shown or not, it increases the position to
-     * make the activity load the right fragment.
+     * Gets the position of the item
      * 
-     * @param pos
-     *            The selected position
-     * @return the modified position
+     * @param item
+     *            The item
+     * @return the item position
      */
     public int getPosition(String item) {
         if (item.equals(getString(R.string.tab_cpu_settings))) {
