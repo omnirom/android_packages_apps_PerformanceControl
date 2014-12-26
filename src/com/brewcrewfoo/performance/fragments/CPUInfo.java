@@ -22,17 +22,10 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.BufferedReader;
@@ -40,7 +33,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class CPUInfo extends Fragment implements Constants {
+import static com.brewcrewfoo.performance.util.Constants.*;
+
+public class CPUInfo extends Fragment {
 
     private TextView mKernelInfo;
     private TextView mCPUInfo;

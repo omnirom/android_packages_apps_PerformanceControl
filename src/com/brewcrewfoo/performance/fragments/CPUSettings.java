@@ -18,6 +18,8 @@
 
 package com.brewcrewfoo.performance.fragments;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -46,7 +48,6 @@ import android.widget.TextView;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.GovSetActivity;
 import com.brewcrewfoo.performance.activities.PCSettings;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
@@ -55,8 +56,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class CPUSettings extends Fragment
-        implements SeekBar.OnSeekBarChangeListener, Constants {
+public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeListener {
 
     private SeekBar mMaxSlider;
     private SeekBar mMinSlider;

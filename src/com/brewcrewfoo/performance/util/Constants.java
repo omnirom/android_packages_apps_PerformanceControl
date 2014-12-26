@@ -18,7 +18,7 @@
 
 package com.brewcrewfoo.performance.util;
 
-public interface Constants {
+public class Constants {
 
     public static final String TAG = "PerformanceControl";
     public static final String VERSION_NUM = "2.1.4-omni";
@@ -31,15 +31,13 @@ public interface Constants {
     public static final int FRAGMENT_ID_CPUSETTINGS = 0;
     public static final int FRAGMENT_ID_BATTERYINFO = 1;
     public static final int FRAGMENT_ID_OOMSETTINGS = 2;
-    public static final int FRAGMENT_ID_VM = 3;
-    public static final int FRAGMENT_ID_VOLTAGECONROL = 4;
-    public static final int FRAGMENT_ID_ADVANCED = 5;
-    public static final int FRAGMENT_ID_TIMEINSTATE = 6;
-    public static final int FRAGMENT_ID_WAKELOCKS = 7;
-    public static final int FRAGMENT_ID_CPUINFO = 8;
-    public static final int FRAGMENT_ID_DISKINFO = 9;
-    public static final int FRAGMENT_ID_TOOLS = 10;
-
+    public static final int FRAGMENT_ID_ADVANCED = 3;
+    public static final int FRAGMENT_ID_TIMEINSTATE = 4;
+    public static final int FRAGMENT_ID_WAKELOCKS = 5;
+    public static final int FRAGMENT_ID_CPUINFO = 6;
+    public static final int FRAGMENT_ID_DISKINFO = 7;
+    public static final int FRAGMENT_ID_VOLTAGECONTROL = 8;
+    
     // CPU settings
     public static final String CPU_PATH = "/sys/devices/system/cpu/cpu";
     public static final String CPU_FREQ_TAIL = "/cpufreq/scaling_cur_freq";
@@ -85,8 +83,7 @@ public interface Constants {
     // Other settings
     public static final String MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
     public static final String MINFREE_ADJ_PATH = "/sys/module/lowmemorykiller/parameters/adj";
-    public static final String READ_AHEAD_PATH = "/sys/block/mmcblk0/bdi/read_ahead_kb";
-    //"/sys/devices/virtual/bdi/default/read_ahead_kb"
+    public static final String[] READ_AHEAD_PATH = {"/sys/block/mmcblk0/queue/read_ahead_kb", "/sys/block/mmcblk1/queue/read_ahead_kb"};
 
     public static final String INTENT_ACTION_FASTCHARGE = "com.aokp.romcontrol.FCHARGE_CHANGED";
     public static final String PREF_MINFREE = "pref_minfree";

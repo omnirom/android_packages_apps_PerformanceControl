@@ -12,24 +12,20 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.util.PackAdapter;
 
 import java.util.Arrays;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
 
-public class PackActivity extends Activity implements Constants, OnItemClickListener, ActivityThemeChangeInterface {
+
+public class PackActivity extends Activity implements OnItemClickListener, ActivityThemeChangeInterface {
 
     PackageManager packageManager;
 

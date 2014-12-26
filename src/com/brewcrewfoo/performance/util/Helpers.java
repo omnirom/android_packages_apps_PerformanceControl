@@ -18,6 +18,8 @@
 
 package com.brewcrewfoo.performance.util;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -40,7 +42,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Helpers implements Constants {
+public class Helpers {
 
     private static String mVoltagePath;
 
@@ -579,5 +581,9 @@ public class Helpers implements Constants {
 
     public static boolean hasOverallStats() {
         return fileExists(TIME_IN_STATE_OVERALL_PATH);
+    }
+
+    public static boolean lowmemExists() {
+        return new File(MINFREE_PATH).exists();
     }
 }

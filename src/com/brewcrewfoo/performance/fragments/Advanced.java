@@ -19,7 +19,6 @@
 package com.brewcrewfoo.performance.fragments;
 
 import android.app.ActivityManager;
-import android.os.SystemProperties;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,37 +27,27 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
+import android.os.SystemProperties;
+import android.preference.*;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 public class Advanced extends PreferenceFragment
-        implements OnSharedPreferenceChangeListener, Constants {
+        implements OnSharedPreferenceChangeListener {
 
     private CheckBoxPreference mDsync;
 
@@ -172,7 +161,7 @@ public class Advanced extends PreferenceFragment
             mDynamicWriteBackActive.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_ACTIVE_PATH));
             mDynamicWriteBackSuspend.setSummary(Helpers.readOneLine(DIRTY_WRITEBACK_SUSPEND_PATH));
         }
-        final String readahead = Helpers.readOneLine(READ_AHEAD_PATH);
+        final String readahead = Helpers.readOneLine(READ_AHEAD_PATH[0]);
         mReadAhead.setValue(readahead);
         mReadAhead.setSummary(getString(R.string.ps_read_ahead, readahead + "  kb"));
 
@@ -361,8 +350,19 @@ public class Advanced extends PreferenceFragment
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         if (key.equals(PREF_READ_AHEAD)) {
             final String values = mReadAhead.getValue();
-            if (!values.equals(Helpers.readOneLine(READ_AHEAD_PATH))) {
-                new CMDProcessor().su.runWaitFor("busybox echo " + values + " > " + READ_AHEAD_PATH);
+            final StringBuilder sb = new StringBuilder();
+            for (String aREAD_AHEAD_PATH : READ_AHEAD_PATH) {
+                if (new File(aREAD_AHEAD_PATH).exists()) {
+                    if (Helpers.isSystemApp(getActivity())) {
+                        Helpers.writeOneLine(aREAD_AHEAD_PATH, values);
+                    } else {
+                        sb.append("busybox echo ").append(values).append(" > ")
+                                .append(aREAD_AHEAD_PATH).append(";\n");
+                    }
+                }
+            }
+            if (!Helpers.isSystemApp(getActivity())) {
+                Helpers.shExec(sb, context, true);
             }
             mReadAhead.setSummary(sreadahead + values + " kb");
         } else if (key.equals(PREF_BLTIMEOUT)) {

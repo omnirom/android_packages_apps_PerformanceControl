@@ -1,17 +1,13 @@
 package com.brewcrewfoo.performance.util;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
  * Created by h0rn3t on 27.08.2013.
  */
-public class UnzipUtility implements Constants {
+public class UnzipUtility {
     private static final int BUFFER_SIZE = 4096;
 
     public void unzipall(String zipFilePath, String destDirectory) throws IOException {

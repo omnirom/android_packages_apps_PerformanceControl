@@ -15,22 +15,18 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
-import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
-import com.brewcrewfoo.performance.util.FileArrayAdapter;
-import com.brewcrewfoo.performance.util.Helpers;
-import com.brewcrewfoo.performance.util.Item;
+import com.brewcrewfoo.performance.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 /**
  * Created by h0rn3t on 31.07.2013.
  */
-public class ResidualsActivity extends Activity implements Constants, AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
+public class ResidualsActivity extends Activity implements AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
     SharedPreferences mPreferences;
     private boolean mIsLightTheme;
     private FileArrayAdapter adapter;
