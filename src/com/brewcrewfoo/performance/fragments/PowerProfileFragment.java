@@ -456,6 +456,7 @@ public class PowerProfileFragment extends PreferenceFragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case MENU_ADD:
+            mPackageAdapter.reloadList();
             showAddDialog();
             return true;
         }
@@ -468,8 +469,9 @@ public class PowerProfileFragment extends PreferenceFragment implements
         final ListView list = new ListView(getActivity());
         list.setAdapter(mPackageAdapter);
 
-        builder.setTitle(R.string.profile_choose_app);
-        builder.setView(list);
+        builder.setTitle(R.string.profile_choose_app)
+            .setView(list)
+            .setNegativeButton(getString(android.R.string.cancel), null);
         final Dialog dialog = builder.create();
 
         list.setOnItemClickListener(new OnItemClickListener() {
@@ -517,7 +519,7 @@ public class PowerProfileFragment extends PreferenceFragment implements
     private class PackageAdapter extends BaseAdapter {
         private List<PackageItem> mInstalledPackages = new LinkedList<PackageItem>();
 
-        private void reloadList() {
+        public void reloadList() {
             final Handler handler = new Handler();
             new Thread(new Runnable() {
                 @Override
@@ -544,11 +546,6 @@ public class PowerProfileFragment extends PreferenceFragment implements
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                // NO synchronize here: We know that
-                                // mInstalledApps.clear()
-                                // was called and will never be called again.
-                                // At this point the only thread modifying
-                                // mInstalledApp is main
                                 int index = Collections.binarySearch(
                                         mInstalledPackages, item);
                                 if (index < 0) {
@@ -566,7 +563,6 @@ public class PowerProfileFragment extends PreferenceFragment implements
         }
 
         public PackageAdapter() {
-            reloadList();
         }
 
         @Override
