@@ -165,7 +165,8 @@ public class Advanced extends PreferenceFragment
         mReadAhead.setValue(readahead);
         mReadAhead.setSummary(getString(R.string.ps_read_ahead, readahead + "  kb"));
 
-        if (ActivityManager.isLowRamDeviceStatic()) {
+        final String isLowEndDevice = SystemProperties.get("ro.config.low_ram", "false");
+        if ("true".equals(isLowEndDevice)) {
             String forceHighendGfx = SystemProperties.get(PROP_FORCE_HIGHEND_GFX_PERSIST, "false");
             mForceHighEndGfx.setChecked("true".equals(forceHighendGfx));
         } else {
