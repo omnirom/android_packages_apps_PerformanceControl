@@ -169,7 +169,9 @@ public class Advanced extends PreferenceFragment
             String forceHighendGfx = SystemProperties.get(PROP_FORCE_HIGHEND_GFX_PERSIST, "false");
             mForceHighEndGfx.setChecked("true".equals(forceHighendGfx));
         } else {
-            getPreferenceScreen().removePreference(findPreference(PREF_FORCE_HIGHEND_GFX));
+            PreferenceCategory hideGFXcat = (PreferenceCategory)
+                    findPreference("category_force_highend_gfx");
+            getPreferenceScreen().removePreference(hideGFXcat);
         }
 
         setHasOptionsMenu(true);
