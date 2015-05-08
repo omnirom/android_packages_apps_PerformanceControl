@@ -164,6 +164,20 @@ public class Helpers {
         return line;
     }
 
+    public static String readOneLineRaw(String fname) throws IOException {
+        String line = null;
+        if (new File(fname).exists()) {
+            BufferedReader br;
+            br = new BufferedReader(new FileReader(fname), 512);
+            try {
+                line = br.readLine();
+            } finally {
+                br.close();
+            }
+        }
+        return line;
+    }
+
     public static boolean fileExists(String fname) {
         return new File(fname).exists();
     }

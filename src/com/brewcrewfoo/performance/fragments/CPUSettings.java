@@ -52,6 +52,7 @@ import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -447,8 +448,12 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                     for (int i = 0; i < mCpuNum; i++) {
                         String cpuFreq = CPU_PATH + String.valueOf(i) + CPU_FREQ_TAIL;
                         String curFreq = "0";
-                        if (Helpers.fileExists(cpuFreq)) {
-                            curFreq = Helpers.readOneLine(cpuFreq);
+                        try {
+                            if (Helpers.fileExists(cpuFreq)) {
+                                curFreq = Helpers.readOneLineRaw(cpuFreq);
+                            }
+                        } catch (IOException e) {
+                            // ignore
                         }
                         freqs.add(curFreq);
                     }
