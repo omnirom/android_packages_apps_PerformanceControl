@@ -41,6 +41,13 @@ Copyright (C) 2012  James Roberts
             android:persistent="false"
             android:dependency="power_profile_enable"/>
 
+        <PreferenceScreen
+            android:key="power_profile_apps"
+            android:title="@string/power_profile_apps"
+            android:summary="@string/power_profile_apps_summary"
+            android:dependency="power_profile_enable"
+            android:fragment="com.brewcrewfoo.performance.fragments.PowerProfileApps" />
+
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="power_profile_plugged"
@@ -49,12 +56,12 @@ Copyright (C) 2012  James Roberts
             android:title="@string/power_profile_plugged"
             android:dependency="power_profile_enable" />
 
+        <PreferenceScreen
+            android:key="power_profile_settings"
+            android:title="@string/power_profile"
+            android:summary="@string/power_profile_summary"
+            android:fragment="com.brewcrewfoo.performance.fragments.PowerProfileSettings" />
+
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="power_profile_apps"
-        android:title="@string/power_profile_apps"
-        android:dependency="power_profile_enable" >
-
-    </PreferenceCategory>
 </PreferenceScreen>

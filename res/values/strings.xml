@@ -351,12 +351,17 @@ Copyright (C) 2012  James Roberts
     <string name="power_profile_enable">Enabled</string>
     <string name="default_power_profile">Default profile</string>
     <string name="screen_off_power_profile">Screen-off profile</string>
-    <string name="power_profile_apps">Applications</string>
+    <string name="power_profile_apps">Application profiles</string>
+    <string name="power_profile_apps_list">Application list</string>
+    <string name="power_profile_apps_summary">Set specific profiles for applications</string>
     <string name="dialog_delete_title">Delete</string>
     <string name="dialog_delete_message">Remove selected item?</string>
-    <string name="profile_applist_title">Apps</string>
     <string name="profile_choose_app">Choose app</string>
     <string name="profiles_add">Add</string>
     <string name="power_profile_plugged">Profiles while plugged</string>
     <string name="power_profile_plugged_summary">Use profiles also while power is plugged</string>
+    <string name="power_profile">Profiles</string>
+    <string name="power_profile_list">Profile list</string>
+    <string name="power_profile_summary">Show available profiles</string>
+
 </resources>
