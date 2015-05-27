@@ -96,6 +96,13 @@ public class TimeInState extends Fragment {
         mStatesWarning = (TextView) view.findViewById(R.id.ui_states_warning);
         mTotalStateTime = (TextView) view
                 .findViewById(R.id.ui_total_state_time);
+        mTotalStateTime.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                if (mPeriodType == 0 && !sHasRefData) {
+                    createResetPoint();
+                }
+            }
+        });
 
         mStateMode = (CheckBox) view.findViewById(R.id.ui_mode_switch);
         mActiveStateMode = mPreferences.getBoolean(PREF_STATE_MODE, false);
@@ -205,20 +212,24 @@ public class TimeInState extends Fragment {
             refreshData();
             break;
         case R.id.reset:
-            try {
-                monitor.setOffsets();
-            } catch (Exception e) {
-                // not good
-            }
-            saveOffsets();
-            if (mPeriodType == 1) {
-                monitor.removeOffsets();
-            }
-            refreshData();
+            createResetPoint();
             break;
         }
 
         return true;
+    }
+
+    private void createResetPoint() {
+        try {
+            monitor.setOffsets();
+        } catch (Exception e) {
+            // not good
+        }
+        saveOffsets();
+        if (mPeriodType == 1) {
+            monitor.removeOffsets();
+        }
+        refreshData();
     }
 
     public void updateView() {

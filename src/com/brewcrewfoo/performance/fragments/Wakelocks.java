@@ -328,6 +328,14 @@ public class Wakelocks extends Fragment {
                 .findViewById(R.id.state_time_select_group);
         mTotalStateTime = (TextView) view
                 .findViewById(R.id.ui_total_state_time);
+        mTotalStateTime.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                if (mIsOnBattery && !sHasRefData) {
+                    createResetPoint();
+                }
+            }
+        });
+
         mTotalWakelockTime = (TextView) view
                 .findViewById(R.id.ui_total_wakelock_time);
         mPeriodTypeSelect = (Spinner) view
@@ -461,14 +469,18 @@ public class Wakelocks extends Fragment {
             refreshData();
             break;
         case R.id.reset:
-            if (mIsOnBattery) {
-                saveWakelockRef(mContext);
-                refreshData();
-            }
+            createResetPoint();
             break;
         }
 
         return true;
+    }
+
+    private void createResetPoint() {
+        if (mIsOnBattery) {
+            saveWakelockRef(mContext);
+            refreshData();
+        }
     }
 
     private void updateView() {
