@@ -34,6 +34,7 @@ import java.util.Iterator;
 
 import com.brewcrewfoo.performance.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.internal.logging.MetricsLogger;
 
 public class PowerProfileSettings extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
     private static final String TAG = "PowerProfileSettings";
@@ -45,6 +46,11 @@ public class PowerProfileSettings extends SettingsPreferenceFragment implements 
     private String mDefaultProfile;
     private PowerProfileManager mManager;
     private PreferenceGroup mProfilesList;
+
+    @Override
+    protected int getMetricsCategory() {
+        return MetricsLogger.OMNI_SETTINGS;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
