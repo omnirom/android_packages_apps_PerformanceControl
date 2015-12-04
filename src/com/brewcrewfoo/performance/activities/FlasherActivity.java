@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -31,11 +30,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import static com.brewcrewfoo.performance.util.Constants.PREF_USE_LIGHT_THEME;
 import static com.brewcrewfoo.performance.util.Constants.TAG;
 
 
-public class FlasherActivity extends Activity implements ActivityThemeChangeInterface {
+public class FlasherActivity extends Activity {
     TextView flasherInfo;
     TextView deviceName;
     TextView deviceModel;
@@ -52,7 +50,6 @@ public class FlasherActivity extends Activity implements ActivityThemeChangeInte
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme();
         setContentView(R.layout.flasher);
 
         Intent intent1 = getIntent();
@@ -220,18 +217,5 @@ public class FlasherActivity extends Activity implements ActivityThemeChangeInte
 
         }
         return true;
-    }
-
-    @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = is_light_theme;
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 }

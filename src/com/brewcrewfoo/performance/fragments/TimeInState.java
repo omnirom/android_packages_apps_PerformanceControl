@@ -35,6 +35,7 @@ import com.brewcrewfoo.performance.util.CPUStateMonitor;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CPUStateMonitorException;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CpuState;
 import com.brewcrewfoo.performance.util.Helpers;
+import com.brewcrewfoo.performance.widgets.CustomShareActionProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class TimeInState extends Fragment {
     private int mCpuNum;
     private boolean mActiveStateMode;
     private boolean mActiveCoreMode = true;
-    private ShareActionProvider mProvider;
+    private CustomShareActionProvider mProvider;
     private Spinner mPeriodTypeSelect;
     private LinearLayout mProgress;
     private CheckBox mCoreMode;
@@ -82,7 +83,7 @@ public class TimeInState extends Fragment {
 
         setHasOptionsMenu(true);
 
-        mProvider = new ShareActionProvider(context);
+        mProvider = new CustomShareActionProvider(context);
     }
 
     @Override
@@ -190,14 +191,13 @@ public class TimeInState extends Fragment {
         inflater.inflate(R.menu.time_in_state_menu, menu);
 
         menu.add(0, MENU_REFRESH, 0, R.string.mt_refresh)
-                .setIcon(com.android.internal.R.drawable.ic_menu_refresh)
+                .setIcon(R.drawable.ic_menu_refresh_new)
                 .setAlphabeticShortcut('r')
                 .setShowAsAction(
                         MenuItem.SHOW_AS_ACTION_IF_ROOM
                                 | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add(1, MENU_SHARE, 0, R.string.mt_share)
-                .setIcon(R.drawable.ic_menu_share)
                 .setAlphabeticShortcut('s')
                 .setActionProvider(mProvider)
                 .setShowAsAction(

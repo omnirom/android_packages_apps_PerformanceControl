@@ -18,8 +18,5 @@
 -->
 
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
-        android:src="@drawable/ic_drawer_raw"
-        android:autoMirrored="true"
-        android:tint="@android:color/white">
-</bitmap>
-
+        android:src="@drawable/ic_drawer_alpha"
+        android:tint="@android:color/white" />
