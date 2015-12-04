@@ -223,7 +223,6 @@ public class Constants {
     public static final String ZRAM_MEMTOT_PATH = "/sys/block/zram0/mem_used_total";
 
     // PC Settings
-    public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
     public static final String PREF_WIDGET_BG_COLOR = "widget_bg_color";
     public static final String PREF_WIDGET_TEXT_COLOR = "widget_text_color";
 }

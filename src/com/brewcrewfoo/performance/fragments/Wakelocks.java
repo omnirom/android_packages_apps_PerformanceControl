@@ -87,6 +87,7 @@ import com.android.internal.os.BatteryStatsImpl;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.Constants;
+import com.brewcrewfoo.performance.widgets.CustomShareActionProvider;
 
 public class Wakelocks extends Fragment {
     private static final String TAG = "Wakelocks";
@@ -105,7 +106,7 @@ public class Wakelocks extends Fragment {
     private boolean mUpdatingData;
     private Context mContext;
     private SharedPreferences mPreferences;
-    private ShareActionProvider mProvider;
+    private CustomShareActionProvider mProvider;
     private static BatteryStats sBatteryStats;
     private long rawUptime;
     private long rawRealtime;
@@ -309,7 +310,7 @@ public class Wakelocks extends Fragment {
 
         setHasOptionsMenu(true);
 
-        mProvider = new ShareActionProvider(mContext);
+        mProvider = new CustomShareActionProvider(mContext);
 
         loadWakelockRef();
         loadWakelockUnplug();
@@ -454,7 +455,6 @@ public class Wakelocks extends Fragment {
                                 | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add(1, MENU_SHARE, 0, R.string.mt_share)
-                .setIcon(R.drawable.ic_menu_share)
                 .setAlphabeticShortcut('s')
                 .setActionProvider(mProvider)
                 .setShowAsAction(

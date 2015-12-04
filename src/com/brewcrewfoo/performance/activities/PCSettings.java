@@ -23,16 +23,13 @@ import android.os.Bundle;
 import android.preference.*;
 import android.preference.Preference.OnPreferenceChangeListener;
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.Helpers;
 
-import static com.brewcrewfoo.performance.util.Constants.PREF_USE_LIGHT_THEME;
 import static com.brewcrewfoo.performance.util.Constants.VERSION_NUM;
 
-public class PCSettings extends PreferenceActivity implements ActivityThemeChangeInterface, OnPreferenceChangeListener {
+public class PCSettings extends PreferenceActivity implements OnPreferenceChangeListener {
 
     SharedPreferences mPreferences;
-    private CheckBoxPreference mLightThemePref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,20 +37,13 @@ public class PCSettings extends PreferenceActivity implements ActivityThemeChang
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         addPreferencesFromResource(R.xml.pc_settings);
 
-        mLightThemePref = (CheckBoxPreference) findPreference("use_light_theme");
         Preference mVersion = findPreference("version_info");
         mVersion.setTitle(getString(R.string.pt_ver) + VERSION_NUM);
-
-        setTheme();
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key = preference.getKey();
-        if ("use_light_theme".equals(key)) {
-            Helpers.restartPC(this);
-            return true;
-        }
         return false;
     }
 
@@ -63,25 +53,7 @@ public class PCSettings extends PreferenceActivity implements ActivityThemeChang
     }
 
     @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(
-                PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mLightThemePref.isChecked();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
-        getListView().setBackgroundDrawable(
-                getResources().getDrawable(
-                        is_light_theme ?
-                                R.drawable.background_holo_light :
-                                R.drawable.background_holo_dark));
     }
 }
