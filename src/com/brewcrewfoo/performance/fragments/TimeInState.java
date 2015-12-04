@@ -35,6 +35,7 @@ import com.brewcrewfoo.performance.util.CPUStateMonitor;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CPUStateMonitorException;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CpuState;
 import com.brewcrewfoo.performance.util.Helpers;
+import com.brewcrewfoo.performance.widgets.CustomShareActionProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class TimeInState extends Fragment {
     private int mCpuNum;
     private boolean mActiveStateMode;
     private boolean mActiveCoreMode = true;
-    private ShareActionProvider mProvider;
+    private CustomShareActionProvider mProvider;
     private Spinner mPeriodTypeSelect;
     private LinearLayout mProgress;
     private CheckBox mCoreMode;
@@ -82,7 +83,7 @@ public class TimeInState extends Fragment {
 
         setHasOptionsMenu(true);
 
-        mProvider = new ShareActionProvider(context);
+        mProvider = new CustomShareActionProvider(context);
     }
 
     @Override
@@ -197,7 +198,6 @@ public class TimeInState extends Fragment {
                                 | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add(1, MENU_SHARE, 0, R.string.mt_share)
-                .setIcon(R.drawable.ic_menu_share)
                 .setAlphabeticShortcut('s')
                 .setActionProvider(mProvider)
                 .setShowAsAction(
