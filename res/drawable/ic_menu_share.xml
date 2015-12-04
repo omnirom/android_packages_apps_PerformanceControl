@@ -28,7 +28,5 @@
 -->
 
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/ic_menu_share"
-    android:autoMirrored="true"
-    android:tint="@android:color/white" />
-
+    android:src="@drawable/ic_menu_share_alpha"
+    android:tint="?android:attr/colorControlNormal" />
