@@ -144,8 +144,7 @@ public class MainActivity extends Fragment {
                     }
                 });
 
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
-                .getThemedContext(), R.layout.drawer_item, android.R.id.text1,
+        mDrawerListView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.drawer_item, android.R.id.text1,
                 mTitles));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
@@ -217,7 +216,7 @@ public class MainActivity extends Fragment {
         mDrawerLayout = drawerLayout;
 
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
-                R.drawable.ic_drawer_white, R.string.navigation_drawer_open,
+                R.drawable.ic_drawer_alpha, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
