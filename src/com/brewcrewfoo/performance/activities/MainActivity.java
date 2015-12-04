@@ -144,8 +144,7 @@ public class MainActivity extends Fragment {
                     }
                 });
 
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
-                .getThemedContext(), R.layout.drawer_item, android.R.id.text1,
+        mDrawerListView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.drawer_item, android.R.id.text1,
                 mTitles));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
