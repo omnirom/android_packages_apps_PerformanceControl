@@ -35,14 +35,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.brewcrewfoo.performance.util.Constants.PREF_USE_LIGHT_THEME;
 import static com.brewcrewfoo.performance.util.Constants.TAG;
 
-public class FileChooser extends ListActivity implements ActivityThemeChangeInterface {
+public class FileChooser extends ListActivity {
     final Context context = this;
     private File currentDir;
     SharedPreferences mPreferences;
-    private boolean mIsLightTheme;
     private FileArrayAdapter adapter;
     private ProgressDialog progressDialog;
     private String tip;
@@ -57,7 +55,6 @@ public class FileChooser extends ListActivity implements ActivityThemeChangeInte
         super.onCreate(savedInstanceState);
         //overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme();
         Intent intent1 = getIntent();
         tip = intent1.getStringExtra("mod");
         part = intent1.getStringExtra("part");
@@ -89,19 +86,6 @@ public class FileChooser extends ListActivity implements ActivityThemeChangeInte
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         fill(currentDir);
-    }
-
-    @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = is_light_theme;
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 
     @Override

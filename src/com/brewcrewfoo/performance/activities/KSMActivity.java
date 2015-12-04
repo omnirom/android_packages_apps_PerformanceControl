@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.CMDProcessor;
 import com.brewcrewfoo.performance.util.Helpers;
 
@@ -27,9 +26,8 @@ import static com.brewcrewfoo.performance.util.Constants.*;
 /**
  * Created by h0rn3t on 11.09.2013.
  */
-public class KSMActivity extends Activity implements SeekBar.OnSeekBarChangeListener, ActivityThemeChangeInterface {
+public class KSMActivity extends Activity implements SeekBar.OnSeekBarChangeListener {
     SharedPreferences mPreferences;
-    private boolean mIsLightTheme;
     final Context context = this;
     private TextView t1;
     private TextView t2;
@@ -53,7 +51,6 @@ public class KSMActivity extends Activity implements SeekBar.OnSeekBarChangeList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme();
         setContentView(R.layout.ksm_settings);
         t1 = (TextView) findViewById(R.id.t2);
         t2 = (TextView) findViewById(R.id.t4);
@@ -248,19 +245,6 @@ public class KSMActivity extends Activity implements SeekBar.OnSeekBarChangeList
             }
         }
         super.onDestroy();
-    }
-
-    @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = is_light_theme;
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 
     protected class CurThread extends Thread {

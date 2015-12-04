@@ -25,8 +25,7 @@ import static com.brewcrewfoo.performance.util.Constants.*;
  * Created by h0rn3t on 21.09.2013.
  */
 
-public class GovSetActivity extends Activity implements AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
-    private boolean mIsLightTheme;
+public class GovSetActivity extends Activity implements AdapterView.OnItemClickListener {
     SharedPreferences mPreferences;
     private final Context context = this;
     Resources res;
@@ -43,7 +42,6 @@ public class GovSetActivity extends Activity implements AdapterView.OnItemClickL
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         res = getResources();
-        setTheme();
         setContentView(R.layout.prop_view);
 
         packList = (ListView) findViewById(R.id.applist);
@@ -157,19 +155,6 @@ public class GovSetActivity extends Activity implements AdapterView.OnItemClickL
     public void onItemClick(AdapterView<?> parent, View view, int position, long row) {
         final Prop p = adapter.getItem(position);
         editPropDialog(p);
-    }
-
-    @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = is_light_theme;
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 
     @Override
