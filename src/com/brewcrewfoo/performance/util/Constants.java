@@ -42,6 +42,9 @@ public class Constants {
     // CPU settings
     public static final String CPU_PATH = "/sys/devices/system/cpu/cpu";
     public static final String CPU_FREQ_TAIL = "/cpufreq/scaling_cur_freq";
+    public static final String CPU_MAX_FREQ_TAIL = "/cpufreq/scaling_max_freq";
+    public static final String CPU_MIN_FREQ_TAIL = "/cpufreq/scaling_min_freq";
+    public static final String CPU_STEPS_TAIL = "/cpufreq/scaling_available_frequencies";
     public static final String CUR_CPU_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
     public static final String MAX_FREQ_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
     public static final String TEGRA_MAX_FREQ_PATH = "/sys/module/cpu_tegra/parameters/cpu_user_cap";

@@ -60,6 +60,8 @@ import java.util.List;
 
 public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeListener {
 
+    private static final String TAG = "CPUSettings";
+
     private SeekBar mMaxSlider;
     private SeekBar mMinSlider;
     private Spinner mGovernor;
@@ -135,16 +137,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         mIsDynFreq = new File(DYN_MAX_FREQ_PATH).exists() && new File(DYN_MIN_FREQ_PATH).exists();
         mAvailableFrequencies = new String[0];
 
-        String availableFrequenciesLine = Helpers.readOneLine(STEPS_PATH);
-        if (availableFrequenciesLine != null) {
-            mAvailableFrequencies = availableFrequenciesLine.split(" ");
-            Arrays.sort(mAvailableFrequencies, new Comparator<String>() {
-                @Override
-                public int compare(String object1, String object2) {
-                    return Integer.valueOf(object1).compareTo(Integer.valueOf(object2));
-                }
-            });
-        }
+        selectAvailableFrequencies();
 
         int mFrequenciesNum = mAvailableFrequencies.length - 1;
         String[] mAvailableGovernors = Helpers.readOneLine(GOVERNORS_LIST_PATH).split(" ");
@@ -152,17 +145,12 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
 
         String mCurrentGovernor = Helpers.readOneLine(GOVERNOR_PATH);
         String mCurrentIo = Helpers.getIOScheduler();
-        String mCurMaxSpeed;
-        String mCurMinSpeed;
+
         if (new File(DYN_MAX_FREQ_PATH).exists()) {
-            mCurMaxSpeed = Helpers.readOneLine(DYN_MAX_FREQ_PATH);
-        } else {
-            mCurMaxSpeed = Helpers.readOneLine(MAX_FREQ_PATH);
+            mMaxFreqSetting = Helpers.readOneLine(DYN_MAX_FREQ_PATH);
         }
         if (new File(DYN_MIN_FREQ_PATH).exists()) {
-            mCurMinSpeed = Helpers.readOneLine(DYN_MIN_FREQ_PATH);
-        } else {
-            mCurMinSpeed = Helpers.readOneLine(MIN_FREQ_PATH);
+            mMinFreqSetting = Helpers.readOneLine(DYN_MIN_FREQ_PATH);
         }
 
         if (mIsTegra3) {
@@ -171,7 +159,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
             try {
                 curTegraMax = Integer.parseInt(curTegraMaxSpeed);
                 if (curTegraMax > 0) {
-                    mCurMaxSpeed = Integer.toString(curTegraMax);
+                    mMaxFreqSetting = Integer.toString(curTegraMax);
                 }
             } catch (NumberFormatException ignored) {
                 // Nothing to do
@@ -182,8 +170,8 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         mMaxSlider.setMax(mFrequenciesNum);
         mMaxSpeedText = (TextView) view.findViewById(R.id.max_speed_text);
         mMaxSpeedHeader = (TextView) view.findViewById(R.id.current_max_label);
-        mMaxSpeedText.setText(Helpers.toMHz(mCurMaxSpeed));
-        mMaxFreqSetting = mCurMaxSpeed;
+        mMaxSpeedText.setText(Helpers.toMHz(mMaxFreqSetting));
+
         mMaxSlider.setOnSeekBarChangeListener(this);
 
         if (mPowerProfileEnabled) {
@@ -195,8 +183,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         mMinSlider = (SeekBar) view.findViewById(R.id.min_slider);
         mMinSlider.setMax(mFrequenciesNum);
         mMinSpeedText = (TextView) view.findViewById(R.id.min_speed_text);
-        mMinSpeedText.setText(Helpers.toMHz(mCurMinSpeed));
-        mMinFreqSetting = mCurMinSpeed;
+        mMinSpeedText.setText(Helpers.toMHz(mMinFreqSetting));
         mMinSlider.setOnSeekBarChangeListener(this);
 
 
@@ -491,6 +478,44 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     private void updateSharedPrefs(String var, String value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(var, value).commit();
+    }
+
+    private void selectAvailableFrequencies() {
+        int currMax = 0;
+        int currMin = Integer.MAX_VALUE;
+        for (int i = 0; i < mCpuNum; i++) {
+            String cpuSteps = CPU_PATH + String.valueOf(i) + CPU_STEPS_TAIL;
+            String cpuMax = CPU_PATH + String.valueOf(i) + CPU_MAX_FREQ_TAIL;
+            String cpuMin = CPU_PATH + String.valueOf(i) + CPU_MIN_FREQ_TAIL;
+            try {
+                if (Helpers.fileExists(cpuSteps)) {
+                    String curFreqSteps = Helpers.readOneLineRaw(cpuSteps);
+                    String[] curFreqStepsList = curFreqSteps.split(" ");
+                    Arrays.sort(curFreqStepsList, new Comparator<String>() {
+                        @Override
+                        public int compare(String object1, String object2) {
+                            return Integer.valueOf(object1).compareTo(Integer.valueOf(object2));
+                        }
+                    });
+                    String low = curFreqStepsList[0];
+                    int lowInt = Integer.valueOf(low);
+                    String high = curFreqStepsList[curFreqStepsList.length - 1];
+                    int highInt = Integer.valueOf(high);
+                    if (highInt > currMax) {
+                        currMax = highInt;
+                        mAvailableFrequencies = curFreqStepsList;
+                        mMaxFreqSetting = Helpers.readOneLineRaw(cpuMax);
+                    }
+                    if (lowInt < currMin) {
+                        currMin = lowInt;
+                        mMinFreqSetting = Helpers.readOneLineRaw(cpuMin);
+                    }
+                }
+            } catch (IOException e) {
+                // ignore
+            }
+        }
+        Log.d(TAG, "selectAvailableFrequencies " + Arrays.asList(mAvailableFrequencies) + " : " + mMinFreqSetting + ": " + mMaxFreqSetting);
     }
 }
 
