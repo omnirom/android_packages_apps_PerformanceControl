@@ -76,6 +76,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
     private SharedPreferences mPreferences;
     private boolean mIsTegra3 = false;
     private boolean mIsDynFreq = false;
+    private boolean mHasFreqSteps = true;
 
     private Context context;
     private int mCpuNum = 1;
@@ -137,7 +138,23 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
         mIsDynFreq = new File(DYN_MAX_FREQ_PATH).exists() && new File(DYN_MIN_FREQ_PATH).exists();
         mAvailableFrequencies = new String[0];
 
-        selectAvailableFrequencies();
+        String cpuSteps = CPU_PATH + "0" + CPU_STEPS_TAIL;
+        mHasFreqSteps = Helpers.fileExists(cpuSteps);
+        if (mHasFreqSteps) {
+            selectAvailableFrequencies();
+        } else {
+            try {
+                String cpuMax = CPU_PATH + "0" + CPU_MAX_FREQ_TAIL;
+                String cpuMin = CPU_PATH + "0" + CPU_MIN_FREQ_TAIL;
+                mMaxFreqSetting = Helpers.readOneLineRaw(cpuMax);
+                mMinFreqSetting = Helpers.readOneLineRaw(cpuMin);
+                mAvailableFrequencies = new String[] {mMinFreqSetting, mMaxFreqSetting};
+            } catch (IOException e) {
+                // ignore
+                mMaxFreqSetting = "0";
+                mMinFreqSetting = "0";
+            }
+        }
 
         int mFrequenciesNum = mAvailableFrequencies.length - 1;
         String[] mAvailableGovernors = Helpers.readOneLine(GOVERNORS_LIST_PATH).split(" ");
@@ -515,7 +532,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 // ignore
             }
         }
-        Log.d(TAG, "selectAvailableFrequencies " + Arrays.asList(mAvailableFrequencies) + " : " + mMinFreqSetting + ": " + mMaxFreqSetting);
+        Log.d(TAG, "selectAvailableFrequencies " + mCpuNum + " : " + Arrays.asList(mAvailableFrequencies) + " : " + mMinFreqSetting + ": " + mMaxFreqSetting);
     }
 }
 
