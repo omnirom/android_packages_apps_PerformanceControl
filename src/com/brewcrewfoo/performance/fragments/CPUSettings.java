@@ -515,7 +515,7 @@ public class CPUSettings extends Fragment implements SeekBar.OnSeekBarChangeList
                 // ignore
             }
         }
-        Log.d(TAG, "selectAvailableFrequencies " + Arrays.asList(mAvailableFrequencies) + " : " + mMinFreqSetting + ": " + mMaxFreqSetting);
+        Log.d(TAG, "selectAvailableFrequencies " + mCpuNum + " : " + Arrays.asList(mAvailableFrequencies) + " : " + mMinFreqSetting + ": " + mMaxFreqSetting);
     }
 }
 
