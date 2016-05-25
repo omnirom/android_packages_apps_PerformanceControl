@@ -141,9 +141,9 @@ public class TimeInState extends Fragment {
         mPeriodTypeSelect = (Spinner) view
                 .findViewById(R.id.period_type_select);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                context, R.array.period_type_entries, R.layout.period_type_item);
+                context, R.array.period_type_entries, android.R.layout.simple_spinner_item);
         mPeriodTypeSelect.setAdapter(adapter);
-
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPeriodTypeSelect
                 .setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
                     @Override

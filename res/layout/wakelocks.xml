@@ -21,20 +21,19 @@ Copyright (C) 2012  James Roberts
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp" >
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp" >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" >
+        android:paddingTop="10dp"
+        android:paddingStart="10dp" >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@string/spinner_type_title"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:text="@string/spinner_type_title"/>
         <Spinner
             android:id="@+id/list_type_select"
             android:layout_width="match_parent"
@@ -45,8 +44,8 @@ Copyright (C) 2012  James Roberts
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" >
+        android:paddingStart="10dp"
+        android:paddingTop="10dp" >
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -57,8 +56,7 @@ Copyright (C) 2012  James Roberts
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/spinner_period_title"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:text="@string/spinner_period_title"/>
             <Spinner
                 android:id="@+id/period_type_select"
                 android:layout_width="match_parent"
@@ -72,14 +70,13 @@ Copyright (C) 2012  James Roberts
             android:orientation="horizontal"
             android:gravity="center_vertical|end"
             android:visibility="gone"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
             android:layout_weight="0.5">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/spinner_state_time_title"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:text="@string/spinner_state_time_title"/>
             <Spinner
                 android:id="@+id/state_time_select"
                 android:layout_width="match_parent"
@@ -92,8 +89,8 @@ Copyright (C) 2012  James Roberts
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:paddingBottom="10dp"
         android:paddingTop="10dp" >
         <TextView
@@ -101,27 +98,25 @@ Copyright (C) 2012  James Roberts
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_weight="1" />
         <TextView
             android:id="@+id/ui_total_wakelock_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_gravity="center_vertical|end" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:background="#28ffffff" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:paddingTop="10dp"
         android:scrollbarStyle="insideInset" >
         <LinearLayout

@@ -343,9 +343,9 @@ public class Wakelocks extends Fragment {
                 .findViewById(R.id.period_type_select);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 mContext, R.array.wakelock_period_type_entries,
-                R.layout.period_type_item);
+                android.R.layout.simple_spinner_item);
         mPeriodTypeSelect.setAdapter(adapter);
-
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPeriodTypeSelect
                 .setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
                     @Override
@@ -367,9 +367,9 @@ public class Wakelocks extends Fragment {
 
         mListTypeSelect = (Spinner) view.findViewById(R.id.list_type_select);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
-                mContext, R.array.list_type_entries, R.layout.period_type_item);
+                mContext, R.array.list_type_entries, android.R.layout.simple_spinner_item);
         mListTypeSelect.setAdapter(adapter1);
-
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mListTypeSelect
                 .setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
                     @Override
@@ -389,9 +389,9 @@ public class Wakelocks extends Fragment {
         mStateTimeSelect = (Spinner) view.findViewById(R.id.state_time_select);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter
                 .createFromResource(mContext, R.array.state_time_entries,
-                        R.layout.period_type_item);
+                        android.R.layout.simple_spinner_item);
         mStateTimeSelect.setAdapter(adapter2);
-
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mStateTimeSelect
                 .setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
                     @Override
