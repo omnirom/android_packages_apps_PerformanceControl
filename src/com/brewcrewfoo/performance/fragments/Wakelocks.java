@@ -71,7 +71,6 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ShareActionProvider;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.PopupMenu;
@@ -87,7 +86,6 @@ import com.android.internal.os.BatteryStatsImpl;
 
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.Constants;
-import com.brewcrewfoo.performance.widgets.CustomShareActionProvider;
 
 public class Wakelocks extends Fragment {
     private static final String TAG = "Wakelocks";
@@ -106,7 +104,6 @@ public class Wakelocks extends Fragment {
     private boolean mUpdatingData;
     private Context mContext;
     private SharedPreferences mPreferences;
-    private CustomShareActionProvider mProvider;
     private static BatteryStats sBatteryStats;
     private long rawUptime;
     private long rawRealtime;
@@ -140,6 +137,7 @@ public class Wakelocks extends Fragment {
     private List<WakelockAppStats> mAppWakelockList = new ArrayList<WakelockAppStats>();
     private static boolean sHasRefData;
     private boolean mErrorLoadingStats;
+    private Intent mShareIntent;
 
     private static final int MENU_REFRESH = Menu.FIRST;
     private static final int MENU_SHARE = MENU_REFRESH + 1;
@@ -310,8 +308,6 @@ public class Wakelocks extends Fragment {
 
         setHasOptionsMenu(true);
 
-        mProvider = new CustomShareActionProvider(mContext);
-
         loadWakelockRef();
         loadWakelockUnplug();
     }
@@ -455,8 +451,8 @@ public class Wakelocks extends Fragment {
                                 | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add(1, MENU_SHARE, 0, R.string.mt_share)
+                .setIcon(R.drawable.ic_menu_share_material)
                 .setAlphabeticShortcut('s')
-                .setActionProvider(mProvider)
                 .setShowAsAction(
                         MenuItem.SHOW_AS_ACTION_IF_ROOM
                                 | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
@@ -471,8 +467,14 @@ public class Wakelocks extends Fragment {
         case R.id.reset:
             createResetPoint();
             break;
+        case MENU_SHARE:
+            if (mShareIntent != null) {
+                Intent intent = Intent.createChooser(mShareIntent, null);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
+            break;
         }
-
         return true;
     }
 
@@ -763,11 +765,10 @@ public class Wakelocks extends Fragment {
     }
 
     private void updateShareIntent(String data) {
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, data);
-        mProvider.setShareIntent(shareIntent);
+        mShareIntent = new Intent();
+        mShareIntent.setAction(Intent.ACTION_SEND);
+        mShareIntent.setType("text/plain");
+        mShareIntent.putExtra(Intent.EXTRA_TEXT, data);
     }
 
     private static long computeWakeLock(BatteryStats.Timer timer,

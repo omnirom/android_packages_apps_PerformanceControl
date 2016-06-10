@@ -35,7 +35,6 @@ import com.brewcrewfoo.performance.util.CPUStateMonitor;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CPUStateMonitorException;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CpuState;
 import com.brewcrewfoo.performance.util.Helpers;
-import com.brewcrewfoo.performance.widgets.CustomShareActionProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,18 +49,18 @@ public class TimeInState extends Fragment {
     private CheckBox mStateMode;
     private boolean mUpdatingData = false;
     private CPUStateMonitor monitor = new CPUStateMonitor();
-    private Context context;
+    private Context mContext;
     private SharedPreferences mPreferences;
     private boolean mOverallStats;
     private int mCpuNum;
     private boolean mActiveStateMode;
     private boolean mActiveCoreMode = true;
-    private CustomShareActionProvider mProvider;
     private Spinner mPeriodTypeSelect;
     private LinearLayout mProgress;
     private CheckBox mCoreMode;
     private int mPeriodType = 1;
     private boolean sHasRefData;
+    private Intent mShareIntent;
 
     private static final int MENU_REFRESH = Menu.FIRST;
     private static final int MENU_SHARE = MENU_REFRESH + 1;
@@ -69,10 +68,10 @@ public class TimeInState extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getActivity();
+        mContext = getActivity();
         mOverallStats = monitor.hasOverallStats();
         mCpuNum = Helpers.getNumOfCpus();
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         mPeriodType = mPreferences.getInt("which", 1);
         if (savedInstanceState != null) {
             mUpdatingData = savedInstanceState.getBoolean("updatingData");
@@ -82,8 +81,6 @@ public class TimeInState extends Fragment {
         loadOffsets();
 
         setHasOptionsMenu(true);
-
-        mProvider = new CustomShareActionProvider(context);
     }
 
     @Override
@@ -141,7 +138,7 @@ public class TimeInState extends Fragment {
         mPeriodTypeSelect = (Spinner) view
                 .findViewById(R.id.period_type_select);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                context, R.array.period_type_entries, android.R.layout.simple_spinner_item);
+                mContext, R.array.period_type_entries, android.R.layout.simple_spinner_item);
         mPeriodTypeSelect.setAdapter(adapter);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPeriodTypeSelect
@@ -198,8 +195,8 @@ public class TimeInState extends Fragment {
                                 | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add(1, MENU_SHARE, 0, R.string.mt_share)
+                .setIcon(R.drawable.ic_menu_share_material)
                 .setAlphabeticShortcut('s')
-                .setActionProvider(mProvider)
                 .setShowAsAction(
                         MenuItem.SHOW_AS_ACTION_IF_ROOM
                                 | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
@@ -213,6 +210,13 @@ public class TimeInState extends Fragment {
             break;
         case R.id.reset:
             createResetPoint();
+            break;
+        case MENU_SHARE:
+            if (mShareIntent != null) {
+                Intent intent = Intent.createChooser(mShareIntent, null);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
             break;
         }
 
@@ -319,7 +323,7 @@ public class TimeInState extends Fragment {
     }
 
     private View generateStateRow(CpuState state, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
         LinearLayout view = (LinearLayout) inflater.inflate(
                 R.layout.state_row_line, parent, false);
 
@@ -361,7 +365,7 @@ public class TimeInState extends Fragment {
     }
 
     private View generateStateRowHeader(CpuState state, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
         LinearLayout view = (LinearLayout) inflater.inflate(
                 R.layout.state_row_header, parent, false);
 
@@ -466,10 +470,9 @@ public class TimeInState extends Fragment {
     }
 
     private void updateShareIntent(String data) {
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, data);
-        mProvider.setShareIntent(shareIntent);
+        mShareIntent = new Intent();
+        mShareIntent.setAction(Intent.ACTION_SEND);
+        mShareIntent.setType("text/plain");
+        mShareIntent.putExtra(Intent.EXTRA_TEXT, data);
     }
 }
