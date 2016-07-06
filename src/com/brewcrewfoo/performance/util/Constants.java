@@ -52,7 +52,7 @@ public class Constants {
     public static final String STEPS_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
     public static final String GOVERNORS_LIST_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
     public static final String GOVERNOR_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-    public static final String[] IO_SCHEDULER_PATH = {"/sys/block/mmcblk0/queue/scheduler", "/sys/block/mmcblk1/queue/scheduler"};
+    public static final String[] IO_SCHEDULER_PATH = {"/sys/block/mmcblk0/queue/scheduler", "/sys/block/mmcblk1/queue/scheduler", "/sys/block/sda/queue/scheduler"};
     //Dynamic frequency scaling
     public static final String DYN_MAX_FREQ_PATH = "/sys/power/cpufreq_max_limit";
     public static final String DYN_MIN_FREQ_PATH = "/sys/power/cpufreq_min_limit";
