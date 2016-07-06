@@ -234,16 +234,23 @@ public class Helpers {
      */
     public static String[] getAvailableIOSchedulers() {
         String[] schedulers = null;
-        String[] aux = readStringArray(IO_SCHEDULER_PATH[0]);
-        if (aux != null) {
-            schedulers = new String[aux.length];
-            for (int i = 0; i < aux.length; i++) {
-                if (aux[i].charAt(0) == '[') {
-                    schedulers[i] = aux[i].substring(1, aux[i].length() - 1);
-                } else {
-                    schedulers[i] = aux[i];
+        for (String ioPath : IO_SCHEDULER_PATH) {
+            if (new File(ioPath).exists()) {
+                String[] aux = readStringArray(ioPath);
+                if (aux != null) {
+                    schedulers = new String[aux.length];
+                    for (int i = 0; i < aux.length; i++) {
+                        if (aux[i].charAt(0) == '[') {
+                            schedulers[i] = aux[i].substring(1, aux[i].length() - 1);
+                        } else {
+                            schedulers[i] = aux[i];
+                        }
+                    }
                 }
             }
+        }
+        if (schedulers == null) {
+            schedulers = new String[] {"unknown"};
         }
         return schedulers;
     }
