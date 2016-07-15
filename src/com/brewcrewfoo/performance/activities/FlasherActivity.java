@@ -18,25 +18,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
-import com.brewcrewfoo.performance.util.Constants;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import static com.brewcrewfoo.performance.util.Constants.PREF_USE_LIGHT_THEME;
+import static com.brewcrewfoo.performance.util.Constants.TAG;
 
 
-public class FlasherActivity extends Activity implements Constants, ActivityThemeChangeInterface {
+public class FlasherActivity extends Activity implements ActivityThemeChangeInterface {
     TextView flasherInfo;
     TextView deviceName;
     TextView deviceModel;

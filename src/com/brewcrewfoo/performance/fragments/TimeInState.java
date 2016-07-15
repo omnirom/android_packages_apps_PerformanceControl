@@ -26,38 +26,22 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ShareActionProvider;
-import android.widget.Spinner;
-import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
 import android.util.Log;
-
+import android.view.*;
+import android.widget.*;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CPUStateMonitor;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CPUStateMonitorException;
 import com.brewcrewfoo.performance.util.CPUStateMonitor.CpuState;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class TimeInState extends Fragment implements Constants {
+import static com.brewcrewfoo.performance.util.Constants.*;
+
+public class TimeInState extends Fragment {
 
     private LinearLayout mStatesView;
     private TextView mTotalStateTime;
@@ -112,6 +96,13 @@ public class TimeInState extends Fragment implements Constants {
         mStatesWarning = (TextView) view.findViewById(R.id.ui_states_warning);
         mTotalStateTime = (TextView) view
                 .findViewById(R.id.ui_total_state_time);
+        mTotalStateTime.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                if (mPeriodType == 0 && !sHasRefData) {
+                    createResetPoint();
+                }
+            }
+        });
 
         mStateMode = (CheckBox) view.findViewById(R.id.ui_mode_switch);
         mActiveStateMode = mPreferences.getBoolean(PREF_STATE_MODE, false);
@@ -199,13 +190,14 @@ public class TimeInState extends Fragment implements Constants {
         inflater.inflate(R.menu.time_in_state_menu, menu);
 
         menu.add(0, MENU_REFRESH, 0, R.string.mt_refresh)
-                .setIcon(R.drawable.ic_menu_refresh)
+                .setIcon(com.android.internal.R.drawable.ic_menu_refresh)
                 .setAlphabeticShortcut('r')
                 .setShowAsAction(
                         MenuItem.SHOW_AS_ACTION_IF_ROOM
                                 | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add(1, MENU_SHARE, 0, R.string.mt_share)
+                .setIcon(R.drawable.ic_menu_share)
                 .setAlphabeticShortcut('s')
                 .setActionProvider(mProvider)
                 .setShowAsAction(
@@ -220,20 +212,24 @@ public class TimeInState extends Fragment implements Constants {
             refreshData();
             break;
         case R.id.reset:
-            try {
-                monitor.setOffsets();
-            } catch (Exception e) {
-                // not good
-            }
-            saveOffsets();
-            if (mPeriodType == 1) {
-                monitor.removeOffsets();
-            }
-            refreshData();
+            createResetPoint();
             break;
         }
 
         return true;
+    }
+
+    private void createResetPoint() {
+        try {
+            monitor.setOffsets();
+        } catch (Exception e) {
+            // not good
+        }
+        saveOffsets();
+        if (mPeriodType == 1) {
+            monitor.removeOffsets();
+        }
+        refreshData();
     }
 
     public void updateView() {

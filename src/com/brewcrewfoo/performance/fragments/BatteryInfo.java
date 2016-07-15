@@ -20,38 +20,23 @@ package com.brewcrewfoo.performance.fragments;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.SeekBar;
-import android.widget.Switch;
-import android.widget.TextView;
-
+import android.view.*;
+import android.widget.*;
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 public class BatteryInfo extends Fragment
-        implements SeekBar.OnSeekBarChangeListener, Constants {
+        implements SeekBar.OnSeekBarChangeListener {
 
     private TextView mbattery_percent;
     private TextView mbattery_volt;

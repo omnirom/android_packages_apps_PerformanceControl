@@ -15,19 +15,19 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 /**
  * Created by h0rn3t on 11.09.2013.
  */
-public class KSMActivity extends Activity implements Constants, SeekBar.OnSeekBarChangeListener, ActivityThemeChangeInterface {
+public class KSMActivity extends Activity implements SeekBar.OnSeekBarChangeListener, ActivityThemeChangeInterface {
     SharedPreferences mPreferences;
     private boolean mIsLightTheme;
     final Context context = this;

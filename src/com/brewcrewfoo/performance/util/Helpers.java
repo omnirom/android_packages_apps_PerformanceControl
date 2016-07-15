@@ -18,6 +18,8 @@
 
 package com.brewcrewfoo.performance.util;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -28,6 +30,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.content.ContentResolver;
+import android.provider.Settings;
 
 import com.brewcrewfoo.performance.R;
 
@@ -40,7 +44,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Helpers implements Constants {
+public class Helpers {
 
     private static String mVoltagePath;
 
@@ -155,6 +159,20 @@ public class Helpers implements Constants {
                 Log.e(TAG, "IO Exception when reading sys file", e);
                 // attempt to do magic!
                 return readFileViaShell(fname, true);
+            }
+        }
+        return line;
+    }
+
+    public static String readOneLineRaw(String fname) throws IOException {
+        String line = null;
+        if (new File(fname).exists()) {
+            BufferedReader br;
+            br = new BufferedReader(new FileReader(fname), 512);
+            try {
+                line = br.readLine();
+            } finally {
+                br.close();
             }
         }
         return line;
@@ -579,5 +597,14 @@ public class Helpers implements Constants {
 
     public static boolean hasOverallStats() {
         return fileExists(TIME_IN_STATE_OVERALL_PATH);
+    }
+
+    public static boolean lowmemExists() {
+        return new File(MINFREE_PATH).exists();
+    }
+
+    public static boolean powerProfileEnabled(Context c) {
+        return Settings.System.getInt(c.getContentResolver(),
+                Settings.System.POWER_PROFILE_ENABLED, 0) != 0;
     }
 }

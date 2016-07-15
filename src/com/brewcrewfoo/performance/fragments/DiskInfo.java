@@ -5,25 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StatFs;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
 
-public class DiskInfo extends Fragment implements Constants {
+public class DiskInfo extends Fragment {
 
     private RelativeLayout lsys;
     private RelativeLayout ldata;
@@ -64,6 +57,8 @@ public class DiskInfo extends Fragment implements Constants {
     private String internalsd = "";
     private String externalsd = "";
     private Context context;
+
+    private static final int MENU_REFRESH = Menu.FIRST;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -187,20 +182,19 @@ public class DiskInfo extends Fragment implements Constants {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-            inflater.inflate(R.menu.disk_info_menu, menu);
-        }
+        menu.add(0, MENU_REFRESH, 0, R.string.mt_refresh)
+                .setIcon(com.android.internal.R.drawable.ic_menu_refresh)
+                .setAlphabeticShortcut('r')
+                .setShowAsAction(
+                        MenuItem.SHOW_AS_ACTION_IF_ROOM
+                                | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.refresh:
+            case MENU_REFRESH:
                 loadData();
-                break;
-            case R.id.app_settings:
-                Intent intent = new Intent(context, PCSettings.class);
-                startActivity(intent);
                 break;
         }
         return true;

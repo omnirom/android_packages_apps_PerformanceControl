@@ -12,31 +12,20 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
-import android.widget.TextView;
-
+import android.widget.*;
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
-import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
-import com.brewcrewfoo.performance.util.Helpers;
-import com.brewcrewfoo.performance.util.Prop;
-import com.brewcrewfoo.performance.util.PropAdapter;
+import com.brewcrewfoo.performance.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 /**
  * Created by h0rn3t on 21.09.2013.
  */
-public class GovSetActivity extends Activity implements Constants, AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
+
+public class GovSetActivity extends Activity implements AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
     private boolean mIsLightTheme;
     SharedPreferences mPreferences;
     private final Context context = this;

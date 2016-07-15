@@ -24,15 +24,15 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.PackAdapter;
 
+import static com.brewcrewfoo.performance.util.Constants.PREF_USE_LIGHT_THEME;
 
-public class FreezerActivity extends Activity implements Constants, AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
+
+public class FreezerActivity extends Activity implements AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
 
     final Context context = this;
     private boolean mIsLightTheme;

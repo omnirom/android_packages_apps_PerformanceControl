@@ -21,24 +21,16 @@ Copyright (C) 2012  James Roberts
     <!-- Main tabs -->
     <string name="tab_cpu_settings">CPU Speed</string>
     <string name="tab_battery_info">Battery</string>
-    <string name="tab_oom_settings">Memory Settings</string>
+    <string name="tab_oom_settings">Memory</string>
+    <string name="tab_volt_settings">Voltage Control</string>
+    <string name="tab_adv_settings">"Advanced"</string>
     <string name="tab_time_in_state">Time In State</string>
-    <string name="tab_voltage_settings">Voltage Settings</string>
     <string name="tab_cpu_info">General Info</string>
     <string name="tab_disk_info">Disk Info</string>
     <string name="tab_tools">Tools</string>
     <string name="tab_wakelocks">Wakelocks</string>
-    <!-- Titles -->
-    <string name="t_cpu_settings">CPU SPEED</string>
-    <string name="t_battery_info">BATTERY</string>
-    <string name="t_oom_settings">MEMORY SETTINGS</string>
-    <string name="t_volt_settings">VOLTAGE SETTINGS</string>
-    <string name="t_adv_settings">"ADVANCED SETTINGS"</string>
-    <string name="t_time_in_state">"TIME IN STATE"</string>
-    <string name="t_cpu_info">GENERAL INFO</string>
-    <string name="t_disk_info">DISK INFO</string>
-    <string name="t_tools">TOOLS</string>
-    <string name="t_wakelocks">WAKELOCKS</string>
+    <string name="tab_power_profile">Power Profile</string>
+
     <string name="menu_tab">Tabs</string>
     <!-- Menu -->
     <string name="mt_refresh">Refresh</string>
@@ -51,6 +43,7 @@ Copyright (C) 2012  James Roberts
     <!-- CPU settings -->
     <string name="current_speed">Current Speed</string>
     <string name="current_max">Maximum speed: </string>
+    <string name="current_max_power_profile">Power Profiles enabled</string>
     <string name="current_min">Minimum speed: </string>
     <string name="governor">Governor</string>
     <string name="io">I/O Scheduler</string>
@@ -354,4 +347,21 @@ Copyright (C) 2012  James Roberts
     <string name="no_stat_because_reset">Create reset</string>
     <string name="no_stat_because_plugged">Unplug power</string>
     <string name="no_stat_because_error">Error loading battery stats</string>
+    <string name="power_profile">Power profiles</string>
+    <string name="power_profile_enable">Enabled</string>
+    <string name="default_power_profile">Default profile</string>
+    <string name="screen_off_power_profile">Screen-off profile</string>
+    <string name="power_profile_apps">Application profiles</string>
+    <string name="power_profile_apps_list">Application list</string>
+    <string name="power_profile_apps_summary">Set specific profiles for applications</string>
+    <string name="dialog_delete_title">Delete</string>
+    <string name="dialog_delete_message">Remove selected item?</string>
+    <string name="profile_choose_app">Choose app</string>
+    <string name="profiles_add">Add</string>
+    <string name="power_profile_plugged">Profiles while plugged</string>
+    <string name="power_profile_plugged_summary">Use profiles also while power is plugged</string>
+    <string name="power_profile">Profiles</string>
+    <string name="power_profile_list">Profile list</string>
+    <string name="power_profile_summary">Show available profiles</string>
+
 </resources>

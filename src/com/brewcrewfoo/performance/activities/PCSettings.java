@@ -20,19 +20,16 @@ package com.brewcrewfoo.performance.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.Preference;
+import android.preference.*;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
-public class PCSettings extends PreferenceActivity implements Constants, ActivityThemeChangeInterface, OnPreferenceChangeListener {
+import static com.brewcrewfoo.performance.util.Constants.PREF_USE_LIGHT_THEME;
+import static com.brewcrewfoo.performance.util.Constants.VERSION_NUM;
+
+public class PCSettings extends PreferenceActivity implements ActivityThemeChangeInterface, OnPreferenceChangeListener {
 
     SharedPreferences mPreferences;
     private CheckBoxPreference mLightThemePref;
