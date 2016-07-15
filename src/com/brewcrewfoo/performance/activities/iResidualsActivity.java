@@ -18,11 +18,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.FileArrayAdapter;
 import com.brewcrewfoo.performance.util.Item;
 
@@ -30,12 +27,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.brewcrewfoo.performance.util.Constants.TAG;
+
 /**
  * Created by h0rn3t on 31.07.2013.
  */
-public class iResidualsActivity extends Activity implements Constants, AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
+public class iResidualsActivity extends Activity implements AdapterView.OnItemClickListener {
     SharedPreferences mPreferences;
-    private boolean mIsLightTheme;
     private FileArrayAdapter adapter;
     private String rpath;
     private int ndel = 0;
@@ -53,7 +51,6 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         res = getResources();
-        setTheme();
         setContentView(R.layout.residual_list);
 
         Intent intent1 = getIntent();
@@ -100,19 +97,6 @@ public class iResidualsActivity extends Activity implements Constants, AdapterVi
     public void onConfigurationChanged(Configuration newConfig) {
         packList.setAdapter(adapter);
         super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = is_light_theme;
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 
     @Override

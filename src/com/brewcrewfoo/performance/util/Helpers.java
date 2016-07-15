@@ -18,6 +18,8 @@
 
 package com.brewcrewfoo.performance.util;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -28,6 +30,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.content.ContentResolver;
+import android.provider.Settings;
 
 import com.brewcrewfoo.performance.R;
 
@@ -40,7 +44,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Helpers implements Constants {
+public class Helpers {
 
     private static String mVoltagePath;
 
@@ -160,6 +164,20 @@ public class Helpers implements Constants {
         return line;
     }
 
+    public static String readOneLineRaw(String fname) throws IOException {
+        String line = null;
+        if (new File(fname).exists()) {
+            BufferedReader br;
+            br = new BufferedReader(new FileReader(fname), 512);
+            try {
+                line = br.readLine();
+            } finally {
+                br.close();
+            }
+        }
+        return line;
+    }
+
     public static boolean fileExists(String fname) {
         return new File(fname).exists();
     }
@@ -216,16 +234,23 @@ public class Helpers implements Constants {
      */
     public static String[] getAvailableIOSchedulers() {
         String[] schedulers = null;
-        String[] aux = readStringArray(IO_SCHEDULER_PATH[0]);
-        if (aux != null) {
-            schedulers = new String[aux.length];
-            for (int i = 0; i < aux.length; i++) {
-                if (aux[i].charAt(0) == '[') {
-                    schedulers[i] = aux[i].substring(1, aux[i].length() - 1);
-                } else {
-                    schedulers[i] = aux[i];
+        for (String ioPath : IO_SCHEDULER_PATH) {
+            if (new File(ioPath).exists()) {
+                String[] aux = readStringArray(ioPath);
+                if (aux != null) {
+                    schedulers = new String[aux.length];
+                    for (int i = 0; i < aux.length; i++) {
+                        if (aux[i].charAt(0) == '[') {
+                            schedulers[i] = aux[i].substring(1, aux[i].length() - 1);
+                        } else {
+                            schedulers[i] = aux[i];
+                        }
+                    }
                 }
             }
+        }
+        if (schedulers == null) {
+            schedulers = new String[] {"unknown"};
         }
         return schedulers;
     }
@@ -251,14 +276,21 @@ public class Helpers implements Constants {
      */
     public static String getIOScheduler() {
         String scheduler = null;
-        String[] schedulers = readStringArray(IO_SCHEDULER_PATH[0]);
-        if (schedulers != null) {
-            for (String s : schedulers) {
-                if (s.charAt(0) == '[') {
-                    scheduler = s.substring(1, s.length() - 1);
-                    break;
+        for (String ioPath : IO_SCHEDULER_PATH) {
+            if (new File(ioPath).exists()) {
+                String[] schedulers = readStringArray(ioPath);
+                if (schedulers != null) {
+                    for (String s : schedulers) {
+                        if (s.charAt(0) == '[') {
+                            scheduler = s.substring(1, s.length() - 1);
+                            break;
+                        }
+                    }
                 }
             }
+        }
+        if (scheduler == null) {
+            scheduler = "unknown";
         }
         return scheduler;
     }
@@ -575,5 +607,18 @@ public class Helpers implements Constants {
     public static boolean isSystemApp(Context c) {
         boolean mIsSystemApp;
         return mIsSystemApp = c.getResources().getBoolean(R.bool.config_isSystemApp);
+    }
+
+    public static boolean hasOverallStats() {
+        return fileExists(TIME_IN_STATE_OVERALL_PATH);
+    }
+
+    public static boolean lowmemExists() {
+        return new File(MINFREE_PATH).exists();
+    }
+
+    public static boolean powerProfileEnabled(Context c) {
+        return Settings.System.getInt(c.getContentResolver(),
+                Settings.System.POWER_PROFILE_ENABLED, 0) != 0;
     }
 }

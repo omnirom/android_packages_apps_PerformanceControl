@@ -12,32 +12,20 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
-import android.widget.TextView;
-
+import android.widget.*;
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
-import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
-import com.brewcrewfoo.performance.util.Helpers;
-import com.brewcrewfoo.performance.util.Prop;
-import com.brewcrewfoo.performance.util.PropAdapter;
+import com.brewcrewfoo.performance.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 /**
  * Created by h0rn3t on 21.09.2013.
  */
-public class GovSetActivity extends Activity implements Constants, AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
-    private boolean mIsLightTheme;
+
+public class GovSetActivity extends Activity implements AdapterView.OnItemClickListener {
     SharedPreferences mPreferences;
     private final Context context = this;
     Resources res;
@@ -54,7 +42,6 @@ public class GovSetActivity extends Activity implements Constants, AdapterView.O
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         res = getResources();
-        setTheme();
         setContentView(R.layout.prop_view);
 
         packList = (ListView) findViewById(R.id.applist);
@@ -168,19 +155,6 @@ public class GovSetActivity extends Activity implements Constants, AdapterView.O
     public void onItemClick(AdapterView<?> parent, View view, int position, long row) {
         final Prop p = adapter.getItem(position);
         editPropDialog(p);
-    }
-
-    @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = is_light_theme;
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 
     @Override

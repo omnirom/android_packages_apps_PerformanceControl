@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Performance Control - An Android CPU Control application
+Copyright (C) 2012  James Roberts
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+    <string name="app_name">Control de Rendimiento</string>
+    <!-- Main tabs -->
+    <string name="tab_cpu_settings">Frecuencia de CPU</string>
+    <string name="tab_cpu_profiles">Perfiles de CPU</string>
+    <string name="tab_battery_info">Batería</string>
+    <string name="tab_oom_settings">Opciones de memoria</string>
+    <string name="tab_time_in_state">Estadísticas de CPU</string>
+    <string name="tab_voltage_settings">Opciones de voltaje</string>
+    <string name="tab_cpu_info">Información general</string>
+    <string name="tab_disk_info">Información de almacenamiento</string>
+    <string name="tab_tools">Herramientas</string>
+    <!-- Titles -->
+    <string name="t_cpu_settings">FRECUENCIA DE CPU</string>
+    <string name="t_battery_info">BATERÍA</string>
+    <string name="t_oom_settings">OPCIONES DE MEMORIA</string>
+    <string name="t_volt_settings">OPCIONES DE VOLTAJE</string>
+    <string name="t_adv_settings">OPCIONES AVANZADAS</string>
+    <string name="t_time_in_state">ESTADÍSTICAS DE CPU</string>
+    <string name="t_cpu_info">INFORMACIÓN GENERAL</string>
+    <string name="t_disk_info">INFORMACION DE ALMACENAMIENTO</string>
+    <string name="t_tools">HERRAMIENTAS</string>
+    <string name="menu_tab">Pestañas</string>
+    <!-- Menu -->
+    <string name="mt_refresh">Actualizar</string>
+    <string name="mt_app_settings">Configuraciones de la aplicación</string>
+    <string name="mt_reset">Reiniciar</string>
+    <string name="mt_restore">Restablecer</string>
+    <string name="mt_plus25">Aumentar en 25 mV</string>
+    <string name="mt_minus25">Disminuir en 25 mV</string>
+    <!-- CPU settings -->
+    <string name="current_speed">Frecuencia actual</string>
+    <string name="current_max">Frecuencia máxima: </string>
+    <string name="current_min">Frecuencia mínima: </string>
+    <string name="governor">Regulador</string>
+    <string name="io">Planificador de E/S</string>
+    <string name="sob">Aplicar en el arranque</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="cpu_info_list_header">Estado de los núcleos</string>
+    <string name="cpu_speed_header">Límites de frecuencia</string>
+    <string name="other_settings_header">Otras opciones</string>
+    <string name="core_offline">Apagado</string>
+    <string name="core">Núcleo</string>
+    <!-- Other settings -->
+    <string name="prefcat_free_memory">MEMORIA LIBRE</string>
+    <string name="prefcat_tweaks">CARGA RÁPIDA</string>
+    <string name="prefcat_misc_short">OTROS</string>
+    <string name="prefcat_read_ahead">CACHÉ DE LECTURA DE LA SD</string>
+    <string name="prefcat_vm_settings">OPCIONES DE DALVIK</string>
+    <string name="dt_free_memory">Finalizador de procesos</string>
+    <string name="dt_read_ahead">Caché de lectura de la SD</string>
+    <string name="pt_free_memory">Memoria libre</string>
+    <string name="ps_free_memory">Cantidad de RAM que se mantendrá |
+        Actual: %s
+    </string>
+    <string name="ps_free_memory_boot">Aplicar al arranque</string>
+    <string name="pt_read_ahead">Caché de lectura del almacenamiento</string>
+    <string name="ps_read_ahead">Cantidad para tener en caché, en kb |
+        Actual: %s
+    </string>
+    <string name="ps_fast_charge_boot">Carga Rápida</string>
+    <string name="fast_charge_warning">USTED NO PODRÁ CONECTARSE A SU EQUIPO DESPUÉS DE CADA REINICIO!\n\n¡Mientras la carga rápida esté activa, su dispositivo *solamente* se podrá cargar!
+    </string>
+    <string name="fast_charge_notification_title">¡La Carga Rápida está ACTIVA!</string>
+    <string name="fast_charge_notification_message">¡Su dispositivo solo se puede cargar!</string>
+    <string name="prefcat_force_highend_gfx">Gráficos de alta calidad</string>
+    <string name="pref_force_highend_gfx_title">Forzar los gráficos de alta calidad</string>
+    <string name="pref_force_highend_gfx_summary">Active efectos de alta calidad como la transparencia de las barras de estado y navegación (requiere reinicio)</string>
+    <!-- minfree -->
+    <string name="prefcat_oom">MÍNIMO DE MEMORIA LIBRE</string>
+    <string name="title_foreground_app">Aplicaciones en primer plano</string>
+    <string name="title_visible_app">Aplicaciones visibles</string>
+    <string name="title_secondary_server">Servidor secundario</string>
+    <string name="title_hidden_app">Aplicaciones ocultas</string>
+    <string name="title_content_providers">Proveedores de contenido</string>
+    <string name="title_empty_app">Aplicaciones vacías</string>
+    <string name="prefcat_oom_predefines">PREAJUSTES</string>
+    <string name="pt_oom">Ajustes preestablecidos del finalizador de procesos</string>
+    <string name="pt_verylight">Muy pasivo (Actúa raramente)</string>
+    <string name="pt_light">Pasivo</string>
+    <string name="pt_medium">Medio</string>
+    <string name="pt_aggressive">Agresivo</string>
+    <string name="pt_veryaggressive">Muy agresivo (Actúa frecuentemente)</string>
+    <!-- do not kill proc -->
+    <string name="prefcat_user_proc">PROCESOS DEL USUARIO NO FINALIZABLES</string>
+    <string name="prefcat_sys_proc">PROCESOS DEL SISTEMA NO FINALIZABLES</string>
+    <string name="pt_user_proc">Cree una lista de procesos del usuario que no se podrán detener</string>
+    <string name="pt_sys_proc">Cree una lista de procesos del sistema que no se podrán detener</string>
+    <string name="pt_user_names_proc">Lista blanca de procesos del usuario</string>
+    <string name="pt_sys_names_proc">Lista blanca de procesos del sistema</string>
+    <string name="ps_restore_boot">Restaurar estas opciones al arranque</string>
+    <string name="ps_user_proc">Lista de procesos del usuario (separados por coma)</string>
+    <string name="ps_sys_proc">Lista de procesos del sistema (separados por coma)</string>
+    <string name="no_proc">Ninguna aplicación</string>
+    <!-- bln -->
+    <string name="prefcat_bln">NOTIFICACIÓN POR RETROILUMINACIÓN</string>
+    <string name="pt_bln">Iluminar cuando hayan notificaciones</string>
+    <!-- blx -->
+    <string name="blx_info">Funcionalidad de aumento de vida de la batería\nAutor: Ezekeel</string>
+    <string name="prefcat_blx">EXTENSOR DE VIDA DE LA BATERIA</string>
+    <string name="pt_blx_boot">Aplicar al arranque</string>
+    <string name="ps_blx_boot">Aplicar los ajustes anteriores en el arranque</string>
+    <string name="blx_title">Limite de carga : </string>
+    <!-- dsync -->
+    <string name="dsync_info">FSync dinámico\nAutor: Paul Reioux (faux123)</string>
+    <string name="prefcat_dsync">FSYNC DINÁMICO</string>
+    <string name="ps_dsync">Los ajustes serán restablecidos al arranque</string>
+    <string name="pt_dsync">FSync dinámico</string>
+    <!-- bl_timeout -->
+    <string name="prefcat_bltimeout">RETRASO ANTES DE SUSPENDER</string>
+    <string name="ps_bltimeout">%s ms</string>
+    <string name="bltimeout_title">Duración de la retroiluminación</string>
+    <!-- bl_touch -->
+    <string name="prefcat_bltouch">ILUMINAR AL TOCAR</string>
+    <string name="pt_bltouch">Retroiluminación al tocar la pantalla</string>
+    <!-- pfk -->
+    <string name="pfk_info">Módulo de filtro de toques involuntarios ver. %s\nAutor: Cristoforo Cataldo (Christopher83)</string>
+    <string name="prefcat_pfk">FILTRO DE TOQUES INVOLUNTARIOS</string>
+    <string name="pt_home_enabled">Filtro de la tecla de inicio</string>
+    <string name="ps_home_enabled">Presiones filtradas: %s</string>
+    <string name="home_allowed_irq_title">Máximo de filtros</string>
+    <string name="home_report_wait_title">Reportar tiempo de espera</string>
+    <string name="pt_menuback_enabled">Filtro de las teclas Menú/Volver</string>
+    <string name="ps_menuback_enabled">Presiones filtradas: %s</string>
+    <string name="menuback_interrupt_checks_title">Controlar interrupciones</string>
+    <string name="menuback_first_err_wait_title">Tiempo de espera del primer error</string>
+    <string name="menuback_last_err_wait_title">Tiempo de espera del último error</string>
+    <string name="ps_pfk_set_on_boot">Si se habilita, todas las configuraciones de filtrado se restaurarán al reiniciar</string>
+    <!-- dynamic write back -->
+    <string name="dynamic_writeback_info">Dirty Page Writebacks Dinámicos\nAutor: Cristoforo Cataldo (Christopher83)</string>
+    <string name="dynamic_write_back_title">DIRTY PAGE WRITEBACKS DINÁMICOS</string>
+    <string name="pt_dynamic_write_back">Dirty Page Writebacks Dinámicos</string>
+    <string name="dynamic_writeback_active_title">Dirty Writeback estando activo (centisegs)</string>
+    <string name="dynamic_writeback_suspend_title">Dirty Writeback en suspensión (centisegs)</string>
+    <!-- Voltage control -->
+    <string name="volt_info">¡ATENCIÓN!\nAntes de activar Aplicar al arranque, asegúrese de que los valores no excedan los límites o su dispositivo podría no responder</string>
+    <string name="ps_volt_mhz_voltage">" Hz"</string>
+    <string name="ps_volt_save">Guardar</string>
+    <string name="ps_volt_current_voltage">Voltaje actual: </string>
+    <string name="ps_volt_setting_to_apply">Configuración a aplicar: </string>
+    <string name="pt_volt_control">Control de voltaje</string>
+    <string name="ps_volt_control">Establezca los voltajes para cada frecuencia</string>
+    <string name="apply_values">Aplicar los valores</string>
+    <string name="freq">Frecuencia</string>
+    <string name="current">mV actual</string>
+    <string name="saved">mV guardado</string>
+    <string name="not_supported">Su kernel no soporta el control de los voltajes</string>
+    <!-- VM settings -->
+    <string name="ps_vm_set_on_boot">Se aplicarán los valores actuales después de cada arranque</string>
+    <string name="dirty_ratio_title">Dirty ratio</string> <!-- NO TRANSLATION FOUND -->
+    <string name="dirty_ratio_summary">Un ratio mayor significa menor uso de CPU, pero las aplicaciones se demorarán más en iniciar</string>
+    <string name="dirty_background_title">Dirty background ratio</string> <!-- NO TRANSLATION FOUND -->
+    <string name="dirty_expire_title">Dirty expire centisegs</string>
+    <string name="dirty_writeback_title">Dirty writeback centisegs</string>
+    <string name="min_free_title">Memoria libre mínima (KB)</string>
+    <string name="overcommit_title">Índice de sobrecarga</string>
+    <string name="swappiness_title">Swappiness</string> <!-- NO TRANSLATION FOUND -->
+    <string name="vfs_title">Presión de caché VFS</string>
+    <!-- Time in state -->
+    <string name="time_in_state">Estadísticas de CPU</string>
+    <string name="unused_cpu_states">Estados no utilizados</string>
+    <string name="total_state_time">Tiempo total</string>
+    <string name="no_states_file_found">No se encontraron estadísticas. ¿Está seguro de que su
+        dispositivo es compatible?\n\nSi ha instalado una ROM o un kernel, intente
+        contactar a los desarrolladores y avise que no se pueden leer las estadísticas.</string>
+    <string name="deep_sleep">Sueño profundo</string>
+    <!-- CPU info -->
+    <string name="kernel_info">INFORMACIÓN DEL KERNEL LINUX</string>
+    <string name="cpu_info">INFORMACIÓN DE CPU</string>
+    <string name="mem_info">INFORMACIÓN DE MEMORIA</string>
+    <string name="first_run_title">Se deben comprobar los permisos de superusuario.</string>
+    <string name="su_success_title">¡Todo Bien!</string>
+    <string name="su_failed_title">¡Oops!</string>
+    <string name="first_run_message">La aplicación necesita comprobar los permisos de superusuario y la versión de BusyBox. Presione OK para continuar. Cancelar si no quiere otorgar permisos de superusuario</string>
+    <string name="su_success_message">La aplicación consiguió permisos de superusuario y encontró busybox. ¡A rockear!</string>
+    <string name="su_cancel_message">Has preferido no comprobar los permisos de superusuario y la presencia de busybox. La mayoría de las opciones no funcionarán sin permisos se superusuario. ¡Lo sentimos!</string>
+    <string name="su_failed_su_or_busybox">No es posible obtener permisos de superusuario o no se encontró busybox. La mayoría de las opciones no funcionarán sin permisos se superusuario. ¡Lo sentimos!</string>
+    <!-- Tools -->
+    <string name="prefcat_sh">COMANDOS PERSONALIZADOS</string>
+    <string name="sh_title">Editar línea de comandos</string>
+    <string name="ps_sh">Los comandos se ejecutarán en el arranque.</string>
+    <string name="sh_msg">Deje esto en blanco para no realizar ninguna operación.</string>
+    <string name="clear">Borrar</string>
+    <string name="yes">Si</string>
+    <string name="wait">Espere…</string>
+    <string name="prefcat_wipe_cache">CACHÉ Y CACHÉ DALVIK</string>
+    <string name="wipe_cache_title">Limpiar el caché y el caché de Dalvik</string>
+    <string name="ps_wipe_cache">Partición de caché: %s</string>
+    <string name="wipe_cache_msg">Al finalizar, se reiniciará el sistema. ¿Continuar?</string>
+    <string name="prefcat_flash_img">Escribir desde archivo IMG</string>
+    <string name="kernel_img_title">Escribir el KERNEL</string>
+    <string name="ps_kernel_img">Escribir el Kernel desde un archivo boot.img. Puedes elegir un archivo boot.img o un archivo comprimido ZIP que lo contenga</string>
+    <string name="recovery_img_title">Escribir el RECOVERY</string>
+    <string name="ps_recovery_img">Escribir el Recovery desde un archivo recovery.img. Puedes elegir un archivo recovery.img o un archivo comprimido ZIP que lo contenga</string>
+    <string name="btn_choose">Elegir %s</string>
+    <string name="unsupported_info">Su dispositivo no es compatible.</string>
+    <string name="flash_info">será escrito en la partición\n%s\n como un</string>
+    <string name="dir_parent">&lt;Directorio raíz&gt;</string>
+    <string name="dir">&lt;DIR&gt;</string>
+    <string name="bkexit">Pulsa de nuevo para salir</string>
+    <string name="prefcat_residual_files">LIMPIAR ARCHIVOS RESIDUALES</string>
+    <string name="residual_files_title">Realizar limpieza de archivos residuales</string>
+    <string name="btncleanall">Limpiar todo</string>
+    <string name="clean_files_msg">Los archivos residuales de %s serán eliminados. ¿Continuar?</string>
+    <string name="filesstr">archivo(s)</string>
+    <string name="no_residuals">No hay archivos residuales</string>
+    <string name="prefcat_optim_db">OPTIMIZAR BASES DE DATOS</string>
+    <string name="optim_db_title">Optimizar las bases de datos</string>
+    <string name="ps_optim_db">Esta acción optimizará las bases de datos utilizando el comando de SQL VACUUM.</string>
+    <string-array name="residual_info">
+        <item>Contiene los registros del sistema Android</item>
+        <item>Contiene los registros de cierres forzados de las aplicaciones</item>
+        <item>Contiene los registros generados constantemente</item>
+        <item>Contiene estadísticas de las aplicaciones iniciadas</item>
+        <item>Contiene datos de \'aplicaciones que no responden\'</item>
+        <item>Contiene los archivos temporales</item>
+    </string-array>
+    <string name="prefcat_fix_perms">CORREGIR PERMISOS</string>
+    <string name="fix_perms_title">Corregir los permisos</string>
+    <string name="fix_perms_msg">La operación puede tardar unos minutos. ¿Continuar?</string>
+    <string name="preflogg_fix_perms">Activar el registro</string>
+    <!-- 2.1.0 -->
+    <string name="free">Libre : %s</string>
+    <string name="used">En uso : %s</string>
+    <string name="verify">Verificando…</string>
+    <string name="bad_zip">¡No se ha encontrado %s en el ZIP!</string>
+    <string name="closebtn">Cerrar</string>
+    <string name="delallbtn">Eliminar todo</string>
+    <string name="del_file_msg">%s se eliminará. ¿Continuar?</string>
+    <string-array name="batt_status">
+        <item>Desconocido</item>
+        <item>Desconocido</item>
+        <item>Cargando</item>
+        <item>Descargando</item>
+        <item>Llena</item>
+        <item>No cargando</item>
+    </string-array>
+    <!-- 2.1.2 -->
+    <!-- ksm -->
+    <string name="prefcat_ksm">KERNEL SAMEPAGE MERGING</string> <!-- NO TRANSLATION FOUND -->
+    <string name="pt_run_ksm">Activar KSM</string>
+    <string name="ksm_adv_title">Ajustes</string>
+    <string name="ksm_fullscans">Escaneados completos:</string>
+    <string name="ksm_pagshared">Páginas compartidas:</string>
+    <string name="ksm_pagsharing">Páginas que se comparten:</string>
+    <string name="ksm_pagunshared">Páginas no compartidas:</string>
+    <string name="ksm_pagvolatile">Páginas volátiles:</string>
+    <string name="ksm_pagtoscan">Páginas a escanear:</string>
+    <string name="ksm_sleep">Suspensión (ms):</string>
+    <!-- freezer -->
+    <string name="prefcat_freezer">CONGELAR/DESCONGELAR APLICACIONES</string>
+    <string name="pt_freeze">Congelar una aplicación</string>
+    <string name="pt_unfreeze">Descongelar una aplicación</string>
+    <string name="ps_freeze">Lista de las aplicaciones instaladas</string>
+    <string name="ps_unfreeze">Lista de las aplicaciones congeladas</string>
+    <string name="mt_system_packs">Aplicaciones del sistema</string>
+    <string name="mt_user_packs">Aplicaciones del usuario</string>
+    <string name="freeze_msg">%s se congelará. ¿Continuar?</string>
+    <string name="unfreeze_msg">%s se descongelará. ¿Continuar?</string>
+    <!-- zRam -->
+    <string name="prefcat_zram">zRAM</string>
+    <string name="pt_run_zram">Activar zRam</string>
+    <string name="zram_set_title">Ajustes</string>
+    <!-- 2.1.3 -->
+    <string name="ps_zram">Comprimir la memoria para aumentar la capacidad virtual</string>
+    <string name="mt_gov_ctrl">Ajustes del regulador</string>
+    <!-- PC Settings -->
+    <string name="pt_use_light_theme">Usar tema claro</string>
+    <string name="ps_use_light_theme">Si se activa, control de rendimiento usará el tema Holo light.</string>
+    <string name="pt_widget_bg_color">Color de fondo del widget</string>
+    <string name="pt_widget_text_color">Color de texto del widget</string>
+    <string name="pt_ver">"Versión - "</string>
+    <!-- Color picker -->
+    <string name="dialog_color_picker">Seleccionar color</string>
+    <string name="press_color_to_apply">Presione el color para aplicar</string>
+    <string name="set">Aplicar</string>
+    <string name="ics_color">Holo</string>
+    <!-- Drawer -->
+    <string name="navigation_drawer_toggle">Alternar barra lateral</string>
+    <string name="navigation_drawer_open">Abrir barra lateral</string>
+    <string name="navigation_drawer_close">Cerrar barra lateral</string>
+    <string name="navigation_toggle_drawer">Usar barra lateral</string>
+    <string name="navigation_toggle_tabbed">Organizar por pestañas</string>
+    <string name="speed_limit_note">Nota: Requiere que el kernel soporte la acción</string>
+</resources>

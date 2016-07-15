@@ -15,24 +15,19 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
-import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
-import com.brewcrewfoo.performance.util.FileArrayAdapter;
-import com.brewcrewfoo.performance.util.Helpers;
-import com.brewcrewfoo.performance.util.Item;
+import com.brewcrewfoo.performance.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
+
 /**
  * Created by h0rn3t on 31.07.2013.
  */
-public class ResidualsActivity extends Activity implements Constants, AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
+public class ResidualsActivity extends Activity implements AdapterView.OnItemClickListener {
     SharedPreferences mPreferences;
-    private boolean mIsLightTheme;
     private FileArrayAdapter adapter;
 
     Resources res;
@@ -51,7 +46,6 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         res = getResources();
-        setTheme();
         setContentView(R.layout.residual_list);
         packList = (ListView) findViewById(R.id.applist);
         packList.setOnItemClickListener(this);
@@ -89,19 +83,6 @@ public class ResidualsActivity extends Activity implements Constants, AdapterVie
     public void onConfigurationChanged(Configuration newConfig) {
         packList.setAdapter(adapter);
         super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = is_light_theme;
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 
     @Override
