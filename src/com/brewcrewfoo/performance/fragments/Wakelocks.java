@@ -71,7 +71,6 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ShareActionProvider;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.PopupMenu;
@@ -105,7 +104,6 @@ public class Wakelocks extends Fragment {
     private boolean mUpdatingData;
     private Context mContext;
     private SharedPreferences mPreferences;
-    private ShareActionProvider mProvider;
     private static BatteryStats sBatteryStats;
     private long rawUptime;
     private long rawRealtime;
@@ -139,6 +137,7 @@ public class Wakelocks extends Fragment {
     private List<WakelockAppStats> mAppWakelockList = new ArrayList<WakelockAppStats>();
     private static boolean sHasRefData;
     private boolean mErrorLoadingStats;
+    private Intent mShareIntent;
 
     private static final int MENU_REFRESH = Menu.FIRST;
     private static final int MENU_SHARE = MENU_REFRESH + 1;
@@ -309,8 +308,6 @@ public class Wakelocks extends Fragment {
 
         setHasOptionsMenu(true);
 
-        mProvider = new ShareActionProvider(mContext);
-
         loadWakelockRef();
         loadWakelockUnplug();
     }
@@ -342,9 +339,9 @@ public class Wakelocks extends Fragment {
                 .findViewById(R.id.period_type_select);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 mContext, R.array.wakelock_period_type_entries,
-                R.layout.period_type_item);
+                android.R.layout.simple_spinner_item);
         mPeriodTypeSelect.setAdapter(adapter);
-
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mPeriodTypeSelect
                 .setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
                     @Override
@@ -366,9 +363,9 @@ public class Wakelocks extends Fragment {
 
         mListTypeSelect = (Spinner) view.findViewById(R.id.list_type_select);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
-                mContext, R.array.list_type_entries, R.layout.period_type_item);
+                mContext, R.array.list_type_entries, android.R.layout.simple_spinner_item);
         mListTypeSelect.setAdapter(adapter1);
-
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mListTypeSelect
                 .setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
                     @Override
@@ -388,9 +385,9 @@ public class Wakelocks extends Fragment {
         mStateTimeSelect = (Spinner) view.findViewById(R.id.state_time_select);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter
                 .createFromResource(mContext, R.array.state_time_entries,
-                        R.layout.period_type_item);
+                        android.R.layout.simple_spinner_item);
         mStateTimeSelect.setAdapter(adapter2);
-
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mStateTimeSelect
                 .setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
                     @Override
@@ -447,16 +444,15 @@ public class Wakelocks extends Fragment {
         inflater.inflate(R.menu.wakelocks_menu, menu);
 
         menu.add(0, MENU_REFRESH, 0, R.string.mt_refresh)
-                .setIcon(com.android.internal.R.drawable.ic_menu_refresh)
+                .setIcon(R.drawable.ic_menu_refresh_new)
                 .setAlphabeticShortcut('r')
                 .setShowAsAction(
                         MenuItem.SHOW_AS_ACTION_IF_ROOM
                                 | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add(1, MENU_SHARE, 0, R.string.mt_share)
-                .setIcon(R.drawable.ic_menu_share)
+                .setIcon(R.drawable.ic_menu_share_material)
                 .setAlphabeticShortcut('s')
-                .setActionProvider(mProvider)
                 .setShowAsAction(
                         MenuItem.SHOW_AS_ACTION_IF_ROOM
                                 | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
@@ -471,8 +467,14 @@ public class Wakelocks extends Fragment {
         case R.id.reset:
             createResetPoint();
             break;
+        case MENU_SHARE:
+            if (mShareIntent != null) {
+                Intent intent = Intent.createChooser(mShareIntent, null);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
+            break;
         }
-
         return true;
     }
 
@@ -763,11 +765,10 @@ public class Wakelocks extends Fragment {
     }
 
     private void updateShareIntent(String data) {
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, data);
-        mProvider.setShareIntent(shareIntent);
+        mShareIntent = new Intent();
+        mShareIntent.setAction(Intent.ACTION_SEND);
+        mShareIntent.setType("text/plain");
+        mShareIntent.putExtra(Intent.EXTRA_TEXT, data);
     }
 
     private static long computeWakeLock(BatteryStats.Timer timer,

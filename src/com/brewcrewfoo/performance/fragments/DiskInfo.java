@@ -246,26 +246,22 @@ public class DiskInfo extends Fragment {
         set_part_info("/cache", "Cache", cachename, cachetotal, cacheused,
                 cachefree, cachebar, lcache);
 
-        cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | " +
-                "busybox egrep -v \"asec|android_secure|sdcard1|external_sd|sd-ext|media_rw\" | " +
-                "busybox egrep -i \"sdcard|sdcard0\" | busybox awk '{print $3}'`");
+        cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox ls /storage | grep -v emulated | grep -v self`");
 
-        if (cr.success() && set_part_info(cr.stdout, "SD card 1", sd1name, sd1total,
-                sd1used, sd1free, sd1bar, lsd1)) {
-            internalsd = cr.stdout;
+        if (cr.success()) {
+            String[] parts = cr.stdout.split("\n");
+            if (parts.length > 0) {
+                if (set_part_info("/storage/" + parts[0], "SD card 1", sd1name, sd1total,
+                        sd1used, sd1free, sd1bar, lsd1)) {
+                    internalsd = "/storage/" + parts[0];
+                }
+            }
+            if (parts.length > 1) {
+                if (set_part_info("/storage/" + parts[1], "SD card 2", sd2name, sd2total, sd2used,
+                        sd2free, sd2bar, lsd2)) {
+                    externalsd = "/storage/" + parts[1];
+                }
+            }
         }
-
-        String sep = "";
-        if (!internalsd.equals("")) sep = "|";
-
-        cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v " +
-                "\"asec|media_rw|android_secure" + sep + internalsd + "\" | busybox egrep -i \"" +
-                "external_sd|sdcard1|sd-ext\" | busybox awk '{print $3}'`");
-
-        if (cr.success() && set_part_info(cr.stdout, "SD card 2", sd2name, sd2total, sd2used,
-                sd2free, sd2bar, lsd2)) {
-            externalsd = cr.stdout;
-        }
-
     }
 }

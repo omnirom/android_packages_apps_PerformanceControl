@@ -26,9 +26,8 @@ import static com.brewcrewfoo.performance.util.Constants.*;
 /**
  * Created by h0rn3t on 31.07.2013.
  */
-public class ResidualsActivity extends Activity implements AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
+public class ResidualsActivity extends Activity implements AdapterView.OnItemClickListener {
     SharedPreferences mPreferences;
-    private boolean mIsLightTheme;
     private FileArrayAdapter adapter;
 
     Resources res;
@@ -47,7 +46,6 @@ public class ResidualsActivity extends Activity implements AdapterView.OnItemCli
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         res = getResources();
-        setTheme();
         setContentView(R.layout.residual_list);
         packList = (ListView) findViewById(R.id.applist);
         packList.setOnItemClickListener(this);
@@ -85,19 +83,6 @@ public class ResidualsActivity extends Activity implements AdapterView.OnItemCli
     public void onConfigurationChanged(Configuration newConfig) {
         packList.setAdapter(adapter);
         super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = is_light_theme;
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 
     @Override

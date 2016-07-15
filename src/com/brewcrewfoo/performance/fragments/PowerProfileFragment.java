@@ -124,22 +124,27 @@ public class PowerProfileFragment extends PreferenceFragment implements OnPrefer
         if (powerProfile == null) {
             powerProfile = mDefaultProfile;
         }
-        mDefaultPowerProfile.setValue(powerProfile);
         int index = mDefaultPowerProfile.findIndexOfValue(powerProfile);
-        mDefaultPowerProfile
-                .setSummary(mDefaultPowerProfile.getEntries()[index]);
+        if (index == -1) {
+            powerProfile = mDefaultProfile;
+            index = mDefaultPowerProfile.findIndexOfValue(powerProfile);
+        }
+        mDefaultPowerProfile.setValue(powerProfile);
+        mDefaultPowerProfile.setSummary(mDefaultPowerProfile.getEntries()[index]);
 
         String screenOffProfile = Settings.System.getString(resolver,
                 Settings.System.POWER_PROFILE_SCREEN_OFF);
         if (screenOffProfile == null) {
             screenOffProfile = mDefaultProfile;
         }
-        mScreenOffPowerProfile.setValue(screenOffProfile);
-
         index = mScreenOffPowerProfile.findIndexOfValue(screenOffProfile);
+        if (index == -1) {
+            screenOffProfile = mDefaultProfile;
+            index = mScreenOffPowerProfile.findIndexOfValue(powerProfile);
+        }
+        mScreenOffPowerProfile.setValue(screenOffProfile);
         mScreenOffPowerProfile
                 .setSummary(mScreenOffPowerProfile.getEntries()[index]);
-
         mPowerProfilePlugged.setChecked(Settings.System.getInt(resolver,
                 Settings.System.POWER_PROFILE_PLUGGED, 1) != 0);
     }

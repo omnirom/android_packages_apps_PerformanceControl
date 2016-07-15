@@ -42,6 +42,9 @@ public class Constants {
     // CPU settings
     public static final String CPU_PATH = "/sys/devices/system/cpu/cpu";
     public static final String CPU_FREQ_TAIL = "/cpufreq/scaling_cur_freq";
+    public static final String CPU_MAX_FREQ_TAIL = "/cpufreq/scaling_max_freq";
+    public static final String CPU_MIN_FREQ_TAIL = "/cpufreq/scaling_min_freq";
+    public static final String CPU_STEPS_TAIL = "/cpufreq/scaling_available_frequencies";
     public static final String CUR_CPU_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
     public static final String MAX_FREQ_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
     public static final String TEGRA_MAX_FREQ_PATH = "/sys/module/cpu_tegra/parameters/cpu_user_cap";
@@ -49,7 +52,7 @@ public class Constants {
     public static final String STEPS_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
     public static final String GOVERNORS_LIST_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
     public static final String GOVERNOR_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-    public static final String[] IO_SCHEDULER_PATH = {"/sys/block/mmcblk0/queue/scheduler", "/sys/block/mmcblk1/queue/scheduler"};
+    public static final String[] IO_SCHEDULER_PATH = {"/sys/block/mmcblk0/queue/scheduler", "/sys/block/mmcblk1/queue/scheduler", "/sys/block/sda/queue/scheduler"};
     //Dynamic frequency scaling
     public static final String DYN_MAX_FREQ_PATH = "/sys/power/cpufreq_max_limit";
     public static final String DYN_MIN_FREQ_PATH = "/sys/power/cpufreq_min_limit";
@@ -223,7 +226,6 @@ public class Constants {
     public static final String ZRAM_MEMTOT_PATH = "/sys/block/zram0/mem_used_total";
 
     // PC Settings
-    public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
     public static final String PREF_WIDGET_BG_COLOR = "widget_bg_color";
     public static final String PREF_WIDGET_TEXT_COLOR = "widget_text_color";
 }

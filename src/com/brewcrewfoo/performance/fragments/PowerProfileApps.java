@@ -74,6 +74,7 @@ import java.util.Collections;
 
 import com.brewcrewfoo.performance.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.internal.logging.MetricsLogger;
 
 public class PowerProfileApps extends SettingsPreferenceFragment implements
         OnPreferenceChangeListener, AdapterView.OnItemLongClickListener {
@@ -93,6 +94,11 @@ public class PowerProfileApps extends SettingsPreferenceFragment implements
     private Menu mMenu;
     private String mDefaultProfile;
     private PowerProfileManager mManager;
+
+    @Override
+    protected int getMetricsCategory() {
+        return MetricsLogger.OMNI_SETTINGS;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
