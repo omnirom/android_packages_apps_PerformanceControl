@@ -5,25 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StatFs;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.activities.PCSettings;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 
 import java.io.File;
 
-public class DiskInfo extends Fragment implements Constants {
+public class DiskInfo extends Fragment {
 
     private RelativeLayout lsys;
     private RelativeLayout ldata;
@@ -65,11 +58,13 @@ public class DiskInfo extends Fragment implements Constants {
     private String externalsd = "";
     private Context context;
 
+    private static final int MENU_REFRESH = Menu.FIRST;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
-        //setRetainInstance(true);
+
         setHasOptionsMenu(true);
     }
 
@@ -187,20 +182,19 @@ public class DiskInfo extends Fragment implements Constants {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (!getResources().getBoolean(R.bool.config_showPerformanceOnly)) {
-            inflater.inflate(R.menu.disk_info_menu, menu);
-        }
+        menu.add(0, MENU_REFRESH, 0, R.string.mt_refresh)
+                .setIcon(com.android.internal.R.drawable.ic_menu_refresh)
+                .setAlphabeticShortcut('r')
+                .setShowAsAction(
+                        MenuItem.SHOW_AS_ACTION_IF_ROOM
+                                | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.refresh:
+            case MENU_REFRESH:
                 loadData();
-                break;
-            case R.id.app_settings:
-                Intent intent = new Intent(context, PCSettings.class);
-                startActivity(intent);
                 break;
         }
         return true;
@@ -252,26 +246,22 @@ public class DiskInfo extends Fragment implements Constants {
         set_part_info("/cache", "Cache", cachename, cachetotal, cacheused,
                 cachefree, cachebar, lcache);
 
-        cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | " +
-                "busybox egrep -v \"asec|android_secure|sdcard1|external_sd|sd-ext\" | " +
-                "busybox egrep -i \"(sdcard|sdcard0)\" | busybox awk '{print $3}'`");
+        cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox ls /storage | grep -v emulated | grep -v self`");
 
-        if (cr.success() && set_part_info(cr.stdout, "SD card 1", sd1name, sd1total,
-                sd1used, sd1free, sd1bar, lsd1)) {
-            internalsd = cr.stdout;
+        if (cr.success()) {
+            String[] parts = cr.stdout.split("\n");
+            if (parts.length > 0) {
+                if (set_part_info("/storage/" + parts[0], "SD card 1", sd1name, sd1total,
+                        sd1used, sd1free, sd1bar, lsd1)) {
+                    internalsd = "/storage/" + parts[0];
+                }
+            }
+            if (parts.length > 1) {
+                if (set_part_info("/storage/" + parts[1], "SD card 2", sd2name, sd2total, sd2used,
+                        sd2free, sd2bar, lsd2)) {
+                    externalsd = "/storage/" + parts[1];
+                }
+            }
         }
-
-        String sep = "";
-        if (!internalsd.equals("")) sep = "|";
-
-        cr = new CMDProcessor().sh.runWaitFor("busybox echo `busybox mount | busybox egrep -v " +
-                "\"asec|android_secure" + sep + internalsd + "\" | busybox egrep -i \"" +
-                "(external_sd|sdcard1|sd-ext)\" | busybox awk '{print $3}'`");
-
-        if (cr.success() && set_part_info(cr.stdout, "SD card 2", sd2name, sd2total, sd2used,
-                sd2free, sd2bar, lsd2)) {
-            externalsd = cr.stdout;
-        }
-
     }
 }

@@ -24,7 +24,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 
-public class CMDProcessor implements Constants {
+import static com.brewcrewfoo.performance.util.Constants.TAG;
+
+public class CMDProcessor {
 
     private Boolean can_su;
     public SH sh;

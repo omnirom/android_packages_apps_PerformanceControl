@@ -12,24 +12,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.util.PackAdapter;
 
 import java.util.Arrays;
 
+import static com.brewcrewfoo.performance.util.Constants.*;
 
-public class PackActivity extends Activity implements Constants, OnItemClickListener, ActivityThemeChangeInterface {
+
+public class PackActivity extends Activity implements OnItemClickListener {
 
     PackageManager packageManager;
 
@@ -40,7 +35,6 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
     LinearLayout linlaHeaderProgress;
     LinearLayout linTools;
     LinearLayout linNopack;
-    private boolean mIsLightTheme;
     private String pack_path;
     private String pack_pref;
     private String pmList[];
@@ -52,7 +46,6 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
         super.onCreate(savedInstanceState);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme();
         setContentView(R.layout.pack_list);
         pmList = new String[]{};
         Intent i = getIntent();
@@ -152,18 +145,4 @@ public class PackActivity extends Activity implements Constants, OnItemClickList
             }
         }
     }
-
-    @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = is_light_theme;
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
-    }
-
 }

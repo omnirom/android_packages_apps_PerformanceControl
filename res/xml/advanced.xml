@@ -39,6 +39,17 @@ Copyright (C) 2012  James Roberts
             android:title="@string/sob" />
     </PreferenceCategory>
 
+    <!-- Force high-end graphics -->
+    <PreferenceCategory
+        android:key="category_force_highend_gfx"
+        android:title="@string/prefcat_force_highend_gfx">
+
+        <CheckBoxPreference
+            android:key="pref_force_highend_gfx"
+            android:title="@string/pref_force_highend_gfx_title"
+            android:summary="@string/pref_force_highend_gfx_summary" />
+    </PreferenceCategory>
+
     <!-- Dynamic Fsync -->
     <PreferenceCategory
         android:key="dsync"

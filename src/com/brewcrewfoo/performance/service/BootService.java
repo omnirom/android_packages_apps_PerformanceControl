@@ -27,17 +27,18 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-
 import com.brewcrewfoo.performance.R;
 import com.brewcrewfoo.performance.fragments.VoltageControlSettings;
-import com.brewcrewfoo.performance.util.Constants;
+import com.brewcrewfoo.performance.fragments.Wakelocks;
 import com.brewcrewfoo.performance.util.Helpers;
 import com.brewcrewfoo.performance.util.Voltage;
 
 import java.io.File;
 import java.util.List;
 
-public class BootService extends Service implements Constants {
+import static com.brewcrewfoo.performance.util.Constants.*;
+
+public class BootService extends Service {
     public static boolean servicesStarted = false;
     Context context;
 
@@ -68,10 +69,18 @@ public class BootService extends Service implements Constants {
         protected Void doInBackground(Void... args) {
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
+
+            // clear saved offsets - they make no sense after a reboot
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(PREF_OFFSETS, "").commit();
+
+            Wakelocks.clearStatus(c);
+
             final StringBuilder sb = new StringBuilder();
             final String FASTCHARGE_PATH = Helpers.fastcharge_path();
             final String BLN_PATH = Helpers.bln_path();
             final String gov = preferences.getString(PREF_GOV, Helpers.readOneLine(GOVERNOR_PATH));
+            final boolean powerProfileEnabled = Helpers.powerProfileEnabled(c);
 
             if (preferences.getBoolean(CPU_SOB, false)) {
                 final String max = preferences.getString(
@@ -81,13 +90,13 @@ public class BootService extends Service implements Constants {
                 final String io = preferences.getString(PREF_IO, Helpers.getIOScheduler());
 
                 for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                    sb.append("busybox echo ").append(max).append(" > ")
-                            .append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+                    if (!powerProfileEnabled) {
+                        sb.append("busybox echo ").append(max).append(" > ")
+                                .append(MAX_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
+                    }
                     sb.append("busybox echo ").append(min).append(" > ")
                             .append(MIN_FREQ_PATH.replace("cpu0", "cpu" + i)).append(";\n");
-                    //sb.append("busybox echo ").append(gov).append(" > ")
-                    // .append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
-                    sb.append("busybox echo performance > ")
+                    sb.append("busybox echo ").append(gov).append(" > ")
                             .append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
                 }
                 if (new File(TEGRA_MAX_FREQ_PATH).exists()) {
@@ -139,10 +148,13 @@ public class BootService extends Service implements Constants {
 
             if (preferences.getBoolean(PREF_READ_AHEAD_BOOT, false)) {
                 final String values = preferences.getString(
-                        PREF_READ_AHEAD, Helpers.readOneLine(READ_AHEAD_PATH));
-                if (new File(READ_AHEAD_PATH).exists())
-                    sb.append("busybox echo ").append(values).append(" > ")
-                            .append(READ_AHEAD_PATH).append(";\n");
+                        PREF_READ_AHEAD, Helpers.readOneLine(READ_AHEAD_PATH[0]));
+                for (String aREAD_AHEAD_PATH : READ_AHEAD_PATH) {
+                    if (new File(aREAD_AHEAD_PATH).exists()) {
+                        sb.append("busybox echo ").append(values).append(" > ")
+                                .append(aREAD_AHEAD_PATH).append(";\n");
+                    }
+                }   
             }
 
             if (FASTCHARGE_PATH != null) {
@@ -334,10 +346,6 @@ public class BootService extends Service implements Constants {
                             "pref_ksm_sleep", Helpers.readOneLine(KSM_SLEEP_PATH)))
                             .append(" > ").append(KSM_SLEEP_PATH).append(";\n");
                 }
-            }
-            for (int i = 0; i < Helpers.getNumOfCpus(); i++) {
-                sb.append("busybox echo ").append(gov).append(" > ")
-                        .append(GOVERNOR_PATH.replace("cpu0", "cpu" + i)).append(";\n");
             }
             if (preferences.getBoolean(GOV_SOB, false)) {
                 final String gn = preferences.getString(GOV_NAME, "");

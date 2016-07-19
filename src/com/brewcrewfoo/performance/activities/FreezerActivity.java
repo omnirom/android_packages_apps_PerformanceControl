@@ -24,18 +24,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
 import com.brewcrewfoo.performance.util.CMDProcessor;
-import com.brewcrewfoo.performance.util.Constants;
 import com.brewcrewfoo.performance.util.PackAdapter;
 
-
-public class FreezerActivity extends Activity implements Constants, AdapterView.OnItemClickListener, ActivityThemeChangeInterface {
+public class FreezerActivity extends Activity implements AdapterView.OnItemClickListener {
 
     final Context context = this;
-    private boolean mIsLightTheme;
     SharedPreferences mPreferences;
     private LinearLayout linlaHeaderProgress;
     private LinearLayout linNopack;
@@ -55,7 +50,6 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
         super.onCreate(savedInstanceState);
 
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme();
         setContentView(R.layout.freezer_list);
 
         Intent i = getIntent();
@@ -164,19 +158,6 @@ public class FreezerActivity extends Activity implements Constants, AdapterView.
     @Override
     public void onResume() {
         super.onResume();
-    }
-
-    @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = is_light_theme;
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 
     private void makedialog(String titlu, String msg) {

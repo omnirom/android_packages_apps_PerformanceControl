@@ -33,7 +33,7 @@ Copyright (C) 2012  James Roberts
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/pc_navigation_drawer"
-        android:background="@color/pc_black"
+        android:background="@drawable/preference_background"
         android:layout_width="260dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"

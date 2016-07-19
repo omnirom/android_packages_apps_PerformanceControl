@@ -25,14 +25,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.brewcrewfoo.performance.R;
-import com.brewcrewfoo.performance.util.ActivityThemeChangeInterface;
-import com.brewcrewfoo.performance.util.Constants;
-import com.brewcrewfoo.performance.util.FileArrayAdapter;
-import com.brewcrewfoo.performance.util.Helpers;
-import com.brewcrewfoo.performance.util.Item;
-import com.brewcrewfoo.performance.util.UnzipUtility;
+import com.brewcrewfoo.performance.util.*;
 
 import java.io.File;
 import java.sql.Date;
@@ -41,11 +35,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class FileChooser extends ListActivity implements Constants, ActivityThemeChangeInterface {
+import static com.brewcrewfoo.performance.util.Constants.TAG;
+
+public class FileChooser extends ListActivity {
     final Context context = this;
     private File currentDir;
     SharedPreferences mPreferences;
-    private boolean mIsLightTheme;
     private FileArrayAdapter adapter;
     private ProgressDialog progressDialog;
     private String tip;
@@ -60,7 +55,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
         super.onCreate(savedInstanceState);
         //overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme();
         Intent intent1 = getIntent();
         tip = intent1.getStringExtra("mod");
         part = intent1.getStringExtra("part");
@@ -92,19 +86,6 @@ public class FileChooser extends ListActivity implements Constants, ActivityThem
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         fill(currentDir);
-    }
-
-    @Override
-    public boolean isThemeChanged() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        return is_light_theme != mIsLightTheme;
-    }
-
-    @Override
-    public void setTheme() {
-        final boolean is_light_theme = mPreferences.getBoolean(PREF_USE_LIGHT_THEME, false);
-        mIsLightTheme = is_light_theme;
-        setTheme(is_light_theme ? R.style.Theme_Light : R.style.Theme_Dark);
     }
 
     @Override

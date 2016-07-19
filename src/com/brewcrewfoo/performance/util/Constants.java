@@ -18,7 +18,7 @@
 
 package com.brewcrewfoo.performance.util;
 
-public interface Constants {
+public class Constants {
 
     public static final String TAG = "PerformanceControl";
     public static final String VERSION_NUM = "2.1.4-omni";
@@ -31,17 +31,20 @@ public interface Constants {
     public static final int FRAGMENT_ID_CPUSETTINGS = 0;
     public static final int FRAGMENT_ID_BATTERYINFO = 1;
     public static final int FRAGMENT_ID_OOMSETTINGS = 2;
-    public static final int FRAGMENT_ID_VM = 3;
-    public static final int FRAGMENT_ID_VOLTAGECONROL = 4;
-    public static final int FRAGMENT_ID_ADVANCED = 5;
-    public static final int FRAGMENT_ID_TIMEINSTATE = 6;
-    public static final int FRAGMENT_ID_CPUINFO = 7;
-    public static final int FRAGMENT_ID_DISKINFO = 8;
-    public static final int FRAGMENT_ID_TOOLS = 9;
+    public static final int FRAGMENT_ID_ADVANCED = 3;
+    public static final int FRAGMENT_ID_TIMEINSTATE = 4;
+    public static final int FRAGMENT_ID_WAKELOCKS = 5;
+    public static final int FRAGMENT_ID_CPUINFO = 6;
+    public static final int FRAGMENT_ID_DISKINFO = 7;
+    public static final int FRAGMENT_ID_VOLTAGECONTROL = 8;
+    public static final int FRAGMENT_ID_POWER_PROFILE = 9;
 
     // CPU settings
     public static final String CPU_PATH = "/sys/devices/system/cpu/cpu";
     public static final String CPU_FREQ_TAIL = "/cpufreq/scaling_cur_freq";
+    public static final String CPU_MAX_FREQ_TAIL = "/cpufreq/scaling_max_freq";
+    public static final String CPU_MIN_FREQ_TAIL = "/cpufreq/scaling_min_freq";
+    public static final String CPU_STEPS_TAIL = "/cpufreq/scaling_available_frequencies";
     public static final String CUR_CPU_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq";
     public static final String MAX_FREQ_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
     public static final String TEGRA_MAX_FREQ_PATH = "/sys/module/cpu_tegra/parameters/cpu_user_cap";
@@ -49,7 +52,7 @@ public interface Constants {
     public static final String STEPS_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies";
     public static final String GOVERNORS_LIST_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors";
     public static final String GOVERNOR_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
-    public static final String[] IO_SCHEDULER_PATH = {"/sys/block/mmcblk0/queue/scheduler", "/sys/block/mmcblk1/queue/scheduler"};
+    public static final String[] IO_SCHEDULER_PATH = {"/sys/block/mmcblk0/queue/scheduler", "/sys/block/mmcblk1/queue/scheduler", "/sys/block/sda/queue/scheduler"};
     //Dynamic frequency scaling
     public static final String DYN_MAX_FREQ_PATH = "/sys/power/cpufreq_max_limit";
     public static final String DYN_MIN_FREQ_PATH = "/sys/power/cpufreq_min_limit";
@@ -73,16 +76,18 @@ public interface Constants {
 
     // Time in state
     public static final String TIME_IN_STATE_PATH = "/sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state";
-    public static final String TIME_IN_STATE_TAIL = "/cpufreq/stats/time_in_state";
     public static final String PREF_OFFSETS = "pref_offsets";
+    public static final String TIME_IN_STATE_OVERALL_PATH = "/sys/devices/system/cpu/cpufreq/overall_stats/overall_time_in_state";
+    public static final String PREF_STATE_MODE = "pref_state_mode";
+    public static final String PREF_CORE_MODE = "pref_core_mode";
+
     // Battery
     public static final String BAT_VOLT_PATH = "/sys/class/power_supply/battery/voltage_now";
 
     // Other settings
     public static final String MINFREE_PATH = "/sys/module/lowmemorykiller/parameters/minfree";
     public static final String MINFREE_ADJ_PATH = "/sys/module/lowmemorykiller/parameters/adj";
-    public static final String READ_AHEAD_PATH = "/sys/block/mmcblk0/bdi/read_ahead_kb";
-    //"/sys/devices/virtual/bdi/default/read_ahead_kb"
+    public static final String[] READ_AHEAD_PATH = {"/sys/block/mmcblk0/queue/read_ahead_kb", "/sys/block/mmcblk1/queue/read_ahead_kb"};
 
     public static final String INTENT_ACTION_FASTCHARGE = "com.aokp.romcontrol.FCHARGE_CHANGED";
     public static final String PREF_MINFREE = "pref_minfree";
@@ -90,6 +95,11 @@ public interface Constants {
     public static final String PREF_READ_AHEAD = "pref_read_ahead";
     public static final String PREF_READ_AHEAD_BOOT = "pref_read_ahead_boot";
     public static final String PREF_FASTCHARGE = "pref_fast_charge";
+
+    // Force high-end graphics
+    public static final String PREF_FORCE_HIGHEND_GFX = "pref_force_highend_gfx";
+    public static final String PROP_FORCE_HIGHEND_GFX_PERSIST = "persist.sys.force_highendgfx";
+
     //------ MinFree ------
     public static final String OOM_FOREGROUND_APP = "oom_foreground_app";
     public static final String OOM_VISIBLE_APP = "oom_visible_app";
@@ -216,10 +226,8 @@ public interface Constants {
     public static final String ZRAM_MEMTOT_PATH = "/sys/block/zram0/mem_used_total";
 
     // PC Settings
-    public static final String PREF_USE_LIGHT_THEME = "use_light_theme";
     public static final String PREF_WIDGET_BG_COLOR = "widget_bg_color";
     public static final String PREF_WIDGET_TEXT_COLOR = "widget_text_color";
-
 }
 
 
